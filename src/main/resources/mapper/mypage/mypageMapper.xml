@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unimini.mapper.MyPageMapper">
+
+    <!-- 사용자 정보 조회 -->
+    <select id="getUserInfo" resultType="uniMap" parameterType="map">
+        SELECT
+            A.USER_CODE
+            , A.USER_ID
+            , A.UNI_NUMBER
+            , A.UNI_CODE
+            , A.CAMPUS_CODE
+            , A.COLLEGE_CODE
+            , A.MAJOR_CODE
+            , (
+                SELECT
+                    B.COLLEGE_NAME
+                FROM TB_COLLEGE B
+                WHERE A.UNI_CODE = B.UNI_CODE
+                  AND A.CAMPUS_CODE = B.CAMPUS_CODE
+                  AND A.COLLEGE_CODE = B.COLLEGE_CODE
+            ) AS COLLEGE_NAME
+            , (
+                SELECT
+                    B.MAJOR_NAME
+                FROM TB_MAJOR B
+                WHERE A.UNI_CODE = B.UNI_CODE
+                  AND A.CAMPUS_CODE = B.CAMPUS_CODE
+                  AND A.COLLEGE_CODE = B.COLLEGE_CODE
+                  AND A.MAJOR_CODE = B.MAJOR_CODE
+            ) AS MAJOR_NAME
+        FROM TB_USER A
+        WHERE A.USER_CODE = #{userCode}
+          AND A.USER_ID = #{userId}
+    </select>
+
+    <!-- 사용자 수정 -->
+    <update id="updateUser" parameterType="map">
+        UPDATE TB_USER
+        SET
+        <choose>
+            <when test="updateType =='nickname'">
+                AND NICKNAME = #{updateValue}
+            </when>
+            <when test="updateType =='profile'">
+                AND PROFILE_IMAGE_CODE = #{updateValue}
+            </when>
+            <when test="updateType =='password'">
+                AND PASSWORD = #{updateValue}
+            </when>
+            <otherwise>
+                AND MOBILE_NO = #{updateValue}
+            </otherwise>
+        </choose>
+        WHERE USER_CODE = #{userCode}
+          AND USER_ID = #{userId}
+    </update>
+
+</mapper>
