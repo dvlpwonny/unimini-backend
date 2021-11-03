@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,9 @@ public class MapController {
     @ApiOperation(value = "정렬 카테고리", notes = "검색바의 카테고리를 정렬하여 보냄")
     public ResponseEntity getCategorySort() {
         List<Map<String, String>> categoryList = mapService.getCategorySort();
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", categoryList);
 
-        return new ResponseEntity<>(categoryList, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
