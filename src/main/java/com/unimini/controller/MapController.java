@@ -30,7 +30,7 @@ public class MapController {
     /*
      *정렬 Category (검색)
      */
-    @RequestMapping(value = "/map/getCategorySort", method = {RequestMethod.GET})
+    @RequestMapping(value = "/map/getCategorySort", method = {RequestMethod.GET, RequestMethod.POST})
     @ApiOperation(value = "정렬 카테고리", notes = "검색바의 카테고리를 정렬하여 보냄")
     public ResponseEntity getCategorySort() {
         List<Map<String, String>> categoryList = mapService.getCategorySort();
