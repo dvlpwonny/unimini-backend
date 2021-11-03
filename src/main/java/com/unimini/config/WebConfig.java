@@ -3,7 +3,6 @@ package com.unimini.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -14,9 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @version : 1.0.0
  * @modifyed :
  **/
-@EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = {"com.unimini.controller", "com.unimini.exception"})
+@ComponentScan
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
@@ -26,5 +24,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
 
     }
-
 }
