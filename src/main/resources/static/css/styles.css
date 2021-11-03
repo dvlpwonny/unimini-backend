@@ -1,0 +1,577 @@
+/*Sign In*/
+form i {
+    margin-left: -30px;
+    cursor: pointer;
+}
+::placeholder{
+    color: #9a9a9a;
+    font-weight: 400;
+}
+#password_eye{
+    position: relative;
+    transform: translate(-50px, 23px);
+    cursor: pointer;
+}
+.fas {
+    position: relative;
+    right: 30px;
+    top: 25px;
+    cursor: pointer;
+  }
+  #login_submit_btn{
+    width:342px;
+    height:44px;
+    border-radius:20px;
+    background-color: #eee9e2;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.05;
+    color: #bfbbb5;
+  }
+
+
+/*Sign Up*/
+.signup_stage{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:20px;
+}
+.stage{
+    text-align: center;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;;
+    font-size:10px;
+    font-weight: bold;
+    padding-top:3px;
+    margin-right:10px;
+    border: 1px solid #07c083; 
+}
+.stage.now{
+    background-color: #07c083
+}
+.form#name{
+    margin-top:60px;
+}
+.form#phoneNum{
+    margin-top:10px;
+}
+.formTitle{
+    height: 16px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    color: #000;
+    margin-top:16px;
+    margin-bottom:4px;
+    padding-left:8px;
+}
+.formContent{
+    height:40px;
+    width: 100%;
+    margin:4px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.formContent#gender{
+    justify-content: flex-start;
+}
+.formContent#id div:nth-child(1){
+    width: 170px;
+}
+.formContent#id div:nth-child(2){
+    padding: 4px;
+}
+.container.next{
+    height: 10%;
+}
+#signupFirstStage .container:nth-child(1),
+#signupSecondStage .container:nth-child(1),
+#signupThirdStage .container:nth-child(1){
+    padding-top:20px;
+    height: 88%;
+}
+.contraction{
+    position: relative;
+    width:100%;
+}
+.form-check{
+    padding-left:0.5em;
+}
+
+/*My Page*/
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+div,span{
+    font-family: Pretendard !important;
+}
+#my_profile{
+    width:100%;
+    height:110px;
+    border-radius: 16px;
+    border: solid 1.5px #efe5e0;
+    background-color: #fffaf2;
+    margin-top: 30px;
+}
+#my_info{
+    width:100%;
+    height:110px;
+    margin-top:27px;
+    align-content: flex-start;
+}
+.text_myInfo{
+    text-align: left;
+    margin-bottom: 6px;
+    font-size:12px;
+}
+#myPage_menu{
+    margin-top:50px;
+    height:300px;
+}
+.menu_bar{
+    height:54px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    color: #000;
+    border-top: solid 0.5px #efe5e0;
+    position: relative;
+}
+.flex_container.menu_bar{
+    align-content: flex-start;
+}
+#my_icon{
+    width:120px;
+    height:100%;
+}
+#my_icon_container{
+    width:70px;
+    height:70px;
+    border-radius: 35px;
+    background-color: aquamarine;
+}
+#my_profile_info{
+    width: 222px;
+    height:100%;
+}
+.flex_container#my_profile_info{
+    align-content: flex-start;
+}
+.clickable{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/*MyPage 하위메뉴*/
+.form_instruction{
+    position: relative;
+    bottom:12px;
+}
+textarea{
+    height: 169px;
+    width:100%;
+    padding:16px;
+    font-size: 14px;
+    color: #000
+}
+textarea::placeholder{
+    padding-top:8px;
+}
+#enterDetail textarea::placeholder{
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-weight: 400;
+}
+
+/*FindPassword*/
+.findPasswordForm{
+    margin-top:50px;
+}
+.user_email_form{
+    flex-direction: row;
+    height: 40px;
+    margin-bottom: 8px;;
+}
+
+/*MakeMingle*/
+.category{
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #f6f1e9;
+    display:inline;
+    padding:7px 16px;
+    border-radius: 21px;
+    margin:5px;
+}
+
+.container#mingleCategory{
+    display:flex;
+    flex-wrap:nowrap;
+    align-items: flex-start;
+    height:70px;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.container#mingleDate{
+    margin-top:8px;
+    height:50px;
+    display:flex;
+    flex-wrap:nowrap;
+    align-items: flex-start;
+}
+
+.mingleDate{
+    width:40px;
+    height:44px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #f6f1e9;
+    padding:7px 20px;
+    border-radius: 21px;
+    margin-right:10px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mingleDate.selected{
+    box-shadow: 0 0 0 1px #07c083 inset; 
+}
+.mingleDate.selected span{
+    color : #07c083;
+}
+
+#mingleDateText{
+    height:14px;
+}
+
+.mingleCreateDay{
+    font-size: 12px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+}
+.mingleCreateDate{
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+}
+
+.timeSet{
+    width: 130px;
+    height: 44px;  
+    border-radius: 15px;
+    background-color: #f6f1e9;
+}
+
+.timeSetText{
+    position: relative;
+    top:15px;
+    left:13px;
+}
+
+.setTimeColon{
+    position: relative;
+    top:15px;
+    left:47px;
+}
+
+#mingleStartTimeHour,
+#mingleEndTimeHour{
+    position: relative;
+    top:15px;
+    left:50px;
+}
+#mingleStartTimeMin,
+#mingleEndTimeMin{
+    position: relative;
+    top:15px;
+    left:43px;
+}
+
+#mingleStartTimeHour,#mingleStartTimeMin,
+#mingleEndTimeHour, #mingleEndTimeMin{
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000;
+}
+
+.container#mingleTime{
+    display:flex;
+    flex-wrap:nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container#mingleLocationText{ height:auto; }
+.container#mingleLocation{
+    margin-top:6px;
+    height:110px;
+    display:flex;
+    justify-content: space-between;
+
+}
+
+.locationOption{
+    width:120px;
+    height:66px;
+    border-radius: 15px;
+    background-color: #f6f1e9;
+    text-align: center;
+}
+.locationOption span{
+    position: relative;
+    top:44px;
+}
+#locationOption-later{
+    width:80px;
+}
+#locationOption-later span{
+    top:19px;
+}
+.container#minglePersonNumberText{
+    height:auto;
+}
+.container#minglePersonNumber{
+    margin-top:6px;
+    display: flex;
+    justify-content: flex-end;
+}
+.minglePersonNumberOption{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width:150px;
+    height:50px;
+}
+.minglePersonNumberOptionText{
+    text-align: center;
+}
+.minglePersonNumberOptionController{
+    display: flex;
+    justify-content: center;
+}
+.minglePersonNumberOptionDec,
+.minglePersonNumberOptionInc{
+    width:30px;
+    height:30px;
+    border-radius: 15px;
+    background-color: #eee9e2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;;
+    font-weight: 400;
+}
+.minglePersonNumberOptionDec.disabled,
+.minglePersonNumberOptionInc.disabled{
+    visibility: visible;
+    color:#c4c0ba;
+}
+
+.minglePersonNumber{
+    position: relative;
+    top:7px;
+    margin-right:15px;
+    margin-left:15px;
+}
+
+/*makeMingleEvent-saerchPlace*/
+.container#placeGuidelineText{
+    height:164px;
+}
+#searchInput input::placeholder{
+    font-size: 18px;;
+    font-weight: bold;
+}
+#adMark span{
+    position: relative; top:60px;
+    border-radius: 10px;
+    border: 1px solid grey;
+    padding: 2px 4px; 
+    color:grey;
+    font-weight: 400;
+}
+.container#placeOptionSetting{
+    height:48px;
+}
+#placeOptionSettingIcon{
+    width:40px;
+    height:24px;
+    border-radius: 10px;
+    background-color: #eee9e2;
+}
+#adPlaceList{
+    height:460px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.adPlace{
+    height: 62px;
+    border-top:#eee9e2 1px solid;
+    border-bottom:#eee9e2 1px solid;
+}
+.adPlaceName{
+    position: relative;
+    top:12px;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+}
+.adPlaceBenefit{
+    position: relative;
+    top:14px;
+    left:2px;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #636363;
+}
+.searchIcon{
+    width:40px;
+    height:24px;
+    border-radius: 21px;
+    background-color: #eee9e2;
+}
+#floatUpMenu{
+    height:600px;
+    width:100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 0 0 2px #eee9e2 inset; 
+    background-color: #fffaf2;
+    opacity: 1;
+    z-index: 10;
+    visibility: hidden;
+}
+#floatUpMenu.menuActive{
+    opacity: 100% !important;
+    animation: fadeUp .5s;
+    animation-fill-mode: forwards;
+}
+#floatUpMenu.menuInactive{
+    animation: fadeDown .5s;
+    animation-fill-mode: forwards;
+}
+.menuActiveBackground{
+    animation: fadeOut .5s;
+    animation-fill-mode: forwards;
+}
+@keyframes fadeUp {
+    0%{
+        position: fixed;
+        bottom: -800px;
+    }
+    100%{
+        visibility: visible;
+        position: fixed;
+        bottom: 0px;
+    }
+}
+@keyframes fadeOut {
+    0%{ opacity: 100%;}
+    100% { 
+        opacity: 20%;
+        }
+}
+@keyframes fadeDown{
+    0%{
+        visibility: visible;
+        position: fixed;
+        bottom: 0px;
+    }
+    100%{
+        visibility: hidden;
+        position: fixed;
+        bottom: -800px;
+    }
+}
+#placeOptionSettingText{
+    position: relative;
+    font-weight: 600;
+}
+#placeOptionSettingMenuBar{
+    position: relative;
+    top:10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#placeOptionSettingMenuBar div:nth-child(1){
+    display:flex;
+    align-items: center; 
+}
+#placeOptionSettingExitIcon{
+    width:40px;
+    height:40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.placeOption{
+    display: flex;
+    flex-wrap: wrap;
+    margin:3px;
+}
+.placeOptionContainer{
+    margin-top:40px;
+}
+#cancelSearchPlaceOption{
+    width: 88px;
+    height: 44px;
+    border-radius: 20px;
+    background-color: #eee9e2;
+    color:black;
+}
+#applySearchPlaceOption{
+    width: 242px;
+    height: 44px;
+    border-radius: 20px;
+    background-color: #07c083;
+    color:white;
+}
+.container#searchPlaceOptionButton{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}

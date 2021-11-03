@@ -1,0 +1,89 @@
+
+    @import url(../css/default.css);
+    @import url(../css/material-design.css);
+
+    #btn_exit{
+        position: absolute;
+        width:50px;
+        height:50px;
+        right:20px;
+    }
+    hr{
+        margin:0 !important;
+        width:100%;
+        height:0.5px;
+        background-color: #fffaf2;
+        color : #fffaf2;
+        border:0;
+    }
+    .vertical{
+        margin:0 !important;
+        width:0.5px;
+        height:46.5px;
+        background-color: #fffaf2;
+        color : #fffaf2;
+        border:0;
+    }
+    .flex_container{
+        display : flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    #message{
+        position: absolute;
+        top:50%;
+        transform: translate(0%, -50%);
+        text-align: center;
+        height:210px;
+        width:280px;
+        border-radius: 20px;
+        background-color: #eee9e2;
+    }
+    #message_info{
+        width:100%;
+        height:162px;
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        text-align: center;
+        color: #000;
+    }
+    .message_button{
+        height:45px;
+        width:130px;
+    }
+    .message_button.left{
+        font-family: Pretendard;
+        font-size: 18px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.17;
+        letter-spacing: normal;
+        text-align: center;
+        color: #bfbbb5;
+        flex-grow:1;
+        margin-right:1px;
+    }
+    .message_button.right,
+    .message_button.sole{
+        font-family: Pretendard;
+        font-size: 18px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.17;
+        letter-spacing: normal;
+        text-align: center;
+        color: #07c083;
+        flex-grow: 1;
+        margin-left:1px;
+    }
+    .message_button.sole{
+        margin-top:2px;
+    }

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/default.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <script src="../static/js/load_html.js"></script>
+    <title>회원가입</title>
+  </head>
+  <body>
+  <div id="app">
+    <header>
+      <script>loadHTML("./layout/header.html")</script>
+    </header>
+    <div class="signup_stage" style="margin-top:2%">
+      <div class="stage now"></div>
+      <div class="stage"></div>
+      <div class="stage"></div>
+    </div>
+    <!--첫번째 회원가입 페이지-->
+    <signup_1 class="appContainer signup" id="signupFirstStage">
+      <div class="container padding" style="height:58%">
+        <div class="form column" id="id">
+          <form name="FORM_ID">
+            <div class="formTitle">아이디</div>
+            <div class="formContent" id="id">
+              <div><input name="INPUT_ID" type="text" placeholder="학교 이메일 입력" onchange="checkEmail()"></div>
+              <div><span class="size15 weight400">@khu.ac.kr</span></div>
+              <div>
+                <button class="btn" name="BTN_ID" disabled><span class="size14">인증요청</span></button>
+              </div>
+            </div>
+          </form>
+          <form class="form column inactive" id="idValidation">
+            <div class="formTitle">인증번호</div>
+            <div class="formContent" id="idValidation">
+              <div style="width:100%;"><input type="number" placeholder="인증번호 입력"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="container padding" style="height:30%">
+        <div class="contraction">
+          <hr>
+            <div class="form-check d-flex align-items-center justify-content-between">
+              <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+              <label class="form-check-label" for="invalidCheck">
+                <span class="size14 weight600" style="margin-left: 50px; margin-top:2px;">전체 약관 동의</span>
+              </label>
+              <div>
+                <img src="../static/image/expand.png" alt="" width="24px;">
+              </div>
+            </div>
+          <hr>
+          <div class="term form-check d-flex align-items-center justify-content-between">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+            <label class="form-check-label" for="invalidCheck">
+              <span class="size14 weight400" style="margin-left: 50px; margin-top:2px;">(필수) 서비스 이용약관 동의</span>
+            </label>
+            <div>
+              <span class="size13 underline weight400">보기</span>
+            </div>
+          </div>
+          <div class="term form-check d-flex align-items-center justify-content-between">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+            <label class="form-check-label" for="invalidCheck">
+              <span class="size14 weight400" style="margin-left: 50px; margin-top:2px;">(필수) 개인정보 동의</span>
+            </label>
+            <div>
+              <span class="size13 underline weight400">보기</span>
+            </div>
+          </div>
+          <div class="term form-check d-flex align-items-center justify-content-between">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+            <label class="form-check-label" for="invalidCheck">
+              <span class="size14 weight400" style="margin-left: 50px; margin-top:2px;">(선택) 마케팅 수신 동의</span>
+            </label>
+            <div>
+              <span class="size13 underline weight400">보기</span>  
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container padding next">
+        <button onclick="toSecondStage()">다음</button>
+      </div>
+    </signup_1>
+    <signup_2 class="appContainer signup inactive" id="signupSecondStage">
+      <div class="container">
+        <div class="form column" id="password">
+          <form name="FORM_PASSWORD">
+            <div class="formTitle">
+              <span>비밀번호</span>
+              <span class="size12 grey3 weight500" style="float:right; margin-right:10px;">영문, 숫자, 특수문자가 조합된 8-15자</span>
+            </div>
+            <div class="formContent" id="password">
+              <input name="INPUT_PASSWORD" onblur="checkPassword()" type="text" placeholder="비밀번호 입력">
+            </div>
+            <div class="validation-feedback"></div>
+          </form>
+        </div>
+          <div class="form column" id="passwordDoubleCheck">
+            <div class="formTitle">비밀번호 확인</div>
+            <div class="formContent" id="passwordDoubleCheck">
+              <input name="INPUT_DBCK_PASSWORD" onblur="checkDbPassword()" type="text" placeholder="비밀번호 입력">
+            </div>
+          </div>
+          <div class="form flexRow" id="name">
+            <div class="formTitle" style="width:100px;">이름</div>
+            <div class="formContent" id="name">
+              <input name="INPUT_NAME" onblur="checkName()" type="text" placeholder="이름 입력">
+            </div>
+          </div>
+          <div class="form flexRow" id="phoneNum">
+            <div class="formTitle" style="width:100px;">휴대폰 번호</div>
+            <div class="formContent" id="phoneNum">
+              <input name="INPUT_PHONENUM" onblur="checkPhoneNum()" type="number" placeholder="휴대폰 번호 입력 (숫자만)">
+            </div>
+          </div>
+      </div>
+      
+      <div class="container next">
+        <button onclick="toThirdStage()">다음</button>
+      </div>
+    </signup_2>
+    <signup_3 class="appContainer signup inactive" id="signupThirdStage">
+      <div class="container">
+        <div class="form flexRow" id="nickname">
+          <div class="formTitle" style="width:80px">닉네임</div>
+          <div class="formContent" id="nickname">
+            <input name="INPUT_NICKNAME" onblur="checkNickname()" type="text" placeholder="닉네임 입력">
+          </div>
+        </div>
+        <div class="form flexRow" id="gender">
+          <div class="formTitle" style="width:80px">성별</div>
+          <div class="formContent" id="gender">
+            <div style="width:50%; display: flex;">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="male" value="option1">
+              <label class="form-check-label text-title" for="male" style="margin-top:5px"><span>남자</span></label>
+            </div>
+            <div style="width:50%; display:flex">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="female" value="option2">
+              <label class="form-check-label text-title" for="female" style="margin-top:5px"><span>여자</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="form flexRow" id="studentId">
+          <div class="formTitle" style="width:80px">학번</div>
+          <div class="formContent" id="studentId">
+            <input name="INPUT_STUDENTID" onblur="checkStudentID()" type="text" placeholder="학번 입력 (숫자 10자리)">
+          </div>
+        </div>
+        <div class="form column" id="major">
+          <div class="formTitle">학과</div>
+          <div class="formContent" id="major">
+            <input name="INPUT_MAJOR" type="text" name="major" id="major" placeholder="학과를 선택해주세요">
+          </div>
+        </div>
+      </div>
+      <div class="container done">
+        <button onclick="signupSubmit()">회원가입 완료</button>
+      </div>
+    </signup_3>
+  </div>
+  
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="../static/js/default.js"></script>
+    <script>
+      /*회원가입 단계 이동*/
+      const stages = document.getElementsByClassName("stage");
+      const firstStageElem = document.getElementsByTagName("signup_1")[0];
+      const secondStageElem = document.getElementsByTagName("signup_2")[0];
+      const thirdStageElem = document.getElementsByTagName("signup_3")[0];
+      function toSecondStage(){
+        firstStageElem.classList.add("inactive");
+        secondStageElem.classList.remove("inactive");
+        thirdStageElem.classList.add("inactive");
+        stages[0].classList.remove("now");
+        stages[1].classList.add("now");
+        stages[2].classList.remove("now");
+      }
+      function toThirdStage(){
+        firstStageElem.classList.add("inactive");
+        secondStageElem.classList.add("inactive");
+        thirdStageElem.classList.remove("inactive");
+        stages[0].classList.remove("now");
+        stages[1].classList.remove("now");
+        stages[2].classList.add("now");
+      }
+    </script>
+    <script src="../static/js/validation.js"></script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀번호 찾기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/default.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <script src="../static/js/load_html.js"></script>
+</head>
+<body>
+    <div id="app">
+        <login class="appContainer" style="height:100%">
+            <div class="container padding"  style="height:100%">
+                <div class="d-flex flex-column justify-content-end align-items-center" style="height:30%;">
+                    <img src="../static/image/logo.png" style="height:24px; width:169px">
+                    <div style="margin-top:5px;">
+                        <span class="size12 weight500 highlighted">함께하는 즐거움, UNIMINI</span>
+                    </div>
+                </div>
+                <form class="loginForm d-flex flex-column justify-content-between" id="needs-validation" novalidate=""  style="height:41%;">
+                    <div class="d-flex flex-column justify-content-end align-items-center" style="margin-top:40px;">
+                        <div class="d-flex align-items-center" style="width:100%;">
+                            <input type="text" placeholder="이메일" id="userId" style="width:100%;margin:7px 0px;">
+                            <span class="weight600" id="uniDomain" style="margin:8px;">@khu.ac.kr</span>
+                        </div>
+                        <div style="width:100%">
+                            <input type="password" name="password" id="password" placeholder="비밀번호" style="width:100%; margin:7px 0px"> 
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button">로그인</button>
+                    </div>
+                </form>
+                <div style="height:29%;">
+                    <div class="d-flex justify-content-between" style="height:auto; margin-top:20px;">
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input" value="" id="auto_login_check" style="margin-top:0px">
+                            <label for="auto_login_check" class="form-check-label text-bold"><span class="weight500 size14" style="margin-left:50px;">아이디/비밀번호 저장</span></label>
+                        </div>
+                        <a href="findPassword.html" style="font-size: 12px;"><span class="weight600">비밀번호 찾기</span></a>
+                    </div>
+                    <div class="d-flex justify-content-center" style="height:auto; margin-top:20%;">
+                        <div><span class="weight600 size12">아직 계정이 없으신가요?</span></div>
+                        <a href="signUp.html" style="margin-left:10px"><span class="weight600 size12">회원가입하기</span></a>
+                    </div>
+                </div>
+            </div>
+        </login>
+    </div>
+    <script src="../static/css/default.css"></script>
+    <script>
+        (function() {
+        "use strict";
+        window.addEventListener("load", function() {
+            var form = document.getElementById("needs-validation");
+            form.addEventListener("submit", function(event) {
+            if (form.checkValidity() == false) {
+                event.preventDefault();
+                event.stopPropagation();
+                form.classList.add("was-validated");
+            }
+            
+            // 서버 연동 처리
+            }, false);
+        }, false);
+        }());
+    </script>
+</body>
+</html>

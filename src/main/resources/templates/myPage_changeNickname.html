@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>닉네임 변경하기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/default.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <script src="../static/js/load_html.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <script>loadHTML("./layout/header.html")</script>
+    </header>
+    <changeNickname class="appContainer">
+        <div class="container padding">
+            <form style="margin-top:60px;">
+              <div style="height:200px;">
+                <div class="form_title" id="nickname_form_title" style="margin-left:6px;">
+                  <span class="form_title_text text-title">닉네임</span>
+                </div>
+                <div class="form" id="nickname_form">
+                  <input id="nickname_input"
+                  required
+                  type="text" placeholder="미니미니">
+                </div>
+                <div class="form_instruction" id="nickname_form_instruction" style="margin-left:8px">
+                    <span class="text-info">닉네임을 설정하면 24시간 동안 변경할 수 없습니다.</span>
+                </div>
+              </div>
+              <div class="buttonBox2">
+                  <button>취소</button>
+                  <button id="btnChangeNickname">변경</button>
+              </div>
+          </form>
+        </div>
+    </changeNickname>
+  </div>
+  <script src="../static/css/default.css"></script>
+</body>
+</html>

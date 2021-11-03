@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/reset.css">
+    <link rel="stylesheet" href="../static/css/default.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <script src="../static/js/load_html.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <script>loadHTML("./layout/header.html")</script>
+          </header>
+        <my-page class="appContainer mypage">
+            <div class="container padding">
+                <div class="d-flex" id="my_profile">
+                    <div class="d-flex align-items-center justify-content-center" id="my_icon">
+                        <div id="my_icon_container"></div>
+                    </div>
+                    <div class="d-flex justify-content-center flex-column"id="my_profile_info">
+                        <div>
+                            <span class="size20">{{nickname}}</span>
+                            <span class="size12 weight400">{{gender}}</span>
+                        </div>
+                        <div style="margin-top:5px;">
+                            <div><span class="size12 weight800">{{college}}</span></div>
+                            <div><span class="size12 weight800">{{id}}</span></div>    
+                        </div>
+                         </div>
+                </div>
+                <div class="d-flex flex-column" id="my_info">
+                    <div class="text_myInfo"><span class="size12 weight500">{{name}}</span></div>
+                    <div class="text_myInfo"><span class="size12 weight500">{{email}}</span></div>
+                    <div class="text_myInfo"><span class="size12 weight500">{{university}}</span></div>
+                    <div class="text_myInfo"><span class="size12 weight500">{{college}}</span></div>
+                    <div class="text_myInfo"><span class="size12 weight500">{{major}}</span></div>
+                    <div class="text_myInfo"><span class="size12 weight500">{{id}}</span></div>
+                </div>
+                <div id="myPage_menu">
+                    <div class="d-flex align-items-center menu_bar">
+                        <a href="myPage_changeNickname.html">닉네임 변경하기
+                            <div class="clickable"></div>
+                        </a>
+                    </div>
+                    <div class="d-flex align-items-center menu_bar">
+                        <a href="myPage_changePassword.html">비밀번호 변경하기
+                            <div class="clickable"></div>
+                        </a>                
+                    </div>
+                    <div class="d-flex align-items-center menu_bar">
+                        <a href="myPage_changePhone.html">휴대폰 번호 변경하기
+                            <div class="clickable"></div>
+                        </a>
+                    </div>
+                    <div class="d-flex align-items-center menu_bar">
+                        <a href="myPage_leaveComment.html">의견 남기기
+                            <div class="clickable"></div>
+                        </a>
+                    </div>
+                    <div class="d-flex align-items-center menu_bar">
+                        <a href="myPage_logout">로그아웃
+                            <div class="clickable"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </my-page>
+    </div>
+    
+    <script src="../static/js/default.js"></script>
+</body>
+</html>
