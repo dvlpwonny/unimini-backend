@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unimini.mapper.MapMapper">
+
+    <!-- 밍글 생성 -->
+    <insert id="insertMingle" parameterType="uniMap">
+        INSERT INTO TB_EVENT (
+            EVENT_CODE
+            , EVENT_NAME
+            , EVENT_TYPE_CODE
+            , EVENT_STATUS_CODE
+            , CATEGORY_CODE
+            , PLACE_CODE
+            , BUILDING_CODE
+            , SECTION_CODE
+            , EVENT_START_TIME
+            , EVENT_END_TIME
+            , MINIMUM_PRSNNL
+            , MAXIMUM_PRSNNL
+            , DETAIL_INFO
+            , CHAT_TIME
+            , NOTICE_TIME
+            , CREATE_USER
+            , UPDATE_USER
+            , CREATE_DATE
+            , UPDATE_DATE
+            , USE_FLAG
+        ) VALUES (
+            #{eventCode}
+            , #{eventName}
+            , #{eventTypeCode}
+            , #{eventStatusCode}
+            , #{categoryCode}
+            , #{placeCode}
+            , #{buildingCode}
+            , #{sectionCode}
+            , #{eventStartTime}
+            , #{eventendTime}
+            , #{mininum_prsnnl}
+            , #{maxinum_prsnnl}
+            , #{detailInfo}
+            , #{chatTime}
+            , #{noticeTime}
+            , #{createUser}
+            , #{updateUser}
+            , NOW()
+            , NOW()
+            , 'Y'
+        )
+    </insert>
+
+    <!-- 밍글 사용자 생성 -->
+
+</mapper>
