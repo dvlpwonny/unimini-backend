@@ -2,7 +2,6 @@ package com.unimini.config;
 
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.CacheControl;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @modifyed :
  **/
 @Configuration
-@ComponentScan
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
@@ -30,9 +28,8 @@ public class WebConfig implements WebMvcConfigurer {
 	
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/templates/", "classpath:/static/")
-                .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/").setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
+        registry.addResourceHandler("/templates/**").addResourceLocations("classpath:/templates/").setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
     }
 
 }
