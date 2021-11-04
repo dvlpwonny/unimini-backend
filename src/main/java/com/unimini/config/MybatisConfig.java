@@ -1,4 +1,6 @@
 package com.unimini.config;
+import javax.sql.DataSource;
+
 /**
  * @package : com.unimini.config
  * @name : MybatisConfig.java
@@ -18,9 +20,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import javax.sql.DataSource;
-import java.util.Properties;
 
 @Configuration
 @MapperScan(value= {"com.unimini.mapper"})
