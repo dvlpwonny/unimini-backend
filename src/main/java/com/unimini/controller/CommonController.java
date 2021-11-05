@@ -15,6 +15,16 @@ public class CommonController {
         return "signIn";
     }
 
+    @GetMapping(value = "/signUp")
+    public String signUp() {
+        return "signUp";
+    }
+
+    @GetMapping(value = "/findPassword")
+    public String findPassword() {
+        return "findPassword";
+    }
+    
     @PostMapping(value = "/uniMap")
     public ModelAndView uniMap(Map<String, String> userInfo) {
         ModelAndView mav = new ModelAndView("uniMap");
