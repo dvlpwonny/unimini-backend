@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unimini.mapper.ChatMapper">
+
+	<select id="findAllRoomIds" resultType="String">
+		SELECT
+			A.ROOM_ID AS 'roomId'
+			FROM TB_CHAT_ROOM A
+		ORDER BY A.CREATE_DATE DESC
+	</select>
+	
+	<select id="findRoomById" resultType="chatRoom">
+		SELECT
+			A.ROOM_ID AS 'roomId'
+			, A.ROOM_NAME AS 'name'
+		FROM TB_CHAT_ROOM A
+		WHERE A.ROOM_ID = #{id}
+	</select>
+	
+	<insert id="createChatRoom" parameterType="chatRoom">
+	 	INSERT INTO TB_CHAT_ROOM (ROOM_ID, ROOM_NAME) 
+		VALUES (#{roomId}, #{name})
+	</insert>
+	
+	<insert id="insertMessage" parameterType="chatRoom">
+		INSERT INTO TB_CHAT_MESSAGE 
+			(MESSAGE_TYPE, MESSAGE, USER_ID, ROOM_ID, TIME)
+		VALUES (#{type}, #{message}, #{writer}, #{chatRoomId}, #{timestamp})
+	</insert>
+
+</mapper>

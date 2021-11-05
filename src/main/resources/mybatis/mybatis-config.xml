@@ -10,5 +10,6 @@
 
     <typeAliases>
         <typeAlias type="com.unimini.util.UniMap" alias="uniMap"/>
+        <typeAlias type="com.unimini.vo.ChatRoom" alias="chatRoom"/>
     </typeAliases>
 </configuration>

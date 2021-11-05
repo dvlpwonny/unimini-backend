@@ -1,6 +1,8 @@
 package com.unimini.vo;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -26,7 +28,11 @@ public class ChatRoom {
 
 	public static ChatRoom create(String name) {
 		ChatRoom chatRoom = new ChatRoom();
-		chatRoom.roomId = UUID.randomUUID().toString();
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		Calendar calendar = Calendar.getInstance();
+		
+		chatRoom.roomId = UUID.randomUUID().toString() + "-" + simpleDateFormat.format(calendar.getTimeInMillis());
 		chatRoom.name = name;
 		return chatRoom;
 	}
@@ -40,8 +46,9 @@ public class ChatRoom {
 			chatMessage.setMessage(chatMessage.getWriter() + "님이 퇴장하셨습니다.");
 		} else {
 			chatMessage.setMessage(chatMessage.getWriter() + " : " + chatMessage.getMessage());
+			send(chatMessage, objectMapper);
 		}
-		send(chatMessage, objectMapper);
+		//send(chatMessage, objectMapper);
 	}
 
 	private void send(ChatMessage chatMessage, ObjectMapper objectMapper) throws IOException {

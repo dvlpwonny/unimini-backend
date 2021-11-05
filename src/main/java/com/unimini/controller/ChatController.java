@@ -1,12 +1,13 @@
 package com.unimini.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.unimini.repository.ChatRoomRepository;
+import com.unimini.service.ChatService;
 import com.unimini.vo.ChatRoom;
 import com.unimini.vo.ChatRoomForm;
 
@@ -18,17 +19,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ChatController {
 
-    private final ChatRoomRepository chatRoomRepository;
+	@Autowired
+	private final ChatService chatService;
 	
     @GetMapping("/c")
     public String rooms(Model model){
-        model.addAttribute("rooms",chatRoomRepository.findAllRoom());
+        model.addAttribute("rooms",chatService.findAllRoom());
         return "rooms";
     }
 
     @GetMapping("/rooms/{id}")
     public String room(@PathVariable String id, Model model){
-        ChatRoom room = chatRoomRepository.findRoomById(id);
+        ChatRoom room = chatService.findRoomById(id);
         model.addAttribute("room",room);
         return "room";
     }
@@ -42,7 +44,7 @@ public class ChatController {
 
     @PostMapping("/room/new")
     public String makeRoom(ChatRoomForm form){
-        chatRoomRepository.createChatRoom(form.getName());
+    	chatService.createChatRoom(form.getName());
 
         return "redirect:/c";
     }

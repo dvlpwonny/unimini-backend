@@ -1,5 +1,7 @@
 package com.unimini.vo;
 
+import java.util.Date;
+
 import com.unimini.enums.MessageType;
 
 import lombok.Getter;
@@ -11,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class ChatMessage {
 
+	private Date timestamp;
     private String chatRoomId;
     private String writer;
     private String message;
