@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unimini.mapper.UnityMapper">
+    <select id="getCategorySort" resultType="uniMap">
+        SELECT
+            CATEGORY_CODE
+            , CATEGORY_NAME
+            , CATEGORY_NO
+            , USE_FLAG
+        FROM TB_CATEGORY
+        ORDER BY CATEGORY_NO ASC
+    </select>
+
+    <!-- todo : 오늘 조건 추가 -->
+    <select id="getPinInfo" resultType="uniMap">
+        SELECT
+            SECTION_CODE
+            , BUILDING_CODE
+            , PLACE_CODE
+            , CATEGORY_CODE
+        FROM TB_EVENT
+        ORDER BY EVENT_START_TIME
+        LIMIT 1
+    </select>
+
+    <select id="getMingleList" resultType="uniMap" parameterType="map">
+        SELECT
+            A.EVENT_NAME
+            , A.PLACE_CODE
+            , (
+                SELECT
+                    PLACE_NAME
+                FROM TB_PLACE P
+                WHERE A.SECTION_CODE = P.SECTION_CODE
+                  AND A.BUILDING_CODE = P.BUILDING_CODE
+                  AND A.PLACE_CODE = P.PLACE_CODE
+            ) AS PLACE_NAME
+            , DATE_fORMAT(EVENT_START_TIME, '%T') AS EVENT_START_TIME
+            , DATE_fORMAT(EVENT_END_TIME, '%T') AS EVENT_END_TIME
+            , CONCAT(DATE_fORMAT(EVENT_START_TIME, '%T'), '~', DATE_fORMAT(EVENT_END_TIME, '%T')) AS EVENT_TIME
+            , (
+                SELECT
+                    COUNT(USER_CODE) AS TOT_USER_CNT
+                FROM TB_EVENT_USER_MAPP_GROUP G
+                WHERE A.EVENT_CODE = G.EVENT_CODE
+                GROUP BY USER_CODE
+            ) AS TOT_PRSNNL
+            , MINIMUM_PRSNNL
+            , MAXIMUM_PRSNNL
+            , DETAIL_INFO
+        FROM TB_EVENT A
+        WHERE A.SECTION_CODE = #{sectionCode}
+    </select>
+</mapper>

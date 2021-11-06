@@ -7,7 +7,7 @@ package com.unimini.service;
 * @version : 1.0.0
 * @modifyed :
 **/
-import com.unimini.mapper.MapMapper;
+import com.unimini.mapper.UnityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +15,20 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class MapService {
+public class UnityService {
 
     @Autowired
-    MapMapper mapMapper;
+    UnityMapper unityMapper;
 
     public List<Map<String, String>> getCategorySort() {
-        return mapMapper.getCategorySort();
+        return unityMapper.getCategorySort();
     }
 
     public List<Map<String, String>> getPinInfo() {
-        return mapMapper.getPinInfo();
+        return unityMapper.getPinInfo();
+    }
+
+    public List<Map<String, String>> getMingleList(Map<String, String> paramMap) {
+        return unityMapper.getMingleList(paramMap);
     }
 }

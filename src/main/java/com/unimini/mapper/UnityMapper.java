@@ -15,9 +15,11 @@ import java.util.Map;
 
 @Repository
 @Mapper
-public interface MapMapper {
+public interface UnityMapper {
 
     List<Map<String, String>> getCategorySort();
 
     List<Map<String, String>> getPinInfo();
+
+    List<Map<String, String>> getMingleList(Map<String, String> paramMap);
 }
