@@ -1,0 +1,23 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="configFragment">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    
+        <!-- Common CSS -->
+        <link rel="stylesheet" th:href="@{/static/css/bootstrap-5.1.3/bootstrap.min.css}" >
+        
+        <!-- Common JS -->
+        <script type="text/javascript" th:src="@{/static/js/bootstrap-5.1.3/bootstrap.bundle.min.js}" ></script>
+        <script type="text/javascript" th:src="@{/static/js/lib/jquery-3.6.0.js}" ></script>
+	
+		<!-- Common Icon -->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+        <!-- Content Page CSS fragment -->
+        <th:block layout:fragment="css"></th:block>
+
+        <!-- Content Page JS fragment -->
+        <th:block layout:fragment="script"></th:block>
+    </th:block>
+</html>

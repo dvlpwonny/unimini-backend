@@ -134,11 +134,11 @@ div,span{
     font-size:12px;
 }
 #myPage_menu{
-    margin-top:50px;
-    height:300px;
+    margin-top:20px;
+    height:260px;
 }
 .menu_bar{
-    height:54px;
+    height:48px;
     font-size: 16px;
     font-weight: bold;
     text-align: left;
@@ -174,6 +174,36 @@ div,span{
     left: 0;
     z-index: 1;
 }
+#alertLinkCopied{
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:180px;
+    height:30px;
+    background-color: #eee9e2;
+    border-radius: 10px;
+    left: 50%;
+    transform: translate(-50%, 0%);    
+    z-index: 1000;
+    position: fixed;
+    bottom:100px;
+}
+#alertLinkCopied.alertInactive{
+    visibility: hidden;
+}
+#alertLinkCopied.alertActive{
+    visibility: visible;
+    animation:fade 2s;
+}
+@keyframes fade{
+    0% {opacity: 0%;}
+    10%{opacity: 100%;}
+    80%{opacity: 100%;}
+    100% {opacity: 0%;}
+}
 
 /*MyPage 하위메뉴*/
 .form_instruction{
@@ -197,7 +227,12 @@ textarea::placeholder{
     transform: translate(0, -50%);
     font-weight: 400;
 }
-
+.character{
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    margin-bottom: 20px;
+}
 /*FindPassword*/
 .findPasswordForm{
     margin-top:50px;
@@ -209,6 +244,9 @@ textarea::placeholder{
 }
 
 /*MakeMingle*/
+.mingleContainer{
+    margin-top: 30px;
+}
 .category{
     font-size: 14px;
     font-weight: bold;
@@ -218,24 +256,19 @@ textarea::placeholder{
     border-radius: 21px;
     margin:5px;
 }
+.category.selected{
+    color : #07c083;
+    box-shadow: 0 0 0 1px #07c083 inset; 
+}
 
-.container#mingleCategory{
+#mingleCategory{
     display:flex;
     flex-wrap:nowrap;
     align-items: flex-start;
-    height:70px;
     white-space: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-}
-
-.container#mingleDate{
-    margin-top:8px;
-    height:50px;
-    display:flex;
-    flex-wrap:nowrap;
-    align-items: flex-start;
 }
 
 .mingleDate{
@@ -245,7 +278,7 @@ textarea::placeholder{
     font-weight: bold;
     background-color: #f6f1e9;
     padding:7px 20px;
-    border-radius: 21px;
+    border-radius: 18px;
     margin-right:10px;
     display:flex;
     flex-direction: column;
@@ -337,10 +370,12 @@ textarea::placeholder{
 .container#mingleLocationText{ height:auto; }
 .container#mingleLocation{
     margin-top:6px;
-    height:110px;
-    display:flex;
-    justify-content: space-between;
-
+}
+.locationSelected{
+    width:350px;
+    height:40px;
+    background-color: #f6f1e9;
+    border-radius: 15px;
 }
 
 .locationOption{
@@ -350,9 +385,8 @@ textarea::placeholder{
     background-color: #f6f1e9;
     text-align: center;
 }
-.locationOption span{
-    position: relative;
-    top:44px;
+.locationOption div:nth-child(2){
+    margin-top:10px;
 }
 #locationOption-later{
     width:80px;
@@ -426,6 +460,10 @@ textarea::placeholder{
 .container#placeOptionSetting{
     height:48px;
 }
+#placeSearchResultContainer{
+    overflow-y: scroll;
+    height: 80%;
+}
 #placeOptionSettingIcon{
     width:40px;
     height:24px;
@@ -433,69 +471,25 @@ textarea::placeholder{
     background-color: #eee9e2;
 }
 #adPlaceList{
-    height:460px;
     overflow-y: auto;
     overflow-x: hidden;
+    height:70%;
 }
-.adPlace{
-    height: 62px;
-    border-top:#eee9e2 1px solid;
-    border-bottom:#eee9e2 1px solid;
+.place{
+    height: 55px;
+    border-bottom:#eee9e2 0.5px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.adPlaceName{
-    position: relative;
-    top:12px;
-    font-size: 16px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #000;
-}
-.adPlaceBenefit{
-    position: relative;
-    top:14px;
-    left:2px;
-    font-size: 12px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #636363;
+#placeList{
+    margin-bottom: 50px;;
 }
 .searchIcon{
     width:40px;
     height:24px;
     border-radius: 21px;
     background-color: #eee9e2;
-}
-#floatUpMenu{
-    height:600px;
-    width:100%;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    box-shadow: 0 0 0 2px #eee9e2 inset; 
-    background-color: #fffaf2;
-    opacity: 1;
-    z-index: 10;
-    visibility: hidden;
-}
-#floatUpMenu.menuActive{
-    opacity: 100% !important;
-    animation: fadeUp .5s;
-    animation-fill-mode: forwards;
-}
-#floatUpMenu.menuInactive{
-    animation: fadeDown .5s;
-    animation-fill-mode: forwards;
-}
-.menuActiveBackground{
-    animation: fadeOut .5s;
-    animation-fill-mode: forwards;
 }
 @keyframes fadeUp {
     0%{
@@ -526,52 +520,233 @@ textarea::placeholder{
         bottom: -800px;
     }
 }
-#placeOptionSettingText{
-    position: relative;
-    font-weight: 600;
-}
-#placeOptionSettingMenuBar{
-    position: relative;
-    top:10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-#placeOptionSettingMenuBar div:nth-child(1){
-    display:flex;
-    align-items: center; 
-}
-#placeOptionSettingExitIcon{
-    width:40px;
-    height:40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.placeOption{
-    display: flex;
-    flex-wrap: wrap;
-    margin:3px;
-}
-.placeOptionContainer{
-    margin-top:40px;
-}
-#cancelSearchPlaceOption{
-    width: 88px;
-    height: 44px;
-    border-radius: 20px;
-    background-color: #eee9e2;
-    color:black;
-}
-#applySearchPlaceOption{
-    width: 242px;
-    height: 44px;
-    border-radius: 20px;
+/*EventContent*/
+.eventBackground{
     background-color: #07c083;
-    color:white;
+    position: fixed;
+    z-index: -1;
 }
-.container#searchPlaceOptionButton{
+.eventContent{
+    background-color: #fffaf2;
+    position: relative;
+    top:90px;
+    z-index: 10;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.partyList{
+    position: relative;
+    width:100%;
+    height: 90px;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    justify-content: flex-start;
+    align-content: center;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+.partyWaitingForAcceptanceList{
+    position: relative;
+    width:100%;
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+.party{
+    padding: 10px;
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    align-items : center;
+    display : inline;
+}
+.partyEmoji{
+    width:40px;
+    height: 40px;
+    border:1px solid black;
+    border-radius:20px;
+}
+.partyName{
+    margin-top:7px;
+    text-align: center;
+}
+.partySmall{
+    padding: 6px;
+    display : flex;
+    flex-direction : column;
+    justify-content : center;
+    align-items : center;
+    display : inline;
+}
+.partyEmojiSmall{
+    width:30px;
+    height: 30px;
+    border:1px solid black;
+    border-radius:15px;
+}
+.partyNameSmall{
+    margin-top:7px;
+    text-align: center;
+}
+
+.eventMenuBar{
+    width:100%;
+}
+.eventMenuBar div{
+    margin: 0px 16px;
+}
+.eventMenuBar span#this{
+    color: black !important;
+    text-decoration: underline 3px #07c083;
+    text-underline-offset: 8px;
+}
+
+.eventMenuContent{
+    padding:30px 20px;
+    overflow-y: scroll;
+}
+.eventMenuPartyChatting{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.eventCloseButton{
+    position: fixed;
+    bottom: 0px;
+    z-index: 20;
+    background-color: #fffaf2;
+}
+.eventInfo{
+    margin: 5px 0px;
+    padding : 2px 0px;
+}
+#eventTitle{
+    margin-bottom:20px;
+}
+.eventInfoTitle{
+    margin: 0px 30px 0px 0px;
+}
+#eventInfoContent{
+    line-height: 24px;
+}
+#waitingForAcceptance{
+    width:94%;
+    height:90px;
+    background-color: #00a971;
+    border-radius: 20px;
+}
+.splitter{
+    width:100%;
+    height:20px;
+}
+.timeLeftForOpening{
+    margin-top:10px;
+    width:255px;
+    height: 45px;
+    padding:20px;
+    background-color: #eee9e2;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#eventEnterBtn button,
+#eventApplyBtn button:nth-child(2){
+    background-color: #ff3a5b !important;
+    color : white !important;
+}
+#eventApplyBtn button:nth-child(1){
+    width: 44px;
+    height:44px;
+    border-radius : 20px !important;
+    background-color: white !important;
+    border: 1px solid #ff3a5b !important;
+    margin-right : 10px;
+}
+#sendChattingInput{
+    border-radius: 20px !important;
+    border: solid 1px #eee9e2 !important;
+    background-color: #fff !important;
+}
+#sendChattingBtn{
+    position: absolute;
+    right: 10%;
+    width: 32px !important;
+    height: 32px !important;
+    background-color: #07c083 !important;
+}
+#eventInfoBox{
+    background-color: #f6f1e9;
+    border-radius : 20px;
+    padding : 14px 20px;
+}
+
+
+
+/*내 참여리스트*/
+.myEventOnBoard,
+.myEventFinished{
+    height: 70px;
+    width: 100%;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    margin : 10px 0px;
+}
+.myEventOnBoard .myEventBox{
+    width: 100%;
+    height : 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
+    margin-right:6px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.myEventOnBoard .myEventController{
+    width: 90px;
+    height : 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
+    margin-left:6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.myEventFinished .myEventBox{
+    width: 100%;
+    height : 100%;
+    background-color: #eee9e2;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
+    margin-right:6px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.myEventFinished .myEventController{
+    width: 90px;
+    height : 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
+    margin-left:6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.myEventAlert{
+    width: 48px;
+    height: 23px;
+    border-radius: 12px;
+    background-color: #eee9e2;
+    position: absolute;
+    
 }

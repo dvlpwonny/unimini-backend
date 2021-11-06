@@ -1,4 +1,4 @@
-function loadHTML(file)
+function loadHTML(file, back)
 {
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", file, false);
@@ -14,4 +14,6 @@ function loadHTML(file)
         }
     }
     rawFile.send(null);
+    
+    document.getElementById("backToPage").href = back;
 }

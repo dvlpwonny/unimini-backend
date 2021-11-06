@@ -1,166 +1,170 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/default.css">
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
-    <script src="../static/js/load_html.js"></script>
-    <title>밍글 이벤트 만들기</title>
-  </head>
-  <body>
-    <div id="app">
-      <header>
-        <div class="iconContainer" id="goBackIcon">
-          <img src="../static/image/back.png" alt="" style="width:20px; height:20px;">
-        </div>
-        <div id="searchInput" style="width:286px">
-          <input type="text" placeholder="장소를 검색해주세요" style="background-color: transparent;">
-        </div>
-        <div class="iconContainer" id="searchIcon">
-          <img src="../static/image/search.png" alt="" style="width:30px; height:30px;">
-        </div>
-      </header>
-      <div class="appContainer">
-        <div class="container padding" id="placeGuidelineText">
-          <div style="position: relative; top:50px">
-            <span class="text-info text-14">아래 가게를 선택하고<br>유니미니가 제공하는 혜택을 누리세요!</span>
-          </div> 
-          <div id="adMark">
-            <span class="text-11">광고</span></div>
-        </div>
-        <div class="container padding" id="placeOptionSetting">
-          <div id="placeOptionSettingIcon" onclick="openMenu()">
-          </div>
-        </div>
-        <div class="container padding" id="adPlaceList">
-          <div class="adPlace">
-            <div class="adPlaceName"><span>주원초밥과 참치</span></div>
-            <div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-          </div>
-          <div class="adPlace">
-            <div class="adPlaceName"><span>주원초밥과 참치</span></div>
-            <div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-          </div>
-          <div class="adPlace">
-            <div class="adPlaceName"><span>주원초밥과 참치</span></div>
-            <div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-          </div>
-          <div class="adPlace">
-            <div class="adPlaceName"><span>주원초밥과 참치</span></div>
-            <div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-          </div>
-          <div class="adPlace">
-            <div class="adPlaceName"><span>주원초밥과 참치</span></div>
-            <div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-          </div>
-          <div class="adPlace">
-            <div class="adPlaceName"><span>주원초밥과 참치</span></div>
-            <div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-          </div>
-          <div class="adPlace">
-            <div class="adPlaceName"><span>주원초밥과 참치</span></div>
-            <div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-          </div>
-          <div class="adPlace">
-            <div class="adPlaceName"><span>주원초밥과 참치</span></div>
-            <div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-          </div>
-          <div class="adPlace">
-            <div class="adPlaceName"><span>주원초밥과 참치</span></div>
-            <div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-          </div>
-        </div>
-      </div>
-      <div id="floatUpMenu" class="inactive">
-        <div id="app" class="active">
-          <div class="container" id="placeOptionSetting">
-            <div class="menuBar" id="placeOptionSettingMenuBar">
-              <div>
-                <div id="placeOptionSettingIcon" onclick="closeMenu()"></div>
-                <div id="placeOptionSettingText" style="margin-left:10px"><span class="text-16">필터</span></div>    
-              </div>
-              <div id="placeOptionSettingExitIcon">
-                <img src="../static/image/close.png" alt="" onclick="closeMenu()">
-              </div>  
-            </div>
-            </div>
-            <div class="container placeOptionContainer">
-                <div class="text-info text-bold">방문 목적</div>
-                <div class="placeOption">
-                  <div class="category">회식</div>
-                  <div class="category">데이트</div>
-                  <div class="category">소개팅</div>
-                  <div class="category">기념일</div>
-                  <div class="category">몸보신</div>
-                  <div class="category">학교 제휴 혜택</div>
-                  <div class="category">다이어트</div>
-                </div>
-            </div>
-            <div class="container placeOptionContainer">
-              <div class="text-info text-bold">분위기</div>
-              <div class="placeOption">
-                <div class="category">오붓한</div>
-                <div class="category">고급스러운</div>
-                <div class="category">인스타 핫플</div>
-                <div class="category">혼밥하기 좋은</div>
-                <div class="category">신나는</div>
-              </div>
-            </div>
-          <div class="container placeOptionContainer">
-            <div class="text-info text-bold">특징</div>
-            <div class="placeOption">
-              <div class="category">회전율이 빠른</div>
-              <div class="category">Take out 가능</div>
-              <div class="category">주차 가능</div>
-              <div class="category">가성비 굿</div>
-              <div class="category">건강한</div>
-            </div>
-          </div>
-          <div class="container" id="searchPlaceOptionButton"> 
-            <div>
-              <button id="cancelSearchPlaceOption" onclick="closeMenu()">취소</button>
-            </div>
-            <div>
-              <button id="applySearchPlaceOption" onclick="applyOption()">적용하기</button>
-            </div>
-          </div>
-          </div>
-      </div>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout_v1">
+
+    <!-- For use on this page only [CSS] -->
+    <th:block layout:fragment="css">
+		<link rel="stylesheet" th:href="@{/static/css/reset.css}">
+		<link rel="stylesheet" th:href="@{/static/css/default.css}">
+		<link rel="stylesheet" th:href="@{/static/css/styles.css}">
+		
+		<style>
+			header{
+				display: flex;
+				justify-content: center;
+				align-items: flex-end;
+			}
+		</style>
+		
+    </th:block>
+    
+    <!-- For use on this page only [JS] -->
+    <th:block layout:fragment="script">
+		<script th:src="@{/static/js/load_html.js}"></script>
+		
+		<script>
+			const floatUpMenuElem = document.getElementById("floatUpMenu");
+			const appElem = document.getElementById("app");
+			const headerElem = document.getElementsByTagName("header")[0];
+			function openMenu(){
+				floatUpMenuElem.classList.replace("inactive","menuActive");
+				floatUpMenuElem.classList.replace("menuInactive","menuActive");
+				appElem.classList.add("menuActiveBackground");
+				headerElem.classList.add("menuActiveBackground");
+			}
+			function closeMenu(){
+				floatUpMenuElem.classList.replace("menuActive","menuInactive",);
+				appElem.classList.remove("menuActiveBackground");
+				headerElem.classList.remove("menuActiveBackground");
+			}
+			function applyOption(){
+				closeMenu();
+			}
+		</script>
+		
+    </th:block>
+
+    <!-- Content -->
+    <div layout:fragment="content">
+
+		<div id="app">
+		  <header>
+			<div class="iconContainer" id="goBackIcon">
+			  <img src="../static/image/back.png" alt="" style="width:20px; height:20px;">
+			</div>
+			<div id="searchInput" style="width:286px">
+			  <input type="text" placeholder="장소를 검색해주세요" style="background-color: transparent;">
+			</div>
+			<div class="iconContainer" id="searchIcon">
+			  <img src="../static/image/search.png" alt="" style="width:30px; height:30px;">
+			</div>
+		  </header>
+		  <div class="appContainer">
+			<div class="container padding" id="placeGuidelineText">
+			  <div style="position: relative; top:50px">
+				<span class="text-info text-14">아래 가게를 선택하고<br>유니미니가 제공하는 혜택을 누리세요!</span>
+			  </div> 
+			  <div id="adMark">
+				<span class="text-11">광고</span></div>
+			</div>
+			<div class="container padding" id="placeOptionSetting">
+			  <div id="placeOptionSettingIcon" onclick="openMenu()">
+			  </div>
+			</div>
+			<div class="container padding" id="adPlaceList">
+			  <div class="adPlace">
+				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
+				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
+			  </div>
+			  <div class="adPlace">
+				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
+				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
+			  </div>
+			  <div class="adPlace">
+				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
+				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
+			  </div>
+			  <div class="adPlace">
+				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
+				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
+			  </div>
+			  <div class="adPlace">
+				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
+				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
+			  </div>
+			  <div class="adPlace">
+				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
+				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
+			  </div>
+			  <div class="adPlace">
+				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
+				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
+			  </div>
+			  <div class="adPlace">
+				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
+				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
+			  </div>
+			  <div class="adPlace">
+				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
+				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
+			  </div>
+			</div>
+		  </div>
+		  <div id="floatUpMenu" class="inactive">
+			<div id="app" class="active">
+			  <div class="container" id="placeOptionSetting">
+				<div class="menuBar" id="placeOptionSettingMenuBar">
+				  <div>
+					<div id="placeOptionSettingIcon" onclick="closeMenu()"></div>
+					<div id="placeOptionSettingText" style="margin-left:10px"><span class="text-16">필터</span></div>    
+				  </div>
+				  <div id="placeOptionSettingExitIcon">
+					<img src="../static/image/close.png" alt="" onclick="closeMenu()">
+				  </div>  
+				</div>
+				</div>
+				<div class="container placeOptionContainer">
+					<div class="text-info text-bold">방문 목적</div>
+					<div class="placeOption">
+					  <div class="category">회식</div>
+					  <div class="category">데이트</div>
+					  <div class="category">소개팅</div>
+					  <div class="category">기념일</div>
+					  <div class="category">몸보신</div>
+					  <div class="category">학교 제휴 혜택</div>
+					  <div class="category">다이어트</div>
+					</div>
+				</div>
+				<div class="container placeOptionContainer">
+				  <div class="text-info text-bold">분위기</div>
+				  <div class="placeOption">
+					<div class="category">오붓한</div>
+					<div class="category">고급스러운</div>
+					<div class="category">인스타 핫플</div>
+					<div class="category">혼밥하기 좋은</div>
+					<div class="category">신나는</div>
+				  </div>
+				</div>
+			  <div class="container placeOptionContainer">
+				<div class="text-info text-bold">특징</div>
+				<div class="placeOption">
+				  <div class="category">회전율이 빠른</div>
+				  <div class="category">Take out 가능</div>
+				  <div class="category">주차 가능</div>
+				  <div class="category">가성비 굿</div>
+				  <div class="category">건강한</div>
+				</div>
+			  </div>
+			  <div class="container" id="searchPlaceOptionButton"> 
+				<div>
+				  <button id="cancelSearchPlaceOption" onclick="closeMenu()">취소</button>
+				</div>
+				<div>
+				  <button id="applySearchPlaceOption" onclick="applyOption()">적용하기</button>
+				</div>
+			  </div>
+			  </div>
+		  </div>
+		</div>
+
     </div>
-  
-  </body>
-  <style>
-    header{
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-  <script>
-    const floatUpMenuElem = document.getElementById("floatUpMenu");
-    const appElem = document.getElementById("app");
-    const headerElem = document.getElementsByTagName("header")[0];
-    function openMenu(){
-      floatUpMenuElem.classList.replace("inactive","menuActive");
-      floatUpMenuElem.classList.replace("menuInactive","menuActive");
-      appElem.classList.add("menuActiveBackground");
-      headerElem.classList.add("menuActiveBackground");
-    }
-    function closeMenu(){
-      floatUpMenuElem.classList.replace("menuActive","menuInactive",);
-      appElem.classList.remove("menuActiveBackground");
-      headerElem.classList.remove("menuActiveBackground");
-    }
-    function applyOption(){
-      closeMenu();
-    }
-  </script>
 </html>

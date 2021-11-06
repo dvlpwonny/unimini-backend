@@ -1,47 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>휴대폰 번호 변경하기</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/reset.css">
-    <link rel="stylesheet" href="../static/css/default.css">
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
-    <script src="../static/js/load_html.js"></script>
-</head>
-<body>
-  <div id="app">
-    <header>
-        <script>loadHTML("./layout/header.html")</script>
-    </header>
-    <changePhone class="appContainer">
-        <div class="container padding">
-            <form style="margin-top:60px;">
-              <div style="height:200px;">
-                <div class="form_title" style="margin-left:6px;">
-                  <span class="form_title_text text-title">휴대폰 번호</span>
-                </div>
-                <div class="form">
-                  <input id="phone_input"
-                  required
-                  type="text" placeholder="숫자만 입력해주세요.">
-                </div>
-              </div>
-              <div class="buttonBox2">
-                <button>   
-                  <a href="./myPage.html"><span class="grey2">취소</span></a>
-                  </button>
-                <button id="btnCangePhone">변경</button>
-              </div>
-          </form>
-        </div>
-    </changePhone>
-  </div>
-  <script src="../static/js/default.js"></script>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout_v1">
+
+    <!-- For use on this page only [CSS] -->
+    <th:block layout:fragment="css">
+		<link rel="stylesheet" th:href="@{/static/css/reset.css}">
+		<link rel="stylesheet" th:href="@{/static/css/default.css}">
+		<link rel="stylesheet" th:href="@{/static/css/styles.css}">
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    </th:block>
+    
+    <!-- For use on this page only [JS] -->
+    <th:block layout:fragment="script">
+		<script th:src="@{/static/js/load_html.js}"></script>
+		<script th:src="@{/static/js/default.js}"></script>
+    </th:block>
+
+    <!-- Content -->
+    <div layout:fragment="content">
+
+	<div id="app">
+	<header>
+		<script>loadHTML("./layout/header.html")</script>
+	</header>
+	<changePhone class="appContainer">
+		<div class="container padding">
+			<form style="margin-top:60px;">
+			  <div style="height:200px;">
+				<div class="form_title" style="margin-left:6px;">
+				  <span class="form_title_text text-title">휴대폰 번호</span>
+				</div>
+				<div class="form">
+				  <input id="phone_input"
+				  required
+				  type="text" placeholder="숫자만 입력해주세요.">
+				</div>
+			  </div>
+			  <div class="buttonBox2">
+				<button>   
+				  <a href="./myPage.html"><span class="grey2">취소</span></a>
+				  </button>
+				<button id="btnCangePhone">변경</button>
+			  </div>
+		  </form>
+		</div>
+	</changePhone>
+	</div>
+	
+    </div>
 </html>
