@@ -18,4 +18,6 @@ import java.util.Map;
 public interface MapMapper {
 
     List<Map<String, String>> getCategorySort();
+
+    List<Map<String, String>> getPinInfo();
 }

@@ -10,4 +10,17 @@
         FROM TB_CATEGORY
         ORDER BY CATEGORY_NO ASC
     </select>
+
+    <!-- todo : 검색 부분 필요 -->
+    <select id="getPinInfo" resultType="uniMap">
+        SELECT
+            SECTION_CODE
+            , BUILDING_CODE
+            , PLACE_CODE
+            , CATEGORY_CODE
+        FROM TB_EVENT
+        ORDER BY EVENT_START_TIME
+        LIMIT 1
+    </select>
+
 </mapper>

@@ -10,6 +10,7 @@ package com.unimini.controller;
 
 import com.unimini.service.MapService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 public class MapController {
 
@@ -39,4 +41,19 @@ public class MapController {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+
+    /*
+     * 이벤트 장소 핀 정보
+     */
+    @RequestMapping(value = "/map/getPinInfo", method = {RequestMethod.GET, RequestMethod.POST})
+    @ApiOperation(value = "핀 영역 및 최상위 카테고리", notes = "검색바의 카테고리를 정렬하여 보냄")
+    public ResponseEntity getPinInfo() {
+        List<Map<String, String>> categoryList = mapService.getPinInfo();
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", categoryList);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }

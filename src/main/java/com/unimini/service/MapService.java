@@ -23,4 +23,8 @@ public class MapService {
     public List<Map<String, String>> getCategorySort() {
         return mapMapper.getCategorySort();
     }
+
+    public List<Map<String, String>> getPinInfo() {
+        return mapMapper.getPinInfo();
+    }
 }
