@@ -31,4 +31,8 @@ public class UnityService {
     public List<Map<String, String>> getMingleList(Map<String, String> paramMap) {
         return unityMapper.getMingleList(paramMap);
     }
+
+    public List<Map<String, String>> getLikeEventList(Map<String, String> paramMap) {
+        return unityMapper.getLikeEventList(paramMap);
+    }
 }

@@ -73,4 +73,21 @@ public class UnityRestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+
+    /*
+     * 좋아요 리스트
+     */
+    @RequestMapping(value = "/unity/getLikeEventList", method = {RequestMethod.GET, RequestMethod.POST})
+    @ApiOperation(value = "좋아요 리스트", notes = "홈화면에서의 좋아요 리스트")
+    public ResponseEntity getLikeEventList(
+            @ApiParam(value = "유저코드", required = false, example = "SYSTEM") @RequestParam(value = "userCode", required = false) String userCode) {
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("userCode", userCode);
+        List<Map<String, String>> likeEventList = unityService.getLikeEventList(paramMap);
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", likeEventList);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }

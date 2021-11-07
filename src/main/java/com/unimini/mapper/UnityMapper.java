@@ -22,4 +22,6 @@ public interface UnityMapper {
     List<Map<String, String>> getPinInfo();
 
     List<Map<String, String>> getMingleList(Map<String, String> paramMap);
+
+    List<Map<String, String>> getLikeEventList(Map<String, String> paramMap);
 }
