@@ -51,10 +51,12 @@ public class UnityRestController {
     @ApiOperation(value = "핀 영역 및 최상위 카테고리", notes = "핀 영역 및 최상위 카테고리 데이터 전달")
     public ResponseEntity getPinInfo(
             @ApiParam(value = "카테고리 코드", required = false, example = "CAT000002") @RequestParam(value = "categoryCode", required = false) String categoryCode
-            , @ApiParam(value = "이벤트 유형 코드(유니존)", required = false, example = "EVT002") @RequestParam(value = "eventTypeCode", required = false) String eventTypeCode) {
+            , @ApiParam(value = "이벤트 유형 코드", required = true, example = "EVT002") @RequestParam(value = "eventTypeCode", required = false) String eventTypeCode
+            , @ApiParam(value = "시간 검색", required = false, example = "2021-11-06 17:00") @RequestParam(value = "timeSearch", required = false) String timeSearch) {
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("categoryCode", categoryCode);
         paramMap.put("eventTypeCode", eventTypeCode);
+        paramMap.put("timeSearch", timeSearch);
         List<Map<String, String>> categoryList = unityService.getPinInfo(paramMap);
         Map<String, Object> result = new HashMap<>();
         result.put("result", categoryList);
