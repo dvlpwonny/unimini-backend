@@ -48,7 +48,7 @@ public class UnityRestController {
      * 이벤트 장소 핀 정보
      */
     @RequestMapping(value = "/unity/getPinInfo", method = {RequestMethod.GET, RequestMethod.POST})
-    @ApiOperation(value = "핀 영역 및 최상위 카테고리", notes = "핀 영역 및 최상위 카테고리 데이터 전달")
+    @ApiOperation(value = "핀 영역 및 최상위 카테고리", notes = "핀 영역 및 최상위 카테고리 데이터 전달\n eventTypeCode : EVT001 > sectionCode return\neventTypeCode : EVT002 > buildCode return")
     public ResponseEntity getPinInfo(
             @ApiParam(value = "카테고리 코드", required = false, example = "CAT000002") @RequestParam(value = "categoryCode", required = false) String categoryCode
             , @ApiParam(value = "이벤트 유형 코드", required = true, example = "EVT002") @RequestParam(value = "eventTypeCode", required = false) String eventTypeCode
