@@ -27,6 +27,10 @@
                 SELECT
                     CATEGORY_CODE
                 FROM TB_EVENT
+                WHERE 1=1
+                <if test="categoryCode != null and !categoryCode.equals('')">
+                    AND CATEGORY_CODE = #{categoryCode}
+                </if>
                 ORDER BY EVENT_START_TIME
                 LIMIT 1
             ) AS CATEGORY_CODE
