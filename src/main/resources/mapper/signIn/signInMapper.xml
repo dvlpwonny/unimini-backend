@@ -7,6 +7,7 @@
         SELECT
             A.USER_CODE
             , A.USER_ID
+            , PASSWORD_CHECK
         FROM TB_USER A
         WHERE A.USER_ID = #{userId}
           AND A.PASSWORD = #{password}

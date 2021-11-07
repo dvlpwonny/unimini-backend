@@ -18,4 +18,5 @@ public interface SignInMapper {
 
     Map<String, String> getSignIn(Map<String, String> paramMap);
 
+    Map<String, String> getIdCheck(Map<String, String> paramMap);
 }

@@ -10,11 +10,6 @@ import java.util.Map;
 @Controller
 public class CommonController {
 
-    @GetMapping(value = "/signIn")
-    public String signIn() {
-        return "signIn";
-    }
-
     @GetMapping(value = "/signUp")
     public String signUp() {
         return "signUp";

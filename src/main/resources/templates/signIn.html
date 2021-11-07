@@ -8,32 +8,13 @@
 		<link rel="stylesheet" th:href="@{/static/css/styles.css}">
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     </th:block>
-    
-    <!-- For use on this page only [JS] -->
-    <th:block layout:fragment="script">
-		<script th:src="@{/static/js/load_html.js}"></script>
-		<script>
-			(function() {
-			"use strict";
-			window.addEventListener("load", function() {
-				var form = document.getElementById("needs-validation");
-				form.addEventListener("submit", function(event) {
-				if (form.checkValidity() == false) {
-					event.preventDefault();
-					event.stopPropagation();
-					form.classList.add("was-validated");
-				}
-				
-				// 서버 연동 처리
-				}, false);
-			}, false);
-			}());
-		</script>		
-    </th:block>
 
     <!-- Content -->
     <div layout:fragment="content">
-
+		<form id="userForm">
+			<input type="hidden" name="userCode" />
+			<input type="hidden" name="userId" />
+		</form>
 		<div id="app">
 			<login class="appContainer" style="height:100%">
 				<div class="container padding"  style="height:100%">
@@ -54,15 +35,15 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-center">
-							<button type="button">로그인</button>
+							<button type="button" id="login_submit_btn">로그인</button>
 						</div>
 					</form>
 					<div style="height:29%;">
 						<div class="d-flex justify-content-between" style="height:auto; margin-top:20px;">
-							<div class="d-flex align-items-center">
+							<!--<div class="d-flex align-items-center">
 								<input type="checkbox" class="form-check-input" value="" id="auto_login_check" style="margin-top:0px">
 								<label for="auto_login_check" class="form-check-label text-bold"><span class="weight500 size14" style="margin-left:50px;">아이디/비밀번호 저장</span></label>
-							</div>
+							</div>-->
 							<a href="findPassword.html" style="font-size: 12px;"><span class="weight600">비밀번호 찾기</span></a>
 						</div>
 						<div class="d-flex justify-content-center" style="height:auto; margin-top:20%;">
@@ -73,6 +54,62 @@
 				</div>
 			</login>
 		</div>
-
     </div>
+
+	<!-- For use on this page only [JS] -->
+	<th:block layout:fragment="script">
+		<script th:src="@{/static/js/load_html.js}"></script>
+		<script>
+			$(function(){
+				$('#login_submit_btn').click(function () {
+					signIn();
+				});
+			}());
+			
+			function signInValidation() {
+
+			}
+
+			function signIn() {
+				var dataObj = {}
+				dataObj.userId = $('#userId').val() + $('#uniDomain').text();
+				dataObj.password = hex_sha512($('#password').val());
+
+				var dataJson = JSON.stringify(dataObj);
+				console.log('dataJson', dataJson);
+
+				$.ajax({
+					url: '/signIn/signIn',
+					type: "POST",
+					data: dataJson,
+					dataType : 'json',
+					contentType: "application/json; charset=utf-8",
+					cache :  false,
+					beforeSend: function(__xhr, __settings){
+						__xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+					},
+					success: function(__data, __textStatus, __jqXHR){
+						if (__data.code != null ) {
+							alert(__data.message);
+							return;
+						}
+						var userCode = __data.userCode;
+						var userId = __data.userId;
+
+						// todo 앱 함수 호출로 변경
+						$('#userForm input[name=userCode]').val(userCode);
+						$('#userForm input[name=userId]').val(userId);
+
+						$('#userForm').attr('method', 'post').attr('action', '/uniMap').submit();
+						//////////////////////////
+
+					},
+					fail: function(__data, __textStatus, __jqXHR){
+					},
+					complete: function(__data, __textStatus, __jqXHR) {
+					}
+				});
+			}
+		</script>
+	</th:block>
 </html>

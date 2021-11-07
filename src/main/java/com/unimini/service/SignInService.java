@@ -24,4 +24,9 @@ public class SignInService {
     public Map<String, String> getSignIn(Map<String, String> paramMap) {
         return signInMapper.getSignIn(paramMap);
     }
+
+    // 아이디체크
+    public Map<String, String> getIdCheck(Map<String, String> paramMap) {
+        return signInMapper.getSignIn(paramMap);
+    }
 }
