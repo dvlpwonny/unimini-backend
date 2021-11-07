@@ -13,7 +13,7 @@
     </select>
 
     <!-- 핀 목록 -->
-    <select id="getPinInfo" resultType="uniMap">
+    <select id="getPinInfo" resultType="uniMap" parameterType="map">
         SELECT
             SECTION_CODE
             , BUILDING_CODE
@@ -22,6 +22,12 @@
             , EVENT_TYPE_CODE
         FROM TB_EVENT
         WHERE DATE_FORMAT(EVENT_START_TIME, "%Y-%m-%d") = CURDATE()
+        <if test="categoryCode!=null and !categoryCode.equals('')">
+            AND CATEGORY_CODE = #{categoryCode}
+        </if>
+        <if test="eventTypeCode!=null and !eventTypeCode.equals('')">
+            AND EVENT_TYPE_CODE = #{eventTypeCode}
+        </if>
         ORDER BY EVENT_START_TIME
         LIMIT 1
     </select>

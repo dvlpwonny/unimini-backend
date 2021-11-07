@@ -24,8 +24,8 @@ public class UnityService {
         return unityMapper.getCategorySort();
     }
 
-    public List<Map<String, String>> getPinInfo() {
-        return unityMapper.getPinInfo();
+    public List<Map<String, String>> getPinInfo(Map<String, String> paramMap) {
+        return unityMapper.getPinInfo(paramMap);
     }
 
     public List<Map<String, String>> getMingleList(Map<String, String> paramMap) {
