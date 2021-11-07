@@ -19,6 +19,7 @@
             , BUILDING_CODE
             , PLACE_CODE
             , CATEGORY_CODE
+            , EVENT_TYPE_CODE
         FROM TB_EVENT
         WHERE DATE_FORMAT(EVENT_START_TIME, "%Y-%m-%d") = CURDATE()
         ORDER BY EVENT_START_TIME
@@ -29,6 +30,7 @@
     <select id="getMingleList" resultType="uniMap" parameterType="map">
         SELECT
             A.EVENT_NAME
+            , CATEGORY_CODE
             , A.PLACE_CODE
             , (
                 SELECT
@@ -38,10 +40,10 @@
                   AND A.BUILDING_CODE = P.BUILDING_CODE
                   AND A.PLACE_CODE = P.PLACE_CODE
             ) AS PLACE_NAME
-            , EVENT_TYPE_CODE
-            , DATE_fORMAT(EVENT_START_TIME, '%T') AS EVENT_START_TIME
-            , DATE_fORMAT(EVENT_END_TIME, '%T') AS EVENT_END_TIME
-            , CONCAT(DATE_fORMAT(EVENT_START_TIME, '%T'), '~', DATE_fORMAT(EVENT_END_TIME, '%T')) AS EVENT_TIME
+            , A.EVENT_TYPE_CODE
+            , DATE_fORMAT(A.EVENT_START_TIME, '%T') AS EVENT_START_TIME
+            , DATE_fORMAT(A.EVENT_END_TIME, '%T') AS EVENT_END_TIME
+            , CONCAT(DATE_fORMAT(A.EVENT_START_TIME, '%T'), '~', DATE_fORMAT(A.EVENT_END_TIME, '%T')) AS EVENT_TIME
             , (
                 SELECT
                     COUNT(USER_CODE) AS TOT_USER_CNT
@@ -49,6 +51,14 @@
                 WHERE A.EVENT_CODE = G.EVENT_CODE
                 GROUP BY G.EVENT_CODE
             ) AS TOT_PRSNNL
+            , (
+                SELECT
+                    COUNT(USER_CODE) AS TOT_USER_CNT
+                FROM TB_EVENT_USER_MAPP_GROUP G
+                WHERE A.EVENT_CODE = G.EVENT_CODE
+                 AND G.LIKE_FLAG = 'Y'
+                GROUP BY A.EVENT_CODE
+            ) AS TOT_LIKE
             , MINIMUM_PRSNNL
             , MAXIMUM_PRSNNL
             , DETAIL_INFO
@@ -61,6 +71,7 @@
     <select id="getLikeEventList" resultType="uniMap" parameterType="map">
         SELECT
             A.EVENT_NAME
+            , CATEGORY_CODE
             , A.PLACE_CODE
             , (
                 SELECT
@@ -70,10 +81,10 @@
                   AND A.BUILDING_CODE = P.BUILDING_CODE
                   AND A.PLACE_CODE = P.PLACE_CODE
             ) AS PLACE_NAME
-            , EVENT_TYPE_CODE
-            , DATE_fORMAT(EVENT_START_TIME, '%T') AS EVENT_START_TIME
-            , DATE_fORMAT(EVENT_END_TIME, '%T') AS EVENT_END_TIME
-            , CONCAT(DATE_fORMAT(EVENT_START_TIME, '%T'), '~', DATE_fORMAT(EVENT_END_TIME, '%T')) AS EVENT_TIME
+            , A.EVENT_TYPE_CODE
+            , DATE_fORMAT(A.EVENT_START_TIME, '%T') AS EVENT_START_TIME
+            , DATE_fORMAT(A.EVENT_END_TIME, '%T') AS EVENT_END_TIME
+            , CONCAT(DATE_fORMAT(A.EVENT_START_TIME, '%T'), '~', DATE_fORMAT(EVENT_END_TIME, '%T')) AS EVENT_TIME
             , (
                 SELECT
                     COUNT(USER_CODE) AS TOT_USER_CNT
@@ -81,6 +92,14 @@
                 WHERE A.EVENT_CODE = G.EVENT_CODE
                 GROUP BY A.EVENT_CODE
             ) AS TOT_PRSNNL
+            , (
+                SELECT
+                    COUNT(USER_CODE) AS TOT_USER_CNT
+                FROM TB_EVENT_USER_MAPP_GROUP G
+                WHERE A.EVENT_CODE = G.EVENT_CODE
+                 AND G.LIKE_FLAG = 'Y'
+                GROUP BY A.EVENT_CODE
+            ) AS TOT_LIKE
             , A.MINIMUM_PRSNNL
             , A.MAXIMUM_PRSNNL
             , A.DETAIL_INFO
