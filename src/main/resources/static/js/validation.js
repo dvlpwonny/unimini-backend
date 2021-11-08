@@ -5,7 +5,10 @@ const SUBMIT_BTN = document.querySelector(".btnSubmit");
 
 /*유효성 검사*/
 function checkEmpty(args){
-    if(args.value == "") invalidateBtn(SUBMIT_BTN);
+    if(args.value == "") {
+      invalidateBtn(SUBMIT_BTN);
+      showFeedback(args, args.value=="");
+    }
     else validateBtn(SUBMIT_BTN);
   }
   
@@ -29,19 +32,16 @@ function invalidateBtn(btn){
   btn.classList.remove("validated");
 }
 
+  //로그인
+
+
   //이메일
-  function checkEmail(){
-      var form = document.FORM_ID;
-      var btn = form.BTN_ID;
-      if(!checkEmpty(form.INPUT_ID)) {
-        btn.classList.add("validated");
-        btn.removeAttribute("disabled");
-      }
-      else {
-        btn.classList.remove("validated");
-        btn.addAttribute("disabled")
-      }
-    }
+  function checkEmail(args){
+    var input = String(args.value);
+    var patternEmail = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,}$/;
+    var validated = (patternEmail.test(input)? true : false);
+    showFeedback(args, validated);
+  }
 
   //비밀번호
   function checkPassword(args){

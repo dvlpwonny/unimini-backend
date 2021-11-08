@@ -18,76 +18,76 @@
     <!-- Content -->
     <div layout:fragment="content">
 
-	  <div id="app">
-		<header>
-		  <script>loadHTML("./layout/header.html")</script>
-		</header>
-		<leaveComment class="appContainer">
-		  <div class="container padding">
-			<div class="d-flex flex-column">
-				<div style="margin:60px 0px 60px 0px">
-					<span class="size14 weight600">프로필 캐릭터를 선택해주세요</span>
-				</div>
-				<div class="characters d-flex justify-content-between flex-wrap align-content-start" style="height:500px;">
-					<div class="character" id="selected">
-						<img src="/image/profile/profile1.png" alt="" width="100%" height="100%">
+		<div id="app">
+			<header>
+				<script>loadHTML("./layout/header.html","./myPage.html")</script>
+			</header>
+			<leavecomment class="appContainer">
+			<div class="container padding responsiveApp">
+				<div class="d-flex flex-column">
+					<div style="margin:60px 0px 60px 0px">
+						<span class="size14 weight600">프로필 캐릭터를 선택해주세요</span>
 					</div>
-					<div class="character">
-						<img src="/image/profile/profile2.png" alt="" width="100%" height="100%">
+					<div class="characters d-flex justify-content-between flex-wrap align-content-start" style="height:500px;">
+						<div class="character" id="selected">
+							<img src="../static/image/profile/profile1.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile2.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile3.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile4.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile5.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile6.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile7.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile8.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile9.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile11.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile12.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile13.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile14.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile15.png" alt="" width="100%" height="100%">
+						</div>
+						<div class="character">
+							<img src="../static/image/profile/profile16.png" alt="" width="100%" height="100%">
+						</div>
 					</div>
-					<div class="character">
-						<img src="/image/profile/profile3.png" alt="" width="100%" height="100%">
+					<div class="buttonBox2">
+						<button type="button" onclick="location.href='./myPage.html'">
+						<span class="grey2">취소</span>
+						</button>
+						<button class="btnSubmit" id="btnChangeProfile">설정</button>
 					</div>
-					<div class="character">
-						<img src="/image/profile/profile4.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile5.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile6.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile7.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile8.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile9.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile10.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile11.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile12.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile13.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile14.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile15.png" alt="" width="100%" height="100%">
-					</div>
-					<div class="character">
-						<img src="/image/profile/profile16.png" alt="" width="100%" height="100%">
-					</div>
-				</div>
-				<div class="buttonBox2">
-					<button>   
-					<a href="./myPage.html"><span class="grey2">취소</span></a>
-					</button>
-					<button id="btnChangeProfile">설정</button>
 				</div>
 			</div>
-		  </div>
-		</leaveComment>
-	  </div>
+			</leavecomment>
+		</div>
 	
     </div>
 </html>

@@ -13,33 +13,34 @@
     <th:block layout:fragment="script">
 		<script th:src="@{/static/js/load_html.js}"></script>
 		<script th:src="@{/static/js/default.js}"></script>
+		<script th:src="@{/static/js/validation.js}"></script>				
     </th:block>
 
     <!-- Content -->
     <div layout:fragment="content">
 
-	  <div id="app">
-		<header>
-		  <script>loadHTML("./layout/header.html")</script>
-		</header>
-		<leaveComment class="appContainer">
-		  <div class="container padding">
-			<div class="d-flex">
-			  <form style="width:100%; margin-top:10px;">
-				<div style="height:200px;">
-				  <textarea placeholder="유니미니를 사용하고 난 경험에 대해서 &#13;&#10;자유롭게 의견을 남겨주세요."></textarea>
+		<div id="app">
+			<header>
+			<script>loadHTML("./layout/header.html","./myPage.html")</script>
+			</header>
+			<leavecomment class="appContainer">
+			<div class="container padding responsiveApp">
+				<div class="d-flex">
+					<form style="width:100%; margin-top:10px;">
+						<div style="height:200px;">
+							<textarea onkeyup="checkEmpty(this)" placeholder="유니미니를 사용하고 난 경험에 대해서 &#13;&#10;자유롭게 의견을 남겨주세요."></textarea>
+						</div>
+						<div class="buttonBox2">
+							<button type="button" onclick="location.href='./myPage.html'">
+							<span class="grey2">취소</span>
+							</button>
+							<button class="btnSubmit" id="btnCheckEmpty">저장</button>
+						</div>
+					</form>
 				</div>
-				<div class="buttonBox2">
-				  <button>   
-					<a href="./myPage.html"><span class="grey2">취소</span></a>
-					</button>
-					<button id="btnLeaveComment">저장</button>
-				</div>
-			</form>
-		  </div>
-		  </div>
-		</leaveComment>
-	  </div>
+			</div>
+			</leavecomment>
+		</div>
 	
     </div>
 </html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout_v1">
+
+    <!-- For use on this page only [CSS] -->
+    <th:block layout:fragment="css">
+		<link rel="stylesheet" th:href="@{/static/css/reset.css}">
+		<link rel="stylesheet" th:href="@{/static/css/default.css}">
+		<link rel="stylesheet" th:href="@{/static/css/styles.css}">
+    </th:block>
+    
+    <!-- For use on this page only [JS] -->
+    <th:block layout:fragment="script">
+		<script th:src="@{/static/js/load_html.js}"></script>
+		<script th:src="@{/static/js/default.js}"></script>
+    </th:block>
+
+    <!-- Content -->
+    <div layout:fragment="content">
+
+		<div id="app">
+			<header>
+			<script>loadHTML("./layout/header.html")</script>
+			</header>
+			<div class="appContainer" style="height:88%">
+				<div class="container padding responsiveApp" style="margin-top:40px;height:90%; overflow-y: auto;">
+					<div class="placeSearchResult">
+						<div id="myEvnetListOnBoard">
+							<span class="size12 weight500 grey2">진행</span>
+							<div class="myEventOnBoard">
+								<div class="myEventBox">
+									<div class="d-flex align-items-center" style="width:80%">
+										<div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
+											<img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
+											<img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
+										</div>
+										<div class="myEventInfo">
+											<div>
+												<span class="size14" id="var-eventTitle">EVENT_TITLE</span>
+											</div>
+											<div style="margin-top:2px;">
+												<span class="size13 weight400" id="var-eventDay">DAY</span>
+												<span class="size13 weight400" id="var-eventBeginTime">13:00</span>
+												<span class="size13 weight400">~</span>
+												<span class="size13 weight400" id="var-eventEndTime">13:00</span>
+											</div>
+										</div>
+									</div>
+									<div>
+										<div class="myEventAlert">
+										</div>
+									</div>
+								</div>
+								<div class="myEventController">
+									<span class="size14">종료하기</span>
+								</div>
+							</div>
+							<div class="myEventOnBoard">
+								<div class="myEventBox">
+									<div class="d-flex align-items-center" style="width:80%">
+										<div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
+											<img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
+											<img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
+										</div>
+										<div class="myEventInfo">
+											<div>
+												<span class="size14" id="var-eventTitle">EVENT_TITLE</span>
+											</div>
+											<div style="margin-top:2px;">
+												<span class="size13 weight400" id="var-eventDay">DAY</span>
+												<span class="size13 weight400" id="var-eventBeginTime">13:00</span>
+												<span class="size13 weight400">~</span>
+												<span class="size13 weight400" id="var-eventEndTime">13:00</span>
+											</div>
+										</div>
+									</div>
+									<div>
+										<div class="myEventAlert">
+										</div>
+									</div>
+								</div>
+								<div class="myEventController">
+									<span class="size14">종료하기</span>
+								</div>
+							</div>
+							<div class="myEventOnBoard">
+								<div class="myEventBox">
+									<div class="d-flex align-items-center" style="width:80%">
+										<div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
+											<img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
+											<img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
+										</div>
+										<div class="myEventInfo">
+											<div>
+												<span class="size14" id="var-eventTitle">EVENT_TITLE</span>
+											</div>
+											<div style="margin-top:2px;">
+												<span class="size13 weight400" id="var-eventDay">DAY</span>
+												<span class="size13 weight400" id="var-eventBeginTime">13:00</span>
+												<span class="size13 weight400">~</span>
+												<span class="size13 weight400" id="var-eventEndTime">13:00</span>
+											</div>
+										</div>
+									</div>
+									<div>
+										<div class="myEventAlert">
+										</div>
+									</div>
+								</div>
+								<div class="myEventController">
+									<span class="size14">종료하기</span>
+								</div>
+							</div>
+						</div>
+						<div id="myEvnetListFinished" style="margin-top:100px">
+							<span class="size12 weight500 grey2">종료</span>
+							<div class="myEventFinished">
+								<div class="myEventBox">
+									<div class="d-flex align-items-center" style="width:80%">
+										<div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
+											<img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
+											<img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
+										</div>
+										<div class="myEventInfo">
+											<div>
+												<span class="size14 grey2" id="var-eventTitle">EVENT_TITLE</span>
+											</div>
+											<div style="margin-top:2px;">
+												<span class="size13 weight400 grey2" id="var-eventDay">DAY</span>
+												<span class="size13 weight400 grey2" id="var-eventBeginTime">13:00</span>
+												<span class="size13 weight400 grey2">~</span>
+												<span class="size13 weight400 grey2" id="var-eventEndTime">13:00</span>
+											</div>
+										</div>
+									</div>
+									<div>
+										<div class="myEventAlert">
+										</div>
+									</div>
+								</div>
+								<div class="myEventController">
+									<span class="size14">종료하기</span>
+								</div>
+							</div>
+							<div class="myEventFinished">
+								<div class="myEventBox">
+									<div class="d-flex align-items-center" style="width:80%">
+										<div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
+											<img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
+											<img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
+										</div>
+										<div class="myEventInfo">
+											<div>
+												<span class="size14 grey2" id="var-eventTitle">EVENT_TITLE</span>
+											</div>
+											<div style="margin-top:2px;">
+												<span class="size13 weight400 grey2" id="var-eventDay">DAY</span>
+												<span class="size13 weight400 grey2" id="var-eventBeginTime">13:00</span>
+												<span class="size13 weight400 grey2">~</span>
+												<span class="size13 weight400 grey2" id="var-eventEndTime">13:00</span>
+											</div>
+										</div>
+									</div>
+									<div>
+										<div class="myEventAlert">
+										</div>
+									</div>
+								</div>
+								<div class="myEventController">
+									<span class="size14">종료하기</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    </div>
+</html>

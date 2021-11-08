@@ -22,23 +22,23 @@
 		<script th:src="@{/static/js/load_html.js}"></script>
 		
 		<script>
-			const floatUpMenuElem = document.getElementById("floatUpMenu");
-			const appElem = document.getElementById("app");
-			const headerElem = document.getElementsByTagName("header")[0];
-			function openMenu(){
-				floatUpMenuElem.classList.replace("inactive","menuActive");
-				floatUpMenuElem.classList.replace("menuInactive","menuActive");
-				appElem.classList.add("menuActiveBackground");
-				headerElem.classList.add("menuActiveBackground");
-			}
-			function closeMenu(){
-				floatUpMenuElem.classList.replace("menuActive","menuInactive",);
-				appElem.classList.remove("menuActiveBackground");
-				headerElem.classList.remove("menuActiveBackground");
-			}
-			function applyOption(){
-				closeMenu();
-			}
+		  const floatUpMenuElem = document.getElementById("floatUpMenu");
+		  const appElem = document.getElementById("app");
+		  const headerElem = document.getElementsByTagName("header")[0];
+		  function openMenu(){
+		    floatUpMenuElem.classList.replace("inactive","menuActive");
+		    floatUpMenuElem.classList.replace("menuInactive","menuActive");
+		    appElem.classList.add("menuActiveBackground");
+		    headerElem.classList.add("menuActiveBackground");
+		  }
+		  function closeMenu(){
+		    floatUpMenuElem.classList.replace("menuActive","menuInactive",);
+		    appElem.classList.remove("menuActiveBackground");
+		    headerElem.classList.remove("menuActiveBackground");
+		  }
+		  function applyOption(){
+		    closeMenu();
+		  }
 		</script>
 		
     </th:block>
@@ -47,123 +47,140 @@
     <div layout:fragment="content">
 
 		<div id="app">
-		  <header>
-			<div class="iconContainer" id="goBackIcon">
-			  <img src="../static/image/back.png" alt="" style="width:20px; height:20px;">
-			</div>
-			<div id="searchInput" style="width:286px">
-			  <input type="text" placeholder="장소를 검색해주세요" style="background-color: transparent;">
-			</div>
-			<div class="iconContainer" id="searchIcon">
-			  <img src="../static/image/search.png" alt="" style="width:30px; height:30px;">
-			</div>
-		  </header>
-		  <div class="appContainer">
-			<div class="container padding" id="placeGuidelineText">
-			  <div style="position: relative; top:50px">
-				<span class="text-info text-14">아래 가게를 선택하고<br>유니미니가 제공하는 혜택을 누리세요!</span>
-			  </div> 
-			  <div id="adMark">
-				<span class="text-11">광고</span></div>
-			</div>
-			<div class="container padding" id="placeOptionSetting">
-			  <div id="placeOptionSettingIcon" onclick="openMenu()">
-			  </div>
-			</div>
-			<div class="container padding" id="adPlaceList">
-			  <div class="adPlace">
-				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
-				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-			  </div>
-			  <div class="adPlace">
-				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
-				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-			  </div>
-			  <div class="adPlace">
-				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
-				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-			  </div>
-			  <div class="adPlace">
-				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
-				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-			  </div>
-			  <div class="adPlace">
-				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
-				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-			  </div>
-			  <div class="adPlace">
-				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
-				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-			  </div>
-			  <div class="adPlace">
-				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
-				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-			  </div>
-			  <div class="adPlace">
-				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
-				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-			  </div>
-			  <div class="adPlace">
-				<div class="adPlaceName"><span>주원초밥과 참치</span></div>
-				<div class="adPlaceBenefit"><span>연어롤 10% 할인</span></div>
-			  </div>
-			</div>
-		  </div>
-		  <div id="floatUpMenu" class="inactive">
-			<div id="app" class="active">
-			  <div class="container" id="placeOptionSetting">
-				<div class="menuBar" id="placeOptionSettingMenuBar">
-				  <div>
-					<div id="placeOptionSettingIcon" onclick="closeMenu()"></div>
-					<div id="placeOptionSettingText" style="margin-left:10px"><span class="text-16">필터</span></div>    
-				  </div>
-				  <div id="placeOptionSettingExitIcon">
-					<img src="../static/image/close.png" alt="" onclick="closeMenu()">
-				  </div>  
+			<header>
+				<div class="iconContainer" id="goBackIcon">
+					<a href="./makeMingleEvent.html">
+					<img src="../static/image/back.png" alt="" style="width:20px; height:20px;">
+					</a>
 				</div>
+				<div id="searchInput" style="width:286px">
+					<input type="text" placeholder="장소를 검색해주세요" style="background-color: transparent !important;">
 				</div>
-				<div class="container placeOptionContainer">
-					<div class="text-info text-bold">방문 목적</div>
-					<div class="placeOption">
-					  <div class="category">회식</div>
-					  <div class="category">데이트</div>
-					  <div class="category">소개팅</div>
-					  <div class="category">기념일</div>
-					  <div class="category">몸보신</div>
-					  <div class="category">학교 제휴 혜택</div>
-					  <div class="category">다이어트</div>
+				<div class="iconContainer" id="searchIcon">
+					<img src="../static/image/search.png" alt="" style="width:30px; height:30px;">
+				</div>
+			</header>
+			<div class="appContainer" style="height:88%">
+				<div class="container responsiveApp padding inactive" id="adPlaceContainer" style="margin-top:100px;">
+					<span class="size14 weight400 grey2">밍글을 주최할 장소를 선택해주세요!</span>
+					<div id="adPlaceList">
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
+						<div class="place">
+							<span class="size16 weight700">주원초밥과 참치</span>
+							<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
+						</div>
 					</div>
 				</div>
-				<div class="container placeOptionContainer">
-				  <div class="text-info text-bold">분위기</div>
-				  <div class="placeOption">
-					<div class="category">오붓한</div>
-					<div class="category">고급스러운</div>
-					<div class="category">인스타 핫플</div>
-					<div class="category">혼밥하기 좋은</div>
-					<div class="category">신나는</div>
-				  </div>
+				<div class="container responsiveApp padding" id="placeSearchResultContainer" style="margin-top:40px;height:90%">
+					<div class="placeSearchResult">
+						<span class="size12 weight500 grey2">카테고리</span>
+						<div id="placeList">
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+						</div>
+					</div>
+					<div class="placeSearchResult">
+						<span class="size12 weight500 grey2">카테고리</span>
+						<div id="placeList">
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+						</div>
+					</div>
+					<div class="placeSearchResult">
+						<span class="size12 weight500 grey2">카테고리</span>
+						<div id="placeList">
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+						</div>
+					</div>
+					<div class="placeSearchResult">
+						<span class="size12 weight500 grey2">카테고리</span>
+						<div id="placeList">
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+							<div class="place">
+								<span class="size16 weight700">검색장소1</span>
+								<span class="size12 grey weight400" style="float:right">검색장소특징</span>
+							</div>
+						</div>
+					</div>
 				</div>
-			  <div class="container placeOptionContainer">
-				<div class="text-info text-bold">특징</div>
-				<div class="placeOption">
-				  <div class="category">회전율이 빠른</div>
-				  <div class="category">Take out 가능</div>
-				  <div class="category">주차 가능</div>
-				  <div class="category">가성비 굿</div>
-				  <div class="category">건강한</div>
-				</div>
-			  </div>
-			  <div class="container" id="searchPlaceOptionButton"> 
-				<div>
-				  <button id="cancelSearchPlaceOption" onclick="closeMenu()">취소</button>
-				</div>
-				<div>
-				  <button id="applySearchPlaceOption" onclick="applyOption()">적용하기</button>
-				</div>
-			  </div>
-			  </div>
-		  </div>
+			</div>
 		</div>
 
     </div>

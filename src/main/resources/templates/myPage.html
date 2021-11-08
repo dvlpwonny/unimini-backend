@@ -11,77 +11,120 @@
     
     <!-- For use on this page only [JS] -->
     <th:block layout:fragment="script">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 		<script th:src="@{/static/js/load_html.js}"></script>
 		<script th:src="@{/static/js/default.js}"></script>
+		
+	    <script>
+	        var snackbar = document.getElementById("alertLinkCopied")
+	
+	        $(document).ready(function(){
+	            var clipboard = new Clipboard('.shareLinkBtn');
+	            snackbar.innerHTML="클립보드에 복사되었습니다.";
+	            clipboard.on('success',function(e){
+	                console.log("copy success");
+	                snackbar.classList.replace("alertInactive","alertActive");
+	                setTimeout(function(){
+	                snackbar.classList.replace("alertActive","alertInactive");
+	                },3500)
+	            })
+	        })
+	    </script>		
+		
     </th:block>
 
     <!-- Content -->
     <div layout:fragment="content">
 
-    <div id="app">
-        <header>
-            <script>loadHTML("./layout/header.html")</script>
-          </header>
-        <my-page class="appContainer mypage">
-            <div class="container padding">
-                <div class="d-flex" id="my_profile">
-                    <div class="d-flex align-items-center justify-content-center" id="my_icon">
-                        <a href="../templates/myPage_changeProfile.html" id="my_icon_container">
-                            <img src="../static/image/profile/profile10.png" width="100%" height="100%" alt="" id="var-profile">
-                        </a>
-                    </div>
-                    <div class="d-flex justify-content-center flex-column"id="my_profile_info">
-                        <div>
-                            <span class="size20" id="var-nickname">NICKNAME</span>
-                            <span class="size12 weight400" id="var-gender">GENDER</span>
-                        </div>
-                        <div style="margin-top:5px;">
-                            <div><span class="size12 weight800" id="var-college">COLLEGE</span></div>
-                            <div>
-                                <span class="size12 weight800" id="var-studentClass">10</span>
-                                <span class="size12 weight800">학번</span>
-                            </div>    
-                        </div>
-                         </div>
-                </div>
-                <div class="d-flex flex-column" id="my_info">
-                    <div class="text_myInfo"><span class="size12 weight500" id="var-name">정지원</span></div>
-                    <div class="text_myInfo"><span class="size12 weight500" id="var-email">wjdwl00@khu.ac.kr</span></div>
-                    <div class="text_myInfo"><span class="size12 weight500">경희대학교</span></div>
-                    <div class="text_myInfo"><span class="size12 weight500" id="var-college">전자정보대학</span></div>
-                    <div class="text_myInfo"><span class="size12 weight500" id="var-major">컴퓨터공학부</span></div>
-                    <div class="text_myInfo"><span class="size12 weight500" id="var-studentID">2019100000</span></div>
-                </div>
-                <div id="myPage_menu">
-                    <div class="d-flex align-items-center menu_bar">
-                        <a href="myPage_changeNickname.html">닉네임 변경하기
-                            <div class="clickable"></div>
-                        </a>
-                    </div>
-                    <div class="d-flex align-items-center menu_bar">
-                        <a href="myPage_changePassword.html">비밀번호 변경하기
-                            <div class="clickable"></div>
-                        </a>                
-                    </div>
-                    <div class="d-flex align-items-center menu_bar">
-                        <a href="myPage_changePhone.html">휴대폰 번호 변경하기
-                            <div class="clickable"></div>
-                        </a>
-                    </div>
-                    <div class="d-flex align-items-center menu_bar">
-                        <a href="myPage_leaveComment.html">의견 남기기
-                            <div class="clickable"></div>
-                        </a>
-                    </div>
-                    <div class="d-flex align-items-center menu_bar">
-                        <a href="myPage_logout">로그아웃
-                            <div class="clickable"></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </my-page>
-    </div>
+		<div id="app">
+			<header>
+			<script>loadHTML("./layout/header.html")</script>
+			</header>
+			<my-page class="appContainer mypage">
+			<div class="container padding responsiveApp">
+				<div class="d-flex" id="my_profile">
+					<div class="d-flex align-items-center justify-content-center" id="my_icon">
+						<a href="../templates/myPage_changeProfile.html" id="my_icon_container">
+						<img src="../static/image/profile/profile10.png" width="100%" height="100%" alt="" id="var-profile">
+						</a>
+					</div>
+					<div class="d-flex justify-content-center flex-column" id="my_profile_info">
+						<div>
+							<span id="nickname" class="size20" id="var-nickname">NICKNAME</span>
+							<span class="size12 weight400" id="var-gender">GENDER</span>
+						</div>
+						<div style="margin-top:5px;">
+							<div>
+								<span class="size12 weight800" id="var-college">COLLEGE</span>
+							</div>
+							<div>
+								<span class="size12 weight800" id="var-studentClass">10</span>
+								<span class="size12 weight800">학번</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="d-flex flex-column" id="my_info">
+					<div class="text_myInfo">
+						<span class="size12 weight500" id="var-name">정지원</span>
+					</div>
+					<div class="text_myInfo">
+						<span class="size12 weight500" id="var-email">wjdwl00@khu.ac.kr</span>
+					</div>
+					<div class="text_myInfo">
+						<span class="size12 weight500">경희대학교</span>
+					</div>
+					<div class="text_myInfo">
+						<span class="size12 weight500" id="var-college">전자정보대학</span>
+					</div>
+					<div class="text_myInfo">
+						<span class="size12 weight500" id="var-major">컴퓨터공학부</span>
+					</div>
+					<div class="text_myInfo">
+						<span class="size12 weight500" id="var-studentID">2019100000</span>
+					</div>
+				</div>
+				<div id="myPage_menu">
+					<div class="d-flex align-items-center menu_bar">
+						<a href="myPage_changeNickname.html">닉네임 변경하기
+						<div class="clickable">
+						</div>
+						</a>
+					</div>
+					<div class="d-flex align-items-center menu_bar">
+						<a href="myPage_changePassword.html">비밀번호 변경하기
+						<div class="clickable">
+						</div>
+						</a>
+					</div>
+					<div class="d-flex align-items-center menu_bar">
+						<a href="myPage_changePhone.html">휴대폰 번호 변경하기
+						<div class="clickable">
+						</div>
+						</a>
+					</div>
+					<div class="d-flex align-items-center menu_bar">
+						<a href="myPage_leaveComment.html">의견 남기기
+						<div class="clickable">
+						</div>
+						</a>
+					</div>
+					<div class="d-flex align-items-center menu_bar" style="border-bottom: solid 0.5px #efe5e0;">
+						<a href="myPage_logout">로그아웃
+						<div class="clickable">
+						</div>
+						</a>
+					</div>
+				</div>
+				<div style="margin-top:10px;">
+					<button data-clipboard-text="https://wjdwl002.github.io/withyouwithme/" class="shareLinkBtn validated">유니미니 공유하기</button>
+				</div>
+			</div>
+			</my-page>
+			<div id="alertLinkCopied" class="alertInactive">
+				<span>링크가 복사되었습니다!</span>
+			</div>
+		</div>
 	
     </div>
 </html>

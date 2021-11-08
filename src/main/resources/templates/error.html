@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout_v1">
+
+    <!-- For use on this page only [CSS] -->
+    <th:block layout:fragment="css">
+		<link rel="stylesheet" th:href="@{/static/css/reset.css}">
+		<link rel="stylesheet" th:href="@{/static/css/default.css}">
+		<link rel="stylesheet" th:href="@{/static/css/styles.css}">
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    </th:block>
+    
+    <!-- For use on this page only [JS] -->
+    <th:block layout:fragment="script">
+		<script th:src="@{/static/js/load_html.js}"></script>
+    </th:block>
+
+    <!-- Content -->
+    <div layout:fragment="content">
+
+		<div id="app">
+			<div class="container padding d-flex flex-column justify-content-center align-items-center" style="height:100%">
+				<div style="background-color:#ff3a5b; padding : 10px 40px; border-radius: 20px;">
+					<span class="size16 white weight700">잠시 후에 다시 시도해주세요!</span>
+				</div>
+				<div style="padding:50px; text-align: center;">
+					<span class="size16 weight700">같은 문제가 반복된다면?</span>
+					<p style="padding:20px;">
+						<span class="size12 weight400">
+						유니미니의 인스타그램 공식 계정<br>
+						 @unimini_official_kr으로 연락,<br>
+						<br>
+						 또는 '마이페이지-의견 남기기'를 통해<br>
+						 오류를 신고해주세요!<br>
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
+
+    </div>
+</html>
