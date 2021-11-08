@@ -53,7 +53,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.ant("/**/**"))
+                .paths(PathSelectors.ant("/unity/**"))
                 .build();
     }
 }
