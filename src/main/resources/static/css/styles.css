@@ -82,7 +82,7 @@ form i {
     justify-content: flex-start;
 }
 .formContent#id div:nth-child(1){
-    width: 170px;
+    width: 50%;
 }
 .formContent#id div:nth-child(2){
     padding: 4px;
