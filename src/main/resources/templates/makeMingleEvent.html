@@ -12,16 +12,22 @@
     <th:block layout:fragment="script">
 		<script th:src="@{/static/js/load_html.js}"></script>
 		<script th:src="@{/static/js/default.js}"></script>
+		
+		<script type="text/javascript">
+			/* Time Set */
+			document.getElementById('startTime').value = new Date().toISOString().slice(11, 16);
+			document.getElementById('endTime').value = new Date().toISOString().slice(11, 16);
+			
+		</script>
+		
+		
     </th:block>
 
     <!-- Content -->
     <div layout:fragment="content">
 
 		<div id="app">
-			<header>
-				<script>loadHTML("./layout/header.html")</script>
-			</header>
-			<make-mingle class="appContainer" style="overflow-y:auto;">
+			<make-mingle class="appContainer">
 			<div class="responsiveApp">
 				<div class="container padding">
 					<div class="mingleContainer">
@@ -48,7 +54,7 @@
 						<div>
 							<span class="size12 weight700 grey2">날짜</span>
 						</div>
-						<div class="d-flex justify-content-around" style="margin: 10px 0px;">
+						<div class="d-flex justify-content-around" style="margin:10px 0px;">
 							<div class="mingleDate selected">
 								<span class="size14 weight500">오늘</span>
 							</div>
@@ -79,26 +85,13 @@
 						</div>
 					</div>
 					<div class="mingleContainer d-flex align-items-center justify-content-around" id="mingleTime">
-						<div style="width:65px;">
-							<span class="text-info text-bold">시간</span>
-						</div>
-						<div class="timeSet" id="mingleStartTime" style="margin-right:15px;">
-							<span class="timeSetText text-info2">시작</span>
-							<span id="mingleStartTimeHour">12</span>
-							<span class="setTimeColon">:</span>
-							<span id="mingleStartTimeMin">11</span>
-						</div>
-						<div class="timeSet" id="mingleEndTime">
-							<span class="timeSetText text-info2">종료</span>
-							<span id="mingleEndTimeHour">12</span>
-							<span class="setTimeColon">:</span>
-							<span id="mingleEndTimeMin">30</span>
-						</div>
+						<input class="green" type="time" id="startTime"> &nbsp;~&nbsp;
+						<input class="green" type="time" id="endTime">
 					</div>
 					<div class="mingleContainer" id="mingleLocation">
 						<div>
 							<span class="text-info text-bold" style="margin-right:10px">장소</span>
-							<span class="text-info">미리 설정하는 것을 권장해요.</span>
+							<span class="text-info"> 미리 설정하는 것을 권장해요. </span>
 						</div>
 						<div class="d-flex justify-content-center">
 							<div class="locationSelected" style="margin:10px 0px">
@@ -106,13 +99,13 @@
 						</div>
 						<div class="d-flex justify-content-around">
 							<div class="locationOption d-flex flex-column justify-content-center align-items-center">
-								<img src="../static/image/search_big.png" alt="" width="18px" height="18px">
+								<img th:src="@{/static/image/search_big.png}" alt="" width="18px" height="18px">
 								<div>
 									<span class="text-info2">장소 이름 검색</span>
 								</div>
 							</div>
 							<div class="locationOption d-flex flex-column justify-content-center align-items-center">
-								<img src="../static/image/search_big.png" alt="" width="18px" height="18px">
+								<img th:src="@{/static/image/search_big.png}" alt="" width="18px" height="18px">
 								<div>
 									<span class="text-info2">지도에서 핀 선택</span>
 								</div>
@@ -169,6 +162,5 @@
 			</div>
 			</make-mingle>
 		</div>
-
     </div>
 </html>
