@@ -9,107 +9,56 @@
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
     </th:block>
 
+    <!-- For use on this page only [JS] -->
+    <th:block layout:fragment="script">
+		<script th:src="@{/static/js/load_html.js}"></script>
+		<script th:src="@{/static/js/default.js}"></script>
+		<script th:src="@{/static/js/validation.js}"></script>				
+    </th:block>
+
     <!-- Content -->
     <div layout:fragment="content">
-		<form id="userForm">
-			<input type="hidden" name="userCode" />
-			<input type="hidden" name="userId" />
-		</form>
-		<div id="app">
-			<login class="appContainer" style="height:100%">
-				<div class="container padding"  style="height:100%">
-					<div class="d-flex flex-column justify-content-end align-items-center" style="height:30%;">
-						<img src="../static/image/logo.png" style="height:24px; width:169px">
-						<div style="margin-top:5px;">
-							<span class="size12 weight500 highlighted">함께하는 즐거움, UNIMINI</span>
-						</div>
-					</div>
-					<form class="loginForm d-flex flex-column justify-content-between" id="needs-validation" novalidate=""  style="height:41%;">
-						<div class="d-flex flex-column justify-content-end align-items-center" style="margin-top:40px;">
-							<div class="d-flex align-items-center" style="width:100%;">
-								<input type="text" placeholder="이메일" id="userId" style="width:100%;margin:7px 0px;">
-								<span class="weight600" id="uniDomain" style="margin:8px;">@khu.ac.kr</span>
-							</div>
-							<div style="width:100%">
-								<input type="password" name="password" id="password" placeholder="비밀번호" style="width:100%; margin:7px 0px"> 
-							</div>
-						</div>
-						<div class="d-flex justify-content-center">
-							<button type="button" id="login_submit_btn">로그인</button>
-						</div>
-					</form>
-					<div style="height:29%;">
-						<div class="d-flex justify-content-between" style="height:auto; margin-top:20px;">
-							<!--<div class="d-flex align-items-center">
-								<input type="checkbox" class="form-check-input" value="" id="auto_login_check" style="margin-top:0px">
-								<label for="auto_login_check" class="form-check-label text-bold"><span class="weight500 size14" style="margin-left:50px;">아이디/비밀번호 저장</span></label>
-							</div>-->
-							<a href="findPassword.html" style="font-size: 12px;"><span class="weight600">비밀번호 찾기</span></a>
-						</div>
-						<div class="d-flex justify-content-center" style="height:auto; margin-top:20%;">
-							<div><span class="weight600 size12">아직 계정이 없으신가요?</span></div>
-							<a href="signUp.html" style="margin-left:10px"><span class="weight600 size12">회원가입하기</span></a>
-						</div>
-					</div>
-				</div>
-			</login>
-		</div>
+
+	    <div id="app">
+	        <login class="appContainer" style="height:100%">
+	            <div class="container padding responsiveApp"  style="height:100%">
+	                <div class="d-flex flex-column justify-content-end align-items-center" style="height:30%;">
+	                    <img src="../static/image/logo.png" style="height:24px; width:169px">
+	                    <div style="margin-top:5px;">
+	                        <span class="size12 weight500 highlighted">함께하는 즐거움, UNIMINI</span>
+	                    </div>
+	                </div>
+	                <form class="loginForm d-flex flex-column justify-content-between" id="needs-validation" novalidate=""  style="height:41%;">
+	                    <div class="d-flex flex-column justify-content-end align-items-center" style="margin-top:40px;">
+	                        <div class="d-flex align-items-center" style="width:100%;">
+	                            <input type="text" placeholder="이메일" id="userId" style="width:100%;margin:7px 0px;">
+	                            <span class="weight600" id="uniDomain" style="margin:8px;">@khu.ac.kr</span>
+	                        </div>
+	                        <div style="width:100%">
+	                            <input onkeyup="checkPassword(this)"
+	                            required id="password"
+	                            type="password" placeholder="새 비밀번호" style="margin-bottom: 0px;">
+	                            <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">8자리 이상 입력해주세요.</span>
+	        
+	                        </div>
+	                    </div>
+	                    <div class="d-flex justify-content-center">
+	                        <button type="button">로그인</button>
+	                    </div>
+	                </form>
+	                <div style="height:29%;">
+	                    <div class="d-flex justify-content-center align-items-center" style="height:auto; margin-top:20%;">
+	                        <div><span class="weight600 size12">아직 계정이 없으신가요?</span></div>
+	                        <div class="d-flex align-items-center">
+	                            <a href="signUp.html" style="margin-left:10px"><span class="weight600 size12">회원가입하기</span></a>
+	                            <a href="findPassword.html" style="margin-left:10px;"><span class="weight600 size12">비밀번호 찾기</span></a>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </login>
+	    </div>
+
     </div>
 
-	<!-- For use on this page only [JS] -->
-	<th:block layout:fragment="script">
-		<script th:src="@{/static/js/load_html.js}"></script>
-		<script>
-			$(function(){
-				$('#login_submit_btn').click(function () {
-					signIn();
-				});
-			}());
-			
-			function signInValidation() {
-
-			}
-
-			function signIn() {
-				var dataObj = {}
-				dataObj.userId = $('#userId').val() + $('#uniDomain').text();
-				dataObj.password = hex_sha512($('#password').val());
-
-				var dataJson = JSON.stringify(dataObj);
-				console.log('dataJson', dataJson);
-
-				$.ajax({
-					url: '/signIn/signIn',
-					type: "POST",
-					data: dataJson,
-					dataType : 'json',
-					contentType: "application/json; charset=utf-8",
-					cache :  false,
-					beforeSend: function(__xhr, __settings){
-						__xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-					},
-					success: function(__data, __textStatus, __jqXHR){
-						if (__data.code != null ) {
-							alert(__data.message);
-							return;
-						}
-						var userCode = __data.userCode;
-						var userId = __data.userId;
-
-						// todo 앱 함수 호출로 변경
-						$('#userForm input[name=userCode]').val(userCode);
-						$('#userForm input[name=userId]').val(userId);
-
-						$('#userForm').attr('method', 'post').attr('action', '/uniMap').submit();
-						//////////////////////////
-
-					},
-					fail: function(__data, __textStatus, __jqXHR){
-					},
-					complete: function(__data, __textStatus, __jqXHR) {
-					}
-				});
-			}
-		</script>
-	</th:block>
 </html>

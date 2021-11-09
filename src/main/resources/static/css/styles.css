@@ -685,7 +685,35 @@ textarea::placeholder{
     border-radius : 20px;
     padding : 14px 20px;
 }
-
+.otherChatting{
+    margin:15px 0px;
+}
+.myChatting{
+    margin:15px 0px;
+}
+.chattingUserProfile{
+    widtH:32px;
+    height:32px;
+}
+.chattingUserName{
+    margin: 4px;
+}
+.chattingUserContent{
+    background-color: #cdefdc;
+    padding: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    max-width: 200px;
+}
+.chattingMyContent{
+    background-color: #9be3c6;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    max-width: 200px;
+}
 
 
 /*내 참여리스트*/
@@ -747,6 +775,87 @@ textarea::placeholder{
     height: 23px;
     border-radius: 12px;
     background-color: #eee9e2;
-    position: absolute;
-    
+    float : right;
+    transform: translateY(60%);
+}
+.myEventFinished .myEventAlert{
+    width: 48px;
+    height: 23px;
+    border-radius: 12px;
+    background-color: #fffaf2;
+    float : right;
+    transform: translateY(60%);
+}
+.refuseUserJoin{
+    width:60px;
+    height: 28px !important;
+    color : #07c083 !important;
+    background-color: #eee9e2 !important;
+}
+.acceptUserJoin{
+    width:60px;
+    height:28px !important;
+    color : white !important;
+    background-color: #07c083 !important;
+}
+.refuseUserAccepted{
+    width:130px;
+    height: 28px !important;
+    color : #07c083 !important;
+    background-color: #eee9e2 !important;
+}
+
+/*AllEventList*/
+.calendar{
+    background-color: #07c083;
+    padding : 0px;
+}
+.calendarDate{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.calendarDate.selected .eventDate{
+    background-color: #ff3a5b;
+    border-radius: 30px;
+}
+.eventDay{
+}
+.eventDate{
+    margin-top:5px;
+    padding:8px 8px;
+}
+.eventDate#today{
+    padding:8px 5px;
+    font-size:14px !important;
+}
+.event{
+    width:100%;
+    height:auto;
+}
+.eventCircle{
+    width:10px;
+    height:10px;
+    border-radius: 5px;
+    border: 2px solid #07c083;
+}
+.eventLine{
+    border-left: 1px solid #07c083;
+    width: 1px; 
+}
+.eventListContent{
+    width:90%;
+    height:68px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.16);
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.eventContentProfile{
+    width:30%;
+    height:100%;
+}
+.eventContentInfo{
+    width:70%;
+    height:100%;
 }
