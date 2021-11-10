@@ -205,6 +205,19 @@ const EVENT_BTNS = document.querySelectorAll(".eventMenuContentBtn")
     })
   }
 
+  //나중에 정할래요
+  const LOCATION_OPTION_LATER = document.getElementById("locationOption-later");
+  const LOCATION_SELECTED = document.getElementById("locationSelected");
+  let LOCATION_SELECTED_PLACEHOLDER = document.getElementById("locationSelectedPlaceholder");
+  if(LOCATION_OPTION_LATER){
+    LOCATION_OPTION_LATER.addEventListener("click",function(){
+      LOCATION_SELECTED.classList.remove("inactiveBtn");
+      LOCATION_SELECTED.classList.add("greenBorder");
+      LOCATION_SELECTED_PLACEHOLDER.innerHTML = "국제캠퍼스 정문";
+    })
+
+  }
+
   //날짜&시간 동적 배치
   const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
   let now = new Date();

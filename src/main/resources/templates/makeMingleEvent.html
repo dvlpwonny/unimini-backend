@@ -16,7 +16,6 @@
 
     <!-- Content -->
     <div layout:fragment="content">
-
 		<div id="app">
 			<header>
 				<script>loadHTML("./layout/header.html")</script>
@@ -24,6 +23,9 @@
 			<make-mingle class="appContainer" style="overflow-y:auto;">
                 <div class="container padding responsiveApp">
                     <div class="mingleContainer">
+                        <div>
+                            <span class="size12 grey2 weight700" style="margin-right:10px">제목</span>
+                        </div>
                         <input class="green" type="text" placeholder="제목을 입력해주세요">
                         <div id="mingleCategory">
                             <div class="category">취미</div>
@@ -35,10 +37,10 @@
                         </div>
                     </div>
                     <div class="mingleContainer"  id="mingleDate">
-                        <div><span class="size12 weight700 grey2">시간</span></div>
+                        <div><span class="size12 weight700 grey2">날짜</span></div>
                         <div class="d-flex justify-content-between" style="margin: 10px 0px;">
-                            <div class="mingleDate selected">
-                                <span class="size14 weight500">오늘</span>
+                            <div class="mingleDate selected d-flex justify-content-center">
+                                <span class="size14 weight500" style="white-space: nowrap;">오늘</span>
                             </div>
                             <div class="mingleDate notSelected">
                                 <span class="mingleCreateDay" id="day+1"></span>
@@ -68,7 +70,7 @@
                     </div>
                     <div class="mingleContainer" id ="mingleTime">
                         <div>
-                            <span class="text-info text-bold" style="margin-right:10px">장소</span>
+                            <span class="size12 grey2 weight700" style="margin-right:10px">시간</span>
                             <span class="text-info">시작 시간은 현재 시간 30분 이후부터 설정이 가능해요.</span>    
                         </div>
                         <div class="d-flex justify-content-center" style="margin:10px 0px">
@@ -97,12 +99,13 @@
                     </div>
                     <div class="mingleContainer" id="mingleLocation">
                         <div>
-                            <span class="text-info text-bold" style="margin-right:10px">장소</span>
+                            <span class="size12 grey2 weight700" style="margin-right:10px">장소</span>
                             <span class="text-info">미리 설정하는 것을 권장해요.</span>    
                         </div>
                         <div class="d-flex justify-content-center">
-                            <div class="locationSelected inactiveBtn d-flex justify-content-center align-items-center" style="margin:10px 0px">
-                            <span class="size12 weight500" id="locationSelectedPlaceholder">장소명 검색 혹은 핀을 선택해주세요. </span></div>
+                            <div class="inactiveBtn d-flex justify-content-center align-items-center" id="locationSelected" style="margin:10px 0px">
+                                <span class="size12 weight500" id="locationSelectedPlaceholder">장소명 검색 혹은 핀을 선택해주세요. </span>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-between">
                             <div class="locationOption d-flex flex-column justify-content-center align-items-center">
@@ -125,7 +128,7 @@
                     </div>
                     <div class="mingleContainer" id="minglePerson">
                         <div>
-                            <span class="text-info text-bold">인원</span>
+                            <span class="size12 grey2 weight700">인원</span>
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="minglePersonNumberOption">
@@ -151,6 +154,5 @@
                 </div>
         </make-mingle>
 		</div>
-
     </div>
 </html>
