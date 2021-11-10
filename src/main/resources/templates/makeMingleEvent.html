@@ -22,152 +22,134 @@
 				<script>loadHTML("./layout/header.html")</script>
 			</header>
 			<make-mingle class="appContainer" style="overflow-y:auto;">
-			<div class="responsiveApp">
-				<div class="container padding">
-					<div class="mingleContainer">
-						<input class="green" type="text" placeholder="제목을 입력해주세요">
-						<div id="mingleCategory">
-							<div class="category">
-								스터디
-							</div>
-							<div class="category">
-								운동
-							</div>
-							<div class="category">
-								챌린지
-							</div>
-							<div class="category">
-								공연/전시
-							</div>
-							<div class="category">
-								취미
-							</div>
-						</div>
-					</div>
-					<div class="mingleContainer" id="mingleDate">
-						<div>
-							<span class="size12 weight700 grey2">날짜</span>
-						</div>
-						<div class="d-flex justify-content-around" style="margin: 10px 0px;">
-							<div class="mingleDate selected">
-								<span class="size14 weight500" style="white-space: nowrap;">오늘</span>
-							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+1"></span>
-								<span class="mingleCreateDate" id="date+1"></span>
-							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+2"></span>
-								<span class="mingleCreateDate" id="date+2"></span>
-							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+3"></span>
-								<span class="mingleCreateDate" id="date+3"></span>
-							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+4"></span>
-								<span class="mingleCreateDate" id="date+4"></span>
-							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+5"></span>
-								<span class="mingleCreateDate" id="date+5"></span>
-							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+6"></span>
-								<span class="mingleCreateDate" id="date+6"></span>
-							</div>
-						</div>
-					</div>
-					<div class="mingleContainer d-flex align-items-center justify-content-around" id="mingleTime">
-						<div style="width:65px;">
-							<span class="text-info text-bold">시간</span>
-						</div>
-						<div class="timeSet" id="mingleStartTime" style="margin-right:15px;">
-							<span class="timeSetText text-info2">시작</span>
-							<span id="mingleStartTimeHour">12</span>
-							<span class="setTimeColon">:</span>
-							<span id="mingleStartTimeMin">11</span>
-						</div>
-						<div class="timeSet" id="mingleEndTime">
-							<span class="timeSetText text-info2">종료</span>
-							<span id="mingleEndTimeHour">12</span>
-							<span class="setTimeColon">:</span>
-							<span id="mingleEndTimeMin">30</span>
-						</div>
-					</div>
-					<div class="mingleContainer" id="mingleLocation">
-						<div>
-							<span class="text-info text-bold" style="margin-right:10px">장소</span>
-							<span class="text-info">미리 설정하는 것을 권장해요.</span>
-						</div>
-						<div class="d-flex justify-content-center">
-							<div class="locationSelected" style="margin:10px 0px">
-							</div>
-						</div>
-						<div class="d-flex justify-content-around">
-							<div class="locationOption d-flex flex-column justify-content-center align-items-center">
-								<img src="../static/image/search_big.png" alt="" width="18px" height="18px">
-								<div>
-									<span class="text-info2">장소 이름 검색</span>
-								</div>
-							</div>
-							<div class="locationOption d-flex flex-column justify-content-center align-items-center">
-								<img src="../static/image/search_big.png" alt="" width="18px" height="18px">
-								<div>
-									<span class="text-info2">지도에서 핀 선택</span>
-								</div>
-							</div>
-							<div class="locationOption d-flex align-items-center justify-content-center" id="locationOption-later">
-								<span class="text-info2">나중에<br>
-								정할래요</span>
-							</div>
-						</div>
-					</div>
-					<div class="mingleContainer" id="minglePerson">
-						<div>
-							<span class="text-info text-bold">인원</span>
-						</div>
-						<div class="d-flex justify-content-end">
-							<div class="minglePersonNumberOption">
-								<div class="minglePersonNumberOptionText min">
-									<span class="text-info2">최소</span>
-								</div>
-								<div class="minglePersonNumberOptionController">
-									<div class="minglePersonNumberOptionDec min">
-										-
-									</div>
-									<div class="minglePersonNumber min">
-										3
-									</div>
-									<div class="minglePersonNumberOptionInc min">
-										+
-									</div>
-								</div>
-							</div>
-							<div class="minglePersonNumberOption">
-								<div class="minglePersonNumberOptionText max">
-									<span class="text-info2">최대</span>
-								</div>
-								<div class="minglePersonNumberOptionController">
-									<div class="minglePersonNumberOptionDec max">
-										-
-									</div>
-									<div class="minglePersonNumber max">
-										8
-									</div>
-									<div class="minglePersonNumberOptionInc max">
-										+
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="mingleContainer" style="margin-bottom: 100px;">
-						<textarea class="placeholderCenter green" placeholder="진행할 밍글 이벤트에 대해 소개해주세요 &#13;&#10;부적절한 내용은 제한될 수 있어요" style="height:200px"></textarea>
-					</div>
-				</div>
-			</div>
-			</make-mingle>
+                <div class="container padding responsiveApp">
+                    <div class="mingleContainer">
+                        <input class="green" type="text" placeholder="제목을 입력해주세요">
+                        <div id="mingleCategory">
+                            <div class="category">취미</div>
+                            <div class="category">밥/술</div>
+                            <div class="category">운동</div>
+                            <div class="category">게임</div>
+                            <div class="category">공연/전시</div>
+                            <div class="category">공부</div>
+                        </div>
+                    </div>
+                    <div class="mingleContainer"  id="mingleDate">
+                        <div><span class="size12 weight700 grey2">시간</span></div>
+                        <div class="d-flex justify-content-between" style="margin: 10px 0px;">
+                            <div class="mingleDate selected">
+                                <span class="size14 weight500">오늘</span>
+                            </div>
+                            <div class="mingleDate notSelected">
+                                <span class="mingleCreateDay" id="day+1"></span>
+                                <span class="mingleCreateDate" id="date+1"></span>
+                            </div>
+                            <div class="mingleDate notSelected">
+                                <span class="mingleCreateDay" id="day+2"></span>
+                                <span class="mingleCreateDate" id="date+2"></span>
+                            </div>
+                            <div class="mingleDate notSelected">
+                                <span class="mingleCreateDay" id="day+3"></span>
+                                <span class="mingleCreateDate" id="date+3"></span>
+                            </div>
+                            <div class="mingleDate notSelected">
+                                <span class="mingleCreateDay" id="day+4"></span>
+                                <span class="mingleCreateDate" id="date+4"></span>
+                            </div>
+                            <div class="mingleDate notSelected">
+                                <span class="mingleCreateDay" id="day+5"></span>
+                                <span class="mingleCreateDate" id="date+5"></span>
+                            </div>
+                            <div class="mingleDate notSelected">
+                                <span class="mingleCreateDay" id="day+6"></span>
+                                <span class="mingleCreateDate" id="date+6"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mingleContainer" id ="mingleTime">
+                        <div>
+                            <span class="text-info text-bold" style="margin-right:10px">장소</span>
+                            <span class="text-info">시작 시간은 현재 시간 30분 이후부터 설정이 가능해요.</span>    
+                        </div>
+                        <div class="d-flex justify-content-center" style="margin:10px 0px">
+                            <div class="timeSet d-flex justify-content-center align-items-center" id="mingleStartTime" style="margin-right:15px;">
+                                <div style="margin-right:40px">
+                                    <span class="timeSetText text-info2">시작</span>
+                                </div>
+                                <div>
+                                    <span id="mingleStartTimeHour">12</span>
+                                    <span class="setTimeColon">:</span>
+                                    <span id="mingleStartTimeMin">11</span>
+                                </div>
+                            </div>
+                            <div class="timeSet d-flex justify-content-center align-items-center" id="mingleEndTime">
+                                <div style="margin-right:40px">
+                                    <span class="timeSetText text-info2">종료</span>
+                                </div>
+                                <div>
+                                    <span id="mingleEndTimeHour">12</span>
+                                    <span class="setTimeColon">:</span>
+                                    <span id="mingleEndTimeMin">11</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="mingleContainer" id="mingleLocation">
+                        <div>
+                            <span class="text-info text-bold" style="margin-right:10px">장소</span>
+                            <span class="text-info">미리 설정하는 것을 권장해요.</span>    
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="locationSelected inactiveBtn d-flex justify-content-center align-items-center" style="margin:10px 0px">
+                            <span class="size12 weight500" id="locationSelectedPlaceholder">장소명 검색 혹은 핀을 선택해주세요. </span></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="locationOption d-flex flex-column justify-content-center align-items-center">
+                                <img src="../static/image/search_big.png" alt="" width="18px" height="18px">
+                                <div>
+                                    <span class="text-info2">장소 이름 검색</span>
+                                </div>
+                            </div>
+                            <div class="locationOption d-flex flex-column justify-content-center align-items-center">
+                                <img src="../static/image/pin 2.png" alt="" width="18px" height="20px">
+                                <div>
+                                    <span class="text-info2">지도에서 핀 선택</span>
+                                </div>
+                            </div>
+                            <div class="locationOption d-flex align-items-center justify-content-center" id="locationOption-later">
+                                <span class="text-info2">나중에<br>정할래요</span>
+                            </div>
+                     
+                        </div>
+                    </div>
+                    <div class="mingleContainer" id="minglePerson">
+                        <div>
+                            <span class="text-info text-bold">인원</span>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="minglePersonNumberOption">
+                                <div class="minglePersonNumberOptionText min"> <span class="text-info2">최소</span></div>
+                                <div class="minglePersonNumberOptionController">
+                                    <div class="minglePersonNumberOptionDec min inactiveBtn">-</div>
+                                    <div class="minglePersonNumber min">3</div>
+                                    <div class="minglePersonNumberOptionInc min">+</div>
+                                </div>
+                            </div>
+                            <div class="minglePersonNumberOption">
+                                <div class="minglePersonNumberOptionText max"> <span class="text-info2">최대</span> </div>    
+                                <div class="minglePersonNumberOptionController">
+                                    <div class="minglePersonNumberOptionDec max">-</div>
+                                    <div class="minglePersonNumber max">10</div>
+                                    <div class="minglePersonNumberOptionInc max inactiveBtn">+</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mingleContainer" style="height:300px">
+                         <textarea class="placeholderCenter green" placeholder="진행할 밍글 이벤트에 대해 소개해주세요 &#13;&#10;부적절한 내용은 제한될 수 있어요" style="height:200px"></textarea>
+                    </div>
+                </div>
+        </make-mingle>
 		</div>
 
     </div>

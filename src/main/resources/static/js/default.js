@@ -86,6 +86,25 @@ const EVENT_BTNS = document.querySelectorAll(".eventMenuContentBtn")
 //7. 이벤트 상세 페이지 - 유저
 
 //8. 전체 밍글리스트
+  //캘린더 라디오 버튼
+  var today = new Date();
+  const CALENDAR_DATES = document.querySelectorAll(".calendarDate");
+    CALENDAR_DATES.forEach(function(date, index){
+      date.addEventListener('click',event=>{
+        date.classList.add("selected");
+        CALENDAR_DATES.forEach(otherDate=>{
+          if(otherDate!=date){
+            otherDate.classList.remove("selected");
+          }
+        })
+      })
+      if(date.childNodes[3].innerHTML==today.getDate()) {
+        date.childNodes[3].innerHTML="오늘";
+        date.childNodes[3].id="today";
+      }
+    })
+
+
 
 //9. 내 참여리스트
 
@@ -119,8 +138,6 @@ const EVENT_BTNS = document.querySelectorAll(".eventMenuContentBtn")
   })
 
   //인원 최대 & 최소
-  /*
-
   var minNum = document.getElementsByClassName("minglePersonNumber")[0].innerText;
   var maxNum = document.getElementsByClassName("minglePersonNumber")[1].innerText;
 
@@ -131,37 +148,63 @@ const EVENT_BTNS = document.querySelectorAll(".eventMenuContentBtn")
   const MIN_INC_BTN = document.getElementsByClassName("minglePersonNumberOptionInc")[0];
   const MAX_INC_BTN = document.getElementsByClassName("minglePersonNumberOptionInc")[1];
 
-  MIN_DEC_BTN.addEventListener("click",function(){
+  if(MIN_DEC_BTN){
+    MIN_DEC_BTN.addEventListener("click",function(){
       if(minNum>3){
           minNum--;
           MIN_NUM.innerHTML = minNum;
+          if(minNum<10){
+            MIN_INC_BTN.classList.remove("inactiveBtn");
+          }
       }
-  })
-  MIN_DEC_BTN.addEventListener(
-      function(){minNum==3},
-      function(){
-          this.classList.add("disabled");
-  })
-  MIN_INC_BTN.addEventListener("click",function(){
+      if(minNum<=3){
+        MIN_DEC_BTN.classList.add("inactiveBtn");
+      }
+    });
+  }
+  if(MIN_INC_BTN){
+    MIN_INC_BTN.addEventListener("click",function(){
       if(minNum<10){
           minNum++;
           MIN_NUM.innerHTML = minNum;
+          if(minNum>3){
+            MIN_DEC_BTN.classList.remove("inactiveBtn");
+          }
       }
-  })
-  MAX_DEC_BTN.addEventListener("click",function(){
+      if(minNum>=10){
+        MIN_INC_BTN.classList.add("inactiveBtn");
+      }
+    })
+  }
+  if(MAX_DEC_BTN){
+    MAX_DEC_BTN.addEventListener("click",function(){
       if(maxNum>3){
           maxNum--;
           MAX_NUM.innerHTML = maxNum;
+          if(maxNum<10){
+            MAX_INC_BTN.classList.remove("inactiveBtn");
+          }
       }
-  })
-  MAX_INC_BTN.addEventListener("click",function(){
+      if(maxNum<=3){
+        MAX_DEC_BTN.classList.add("inactiveBtn");
+      }
+    });
+  }
+  if(MAX_INC_BTN){
+    MAX_INC_BTN.addEventListener("click",function(){
       if(maxNum<10){
           maxNum++;
           MAX_NUM.innerHTML = maxNum;
+          if(maxNum>3){
+            MAX_DEC_BTN.classList.remove("inactiveBtn");
+          }
       }
-  })
+      if(maxNum>=10){
+        MAX_INC_BTN.classList.add("inactiveBtn");
+      }
+    })
+  }
 
-*/
   //날짜&시간 동적 배치
   const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
   let now = new Date();
@@ -171,6 +214,7 @@ const EVENT_BTNS = document.querySelectorAll(".eventMenuContentBtn")
   let tomorrow4 = new Date();
   let tomorrow5 = new Date();
   let tomorrow6 = new Date();
+  now.setDate(new Date().getDate());
   tomorrow.setDate(new Date().getDate() + 1);
   tomorrow2.setDate(new Date().getDate() + 2);
   tomorrow3.setDate(new Date().getDate() + 3);
@@ -191,18 +235,19 @@ const EVENT_BTNS = document.querySelectorAll(".eventMenuContentBtn")
   if(MINGLE_START_TIME_MIN) MINGLE_START_TIME_MIN.innerHTML = nowMin;
   if(MINGLE_END_TIME_HOUR) MINGLE_END_TIME_HOUR.innerHTML = nextHour;
   if(MINGLE_END_TIME_MIN) MINGLE_END_TIME_MIN.innerHTML = nowMin;
+  if(document.getElementById("day+0")) document.getElementById("day+0").innerHTML = WEEKDAY[now.getDay()];
   if(document.getElementById("day+1")) document.getElementById("day+1").innerHTML = WEEKDAY[tomorrow.getDay()];
   if(document.getElementById("day+2")) document.getElementById("day+2").innerHTML = WEEKDAY[tomorrow2.getDay()];
   if(document.getElementById("day+3")) document.getElementById("day+3").innerHTML = WEEKDAY[tomorrow3.getDay()];
   if(document.getElementById("day+4")) document.getElementById("day+4").innerHTML = WEEKDAY[tomorrow4.getDay()];
   if(document.getElementById("day+5")) document.getElementById("day+5").innerHTML = WEEKDAY[tomorrow5.getDay()];
   if(document.getElementById("day+6")) document.getElementById("day+6").innerHTML = WEEKDAY[tomorrow6.getDay()];
-  if(document.getElementById("day+1")) document.getElementById("day+1").innerHTML = tomorrow.getDate();
-  if(document.getElementById("day+2")) document.getElementById("day+2").innerHTML = tomorrow2.getDate();
-  if(document.getElementById("day+3")) document.getElementById("day+3").innerHTML = tomorrow3.getDate();
-  if(document.getElementById("day+4")) document.getElementById("day+4").innerHTML = tomorrow4.getDate();
-  if(document.getElementById("day+5")) document.getElementById("day+5").innerHTML = tomorrow5.getDate();
-  if(document.getElementById("day+6")) document.getElementById("day+6").innerHTML = tomorrow6.getDate();
+  if(document.getElementById("date+1")) document.getElementById("date+1").innerHTML = tomorrow.getDate();
+  if(document.getElementById("date+2")) document.getElementById("date+2").innerHTML = tomorrow2.getDate();
+  if(document.getElementById("date+3")) document.getElementById("date+3").innerHTML = tomorrow3.getDate();
+  if(document.getElementById("date+4")) document.getElementById("date+4").innerHTML = tomorrow4.getDate();
+  if(document.getElementById("date+5")) document.getElementById("date+5").innerHTML = tomorrow5.getDate();
+  if(document.getElementById("date+6")) document.getElementById("date+6").innerHTML = tomorrow6.getDate();
 
 
 //12. 마이페이지
