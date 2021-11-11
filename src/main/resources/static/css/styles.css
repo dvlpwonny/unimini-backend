@@ -317,35 +317,10 @@ textarea::placeholder{
 }
 
 .timeSet{
-    width: 130px;
+    width: 100%;
     height: 44px;  
     border-radius: 15px;
     background-color: #f6f1e9;
-}
-
-.timeSetText{
-    position: relative;
-    top:15px;
-    left:13px;
-}
-
-.setTimeColon{
-    position: relative;
-    top:15px;
-    left:47px;
-}
-
-#mingleStartTimeHour,
-#mingleEndTimeHour{
-    position: relative;
-    top:15px;
-    left:50px;
-}
-#mingleStartTimeMin,
-#mingleEndTimeMin{
-    position: relative;
-    top:15px;
-    left:43px;
 }
 
 #mingleStartTimeHour,#mingleStartTimeMin,
@@ -372,14 +347,14 @@ textarea::placeholder{
     margin-top:6px;
 }
 .locationSelected{
-    width:350px;
+    width:100%;
     height:40px;
     background-color: #f6f1e9;
     border-radius: 15px;
 }
 
 .locationOption{
-    width:120px;
+    width:35%;
     height:66px;
     border-radius: 15px;
     background-color: #f6f1e9;
@@ -389,7 +364,7 @@ textarea::placeholder{
     margin-top:10px;
 }
 #locationOption-later{
-    width:80px;
+    width:25%;
 }
 #locationOption-later span{
     top:19px;
