@@ -105,6 +105,9 @@
     background-color: #e5e0d9 !important;
     color : #c4c0ba !important;
 }
+.greenBorder{
+    border: 1px solid #07c083; 
+}
 
 
 /*헤더*/
@@ -277,7 +280,9 @@ span.underline{
     text-decoration: underline;
     text-underline-offset: 1px;
 }
-
+span.lineheight{
+    line-height: 130%;
+}
 span.padding{
     padding: 5px;
 }

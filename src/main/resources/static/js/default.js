@@ -103,6 +103,14 @@ const EVENT_BTNS = document.querySelectorAll(".eventMenuContentBtn")
         date.childNodes[3].id="today";
       }
     })
+  
+  //이벤트 라인
+  const EVENTS = document.getElementsByClassName("eventListContent");
+  if(EVENTS){
+    var eventLineHeight = EVENTS.length * 77;
+    console.log(eventLineHeight);
+    $('#eventLine').css('height', String(eventLineHeight)+"px");
+  }
 
 
 
@@ -138,9 +146,6 @@ const EVENT_BTNS = document.querySelectorAll(".eventMenuContentBtn")
   })
 
   //인원 최대 & 최소
-  var minNum = document.getElementsByClassName("minglePersonNumber")[0].innerText;
-  var maxNum = document.getElementsByClassName("minglePersonNumber")[1].innerText;
-
   const MIN_NUM = document.getElementsByClassName("minglePersonNumber")[0];
   const MAX_NUM = document.getElementsByClassName("minglePersonNumber")[1];
   const MIN_DEC_BTN = document.getElementsByClassName("minglePersonNumberOptionDec")[0];
@@ -148,6 +153,12 @@ const EVENT_BTNS = document.querySelectorAll(".eventMenuContentBtn")
   const MIN_INC_BTN = document.getElementsByClassName("minglePersonNumberOptionInc")[0];
   const MAX_INC_BTN = document.getElementsByClassName("minglePersonNumberOptionInc")[1];
 
+  if(MIN_NUM){
+    var minNum = MIN_NUM.innerText;
+  }
+  if(MAX_NUM){
+    var maxNum = MAX_NUM.innerText;
+  }
   if(MIN_DEC_BTN){
     MIN_DEC_BTN.addEventListener("click",function(){
       if(minNum>3){
