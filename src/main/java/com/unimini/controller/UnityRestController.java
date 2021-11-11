@@ -82,6 +82,20 @@ public class UnityRestController {
 
 
     /*
+     * 밍글리스트
+     */
+    @RequestMapping(value = "/unity/getUnizoneList", method = {RequestMethod.GET, RequestMethod.POST})
+    @ApiOperation(value = "유니존리스트", notes = "핀 클릭시 노출되는 유니존리스트")
+    public ResponseEntity getUnizoneList() {
+        List<Map<String, String>> categoryList = unityService.getUnizoneList();
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", categoryList);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
+    /*
      * 좋아요 리스트
      */
     @RequestMapping(value = "/unity/getLikeEventList", method = {RequestMethod.GET, RequestMethod.POST})

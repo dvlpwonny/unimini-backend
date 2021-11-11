@@ -96,6 +96,47 @@
         FROM TB_EVENT A
         WHERE A.SECTION_CODE = #{sectionCode}
           AND (A.EVENT_STATUS_CODE = 'EVTSTS001' OR A.EVENT_STATUS_CODE = 'EVTSTS001')
+          AND EVENT_TYPE_CODE = 'EVT001'
+    </select>
+
+    <!-- 유니존 리스트 -->
+    <select id="getUnizoneList" resultType="uniMap" parameterType="map">
+        SELECT
+            EVENT_CODE
+            , EVENT_NAME
+            , SECTION_CODE
+            , BUILDING_CODE
+            , CASE
+                WHEN PLACE_CODE = 'PLCE000170'
+                    THEN '차츰 (영통구 청명북로7번길 13)'
+                WHEN PLACE_CODE = 'PLCE000179'
+                    THEN '나니아루프탑 파티룸 (영통구 반달로 32-1 5층)'
+                WHEN PLACE_CODE = 'PLCE000144'
+                    THEN '나니아라운지 파티룸\n(영통구 반달로35번길 19 지하1층 101호)'
+                WHEN PLACE_CODE = 'PLCE000013'
+                    THEN '****도예공방 라온제나*****\n(영통구 청명남로 54 이호빌딩 지하1층)'
+                WHEN PLACE_CODE = 'PLCE000036'
+                    THEN '외국어대학 달콤커피'
+                    ELSE ''
+                END AS PLACE_NAME
+            , EVENT_START_TIME
+            , EVENT_END_TIME
+            , MINIMUM_PRSNNL AS TOT_PRSNNL
+            , UNIZONE_HOST_NAME
+            , UNIZONE_FEE
+            , CONVERT(DETAIL_INFO USING utf8) AS DETAIL_INFO
+            , (
+                SELECT
+                    COUNT(*)
+                FROM TB_EVENT_USER_MAPP_GROUP B
+                WHERE A.EVENT_CODE = B.EVENT_CODE
+                 AND B.USER_STATUS_CODE = 'EVTUSRST003'
+            ) AS REAL_PRSNNL -- 실참가자
+            , DATE_fORMAT(EVENT_START_TIME, '%H:%i') AS EVENT_START_TIME
+            , DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
+        FROM TB_EVENT A
+        WHERE (EVENT_STATUS_CODE = 'EVTSTS001' OR EVENT_STATUS_CODE = 'EVTSTS002')
+        AND EVENT_TYPE_CODE = 'EVT002'
     </select>
 
     <!-- 좋아요 리스트 -->
