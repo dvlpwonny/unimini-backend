@@ -30,186 +30,177 @@
             <div class="stage now"></div>
             <div class="stage"></div>
             <div class="stage"></div>
-        </div>
-        <!--첫번째 회원가입 페이지-->
-        <signup_1 class="appContainer signup" id="signupFirstStage">
-            <div class="container padding responsiveApp" style="height:58%">
-                <div class="form column">
-                    <form>
-                        <div class="formTitle">아이디</div>
-                        <div class="formContent">
-                            <div><input name="userId" type="text" placeholder="학교 이메일 입력" onchange="checkEmail()">
-                            </div>
-                            <div><span class="size15 weight400">@khu.ac.kr</span></div>
-                        </div>
-                    </form>
+          </div>
+          <!--첫번째 회원가입 페이지-->
+          <signup_1 class="appContainer signup inactive" id="signupFirstStage">
+              <div class="container padding responsiveApp" style="height:58%">
+                <div class="form column" id="id">
+                  <form name="FORM_ID">
+                    <div class="formTitle">아이디</div>
+                    <div class="formContent" id="id">
+                      <div><input name="email-signup" type="text" id="email-signup" placeholder="학교 도메인 이메일 입력" onchange=""></div>
+                      <div><span class="size15 weight400">@khu.ac.kr</span></div>
+                    </div>
+                  </form>
+                  <form class="form column inactive" id="idValidation">
+                    <div class="formTitle">인증번호</div>
+                    <div class="formContent" id="idValidation">
+                      <div style="width:100%;"><input type="number" placeholder="인증번호 입력"></div>
+                    </div>
+                  </form>
                 </div>
-            </div>
-            <div class="container padding responsiveApp" style="height:30%">
+              </div>
+              <div class="container padding responsiveApp" style="height:30%">
                 <div class="contraction">
-                    <hr>
+                  <hr>
                     <div class="form-check d-flex align-items-center justify-content-between">
-                        <input onclick="checkAllTerms(this)" class="form-check-input" type="checkbox" value=""
-                               id="checkAllTerms" required>
-                        <label class="form-check-label" for="checkAllTerms">
-                            <span class="size14 weight600" style="margin-left: 50px; margin-top:2px;">전체 약관 동의</span>
-                        </label>
-                        <a onclick="extendTermForm()">
-                            <div>
-                                <img id="validationExtend" th:src="@{/static/image/expandMore.png}" alt="" width="24px;">
-                            </div>
-                        </a>
-                    </div>
-                    <hr>
-                    <div class="inactive" id="termForm">
-                        <div class="term form-check d-flex align-items-center justify-content-between">
-                            <input class="form-check-input" type="checkbox" value="" id="checkServiceTerm" required>
-                            <label class="form-check-label" for="checkServiceTerm">
-                                <span class="size14 weight400" style="margin-left: 50px; margin-top:2px;">(필수) 서비스 이용약관 동의</span>
-                            </label>
-                            <div>
-                                <span onclick="openTerm(this)" class="size13 underline weight400">보기</span>
-                            </div>
-                        </div>
-                        <div class="term form-check d-flex align-items-center justify-content-between">
-                            <input class="form-check-input" type="checkbox" value="" id="CheckPersonalInfo" required>
-                            <label class="form-check-label" for="CheckPersonalInfo">
-                                <span class="size14 weight400"
-                                      style="margin-left: 50px; margin-top:2px;">(필수) 개인정보 동의</span>
-                            </label>
-                            <div>
-                                <span onclick="openTerm(this)" class="size13 underline weight400">보기</span>
-                            </div>
-                        </div>
-                        <div class="term form-check d-flex align-items-center justify-content-between">
-                            <input class="form-check-input" type="checkbox" value="" id="CheckMarketingPush" required>
-                            <label class="form-check-label" for="CheckMarketingPush">
-                                <span class="size14 weight400"
-                                      style="margin-left: 50px; margin-top:2px;">(선택) 이벤트 소식 알림</span>
-                            </label>
-                            <div>
-                                <span onclick="openTerm(this)" class="size13 underline weight400">보기</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container padding next responsiveApp">
-                <button onclick="toSecondStage()">다음</button>
-            </div>
-        </signup_1>
-        <signup_2 class="appContainer signup inactive" id="signupSecondStage">
-            <div class="container padding responsiveApp">
-                <div class="form column">
-                    <form>
-                        <div class="formTitle">
-                            <span>비밀번호</span>
-                            <span class="size12 grey3 weight500" style="float:right; margin-right:10px;">영문, 숫자, 특수문자가 조합된 8-15자</span>
-                        </div>
+                      <input onclick="checkAllTerms(this)" class="form-check-input" type="checkbox" value="" id="checkAllTerms" required>
+                      <label class="form-check-label" for="checkAllTerms">
+                        <span class="size14 weight600" style="margin-left: 50px; margin-top:2px;">전체 약관 동의</span>
+                      </label>
+                      <a onclick="extendTermForm()">
                         <div>
-                            <input onkeyup="checkPassword(this)"
-                                   required id="password"
-                                   type="password" name="password" placeholder="새 비밀번호" style="margin-bottom: 0px;">
-                            <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">규칙에 맞는 비밀번호를 입력해주세요.</span>
+                          <img id="validationExtend" src="../static/image/expandMore.png" alt="" width="24px;">
                         </div>
-                        <div class="validation-feedback"></div>
-                    </form>
-                </div>
-                <div>
-                    <div class="formTitle">비밀번호 확인</div>
-                    <div>
-                        <input onkeyup="doubleCheckPassword(this)"
-                               required
-                               type="password" name="confirmPassword" placeholder="새 비밀번호 확인" style="margin-top:10px; margin-bottom: 0px;">
-                        <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">비밀번호가 일치하지않습니다.</span>
+                      </a>
                     </div>
+                  <hr>
+                  <div class="inactive" id="termForm">
+                    <div class="term form-check d-flex align-items-center justify-content-between">
+                      <input class="form-check-input" type="checkbox" value="" id="checkServiceTerm" required>
+                      <label class="form-check-label" for="checkServiceTerm">
+                        <span class="size14 weight400" style="margin-left: 50px; margin-top:2px;">(필수) 서비스 이용약관 동의</span>
+                      </label>
+                      <div>
+                        <span onclick="openTerm(this)" class="size13 underline weight400">보기</span>
+                      </div>
+                    </div>
+                    <div class="term form-check d-flex align-items-center justify-content-between">
+                      <input class="form-check-input" type="checkbox" value="" id="checkPersonalInfo" required>
+                      <label class="form-check-label" for="checkPersonalInfo">
+                        <span class="size14 weight400" style="margin-left: 50px; margin-top:2px;">(필수) 개인정보 동의</span>
+                      </label>
+                      <div>
+                        <span onclick="openTerm(this)" class="size13 underline weight400">보기</span>
+                      </div>
+                    </div>
+                    <div class="term form-check d-flex align-items-center justify-content-between">
+                      <input class="form-check-input" type="checkbox" value="" id="checkMarketingPush">
+                      <label class="form-check-label" for="checkMarketingPush">
+                        <span class="size14 weight400" style="margin-left: 50px; margin-top:2px;">(선택) 마케팅 수신 동의</span>
+                      </label>
+                      <div>
+                        <span onclick="openTerm(this)" class="size13 underline weight400">보기</span>  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container padding next responsiveApp">
+                <button disabled id="toSignUpSecondStage" onclick="toSecondStage()">다음</button>
+              </div>
+          </signup_1>
+          <signup_2 class="appContainer signup inactive" id="signupSecondStage">
+            <div class="container padding responsiveApp">
+              <div class="form column" >
+                <form name="FORM_PASSWORD">
+                  <div class="formTitle">
+                    <span>비밀번호</span>
+                    <span class="size12 grey3 weight500" style="float:right; margin-right:10px;">영문, 숫자, 특수문자가 조합된 8-15자</span>
+                  </div>
+                  <div >
+                    <input required id="password-signup" name="password-signup" type="password" placeholder="새 비밀번호" style="margin-bottom: 0px;">
+                    <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">규칙에 맞는 비밀번호를 입력해주세요.</span>  
+                  </div>
+                  <div class="validation-feedback"></div>
+                </form>
+              </div>
+                <div>
+                  <div class="formTitle">비밀번호 확인</div>
+                  <div>
+                    <input required id="password-double-signup" name="password-double-signup" type="password" placeholder="새 비밀번호 확인" style="margin-top:10px; margin-bottom: 0px;">
+                        <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">비밀번호가 일치하지않습니다.</span>
+                  </div>
                 </div>
                 <div style="margin-top:80px">
-                    <div class="d-flex align-items-center" style="margin:15px 0px;">
-                        <div class="formTitle" style="width:100px; margin:0px;">이름</div>
-                        <div style="width:100%;">
-                            <input name="userName" onkeyup="checkEmpty(this)" type="text" placeholder="이름 입력"
-                                   style="margin:0px;">
-                            <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">1자 이상 입력해주세요.</span>
-                        </div>
+                  <div class="d-flex align-items-center" style="margin:15px 0px;">
+                    <div class="formTitle" style="width:100px; margin:0px;">이름</div>
+                    <div id="name" style="width:100%;">
+                      <input name="name-signup" id="name-signup" type="text" placeholder="이름 입력" style="margin:0px;">
+                      <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">1자 이상 입력해주세요.</span>
                     </div>
-                    <div class="d-flex align-items-center" id="phone" style="margin:15px 0px;">
-                        <div class="formTitle" style="width:100px; margin:0px;">휴대폰 번호</div>
-                        <div style="width:100%;">
-                            <input name="moblieNo" onkeyup="checkPhone(this)" type="text" placeholder="휴대폰 번호 입력"
-                                   style="margin:0px;">
-                            <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">전화번호를 알맞게 입력해주세요.</span>
-                        </div>
+                  </div>
+                  <div class="d-flex align-items-center" style="margin:15px 0px;">
+                    <div class="formTitle" style="width:100px; margin:0px;">휴대폰 번호</div>
+                    <div id="name" style="width:100%;">
+                      <input name="phone-signup" id="phone-signup" type="text" placeholder="휴대폰 번호 입력" style="margin:0px;">
+                      <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">전화번호를 알맞게 입력해주세요.</span>
                     </div>
+                  </div>
                 </div>
-
+                
             </div>
             <div class="container padding next responsiveApp">
-                <button class="btnSubmit" onclick="toThirdStage()">다음</button>
+              <button disabled id="toSignUpThirdStage" onclick="toThirdStage()">다음</button>
             </div>
-        </signup_2>
-        <signup_3 class="appContainer signup inactive" id="signupThirdStage">
+          </signup_2>
+          <signup_3 class="appContainer signup" id="signupThirdStage">
             <div class="container padding responsiveApp">
-                <div class="form flexRow">
-                    <div class="formTitle" style="width:80px">닉네임</div>
-                    <div class="formContent">
-                        <input name="nickname" onkeyup="checkNickname()" type="text" placeholder="닉네임 입력">
-                    </div>
+              <div class="d-flex align-items-start" id="nickname" style="margin: 25px 0px;">
+                <div class="formTitle" style="width:80px; margin:12px 0px 0px 0px;">닉네임</div>
+                <div id="nickname" style="width:100%">
+                  <input name="nickname-signup" id="nickname-signup" type="text" placeholder="닉네임 입력" style="margin:0px;">
+                  <span id="nicknameError" class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">한자리 이상의 닉네임을 입력해주세요.</span>
                 </div>
-                <div class="form flexRow">
-                    <div class="formTitle" style="width:80px">성별</div>
-                    <div class="formContent">
-                        <div style="width:50%; display: flex;">
-                            <input class="form-check-input" type="radio" name="genderCode" id="male"
-                                   value="GEN001">
-                            <label class="form-check-label text-title" for="male"
-                                   style="margin-top:5px; white-space: nowrap;"><span>남자</span></label>
-                        </div>
-                        <div style="width:50%; display:flex">
-                            <input class="form-check-input" type="radio" name="genderCode" id="female"
-                                   value="GEN002">
-                            <label class="form-check-label text-title" for="female"
-                                   style="margin-top:5px; white-space: nowrap;"><span>여자</span></label>
-                        </div>
-                    </div>
+              </div>
+              <div class="d-flex align-items-center" id="gender" style="margin: 25px 0px;">
+                <div class="formTitle" style="width:80px; margin:5px 0px 0px 0px;">성별</div>
+                <div class="formContent" id="gender">
+                  <div style="width:50%; display: flex;">
+                    <input class="form-check-input gender-signup" type="radio" name="inlineRadioOptions" id="male" value="option1">
+                    <label class="form-check-label text-title" for="male" style="margin-top:5px; white-space: nowrap;"><span>남자</span></label>
+                  </div>
+                  <div style="width:50%; display:flex">
+                    <input class="form-check-input gender-signup" type="radio" name="inlineRadioOptions" id="female" value="option2">
+                    <label class="form-check-label text-title" for="female" style="margin-top:5px; white-space: nowrap;"><span>여자</span></label>
+                  </div>
                 </div>
-                <div class="form flexRow">
-                    <div class="formTitle" style="width:80px">학번</div>
-                    <div class="formContent">
-                        <input name="uniNum" type="text"
-                               placeholder="학번 입력 (숫자 10자리)">
-                    </div>
+              </div>
+              <div class="d-flex align-items-start" id="studentId" style="margin: 25px 0px;">
+                <div class="formTitle" style="width:80px; margin:12px 0px 0px 0px;">학번</div>
+                <div id="studentId" style="width:100%">
+                  <input name="studentId-signup" id="studentId-signup" type="number" placeholder="학번 입력 (숫자 10자리)" style="margin:0px;">
+                  <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">학번을 알맞게 입력해주세요.</span>
                 </div>
-                <div class="form column">
-                    <div class="formTitle">학과</div>
-                    <div class="formContent">
-                        <input name="uniCode" type="hidden"/>
-                        <input name="campusCode" type="hidden"/>
-                        <input name="collegeCode" type="hidden"/>
-                        <input name="majorCode" type="text" id="major" placeholder="학과를 선택해주세요">
-                    </div>
+              </div>
+              <div class="form column" id="major" style="margin: 25px 0px;">
+                <div class="formTitle">학과</div>
+                <div class="formContent" id="major">
+                  <input name="major-signup" id="major-signup" type="text" name="major" id="major" placeholder="학과를 선택해주세요">
                 </div>
+              </div>
             </div>
             <div class="container padding done">
-                <button>회원가입 완료</button>
+              <button disabled id="toFinishSignUp" >회원가입 완료</button>
             </div>
-        </signup_3>
-
-        <div id="popup" class="inactive">
+          </signup_3>
+      
+          <div id="popup" class="inactive">
             <div class="box" id="term">
-                <div class="boxMenu d-flex justify-content-between align-items-center">
-                    <span class="size14 weight400" id="termName"></span>
-                    <span onclick="closeTerm()">
-		                <img th:src="@{/static/image/close2.png}" alt="">
-		            </span>
-                </div>
-                <div class="boxContent wide">
-
-                </div>
-            </div>
+              <div class="boxMenu d-flex justify-content-between align-items-center">
+                  <span class="size14 weight400" id="termName"></span>
+                  <span onclick="closeTerm()">
+                      <img src="../static/image/close 2.png" alt="">
+                  </span>
+              </div>
+              <div class="boxContent wide">
+      
+              </div>
+          </div>
+          </div>
         </div>
+        
     </div>
-
 
 </div>
 </html>

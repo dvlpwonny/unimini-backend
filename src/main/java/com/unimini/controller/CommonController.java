@@ -1,11 +1,11 @@
 package com.unimini.controller;
 
-import com.unimini.vo.UserInfo;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
 
 @Controller
 public class CommonController {
@@ -21,8 +21,8 @@ public class CommonController {
     }
     
     @PostMapping(value = "/uniMap")
-    public ModelAndView uniMap(ModelAndView mav, Authentication authentication) {
-        UserInfo userInfo = (UserInfo) authentication.getPrincipal();
+    public ModelAndView uniMap(Map<String, String> userInfo) {
+        ModelAndView mav = new ModelAndView("uniMap");
         mav.addObject("userInfo", userInfo);
 
         mav.setViewName("uniMap");
