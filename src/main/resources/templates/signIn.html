@@ -13,7 +13,66 @@
     <th:block layout:fragment="script">
 		<script th:src="@{/static/js/load_html.js}"></script>
 		<script th:src="@{/static/js/default.js}"></script>
-		<script th:src="@{/static/js/validation.js}"></script>				
+		<script th:src="@{/static/js/validation.js}"></script>
+		<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+		<script>
+			$(function(){
+				$('#login_submit_btn').click(function () {
+					signIn();
+				});
+			}());
+
+			function signInValidation() {
+
+			}
+
+			function signIn() {
+
+				$('input[name=username]').val($('#userId').val() + $('#uniDomain').text());
+
+				$.ajax({
+					url: '/signIn/signIn',
+					type: "POST",
+					data: $('#needs-validation').serialize(),
+					dataType : 'json',
+					contentType: "application/x-www-form-urlencoded; charset=utf-8",
+					cache :  false,
+					beforeSend : function(xhr)
+					{
+					},
+					success: function(__data, __textStatus, __jqXHR){
+						if (__data.code != null ) {
+							alert(__data.message);
+							return;
+						}
+						var userCode = __data.userCode;
+						var userId = __data.userId;
+
+						// todo 앱 함수 호출로 변경
+						$('#userForm input[name=userCode]').val(userCode);
+						$('#userForm input[name=userId]').val(userId);
+
+						$('#userForm').attr('method', 'post').attr('action', '/uniMap').submit();
+						//////////////////////////
+
+					},
+					fail: function(__data, __textStatus, __jqXHR){
+						console.log("data", __data);
+					},
+					error: function(__data, __textStatus, __jqXHR){
+						if (__data.responseJSON.code == 1) {
+							$('#errorText').text("아이디와 비밀번호가 일치하지 않습니다.");
+						} else if (__data.responseJSON.code == 2) {
+							$('#errorText').text("계정이 존재하지 않습니다.");
+						}
+						$('#errorText').show();
+						checkPassword($('#password'));
+					},
+					complete: function(__data, __textStatus, __jqXHR) {
+					}
+				});
+			}
+		</script>
     </th:block>
 
     <!-- Content -->
@@ -33,24 +92,28 @@
 	                        <div class="d-flex align-items-center" style="width:100%;">
 	                            <input type="text" placeholder="이메일" id="userId" style="width:100%;margin:7px 0px;">
 	                            <span class="weight600" id="uniDomain" style="margin:8px;">@khu.ac.kr</span>
+								<input type="hidden" name="username" />
 	                        </div>
-	                        <div style="width:100%">
+							<div style="width:100%">
+								<input required type="password" name="password" id="password" placeholder="비밀번호" style="width:100%; margin:7px 0px">
+								<span class="validation-feedback size12 pink weight400 inactive" id="errorText" style="margin-left:8px; display: none;">아이디와 비밀번호가 일치하지 않습니다.</span>
+							</div>
+	                        <!--<div style="width:100%">
 	                            <input onkeyup="checkPassword(this)"
-	                            required id="password"
+	                            required id="password" name="password"
 	                            type="password" placeholder="새 비밀번호" style="margin-bottom: 0px;">
 	                            <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">8자리 이상 입력해주세요.</span>
-	        
-	                        </div>
+	                        </div>-->
 	                    </div>
 	                    <div class="d-flex justify-content-center">
-	                        <button type="button">로그인</button>
+	                        <button type="button" id="login_submit_btn">로그인</button>
 	                    </div>
 	                </form>
 	                <div style="height:29%;">
 	                    <div class="d-flex justify-content-center align-items-center" style="height:auto; margin-top:20%;">
 	                        <div><span class="weight600 size12">아직 계정이 없으신가요?</span></div>
 	                        <div class="d-flex align-items-center">
-	                            <a href="signUp.html" style="margin-left:10px"><span class="weight600 size12">회원가입하기</span></a>
+	                            <a th:href="@{/signUp/signUpForm}" style="margin-left:10px"><span class="weight600 size12">회원가입하기</span></a>
 	                            <a href="findPassword.html" style="margin-left:10px;"><span class="weight600 size12">비밀번호 찾기</span></a>
 	                        </div>
 	                    </div>

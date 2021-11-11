@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unimini.mapper.UserMapper">
+    <!-- 로그인 -->
+    <select id="findUserByEmail" resultType="com.unimini.vo.User" parameterType="com.unimini.vo.User">
+        SELECT
+            USER_CODE
+            , USER_ID
+            , USER_AUTH
+            , PASSWORD
+        FROM TB_USER
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <!-- 회원가입 -->
+    <insert id="createUserInfo">
+        INSERT INTO TB_USER
+        (
+            USER_ID
+            , USER_NAME
+            , NICKNAME
+            , PASSWORD
+            , UNI_NUMBER
+            , UNI_CODE
+            , CAMPUS_CODE
+            , COLLEGE_CODE
+            , MAJOR_CODE
+            , PROFILE_IMAGE_CODE
+            , GENDER_CODE
+            , MOBILE_NO
+        )
+        VALUES (
+            'admin_test@khu.ac.kr'
+            , '사용자'
+            , '개발하는거북이'
+            , 'cb6d5af95641916c26c493c4f4de656d4cbcc4103d4208f08addb36ebf84a2ea6b466bad00857ee5aeeb8bb41865f97ceab361a4d348b48db3ab3c59b2e0608e'
+            , 20207894444
+            , 'UNI000001',	'CAM000001', 'COL000001', 'MAJ000007', 1, 'GEN002', '01022223333');
+    </insert>
+</mapper>

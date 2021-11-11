@@ -25,6 +25,7 @@ public class CommonController {
         ModelAndView mav = new ModelAndView("uniMap");
         mav.addObject("userInfo", userInfo);
 
+        mav.setViewName("uniMap");
         return mav;
     }
 
