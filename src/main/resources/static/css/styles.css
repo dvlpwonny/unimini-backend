@@ -677,6 +677,22 @@ textarea::placeholder{
 .chattingUserName{
     margin: 4px;
 }
+.openChattingUserContent{
+    background-color: #eee9e2;
+    padding: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    max-width: 200px;
+}
+.openChattingMyContent{
+    background-color: #ccc8c2;
+    padding: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    max-width: 200px;
+}
 .chattingUserContent{
     background-color: #cdefdc;
     padding: 10px;
@@ -692,6 +708,16 @@ textarea::placeholder{
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     max-width: 200px;
+}
+#dropdown-menu{
+    position: fixed;
+    width:100px;
+    height:80px;
+    background-color: #eee9e2;
+    padding: 10px;
+    border-radius: 10px;
+    right: 20px;
+    top:100px;
 }
 
 
