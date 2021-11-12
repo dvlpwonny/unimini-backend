@@ -20,22 +20,22 @@
     </th:block>
 
     <!-- Content -->
-    <div layout:fragment="content">
+    <th:block layout:fragment="content">
 
 		<div id="app">
 			<div class="backdrop">
 			</div>
 			<header>
-			<nav class="container align-items-end green" style="padding:10px;">
-			<div style="width:30px;margin-left:10px;">
-				<a href="" id="backToPage">
-				<img src="../static/image/back_white.png" alt="" style="width:26px; height:20px;">
-				</a>
-			</div>
-			<div>
-				<span class="white" id="var-eventTitle">EVENTTITLE</span>
-			</div>
-			</nav>
+				<nav class="container align-items-end green" style="padding:10px;">
+				<div style="width:30px;margin-left:10px;">
+					<a href="" id="backToPage">
+					<img src="../static/image/back_white.png" alt="" style="width:26px; height:20px;">
+					</a>
+				</div>
+				<div>
+					<span class="white" id="var-eventTitle">EVENTTITLE</span>
+				</div>
+				</nav>
 			</header>
 			<div class="appContainer">
 				<div class="container eventBackground" style="height:100%; top:10%">
@@ -327,5 +327,5 @@
 			</div>
 		</div>
 	
-    </div>
+    </th:block>
 </html>
