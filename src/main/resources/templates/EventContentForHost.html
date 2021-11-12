@@ -40,7 +40,14 @@
 						</div>
 					</div>
 				</nav>
-							
+				<div class="inactive d-flex flex-column align-items-center justify-content-around" id="dropdown-menu">
+					<div id="editEventBtn">
+						<span class="size14 weight500">수정하기</span>
+					</div>
+					<div id="deleteEventBtn">
+						<span class="size14 weight500 pink">삭제하기</span>
+					</div>
+				</div>
 			</header>
 			<div class="appContainer">
 				<div class="container eventBackground" style="height:100%; top:10%">
@@ -150,7 +157,7 @@
 							<div class="d-flex flex-column">
 								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
 								<div class="d-flex align-items-end">
-									<div class="chattingUserContent"><span class="size13 weight500">
+									<div class="openChattingUserContent"><span class="size13 weight500">
 										채팅내용입니다.
 										채팅내용입니다.
 										채팅내용입니다.
@@ -168,7 +175,7 @@
 							<div class="d-flex flex-column">
 								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
 								<div class="d-flex align-items-end">
-									<div class="chattingUserContent"><span class="size13 weight500">
+									<div class="openChattingUserContent"><span class="size13 weight500">
 										채팅내용입니다.
 									</span></div>
 									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
@@ -179,7 +186,7 @@
 							<div class="d-flex flex-column">
 								<div class="d-flex align-items-end">
 									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px">오후 12:12</span></div>
-									<div class="chattingMyContent"><span class="size13 weight500">
+									<div class="openChattingMyContent"><span class="size13 weight500">
 										채팅내용입니다.
 									</span></div>
 								</div>
@@ -189,7 +196,7 @@
 							<div class="d-flex flex-column">
 								<div class="d-flex align-items-end">
 									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px">오후 12:12</span></div>
-									<div class="chattingMyContent"><span class="size13 weight500">
+									<div class="openChattingMyContent"><span class="size13 weight500">
 										채팅내용입니다.
 										채팅내용입니다.
 										채팅내용입니다.
@@ -201,10 +208,9 @@
 								</div>
 							</div>
 						</div>
-						
 					</div>
 					
-					<div class="container eventMenuContent inactive" id="eventMenuPartyChatting" style="height:80%">
+					<div class="container eventMenuContent inactive" id="eventMenuPartyChattingWaiting" style="height:80%">
 						<div style="position: relative; margin-top:100px;">
 							<p class="text-center" >
 								<span class="size13 weight400 grey2">
@@ -302,16 +308,67 @@
 							</div>
 						</div>
 					</div>
-			</div>
-			
-		
-		
-		
-		
-		
-		
-		
-		
+					<div class="container eventMenuContent" id="eventMenuPartyChatting" style="height:80%">
+						<div class="otherChatting d-flex" style="width:fit-content">
+							<div class="chattingUserProfile" style="margin:0px 10px;">
+								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
+							</div>
+							<div class="d-flex flex-column">
+								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
+								<div class="d-flex align-items-end">
+									<div class="chattingUserContent"><span class="size13 weight500">
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+									</span></div>
+									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="otherChatting d-flex">
+							<div class="chattingUserProfile" style="margin:0px 10px;">
+								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
+							</div>
+							<div class="d-flex flex-column">
+								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
+								<div class="d-flex align-items-end">
+									<div class="chattingUserContent"><span class="size13 weight500">
+										채팅내용입니다.
+									</span></div>
+									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="myChatting d-flex justify-content-end">
+							<div class="d-flex flex-column">
+								<div class="d-flex align-items-end">
+									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px">오후 12:12</span></div>
+									<div class="chattingMyContent"><span class="size13 weight500">
+										채팅내용입니다.
+									</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="myChatting d-flex justify-content-end">
+							<div class="d-flex flex-column">
+								<div class="d-flex align-items-end">
+									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px">오후 12:12</span></div>
+									<div class="chattingMyContent"><span class="size13 weight500">
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+									</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 					</div>
 				</div>
 				<div class="container eventCloseButton" style="height:10%; margin:0px; padding:0px;">

@@ -38,7 +38,7 @@
 .inactive{
     display: none;
     visibility: hidden;
-    width:0px;
+    width:0px !important;
     height:0px !important;
 }
 .inactive img{
