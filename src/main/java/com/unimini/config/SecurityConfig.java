@@ -55,6 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
+        		.antMatchers("/makeMingleEvent")             /* Temp */
+        		.antMatchers("/makeMingleEvent_searchPlace") /* Temp */
+
                 .antMatchers("/resource/**")
                 .antMatchers("/static/css/**")
                 .antMatchers("/static/iconfont/**")
