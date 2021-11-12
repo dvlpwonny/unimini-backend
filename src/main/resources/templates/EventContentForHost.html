@@ -23,19 +23,24 @@
     <div layout:fragment="content">
 
 		<div id="app">
-			<div class="backdrop">
-			</div>
+			<div class="backdrop"></div>
 			<header>
-			<nav class="container align-items-end green" style="padding:10px;">
-			<div style="width:30px;margin-left:10px;">
-				<a href="" id="backToPage">
-				<img src="../static/image/back_white.png" alt="" style="width:26px; height:20px;">
-				</a>
-			</div>
-			<div>
-				<span class="white" id="var-eventTitle">EVENTTITLE</span>
-			</div>
-			</nav>
+				<nav class="container align-items-end green" style="padding:10px;">
+					<div class="d-flex align-items-center justify-content-between" style="width:100%">
+						<div class='d-flex'>
+							<div style="width:30px;margin-left:10px;">
+								<a href="" id="backToPage">
+									<img src="../static/image/back_white.png" alt="" style="width:26px; height:20px;">
+								</a>
+							</div>
+							<div><span class="white" id="var-eventTitle">EVENTTITLE</span></div>
+						</div>
+						<div id="dropdown" style="margin-right: 10px;">
+							<img src="../static/image/moreVert_white.png" alt="" width="26px" height="26px">
+						</div>
+					</div>
+				</nav>
+							
 			</header>
 			<div class="appContainer">
 				<div class="container eventBackground" style="height:100%; top:10%">
@@ -43,80 +48,54 @@
 						<div class="party">
 							<div class="partyEmoji">
 							</div>
-							<div class="partyName">
-								<span class="size12 white weight300">근햄</span>
-							</div>
+							<div class="partyName"><span class="size12 white weight300">근햄</span></div>
 						</div>
 						<div class="party">
 							<div class="partyEmoji">
 							</div>
-							<div class="partyName">
-								<span class="size12 white weight300">호돌</span>
-							</div>
+							<div class="partyName"><span class="size12 white weight300">호돌</span></div>
 						</div>
 						<div class="party">
 							<div class="partyEmoji">
 							</div>
-							<div class="partyName">
-								<span class="size12 white weight300">호돌</span>
-							</div>
+							<div class="partyName"><span class="size12 white weight300">호돌</span></div>
 						</div>
 						<div class="party">
 							<div class="partyEmoji">
 							</div>
-							<div class="partyName">
-								<span class="size12 white weight300">호돌</span>
-							</div>
+							<div class="partyName"><span class="size12 white weight300">호돌</span></div>
 						</div>
 						<div class="party">
 							<div class="partyEmoji">
 							</div>
-							<div class="partyName">
-								<span class="size12 white weight300">호돌</span>
-							</div>
+							<div class="partyName"><span class="size12 white weight300">호돌</span></div>
 						</div>
 						<div class="party">
 							<div class="partyEmoji">
 							</div>
-							<div class="partyName">
-								<span class="size12 white weight300">호돌</span>
-							</div>
+							<div class="partyName"><span class="size12 white weight300">호돌</span></div>
 						</div>
 						<div class="party">
 							<div class="partyEmoji">
 							</div>
-							<div class="partyName">
-								<span class="size12 white weight300">호돌</span>
-							</div>
+							<div class="partyName"><span class="size12 white weight300">호돌</span></div>
 						</div>
 						<div class="party">
 							<div class="partyEmoji">
 							</div>
-							<div class="partyName">
-								<span class="size12 white weight300">호돌</span>
-							</div>
+							<div class="partyName"><span class="size12 white weight300">호돌</span></div>
 						</div>
 					</div>
 				</div>
 				<div class="container eventContent" id="eventInfo" style="height:100%;">
 					<div class="eventMenuBar d-flex justify-content-start align-items-center" style="height:50px">
-						<div class="eventMenu">
-							<span class="size15 weight700 grey2">정보</span>
-						</div>
-						<div class="eventMenu">
-							<span class="size15 weight700 grey2" id="this">공개 채팅</span>
-						</div>
-						<div class="eventMenu">
-							<span class="size15 weight700 grey2">참여자 채팅</span>
-						</div>
-						<div class="eventMenu">
-							<span class="size15 weight700 grey2">수락 대기</span>
-						</div>
+						<div class="eventMenu"><span class="size15 weight700 grey2">정보</span></div>
+						<div class="eventMenu"><span class="size15 weight700 grey2" id="this">공개 채팅</span></div>
+						<div class="eventMenu"><span class="size15 weight700 grey2">참여자 채팅</span></div>
+						<div class="eventMenu"><span class="size15 weight700 grey2">수락 대기</span></div>
 					</div>
-					<div class="container eventMenuContent responsiveApp inactive" id="eventInfo" style="height:80%">
-						<div id="eventTitle">
-							<span class="size20" id="var-eventTitle">eventTitle</span>
-						</div>
+					<div class="container eventMenuContent inactive" id="eventInfo" style="height:80%">
+						<div id="eventTitle"><span class="size20" id="var-eventTitle">eventTitle</span></div>
 						<div class="d-flex flex-column">
 							<div id="eventInfoBox">
 								<div class="eventInfo">
@@ -141,22 +120,23 @@
 									<span class="size14 weight400">40</span>
 								</div>
 							</div>
-							<br>
-							<br>
+							
+							<br><br>
 							<div class="eventInfo">
 								<div style="margin-bottom: 4px;">
 									<span class="eventInfoTitle size14 weight700">내용</span>
 								</div>
-								<p id="eventInfoContent">
+								<p id="eventInfoContent"> 
 									<span class="size14 weight400">
+										
 									칵테일 한 잔 하면서 새로운 사람과 편하게<br>
-									 이야기 나눠보는 것은 어떠세요?<br>
-									 칵테일에 대해서도 알아보고 직접<br>
-									 만들어볼 수 있습니다!<br>
-									<br>
-									 주의사항<br>
-									 -제공되는 칵테일 1잔 이외의 칵테일에 대한<br>
-									 비용은 현장에서 추가적으로 결제해야 합니다.<br>
+									이야기 나눠보는 것은 어떠세요?<br>
+									칵테일에 대해서도 알아보고 직접<br>
+									만들어볼 수 있습니다!<br><br>
+	
+									주의사항<br>
+									-제공되는 칵테일 1잔 이외의 칵테일에 대한<br>
+									비용은 현장에서 추가적으로 결제해야 합니다.<br>
 									</span>
 								</p>
 							</div>
@@ -168,17 +148,16 @@
 								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
 							</div>
 							<div class="d-flex flex-column">
-								<div class="chattingUserName">
-									<span class="size12 weight500">이름</span>
-								</div>
+								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
 								<div class="d-flex align-items-end">
-									<div class="chattingUserContent">
-										<span class="size13 weight500">
-										채팅내용입니다. 채팅내용입니다. 채팅내용입니다. 채팅내용입니다. 채팅내용입니다. </span>
-									</div>
-									<div class="chattingUserTime">
-										<span class="size10 weight400" style="margin-left:6px">오후 12:12</span>
-									</div>
+									<div class="chattingUserContent"><span class="size13 weight500">
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+									</span></div>
+									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
 								</div>
 							</div>
 						</div>
@@ -187,60 +166,56 @@
 								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
 							</div>
 							<div class="d-flex flex-column">
-								<div class="chattingUserName">
-									<span class="size12 weight500">이름</span>
-								</div>
+								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
 								<div class="d-flex align-items-end">
-									<div class="chattingUserContent">
-										<span class="size13 weight500">
-										채팅내용입니다. </span>
-									</div>
-									<div class="chattingUserTime">
-										<span class="size10 weight400" style="margin-left:6px">오후 12:12</span>
-									</div>
+									<div class="chattingUserContent"><span class="size13 weight500">
+										채팅내용입니다.
+									</span></div>
+									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
 								</div>
 							</div>
 						</div>
 						<div class="myChatting d-flex justify-content-end">
 							<div class="d-flex flex-column">
 								<div class="d-flex align-items-end">
-									<div class="chattingMyTime">
-										<span class="size10 weight400" style="margin-right:6px">오후 12:12</span>
-									</div>
-									<div class="chattingMyContent">
-										<span class="size13 weight500">
-										채팅내용입니다. </span>
-									</div>
+									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px">오후 12:12</span></div>
+									<div class="chattingMyContent"><span class="size13 weight500">
+										채팅내용입니다.
+									</span></div>
 								</div>
 							</div>
 						</div>
 						<div class="myChatting d-flex justify-content-end">
 							<div class="d-flex flex-column">
 								<div class="d-flex align-items-end">
-									<div class="chattingMyTime">
-										<span class="size10 weight400" style="margin-right:6px">오후 12:12</span>
-									</div>
-									<div class="chattingMyContent">
-										<span class="size13 weight500">
-										채팅내용입니다. 채팅내용입니다. 채팅내용입니다. 채팅내용입니다. 채팅내용입니다. 채팅내용입니다. 채팅내용입니다. </span>
-									</div>
+									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px">오후 12:12</span></div>
+									<div class="chattingMyContent"><span class="size13 weight500">
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+										채팅내용입니다.
+									</span></div>
 								</div>
 							</div>
 						</div>
+						
 					</div>
+					
 					<div class="container eventMenuContent inactive" id="eventMenuPartyChatting" style="height:80%">
 						<div style="position: relative; margin-top:100px;">
-							<p class="text-center">
+							<p class="text-center" >
 								<span class="size13 weight400 grey2">
-								참여자 채팅은 함께하기로한 학우들끼리<br>
-								 공개되는 채팅방이에요.<br>
-								 시작 1시간 전부터 open됩니다. </span>
+									참여자 채팅은 함께하기로한 학우들끼리<br>
+									공개되는 채팅방이에요.<br>
+									시작 1시간 전부터 open됩니다.
+								</span>
 							</p>
 						</div>
 						<div class="text-center d-flex flex-column align-items-center" style="position: relative; margin-top:60px;">
-							<div>
-								<span class="size13 weight500">참여자 채팅 오픈까지 남은 시간</span>
-							</div>
+							<div><span class="size13 weight500">참여자 채팅 오픈까지 남은 시간</span></div>
 							<div class="timeLeftForOpening">
 								<div>
 									<span class="size20 padding" id="hourLeftForOpening"></span>
@@ -257,20 +232,17 @@
 							</div>
 						</div>
 					</div>
-					<div class="container eventMenuContent responsiveApp inactive" id="eventMenuOpenChatting" style="height:80%">
+					<div class="container eventMenuContent inactive" id="eventParticipationList" style="height:80%">
 						<div class="userWaitingForAcceptanceList">
-							<div>
-								<span class="size14">함께하기 신청자</span>
-							</div>
+							<div><span class="size14">함께하기 신청자</span></div>
 							<div>
 								<div class="userWaitingForAcceptance d-flex justify-content-between align-items-center" style="margin:16px 0px;">
 									<div class="userWaitingForAcceptanceInfo d-flex align-items-center">
 										<div class="userWaitingForAcceptanceProfile" style="width:44px; height:44px; margin-right:10px;">
-											<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
+											<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%" >
+	
 										</div>
-										<div>
-											<span class="size14 weight500">USERNAME</span>
-										</div>
+										<div><span class="size14 weight500">USERNAME</span></div>
 									</div>
 									<div class="userWaitingForAcceptanceController">
 										<div>
@@ -282,11 +254,10 @@
 								<div class="userWaitingForAcceptance d-flex justify-content-between align-items-center" style="margin:16px 0px;">
 									<div class="userWaitingForAcceptanceInfo d-flex align-items-center">
 										<div class="userWaitingForAcceptanceProfile" style="width:44px; height:44px; margin-right:10px;">
-											<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
+											<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%" >
+	
 										</div>
-										<div>
-											<span class="size14 weight500">USERNAME</span>
-										</div>
+										<div><span class="size14 weight500">USERNAME</span></div>
 									</div>
 									<div class="userWaitingForAcceptanceController">
 										<div>
@@ -298,18 +269,15 @@
 							</div>
 						</div>
 						<div class="userAcceptedList" style="margin-top:50px;">
-							<div>
-								<span class="size14">수락된 신청자</span>
-							</div>
+							<div><span class="size14">수락된 신청자</span></div>
 							<div>
 								<div class="userAccepted d-flex justify-content-between align-items-center" style="margin:16px 0px;">
 									<div class="userAcceptedInfo d-flex align-items-center">
 										<div class="userAcceptedProfile" style="width:44px; height:44px; margin-right:10px;">
-											<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
+											<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%" >
+	
 										</div>
-										<div>
-											<span class="size14 weight500">USERNAME</span>
-										</div>
+										<div><span class="size14 weight500">USERNAME</span></div>
 									</div>
 									<div class="userAcceptedController">
 										<div>
@@ -320,95 +288,106 @@
 								<div class="userAccepted d-flex justify-content-between align-items-center" style="margin:16px 0px;">
 									<div class="userAcceptedInfo d-flex align-items-center">
 										<div class="userAcceptedProfile" style="width:44px; height:44px; margin-right:10px;">
-											<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
+											<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%" >
+	
 										</div>
-										<div>
-											<span class="size14 weight500">USERNAME</span>
-										</div>
+										<div><span class="size14 weight500">USERNAME</span></div>
 									</div>
 									<div class="userAcceptedController">
 										<div>
-											<button class="refuseUserAccepted"><span class="size14">함께하기 거절</span></button>
-											<div>
-											</div>
-										</div>
+											<button class="refuseUserAccepted"><span class="size14">함께하기 거절</span></button>    
+										<div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 			</div>
-			<div class="container eventCloseButton" style="height:10%; margin:0px; padding:0px;">
-				<hr style="height:0.09px; margin-top: 0px;">
-				<div class="eventMenuContentBtn inactive d-flex justify-content-center" id="eventInfoBtn">
-					<button style="width:85%;" class="red">종료하기</button>
-				</div>
-				<div class="eventMenuContentBtn d-flex justify-content-center" id="eventApplyBtn">
-					<button id="likeBtn"></button>
-					<button style="width:70%;" class="inactive ">함께하기</button>
-					<button style="width:70%;">함께하기 취소</button>
-				</div>
-				<div class="eventMenuContentBtn inactive d-flex justify-content-center align-items-center" id="eventChatting">
-					<input id="sendChattingInput" type="text" style="width:85%" placeholder="채팅해보세요!">
-					<button id="sendChattingBtn"></button>
-				</div>
-				<div class="eventMenuContentBtn inactive d-flex justify-content-center" id="eventEnterBtn">
-					<button style="width:85%;">입장하기</button>
-				</div>
-			</div>
-			<div id="popup" class="inactive">
-				<div id="popupWaitingForAcceptance">
-					<div class="popupMenuBar" style="height:10%">
-						<img src="../static/image/close.png" alt="" style="float:right">
+			
+		
+		
+		
+		
+		
+		
+		
+		
 					</div>
-					<div class="popupProfile d-flex justify-content-center align-items-center" style="height:30%">
-						<div style="width:45%;">
-							<img src="../static/image/profile/profile10.png" alt="" width="44px" height="44px" style="float:right">
-						</div>
-						<div style="width:55%">
-							<span id="var-nickname" style="position: relative; left:20px;">NAME</span>
-						</div>
+				</div>
+				<div class="container eventCloseButton" style="height:10%; margin:0px; padding:0px;">
+					<hr style="height:0.09px; margin-top: 0px;">
+					<div class="eventMenuContentBtn inactive d-flex justify-content-center" id="eventInfoBtn">
+						<button class="red inactive" style="width:85%;">종료하기</button>
+						<button class="inactive" style="width:85%; background-color: #ccc8c2 !important; color:white !important">종료하기</button>
 					</div>
-					<div class="popupInfo" style="height:40%">
-						<div class="d-flex justify-content-center" style="position: relative; top:10px;">
-							<div style="width:80px; text-align:right">
-								<span class="size12 weight400">주최</span>
-							</div>
-							<div style="width:30px; text-align:right;">
-								<span class="size12 weight700" id="var-numOfHoldingEvents">0회</span>
-							</div>
-							<div style="width:170px">
-								<span id="var-college" class="size12 weight700" style="position: relative; left:30px;">단과대학</span>
-							</div>
-						</div>
-						<div class="d-flex justify-content-center" style="position: relative; top:15px;">
-							<div style="width:80px; text-align:right">
-								<span class="size12 weight400">참여</span>
-							</div>
-							<div style="width:30px; text-align:right;">
-								<span class="size12 weight700" id="var-numOfHoldingEvents">0회</span>
-							</div>
-							<div style="width:170px">
-								<span id="var-studentClass" class="size12 weight700" style="position: relative; left:30px;">00</span><span class="size12 weight700" style="position: relative; left:30px;"> 학번</span>
-							</div>
-						</div>
+					<div class="eventMenuContentBtn inactive d-flex justify-content-center align-items-center" id="eventChatting" >
+						<input id="sendChattingInput" type="text" style="width:85%" placeholder="채팅해보세요!">
+						<button id="sendChattingBtn"></button>
 					</div>
-					<div class="popupBtn d-flex justify-content-around" style="height:20%">
-						<div>
-							<button class="transparent">
+					<div class="eventMenuContentBtn inactive d-flex justify-content-center align-items-center" id="eventChattingInvalidated" >
+						<input id="sendChattingInput" type="text" style="width:85%; background-color: #eee9e2 !important; color:#bfbbb5 !important" placeholder="밍글 종료 후 채팅이 비활성화 됩니다.">
+						<button id="sendChattingBtn" style="background-color: #ccc8c2 !important;"></button>
+					</div>
+					<div class="eventMenuContentBtn d-flex justify-content-center" id="eventApplyBtn">
+						<div class="d-flex justify-content-center" style="width:10%; margin-right:10px">
+							<button class="inactive d-flex justify-content-center align-items-center likeBtn" id="likeBtnFilled"><img src="../static/image/heart_filled.png" alt="" width="60%"></button>
+							<button class="d-flex justify-content-center align-items-center likeBtn" id="likeBtnUnfilled"><img src="../static/image/heart_unfilled.png" alt="" width="60%"></button>
+						</div>
+						<div style="width:75%;">
+							<button class="inactive eventJoinBtn">함께하기</button>
+							<button class="eventJoinBtn">함께하기 취소</button>
+					 
+						</div>
+						   </div>
+					<div class="eventMenuContentBtn inactive d-flex justify-content-center" id="eventEnterBtn">
+						<button style="width:85%;">입장하기</button>
+					</div>
+				</div>
+		<div id="popup" class="inactive">
+			<div id="popupWaitingForAcceptance">
+				<div class="popupMenuBar" style="height:10%">
+					<img src="../static/image/close.png" alt="" style="float:right">
+				</div>
+				<div class="popupProfile d-flex justify-content-center align-items-center" style="height:30%">
+					<div style="width:45%;">
+						<img src="../static/image/profile/profile10.png" alt="" width="44px" height="44px" style="float:right">
+					</div>
+					<div style="width:55%">
+						<span id="var-nickname" style="position: relative; left:20px;">NAME</span>
+					</div>
+				</div>
+				<div class="popupInfo" style="height:40%">
+					<div class="d-flex justify-content-center" style="position: relative; top:10px;">
+						<div style="width:80px; text-align:right">
+							<span class="size12 weight400">주최</span></div>
+						<div style="width:30px; text-align:right;">
+							<span class="size12 weight700" id="var-numOfHoldingEvents">0회</span>
+						</div>
+						<div style="width:170px"><span id="var-college" class="size12 weight700" style="position: relative; left:30px;">단과대학</span></div>
+					</div>
+					<div class="d-flex justify-content-center" style="position: relative; top:15px;">
+						<div style="width:80px; text-align:right">
+							<span class="size12 weight400">참여</span></div>
+						<div style="width:30px; text-align:right;">
+							<span class="size12 weight700" id="var-numOfHoldingEvents">0회</span>
+						</div>
+						<div style="width:170px"><span id="var-studentClass" class="size12 weight700" style="position: relative; left:30px;">00</span><span class="size12 weight700" style="position: relative; left:30px;"> 학번</span></div>
+					</div>
+				</div>
+				<div class="popupBtn d-flex justify-content-around" style="height:20%">
+					<div>
+						<button class="transparent">
 							<span>거절</span>
-							</button>
-						</div>
-						<div>
-							<button class="transparent">
+						</button>
+					</div>
+					<div>
+						<button class="transparent">
 							<span class="highlighted">수락하기</span>
-							</button>
-						</div>
+						</button>
 					</div>
 				</div>
 			</div>
-		</div>    
+		</div>
     
     </div>
 </html>
