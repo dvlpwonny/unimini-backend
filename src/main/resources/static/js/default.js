@@ -81,6 +81,14 @@ const EVENT_BTNS = document.querySelectorAll(".eventMenuContentBtn")
       })
     })
   })
+  
+  //이벤트 수정/삭제 버튼
+  const EVENT_DROPDOWN_BTN = document.querySelector("#dropdown");
+  const EVENT_DROPDOWN_MENU= document.querySelector("#dropdown-menu");
+  EVENT_DROPDOWN_BTN.addEventListener('click',event=>{
+    if(EVENT_DROPDOWN_MENU.classList.contains("inactive")) EVENT_DROPDOWN_MENU.classList.remove("inactive");
+    else EVENT_DROPDOWN_MENU.classList.add("inactive");
+  })
 
 
 //7. 이벤트 상세 페이지 - 유저
