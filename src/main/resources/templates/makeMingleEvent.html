@@ -14,6 +14,7 @@
 		<script th:src="@{/static/js/default.js}"></script>
 		
 		<script>
+			/* Time */
 			var date = new Date();
 			document.getElementById('startTime').value = date.toString().slice(16,21);
 			
@@ -22,19 +23,10 @@
 			
 			document.getElementById('endTime').value = dateOneHourAgo.toString().slice(16,21);
 			
+			/* Time */
 			function moveSearchPlace() {
 				console.log("moveSearchPlace !");
-				
-				async function request() {
-				  const response = await fetch('https://api.github.com/orgs/nodejs',
-				  {
-				    method: 'GET',
-				  });
-				  const data = await response.json();
-				  console.log(data)
-				}
-				request();
-				
+								
 			}
 			
 		</script> 
@@ -121,6 +113,10 @@
 									<span class="text-info2">장소 이름 검색</span>
 								</div>
 							</div>
+							<form id="moveSearchPlaceForm" action="@{/makeMingleEvent_searchPlace}" method="post">
+								
+								
+							</form  >
 							<div class="locationOption d-flex flex-column justify-content-center align-items-center">
 								<img th:src="@{/static/image/search_big.png}" alt="" width="18px" height="18px">
 								<div>

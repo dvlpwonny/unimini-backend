@@ -21,7 +21,10 @@ public class MingleController {
 	public String makeMingleEvent(Model model) {
 		
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		/* u : Day of Week Number
+		 * 1 = Monday, ..., 7 = Sunday */
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss u");
 		String toDay = simpleDateFormat.format(cal.getTime());
 		
 		model.addAttribute("toDay",toDay);
@@ -32,7 +35,7 @@ public class MingleController {
 	}
 
 	@GetMapping(value = "/makeMingleEvent_searchPlace")
-    public String makeMingleEvent_searchPlace(@RequestParam Map<String, String> param, HttpServletRequest request) {
+    public String makeMingleEvent_searchPlace(Model model) {
 		
 		
 		
