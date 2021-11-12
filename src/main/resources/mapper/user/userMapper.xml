@@ -13,7 +13,7 @@
     </select>
 
     <!-- 회원가입 -->
-    <insert id="createUserInfo">
+    <!--<insert id="createUserInfo">
         INSERT INTO TB_USER
         (
             USER_ID
@@ -30,11 +30,35 @@
             , MOBILE_NO
         )
         VALUES (
-            'admin_test@khu.ac.kr'
-            , '사용자'
-            , '개발하는거북이'
-            , 'cb6d5af95641916c26c493c4f4de656d4cbcc4103d4208f08addb36ebf84a2ea6b466bad00857ee5aeeb8bb41865f97ceab361a4d348b48db3ab3c59b2e0608e'
-            , 20207894444
+            #{userId}
+            , #{userName}
+            , #{nickName}
+            , #{password}
+            , #{}
             , 'UNI000001',	'CAM000001', 'COL000001', 'MAJ000007', 1, 'GEN002', '01022223333');
+    </insert>-->
+
+    <insert id="createUserInfo" parameterType="map">
+        INSERT INTO TB_USER
+        (
+            USER_ID
+            , USER_NAME
+            , NICKNAME
+            , PASSWORD
+            , UNI_NUMBER
+            , USER_AUTH
+            , MOBILE_NO
+            , PROFILE_IMAGE_CODE
+        )
+        VALUES (
+            #{userId}
+            , #{userName}
+            , #{nickname}
+            , #{password}
+            , #{uniNumber}
+            , #{userAuth}
+            , #{mobileNo}
+            , '1'
+        );
     </insert>
 </mapper>

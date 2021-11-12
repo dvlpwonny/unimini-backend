@@ -8,7 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +28,13 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         return new UserInfo(user);
+    }
+
+    @Transactional
+    public void createUserInfo(Map<String, String> paramMap) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        paramMap.put("userAuth", "USER");
+        paramMap.put("password", passwordEncoder.encode(paramMap.get("password")));
+        userMapper.createUserInfo(paramMap);
     }
 }

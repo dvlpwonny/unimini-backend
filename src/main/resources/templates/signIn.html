@@ -28,7 +28,7 @@
 
 			function signIn() {
 
-				$('input[name=username]').val($('#userId').val() + $('#uniDomain').text());
+				$('input[name=username]').val($('#userId').val());
 
 				$.ajax({
 					url: '/signIn/signIn',
@@ -45,28 +45,23 @@
 							alert(__data.message);
 							return;
 						}
-						var userCode = __data.userCode;
 						var userId = __data.userId;
 
 						// todo 앱 함수 호출로 변경
-						$('#userForm input[name=userCode]').val(userCode);
-						$('#userForm input[name=userId]').val(userId);
-
-						$('#userForm').attr('method', 'post').attr('action', '/uniMap').submit();
+						console.log('success', __data.userId);
 						//////////////////////////
 
 					},
 					fail: function(__data, __textStatus, __jqXHR){
 						console.log("data", __data);
 					},
-					error: function(__data, __textStatus, __jqXHR){
-						if (__data.responseJSON.code == 1) {
+					error: function(request, status, error){
+						alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+						if (request.status == 401) {
 							$('#errorText').text("아이디와 비밀번호가 일치하지 않습니다.");
-						} else if (__data.responseJSON.code == 2) {
+						} else if (request.status == 403) {
 							$('#errorText').text("계정이 존재하지 않습니다.");
 						}
-						$('#errorText').show();
-						checkPassword($('#password'));
 					},
 					complete: function(__data, __textStatus, __jqXHR) {
 					}
@@ -76,13 +71,22 @@
     </th:block>
 
     <!-- Content -->
-    <div layout:fragment="content">
-
+    <th:block layout:fragment="content">
+		<form id="userForm">
+			<input type="hidden" name="userId"/>
+		</form>
 	    <div id="app">
+			<header>
+				<nav class="container align-items-end" style="padding:10px;">
+					<div style="width:30px;margin-left:10px;">
+						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;">
+					</div>
+				</nav>
+			</header>
 	        <login class="appContainer" style="height:100%">
 	            <div class="container padding responsiveApp"  style="height:100%">
 	                <div class="d-flex flex-column justify-content-end align-items-center" style="height:30%;">
-	                    <img src="../static/image/logo.png" style="height:24px; width:169px">
+	                    <img th:src="@{/static/image/logo.png}" style="height:24px; width:169px">
 	                    <div style="margin-top:5px;">
 	                        <span class="size12 weight500 highlighted">함께하는 즐거움, UNIMINI</span>
 	                    </div>
@@ -114,7 +118,7 @@
 	                        <div><span class="weight600 size12">아직 계정이 없으신가요?</span></div>
 	                        <div class="d-flex align-items-center">
 	                            <a th:href="@{/signUp/signUpForm}" style="margin-left:10px"><span class="weight600 size12">회원가입하기</span></a>
-	                            <a href="findPassword.html" style="margin-left:10px;"><span class="weight600 size12">비밀번호 찾기</span></a>
+	                            <!--<a href="findPassword.html" style="margin-left:10px;"><span class="weight600 size12">비밀번호 찾기</span></a>-->
 	                        </div>
 	                    </div>
 	                </div>
@@ -122,6 +126,6 @@
 	        </login>
 	    </div>
 
-    </div>
+    </th:block>
 
 </html>

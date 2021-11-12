@@ -182,4 +182,23 @@
          AND DATE_FORMAT(EVENT_START_TIME, "%Y-%m-%d") >= CURDATE()
          AND B.LIKE_FLAG = 'Y'
     </select>
+
+    <!-- 좋아요 하기 -->
+    <insert id="setLikeEvent" parameterType="map">
+        INSERT INTO TB_EVENT_USER_MAPP_GROUP (
+            EVENT_CODE
+            , USER_CODE
+            , LIKE_FLAG
+            , CREATE_DATE
+            , UPDATE_DATE
+            , USE_FLAG
+        ) VALUES (
+            #{eventCode}
+            , #{userCode}
+            , #{likeFlag}
+            , NOW()
+            , NOW()
+            , 'Y'
+        )
+    </insert>
 </mapper>

@@ -15,9 +15,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private UserService userService;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // 검쯩을 위한 구현
+    // 검증을 위한 구현
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
