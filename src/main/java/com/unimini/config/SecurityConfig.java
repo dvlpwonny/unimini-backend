@@ -64,6 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
         		.antMatchers("/makeMingleEvent")             /* Temp */
         		.antMatchers("/makeMingleEvent_searchPlace") /* Temp */
+        		
+        		.antMatchers("/EventContent")        /* Temp */
         		.antMatchers("/EventContentForHost") /* Temp */
         		.antMatchers("/EventContentForUser") /* Temp */
         		.antMatchers("/c")                   /* Temp */        		
