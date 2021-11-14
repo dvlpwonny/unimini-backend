@@ -17,7 +17,8 @@
 		<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 		<script>
 			$(function(){
-				$('#login_submit_btn').click(function () {
+				validationLogin();
+				$('#toLogin').click(function () {
 					signIn();
 				});
 			}());
@@ -94,12 +95,13 @@
 	                <form class="loginForm d-flex flex-column justify-content-between" id="needs-validation" novalidate=""  style="height:41%; padding: 0px 30px">
 	                    <div class="d-flex flex-column justify-content-end align-items-center" style="margin-top:40px;">
 	                        <div class="d-flex align-items-center" style="width:100%;">
-	                            <input type="text" placeholder="이메일" id="userId" style="width:100%;margin:7px 0px;">
+	                            <input name="userId" type="text" placeholder="이메일" id="email-login" style="width:100%;margin:7px 0px;">
+								<span></span>
 	                            <span class="weight600" id="uniDomain" style="margin:8px;">@khu.ac.kr</span>
 								<input type="hidden" name="username" />
 	                        </div>
 							<div style="width:100%">
-								<input required type="password" name="password" id="password" placeholder="비밀번호" style="width:100%; margin:7px 0px">
+								<input required type="password" name="password" id="password-login" placeholder="비밀번호" style="width:100%; margin:7px 0px">
 								<span class="validation-feedback size12 pink weight400 inactive" id="errorText" style="margin-left:8px; display: none;">아이디와 비밀번호가 일치하지 않습니다.</span>
 							</div>
 	                        <!--<div style="width:100%">
@@ -110,7 +112,7 @@
 	                        </div>-->
 	                    </div>
 	                    <div class="d-flex justify-content-center">
-	                        <button type="button" id="login_submit_btn">로그인</button>
+	                        <button type="button" id="toLogin">로그인</button>
 	                    </div>
 	                </form>
 	                <div style="height:29%;">

@@ -5,8 +5,8 @@ const SUBMIT_BTN = document.querySelector(".btnSubmit");
 
 /*유효성 검사*/
 function checkIfEmpty(args){
+  showFeedback(args, args.value.length!=0);
     if(args.value.length == 0) {
-      showFeedback(args, args.value.length!=0);
       return true;
     }
     else {
@@ -34,7 +34,7 @@ function validateBtn(btn){
 function invalidateBtn(btn){
   btn.classList.remove("validated");
 }
-function ableBtn(btn){
+function enableBtn(btn){
   btn.disabled = false;
 }
 function disableBtn(btn){
@@ -42,6 +42,8 @@ function disableBtn(btn){
 }
 
 //회원가입 유효성
+const INPUT_EMAIL_LOGIN = document.querySelector('#email-login');
+const INPUT_PASSWORD_LOGIN = document.querySelector('#password-login');
 const INPUT_EMAIL_SIGNUP = document.querySelector("#email-signup");
 const INPUT_PASSWORD_SIGNUP = document.querySelector("#password-signup");
 const INPUT_PASSWORD_DOUBLE_SIGNUP = document.querySelector("#password-double-signup");
@@ -54,17 +56,29 @@ const INPUT_MAJOR_SIGNUP = document.querySelector("#major-signup");
 const BTN_TO_SIGNUP_SECOND_STAGE = document.querySelector("#toSignUpSecondStage");
 const BTN_TO_SIGNUP_THIRD_STAGE = document.querySelector("#toSignUpThirdStage");
 const BTN_TO_FINISH_SIGNUP = document.querySelector("#toFinishSignUp");
+const BTN_TO_FINISH_LOGIN = document.querySelector("#toLogin");
 const CHECKBOX_SERVICE_TERM = document.querySelector("#checkServiceTerm");
 const CHECKBOX_PERSONAL_INFO = document.querySelector("#checkPersonalInfo");
 const CHECKBOX_TERMS = document.querySelectorAll("input[type='checkbox']");
 const INPUT_STAGE2 = [INPUT_PASSWORD_SIGNUP,INPUT_PASSWORD_DOUBLE_SIGNUP,INPUT_NAME_SIGNUP,INPUT_PHONE_SIGNUP];
 const INPUT_STAGE3 = [INPUT_NICKNAME_SIGNUP,INPUT_STUDENT_ID_SIGNUP, INPUT_MAJOR_SIGNUP];
 
+function validationLogin(){
+  INPUT_PASSWORD_LOGIN.addEventListener('keyup',event=>{
+    if (!checkIfEmpty(INPUT_PASSWORD_LOGIN && !checkIfEmpty(INPUT_EMAIL_LOGIN)))validateBtn(BTN_TO_FINISH_LOGIN);
+    else invalidateBtn(BTN_TO_FINISH_LOGIN);
+  })
+  INPUT_EMAIL_LOGIN.addEventListener('keyup',event=>{
+    if(!checkIfEmpty(INPUT_EMAIL_LOGIN) && !checkIfEmpty(INPUT_PASSWORD_LOGIN)) validateBtn(BTN_TO_FINISH_LOGIN);
+    else invalidateBtn(BTN_TO_FINISH_LOGIN);
+  })
+}
+
 function validationSignUp(){
   //1단계
   INPUT_EMAIL_SIGNUP.addEventListener('keyup',event=>{
     if(!checkIfEmpty(INPUT_EMAIL_SIGNUP) && CHECKBOX_PERSONAL_INFO.checked && CHECKBOX_SERVICE_TERM.checked){
-      ableBtn(BTN_TO_SIGNUP_SECOND_STAGE);
+      enableBtn(BTN_TO_SIGNUP_SECOND_STAGE);
       validateBtn(BTN_TO_SIGNUP_SECOND_STAGE);
     }
     else{
@@ -75,7 +89,7 @@ function validationSignUp(){
   CHECKBOX_TERMS.forEach((term)=>{
     term.addEventListener(('input'),event=>{
       if(!checkIfEmpty(INPUT_EMAIL_SIGNUP) && CHECKBOX_PERSONAL_INFO.checked && CHECKBOX_SERVICE_TERM.checked){
-        ableBtn(BTN_TO_SIGNUP_SECOND_STAGE);
+        enableBtn(BTN_TO_SIGNUP_SECOND_STAGE);
         validateBtn(BTN_TO_SIGNUP_SECOND_STAGE);
       }
       else{
@@ -91,7 +105,7 @@ function validationSignUp(){
       && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
       && !checkIfEmpty(INPUT_NAME_SIGNUP) 
       && checkPhone(INPUT_PHONE_SIGNUP)){
-        ableBtn(BTN_TO_SIGNUP_THIRD_STAGE);
+        enableBtn(BTN_TO_SIGNUP_THIRD_STAGE);
         validateBtn(BTN_TO_SIGNUP_THIRD_STAGE);
     }
     else{
@@ -106,7 +120,7 @@ function validationSignUp(){
       &&checkRadioBtn(INPUT_GENDER_SIGNUP)
       &&checkStudentId(INPUT_STUDENT_ID_SIGNUP)
       &&!checkIfEmpty(INPUT_MAJOR_SIGNUP)){
-        ableBtn(BTN_TO_FINISH_SIGNUP);
+        enableBtn(BTN_TO_FINISH_SIGNUP);
         validateBtn(BTN_TO_FINISH_SIGNUP);
       }
       else{
@@ -121,7 +135,7 @@ function validationSignUp(){
       &&checkRadioBtn(INPUT_GENDER_SIGNUP)
       &&checkStudentId(INPUT_STUDENT_ID_SIGNUP)
       &&!checkIfEmpty(INPUT_MAJOR_SIGNUP)){
-        ableBtn(BTN_TO_FINISH_SIGNUP);
+        enableBtn(BTN_TO_FINISH_SIGNUP);
         validateBtn(BTN_TO_FINISH_SIGNUP);
       }
       else{
