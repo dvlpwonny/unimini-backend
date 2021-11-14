@@ -12,5 +12,5 @@ public interface UserMapper {
 
     User findUserByEmail(String userId);
 
-    void createUserInfo(Map<String, String> paramMap);
+    void createUserInfo(Map<String, Object> paramMap);
 }

@@ -13,31 +13,6 @@
     </select>
 
     <!-- 회원가입 -->
-    <!--<insert id="createUserInfo">
-        INSERT INTO TB_USER
-        (
-            USER_ID
-            , USER_NAME
-            , NICKNAME
-            , PASSWORD
-            , UNI_NUMBER
-            , UNI_CODE
-            , CAMPUS_CODE
-            , COLLEGE_CODE
-            , MAJOR_CODE
-            , PROFILE_IMAGE_CODE
-            , GENDER_CODE
-            , MOBILE_NO
-        )
-        VALUES (
-            #{userId}
-            , #{userName}
-            , #{nickName}
-            , #{password}
-            , #{}
-            , 'UNI000001',	'CAM000001', 'COL000001', 'MAJ000007', 1, 'GEN002', '01022223333');
-    </insert>-->
-
     <insert id="createUserInfo" parameterType="map">
         INSERT INTO TB_USER
         (
@@ -58,7 +33,7 @@
             , #{uniNumber}
             , #{userAuth}
             , #{mobileNo}
-            , '1'
+            , #{profileImageCode}
         );
     </insert>
 </mapper>
