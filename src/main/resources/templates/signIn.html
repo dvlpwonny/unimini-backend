@@ -76,14 +76,14 @@
 			<input type="hidden" name="userId"/>
 		</form>
 	    <div id="app">
-			<header>
+			<header style="background-color: #fffaf2">
 				<nav class="container align-items-end" style="padding:10px;">
 					<div style="width:30px;margin-left:10px;">
 						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;">
 					</div>
 				</nav>
 			</header>
-	        <login class="appContainer" style="height:100%">
+	        <div class="appContainer" style="height:100%">
 	            <div class="container padding responsiveApp"  style="height:100%">
 	                <div class="d-flex flex-column justify-content-end align-items-center" style="height:30%;">
 	                    <img th:src="@{/static/image/logo.png}" style="height:24px; width:169px">
@@ -91,7 +91,7 @@
 	                        <span class="size12 weight500 highlighted">함께하는 즐거움, UNIMINI</span>
 	                    </div>
 	                </div>
-	                <form class="loginForm d-flex flex-column justify-content-between" id="needs-validation" novalidate=""  style="height:41%;">
+	                <form class="loginForm d-flex flex-column justify-content-between" id="needs-validation" novalidate=""  style="height:41%; padding: 0px 30px">
 	                    <div class="d-flex flex-column justify-content-end align-items-center" style="margin-top:40px;">
 	                        <div class="d-flex align-items-center" style="width:100%;">
 	                            <input type="text" placeholder="이메일" id="userId" style="width:100%;margin:7px 0px;">
@@ -123,7 +123,7 @@
 	                    </div>
 	                </div>
 	            </div>
-	        </login>
+	        </div>
 	    </div>
 
     </th:block>
