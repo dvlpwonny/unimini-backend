@@ -34,28 +34,31 @@
     </th:block>
 
     <!-- Content -->
-    <div layout:fragment="content">
+    <th:block layout:fragment="content">
 
 		<div id="app">
 			<header>
-			<script>loadHTML("./layout/header.html")</script>
+				<nav class="container align-items-end" style="padding:10px;">
+					<div style="width:30px;margin-left:10px;">
+						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;">
+					</div>
+					<div><span id="header_title" class="size20">마이페이지</span></div>
+				</nav>
 			</header>
 			<my-page class="appContainer mypage">
 			<div class="container padding responsiveApp">
 				<div class="d-flex" id="my_profile">
 					<div class="d-flex align-items-center justify-content-center" id="my_icon">
-						<a href="../templates/myPage_changeProfile.html" id="my_icon_container">
-						<img src="../static/image/profile/profile10.png" width="100%" height="100%" alt="" id="var-profile">
-						</a>
+						<img th:src="@{/static/image/profile/profile${userInfo.profileImageCode}.png}" width="100%" height="100%" alt="" id="var-profile">
 					</div>
 					<div class="d-flex justify-content-center flex-column" id="my_profile_info">
 						<div>
-							<span id="nickname" class="size20" id="var-nickname">NICKNAME</span>
+							<span id="nickname" class="size20">NICKNAME</span>
 							<span class="size12 weight400" id="var-gender">GENDER</span>
 						</div>
 						<div style="margin-top:5px;">
 							<div>
-								<span class="size12 weight800" id="var-college">COLLEGE</span>
+								<span class="size12 weight800">COLLEGE</span>
 							</div>
 							<div>
 								<span class="size12 weight800" id="var-studentClass">10</span>
@@ -126,5 +129,5 @@
 			</div>
 		</div>
 	
-    </div>
+    </th:block>
 </html>
