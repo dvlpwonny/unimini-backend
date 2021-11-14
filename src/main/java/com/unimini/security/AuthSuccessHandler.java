@@ -32,32 +32,5 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         OutputStream out = response.getOutputStream();
         out.write(jsonString.getBytes());
 
-        /*handle(request, response, authentication);
-        clearAuthenticationAttributes(request);*/
     }
-
-    /*protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
-        if (savedRequest == null) {
-            clearAuthenticationAttributes(request);
-            return;
-        }
-        String targetUrlParam = getTargetUrlParameter();
-        if (isAlwaysUseDefaultTargetUrl() || (targetUrlParam != null && StringUtils.hasText(request.getParameter(targetUrlParam)))) {
-            requestCache.removeRequest(request, response);
-            clearAuthenticationAttributes(request);
-            return;
-        }
-        clearAuthenticationAttributes(request);
-    }
-
-    private void clearAuthenticationAttributes(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return;
-        }
-
-        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-    }*/
-
 }
