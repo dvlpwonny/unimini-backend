@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -31,10 +32,15 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void createUserInfo(Map<String, String> paramMap) {
+    public void createUserInfo(Map<String, Object> paramMap) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         paramMap.put("userAuth", "USER");
-        paramMap.put("password", passwordEncoder.encode(paramMap.get("password")));
+        paramMap.put("password", passwordEncoder.encode(paramMap.get("password").toString()));
+        
+        // 프로필 랜덤생성
+        Random random = new Random();
+        int profileImageCode = random.nextInt(16) + 1;
+        paramMap.put("profileImageCode", profileImageCode);
         userMapper.createUserInfo(paramMap);
     }
 }
