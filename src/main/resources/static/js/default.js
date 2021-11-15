@@ -13,25 +13,25 @@ if(HEADER_TITLE){
 
 //3. 회원가입
   //회원가입 단계 이동
-    const stages = document.getElementsByClassName("stage");
-    const firstStageElem = document.getElementsByTagName("signup_1")[0];
-      const secondStageElem = document.getElementsByTagName("signup_2")[0];
-      const thirdStageElem = document.getElementsByTagName("signup_3")[0];
+    const STAGES = document.getElementsByClassName("stage");
+    const FIRST_STAGE = document.getElementsByTagName("#signupFirstStage");
+    const SECOND_STAGE = document.getElementsByTagName("#signupSecondStage");
+    const THIRD_STAGE = document.getElementsByTagName("#signupThirdStage");
       function toSecondStage(){
-        firstStageElem.classList.add("inactive");
-        secondStageElem.classList.remove("inactive");
-        thirdStageElem.classList.add("inactive");
-        stages[0].classList.remove("now");
-        stages[1].classList.add("now");
-        stages[2].classList.remove("now");
+        FIRST_STAGE.classList.add("inactive");
+        SECOND_STAGE.classList.remove("inactive");
+        THIRD_STAGE.classList.add("inactive");
+        STAGES[0].classList.remove("now");
+        STAGES[1].classList.add("now");
+        STAGES[2].classList.remove("now");
       }
       function toThirdStage(){
-        firstStageElem.classList.add("inactive");
-        secondStageElem.classList.add("inactive");
-        thirdStageElem.classList.remove("inactive");
-        stages[0].classList.remove("now");
-        stages[1].classList.remove("now");
-        stages[2].classList.add("now");
+        FIRST_STAGE.classList.add("inactive");
+        SECOND_STAGE.classList.add("inactive");
+        THIRD_STAGE.classList.remove("inactive");
+        STAGES[0].classList.remove("now");
+        STAGES[1].classList.remove("now");
+        STAGES[2].classList.add("now");
       }
       const validationElem = document.getElementById("idValidation")
       function extendValidationForm(){
