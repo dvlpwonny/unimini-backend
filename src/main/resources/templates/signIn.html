@@ -23,13 +23,9 @@
 				});
 			}());
 
-			function signInValidation() {
-
-			}
-
 			function signIn() {
 
-				$('input[name=username]').val($('#userId').val());
+				$('input[name=username]').val($('#email-login').val());
 
 				$.ajax({
 					url: '/signIn/signIn',
