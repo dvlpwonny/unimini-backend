@@ -64,9 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
         		.antMatchers("/mingle/makeMingleEvent")             /* Temp */
-        		.antMatchers("/makeMingleEvent_searchPlace") /* Temp */
-        		
-        		.antMatchers("/EventContent")        /* Temp */
+        		.antMatchers("/mingle/mingleDetail")        /* Temp */
+        		.antMatchers("/mingle/makeMingleEvent_searchPlace") /* Temp */
         		
         		.antMatchers("/EventContentForHost") /* Temp */
         		.antMatchers("/EventContentForUser") /* Temp */
