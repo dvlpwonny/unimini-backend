@@ -1,23 +1,18 @@
 package com.unimini.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import lombok.extern.slf4j.Slf4j;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @Slf4j
 @Controller
 public class MingleController {
 
-	@GetMapping(value = "/makeMingleEvent")
+	@GetMapping(value = "/mingle/makeMingleEvent")
 	public String makeMingleEvent(Model model) {
 		
 		Calendar cal = Calendar.getInstance();
@@ -41,5 +36,17 @@ public class MingleController {
 		
         return "makeMingleEvent_searchPlace";
     }
+
+	@GetMapping(value = "/mingle/mingleDetail")
+	public String mingleDetail(Model model) {
+
+		return "EventContent";
+	}
+
+	@GetMapping(value = "/mingle/totalMigleList")
+	public String totalMigleList(Model model) {
+
+		return "EventContent";
+	}
 
 }

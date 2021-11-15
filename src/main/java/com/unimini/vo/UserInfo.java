@@ -9,11 +9,13 @@ import java.util.Collections;
 
 public class UserInfo implements UserDetails {
 
+    private Long userCode;
     private String username;
     private String password;
     private String userAuth;
 
     public UserInfo(User user) {
+        this.userCode = user.getUserCode();
         this.username = user.getUserId();
         this.password = user.getPassword();
         this.userAuth = user.getUserAuth();
@@ -32,6 +34,10 @@ public class UserInfo implements UserDetails {
     @Override
     public String getUsername() {
         return this.username;
+    }
+
+    public String getUserCode() {
+        return this.userCode.toString();
     }
 
     @Override

@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-        		.antMatchers("/makeMingleEvent")             /* Temp */
+        		.antMatchers("/mingle/makeMingleEvent")             /* Temp */
         		.antMatchers("/makeMingleEvent_searchPlace") /* Temp */
         		
         		.antMatchers("/EventContent")        /* Temp */
@@ -82,6 +82,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/js/**");
 
     }
+
+
 
     /**
      * 로그인 인증 처리 메소드

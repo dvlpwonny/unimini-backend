@@ -23,7 +23,11 @@ public interface UnityMapper {
 
     List<Map<String, String>> getMingleList(Map<String, String> paramMap);
 
-    List<Map<String, String>> getUnizoneList();
+    List<Map<String, String>> getUnizoneList(Map<String, String> paramMap);
 
     List<Map<String, String>> getLikeEventList(Map<String, String> paramMap);
+
+    int setLikeEvent(Map<String, String> paramMap);
+
+    int setWithEvent(Map<String, String> paramMap);
 }
