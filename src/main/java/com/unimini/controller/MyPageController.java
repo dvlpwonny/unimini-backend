@@ -34,6 +34,12 @@ public class MyPageController {
         return mav;
     }
 
+    @GetMapping(value = "/myPage/leaveCommentForm")
+    public ModelAndView myPageLeaveComment() {
+        ModelAndView mav = new ModelAndView("myPage_leaveComment");
+        return mav;
+    }
+
     @GetMapping(value = "/myPage/myEventList")
     public ModelAndView myEventList(UserInfo user) {
         ModelAndView mav = new ModelAndView("myEventList");

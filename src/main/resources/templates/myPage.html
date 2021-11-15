@@ -51,7 +51,7 @@
 					<div class="d-flex align-items-center justify-content-center" id="my_icon">
 						<img th:src="@{${userInfo.profileImageCode}}" width="100%" height="100%" alt="" id="var-profile">
 					</div>
-					<div class="d-flex justify-content-center flex-column" id="my_profile_info">
+					<div class="d-flex justify-content-center flex-column" id="my_profile_info" style="margin-left=10px;">
 						<div>
 							<span id="nickname" class="size20" th:text="${userInfo.nickname}"></span>
 							<span class="size12 weight400" id="var-gender" th:text="${userInfo.genderName}"></span>
@@ -89,13 +89,13 @@
 				</div>
 				<div id="myPage_menu">
 					<div class="d-flex align-items-center menu_bar">
-						<a href="myPage_leaveComment.html">의견 남기기
+						<a href="/myPage/leaveCommentForm">의견 남기기
 						<div class="clickable">
 						</div>
 						</a>
 					</div>
 					<div class="d-flex align-items-center menu_bar">
-						<a href="myPage_leaveComment.html">신고하기
+						<a href="/myPage/leaveCommentForm">신고하기
 							<div class="clickable">
 							</div>
 						</a>
