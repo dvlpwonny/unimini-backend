@@ -23,11 +23,11 @@ public class MyPageController {
     MyPageService myPageService;
 
     @GetMapping(value = "/myPage/myPageForm")
-    public ModelAndView myPage(Principal principal) {
+    public ModelAndView myPage(@RequestBody Map<String, String> paramMap) {
         ModelAndView mav = new ModelAndView("myPage");
-        Map<String, String> paramMap = new HashMap<>();
+        /*Map<String, String> paramMap = new HashMap<>();*/
 
-        paramMap.put("userId", principal.getName());
+        /*paramMap.put("userId", principal.getName());*/
         Map<String, String> userInfo = myPageService.getUserInfo(paramMap);
         mav.addObject("userInfo", userInfo);
 

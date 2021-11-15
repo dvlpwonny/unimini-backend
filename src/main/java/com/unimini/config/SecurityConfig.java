@@ -76,6 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.antMatchers("/rooms/**")            /* Temp */        		
         		.antMatchers("/new")                 /* Temp */
 
+                .antMatchers("/myPage/myPageForm")                 /* Temp */
 
                 .antMatchers("/unityPage/studentCouncilPage1")
                 .antMatchers("/unityPage/studentCouncilPage2")
