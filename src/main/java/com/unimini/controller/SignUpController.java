@@ -26,7 +26,7 @@ public class SignUpController {
 
     @ResponseBody
     @PostMapping(value = "/signUp/signUp")
-    public Map<String,String> signUp(@RequestBody Map<String, String> paramMap) {
+    public Map<String,String> signUp(@RequestBody Map<String, Object> paramMap) {
         userService.createUserInfo(paramMap);
 
         Map<String, String> resultMap = new HashMap<>();
