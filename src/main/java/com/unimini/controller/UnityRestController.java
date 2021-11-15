@@ -108,9 +108,9 @@ public class UnityRestController {
     @RequestMapping(value = "/unity/getLikeEventList", method = {RequestMethod.GET, RequestMethod.POST})
     @ApiOperation(value = "좋아요 리스트", notes = "홈화면에서의 좋아요 리스트")
     public ResponseEntity getLikeEventList(
-            @ApiParam(value = "유저아이디", required = false, example = "admin") @RequestParam(value = "userId", required = false) String userCode) {
+            @ApiParam(value = "유저아이디", required = false, example = "admin") @RequestParam(value = "userId", required = false) String userId) {
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put("userCode", userCode);
+        paramMap.put("userId", userId);
         List<Map<String, String>> likeEventList = unityService.getLikeEventList(paramMap);
         Map<String, Object> result = new HashMap<>();
         result.put("result", likeEventList);
@@ -177,6 +177,20 @@ public class UnityRestController {
             result.put("result", "fail");
         }
 
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/unity/getProfileCode", method = {RequestMethod.GET, RequestMethod.POST})
+    @ApiOperation(value = "프로필 코드 전달", notes = "홈화면에서의 로그인 이후 프로필 사진")
+    public ResponseEntity getProfileCode(
+            @ApiParam(value = "유저아이디", required = false, example = "admin") @RequestParam(value = "userId", required = false) String userId) {
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("userId", userId);
+        Map<String, String> profileInfo = unityService.getProfileCode(paramMap);
+        Map<String, Object> result = new HashMap<>();
+        result.put("result", profileInfo);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

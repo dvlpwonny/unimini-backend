@@ -280,4 +280,12 @@
               UPDATE_DATE = NOW()
     </insert>
 
+    <!-- 프로필 -->
+    <select id="getProfileCode" resultType="uniMap" parameterType="map">
+        SELECT
+            PROFILE_IMAGE_CODE
+        FROM TB_USER
+        WHERE USER_ID = #{userId};
+    </select>
+
 </mapper>

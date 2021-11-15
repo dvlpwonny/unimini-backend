@@ -49,4 +49,8 @@ public class UnityService {
     public int setWithEvent(Map<String, String> paramMap) {
         return unityMapper.setWithEvent(paramMap);
     }
+
+    public Map<String, String> getProfileCode(Map<String, String> paramMap) {
+        return unityMapper.getProfileCode(paramMap);
+    }
 }
