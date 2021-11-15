@@ -1,11 +1,15 @@
 package com.unimini.controller;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.unimini.service.MingleService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,6 +22,9 @@ import java.util.Map;
 @Controller
 public class MingleController {
 
+	@Autowired
+	MingleService mingleService;
+	
 	@GetMapping(value = "/mingle/makeMingleEvent")
 	public String makeMingleEvent(Model model) {
 		
@@ -37,8 +44,9 @@ public class MingleController {
 
 	@RequestMapping(value = "/mingle/makeMingleEvent_searchPlace", method = {RequestMethod.GET, RequestMethod.POST})
     public String makeMingleEvent_searchPlace(Model model) {
-		
-		
+		List<Map<String, String>> placeList = mingleService.getAllMingleList();
+
+		model.addAttribute("placeList",placeList);
 		
         return "makeMingleEvent_searchPlace";
     }
