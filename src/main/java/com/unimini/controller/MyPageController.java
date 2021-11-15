@@ -1,7 +1,6 @@
 package com.unimini.controller;
 
 import com.unimini.service.MyPageService;
-import com.unimini.vo.UserInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -33,34 +33,6 @@ public class MyPageController {
 
         return mav;
     }
-
-    @GetMapping(value = "/myPage/leaveCommentForm")
-    public ModelAndView myPageLeaveComment() {
-        ModelAndView mav = new ModelAndView("myPage_leaveComment");
-        return mav;
-    }
-
-    @GetMapping(value = "/myPage/myEventList")
-    public ModelAndView myEventList(UserInfo user) {
-        ModelAndView mav = new ModelAndView("myEventList");
-
-        return mav;
-    }
-    
-    /*@GetMapping(value = "/myPage_changeNickname")
-    public String myPage_changeNickname() {
-        return "myPage_changeNickname";
-    }
-
-    @GetMapping(value = "/myPage_changePassword")
-    public String myPage_changePassword() {
-        return "myPage_changePassword";
-    }
-
-    @GetMapping(value = "/myPage_changePhone")
-    public String myPage_changePhone() {
-        return "myPage_changePhone";
-    }*/
 
     /*
      *사용자 정보 조회
@@ -95,5 +67,31 @@ public class MyPageController {
 
         return resultMap;
     }
-    
+
+    @GetMapping(value = "/myPage/leaveCommentForm")
+    public ModelAndView myPageLeaveCommentForm() {
+        ModelAndView mav = new ModelAndView("myPage_leaveComment");
+        return mav;
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/myPage/leaveComment")
+    public Map<String, String> leaveComment(@RequestBody Map<String, String> paramMap, Principal principal) {
+        paramMap.put("createUser", principal.getName());
+        int resultNum = myPageService.setLeaveComment(paramMap);
+
+        Map<String, String> resultMap = new HashMap<>();
+        if (resultNum > 0) {
+            resultMap.put("result", "success");
+        }
+
+        return resultMap;
+    }
+
+    @GetMapping(value = "/myPage/reportCommentForm")
+    public ModelAndView reportCommentForm() {
+        ModelAndView mav = new ModelAndView("myPage_reportComment");
+        return mav;
+    }
+
 }

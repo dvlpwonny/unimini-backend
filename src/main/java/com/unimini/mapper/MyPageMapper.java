@@ -19,4 +19,7 @@ public interface MyPageMapper {
     Map<String, String> getUserInfo(Map<String, String> paramMap);
 
     int updateUser(Map<String, String> paramMap);
+
+    int setLeaveComment(Map<String, String> paramMap);
+
 }

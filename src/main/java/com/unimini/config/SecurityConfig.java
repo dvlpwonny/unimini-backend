@@ -73,8 +73,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.antMatchers("/room")                /* Temp */        		
         		.antMatchers("/rooms")               /* Temp */        		
         		.antMatchers("/rooms/**")            /* Temp */        		
-        		.antMatchers("/new")                 /* Temp */        		
-        		
+        		.antMatchers("/new")                 /* Temp */
+
+
+                .antMatchers("/unityPage/studentCouncilPage1")
+                .antMatchers("/unityPage/studentCouncilPage2")
+                .antMatchers("/unityPage/studentCouncilPage3")
+                .antMatchers("/unityPage/studentCouncilPage4") // 총학페이지는 security X
                 .antMatchers("/resource/**")
                 .antMatchers("/static/css/**")
                 .antMatchers("/static/iconfont/**")

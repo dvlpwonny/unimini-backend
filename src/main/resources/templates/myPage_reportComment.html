@@ -17,7 +17,7 @@
 		<script>
 			function setComment() {
 				if ($('#comment').val() == '') {
-					alert('의견을 남겨주세요.');
+					alert('신고 내용을 남겨주세요.');
 					return;
 				}
 
@@ -34,7 +34,7 @@
 					success: function(__data, __textStatus, __jqXHR){
 						console.log('data', __data);
 						if (__data.result == "success") {
-							alert('의견을 남겨주셔서 감사합니다.');
+							alert('남겨주신 신고내용 확인하겠습니다. 감사합니다.');
 							window.location.href = "/myPage/myPageForm";
 						}
 					},
@@ -60,7 +60,7 @@
 					<div style="width:30px;margin-left:10px;">
 						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" onclick="window.history.back();">
 					</div>
-					<div><span id="header_title" class="size20">의견남기기</span></div>
+					<div><span id="header_title" class="size20">신고하기</span></div>
 				</nav>
 			</header>
 			<leavecomment class="appContainer">
@@ -68,7 +68,7 @@
 				<div class="d-flex">
 					<form style="width:100%; margin-top:10px;">
 						<div style="height:200px;">
-							<textarea id="comment" placeholder="유니미니를 사용하고 난 경험에 대해서 &#13;&#10;자유롭게 의견을 남겨주세요."></textarea>
+							<textarea id="comment" placeholder="유니미니를 사용하고 난 불편한 경험에 대해서 &#13;&#10;자유롭게 신고 내용을 남겨주세요."></textarea>
 						</div>
 						<div class="buttonBox2">
 							<button type="button" onclick="location.href='myPage/myPageForm'">

@@ -68,4 +68,20 @@
           AND USER_ID = #{userId}
     </update>
 
+    <insert id="setLeaveComment" parameterType="map">
+        INSERT INTO TB_OPINION (
+            OPINION_CONTENT
+            , CREATE_USER
+            , UPDATE_USER
+            , CREATE_DATE
+            , UPDATE_DATE
+        ) VALUES (
+             #{opinionContent}
+            , #{createUser}
+            , #{createUser}
+            , NOW()
+            , NOW()
+        )
+    </insert>
+
 </mapper>

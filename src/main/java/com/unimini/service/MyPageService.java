@@ -28,4 +28,8 @@ public class MyPageService {
     public int updateUser(Map<String, String> paramMap) {
         return myPageMapper.updateUser(paramMap);
     }
+
+    public int setLeaveComment(Map<String, String> paramMap) {
+        return myPageMapper.setLeaveComment(paramMap);
+    }
 }
