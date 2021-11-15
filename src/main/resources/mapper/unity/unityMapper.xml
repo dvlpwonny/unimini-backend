@@ -81,13 +81,13 @@
             , DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
             , DATE_fORMAT(EVENT_START_TIME, "%Y-%m-%d") AS EVENT_DATE
             , CONCAT(DATE_fORMAT(EVENT_START_TIME, '%H:%i'), '~', DATE_fORMAT(EVENT_END_TIME, '%H:%i')) AS EVENT_TIME
-            , (
+            , IFNULL((
                 SELECT
                     COUNT(USER_ID) AS TOT_USER_CNT
                 FROM TB_EVENT_USER_MAPP_GROUP G
                 WHERE A.EVENT_CODE = G.EVENT_CODE
                 GROUP BY G.EVENT_CODE
-            ) AS TOT_PRSNNL
+            ),0) AS TOT_PRSNNL
             , IFNULL((
                 SELECT
                     IFNULL(COUNT(USER_ID), 0)
@@ -152,6 +152,26 @@
                  AND G.LIKE_FLAG = 'Y'
                 GROUP BY A.EVENT_CODE
             ),0) AS TOT_LIKE
+            , IFNULL((
+            	SELECT
+            		C.LIKE_FLAG
+            	FROM TB_EVENT_USER_MAPP_GROUP C
+            	WHERE A.EVENT_CODE = C.EVENT_CODE
+            	  AND USER_ID = #{userId}
+            ),'N') AS LIKE_FLAG
+            , IFNULL((
+            	SELECT
+            		CASE
+		                WHEN B.TOT_USER_CNT = A.MINIMUM_PRSNNL
+		                    THEN 'WTH003'
+		                WHEN C.USER_STATUS_CODE = 'EVTUSRST002' OR C.USER_STATUS_CODE = 'EVTUSRST003'
+		                    THEN 'WTH002'
+		             	ELSE 'WTH001'
+	                END AS WITH_FLAG
+            	FROM TB_EVENT_USER_MAPP_GROUP C
+            	WHERE A.EVENT_CODE = C.EVENT_CODE
+            	  AND USER_ID = #{userId}
+            ),'WTH001') AS WITH_FLAG
         FROM TB_EVENT A
         WHERE A.SECTION_CODE = #{sectionCode}
         AND A.BUILDING_CODE = #{buildingCode}
