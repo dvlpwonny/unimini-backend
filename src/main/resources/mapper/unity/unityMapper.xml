@@ -108,7 +108,7 @@
     <!-- 유니존 리스트 -->
     <select id="getUnizoneList" resultType="uniMap" parameterType="map">
         SELECT
-            EVENT_CODE
+            A.EVENT_CODE
             , EVENT_NAME
             , CATEGORY_CODE
             , SECTION_CODE
@@ -172,7 +172,14 @@
             	WHERE A.EVENT_CODE = C.EVENT_CODE
             	  AND USER_ID = #{userId}
             ),'WTH001') AS WITH_FLAG
-        FROM TB_EVENT A
+        FROM TB_EVENT A LEFT OUTER JOIN (
+            	SELECT
+					COUNT(USER_ID) AS TOT_USER_CNT
+					, EVENT_CODE
+				FROM TB_EVENT_USER_MAPP_GROUP
+				WHERE USER_STATUS_CODE = 'EVTUSRST002' OR USER_STATUS_CODE = 'EVTUSRST003'
+				GROUP BY EVENT_CODE
+            ) B ON A.EVENT_CODE = B.EVENT_CODE
         WHERE A.SECTION_CODE = #{sectionCode}
         AND A.BUILDING_CODE = #{buildingCode}
         AND (EVENT_STATUS_CODE = 'EVTSTS001' OR EVENT_STATUS_CODE = 'EVTSTS002')

@@ -88,10 +88,12 @@ public class UnityRestController {
     @ApiOperation(value = "유니존리스트", notes = "핀 클릭시 노출되는 유니존리스트")
     public ResponseEntity getUnizoneList(
             @ApiParam(value = "영역코드", required = false, example = "SECA0001") @RequestParam(value = "sectionCode", required = false) String sectionCode
-            , @ApiParam(value = "빌딩코드", required = false, example = "BUIL001") @RequestParam(value = "buildingCode", required = false) String buildingCode) {
+            , @ApiParam(value = "빌딩코드", required = false, example = "BUIL001") @RequestParam(value = "buildingCode", required = false) String buildingCode
+            , @ApiParam(value = "유저아이디", required = false, example = "admin") @RequestParam(value = "userId", required = false) String userId) {
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("sectionCode", sectionCode);
         paramMap.put("buildingCode", buildingCode);
+        paramMap.put("userId", userId);
         List<Map<String, String>> categoryList = unityService.getUnizoneList(paramMap);
         Map<String, Object> result = new HashMap<>();
         result.put("result", categoryList);
@@ -136,6 +138,7 @@ public class UnityRestController {
 
         if (resultNum > 0) {
             result.put("result", "success");
+            result.put("likeFlag", likeFlag);
         } else {
             result.put("result", "fail");
         }
@@ -169,6 +172,7 @@ public class UnityRestController {
 
         if (resultNum > 0) {
             result.put("result", "success");
+            result.put("withFlag", withFlag);
         } else {
             result.put("result", "fail");
         }
