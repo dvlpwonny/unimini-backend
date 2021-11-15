@@ -39,14 +39,15 @@
             </if>
             , EVENT_TYPE_CODE
         FROM TB_EVENT A
-        WHERE DATE_FORMAT(EVENT_START_TIME, "%Y-%m-%d") = CURDATE()
+        WHERE 1=1
         <if test="eventTypeCode == 'EVT001'">
+            DATE_FORMAT(EVENT_START_TIME, "%Y-%m-%d") = CURDATE()
             <if test="categoryCode != null and !categoryCode.equals('')">
                 AND CATEGORY_CODE = #{categoryCode}
             </if>
-            <if test="timeSearch != null and !timeSearch.equals('')">
-                AND DATE_FORMAT(EVENT_START_TIME, '%H:%i') > DATE_fORMAT(#{timeSearch}, '%H:%i')
-            </if>
+        </if>
+        <if test="timeSearch != null and !timeSearch.equals('')">
+            AND DATE_FORMAT(EVENT_START_TIME, '%H:%i') > DATE_fORMAT(#{timeSearch}, '%H:%i')
         </if>
         <if test="eventTypeCode != null and !eventTypeCode.equals('')">
             AND EVENT_TYPE_CODE = #{eventTypeCode}
