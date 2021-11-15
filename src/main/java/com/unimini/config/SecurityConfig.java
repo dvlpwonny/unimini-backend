@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**", "/unity/**").permitAll() // swagger 예외
                 .anyRequest()
                 .authenticated()
+                
         .and()
             .formLogin()
                 .loginPage("/signIn/signInForm")
@@ -66,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.antMatchers("/makeMingleEvent_searchPlace") /* Temp */
         		
         		.antMatchers("/EventContent")        /* Temp */
+        		
         		.antMatchers("/EventContentForHost") /* Temp */
         		.antMatchers("/EventContentForUser") /* Temp */
         		.antMatchers("/c")                   /* Temp */        		
