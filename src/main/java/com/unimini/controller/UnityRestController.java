@@ -87,8 +87,10 @@ public class UnityRestController {
     @RequestMapping(value = "/unity/getUnizoneList", method = {RequestMethod.GET, RequestMethod.POST})
     @ApiOperation(value = "유니존리스트", notes = "핀 클릭시 노출되는 유니존리스트")
     public ResponseEntity getUnizoneList(
-            @ApiParam(value = "빌딩코드", required = false, example = "BUIL001") @RequestParam(value = "buildingCode", required = false) String buildingCode) {
+            @ApiParam(value = "영역코드", required = false, example = "SECA0001") @RequestParam(value = "sectionCode", required = false) String sectionCode
+            , @ApiParam(value = "빌딩코드", required = false, example = "BUIL001") @RequestParam(value = "buildingCode", required = false) String buildingCode) {
         Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("sectionCode", sectionCode);
         paramMap.put("buildingCode", buildingCode);
         List<Map<String, String>> categoryList = unityService.getUnizoneList(paramMap);
         Map<String, Object> result = new HashMap<>();

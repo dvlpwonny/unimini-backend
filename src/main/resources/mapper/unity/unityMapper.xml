@@ -154,7 +154,8 @@
                 GROUP BY A.EVENT_CODE
             ),0) AS TOT_LIKE
         FROM TB_EVENT A
-        WHERE A.BUILDING_CODE = #{buildingCode}
+        WHERE A.SECTION_CODE = #{sectionCode}
+        AND A.BUILDING_CODE = #{buildingCode}
         AND (EVENT_STATUS_CODE = 'EVTSTS001' OR EVENT_STATUS_CODE = 'EVTSTS002')
         AND EVENT_TYPE_CODE = 'EVT002'
     </select>
