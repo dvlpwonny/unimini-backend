@@ -65,7 +65,7 @@ const INPUT_STAGE3 = [INPUT_NICKNAME_SIGNUP,INPUT_STUDENT_ID_SIGNUP, INPUT_MAJOR
 
 function validationLogin(){
   INPUT_PASSWORD_LOGIN.addEventListener('keyup',event=>{
-    if (!checkIfEmpty(INPUT_PASSWORD_LOGIN && !checkIfEmpty(INPUT_EMAIL_LOGIN)))validateBtn(BTN_TO_FINISH_LOGIN);
+    if (!checkIfEmpty(INPUT_PASSWORD_LOGIN) && !checkIfEmpty(INPUT_EMAIL_LOGIN)) validateBtn(BTN_TO_FINISH_LOGIN);
     else invalidateBtn(BTN_TO_FINISH_LOGIN);
   })
   INPUT_EMAIL_LOGIN.addEventListener('keyup',event=>{
