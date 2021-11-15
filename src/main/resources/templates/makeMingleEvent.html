@@ -23,10 +23,31 @@
 			
 			document.getElementById('endTime').value = dateOneHourAgo.toString().slice(16,21);
 			
-			/* Time */
+			
 			function moveSearchPlace() {
-				console.log("moveSearchPlace !");
-								
+				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_title'].value = document.getElementById('title').value;
+				
+				var mingleCategory = document.getElementById('mingleCategory');
+				var mingleCategoryClassHtml = mingleCategory.getElementsByClassName('selected');
+				for(var i=0; i<mingleCategoryClassHtml; i++){
+					document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_category'].value = mingleCategoryClassHtml[i].id;
+				}
+				
+				var mingleDay = document.getElementById('mingleDay');
+				var mingleDayHtml = mingleDay.getElementsByClassName('selected');
+				for(var i=0; i<mingleCategoryClassHtml; i++){
+					document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_day'].value = mingleCategoryClassHtml[i].id;
+				}
+				
+				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_startTime'].value = document.getElementById('startTime').value;
+				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_endTime'].value = document.getElementById('endTime').value;
+				
+				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_minPerson'].value = document.getElementById('minPerson').innerText;
+				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_maxPerson'].value = document.getElementById('maxPerson').innerText;
+				
+				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_detail'].value = document.getElementById('detail').value;
+				
+				document.getElementById('moveSearchPlaceForm').submit();
 			}
 			
 		</script> 
@@ -39,21 +60,21 @@
 			<div class="responsiveApp">
 				<div class="container padding">
 					<div class="mingleContainer">
-						<input class="green" type="text" placeholder="제목을 입력해주세요">
+						<input id="title" name="title" class="green" type="text" placeholder="제목을 입력해주세요">
 						<div id="mingleCategory">
-							<div class="category">
+							<div id="mingleCategory-std" class="category">
 								스터디
 							</div>
-							<div class="category">
+							<div id="mingleCategory-exe" class="category">
 								운동
 							</div>
-							<div class="category">
+							<div id="mingleCategory-chal" class="category">
 								챌린지
 							</div>
-							<div class="category">
+							<div id="mingleCategory-show" class="category">
 								공연/전시
 							</div>
-							<div class="category">
+							<div id="mingleCategory-hobby" class="category">
 								취미
 							</div>
 						</div>
@@ -62,7 +83,7 @@
 						<div>
 							<span class="size12 weight700 grey2">날짜 <span th:text="${toDay}" /> </span >
 						</div>
-						<div class="d-flex justify-content-around" style="margin:10px 0px;">
+						<div id="mingleDay" class="d-flex justify-content-around" style="margin:10px 0px;">
 							<div class="mingleDate selected">
 								<span class="size14 weight500" style="white-space: nowrap;">오늘</span>
 							</div>
@@ -113,10 +134,16 @@
 									<span class="text-info2">장소 이름 검색</span>
 								</div>
 							</div>
-							<form id="moveSearchPlaceForm" action="@{/makeMingleEvent_searchPlace}" method="post">
-								
-								
-							</form  >
+							<form id="moveSearchPlaceForm" method="post" th:action="@{/makeMingleEvent_searchPlace}">
+								<input id="moveSearchPlaceForm_title" name="moveSearchPlaceForm_title" type="hidden">
+								<input id="moveSearchPlaceForm_category" name="moveSearchPlaceForm_category" type="hidden">
+								<input id="moveSearchPlaceForm_day" name="moveSearchPlaceForm_day" type="hidden">
+								<input id="moveSearchPlaceForm_startTime" name="moveSearchPlaceForm_startTime" type="hidden">
+								<input id="moveSearchPlaceForm_endTime" name="moveSearchPlaceForm_endTime" type="hidden">
+								<input id="moveSearchPlaceForm_minPerson" name="moveSearchPlaceForm_minPerson" type="hidden">
+								<input id="moveSearchPlaceForm_maxPerson" name="moveSearchPlaceForm_maxPerson" type="hidden">
+								<input id="moveSearchPlaceForm_detail" name="moveSearchPlaceForm_detail" type="hidden">
+							</form>
 							<div class="locationOption d-flex flex-column justify-content-center align-items-center">
 								<img th:src="@{/static/image/search_big.png}" alt="" width="18px" height="18px">
 								<div>
@@ -141,7 +168,7 @@
 									<div class="minglePersonNumberOptionDec min">
 										-
 									</div>
-									<div class="minglePersonNumber min">
+									<div id="minPerson" class="minglePersonNumber min">
 										3
 									</div>
 									<div class="minglePersonNumberOptionInc min">
@@ -157,7 +184,7 @@
 									<div class="minglePersonNumberOptionDec max">
 										-
 									</div>
-									<div class="minglePersonNumber max">
+									<div id="maxPerson" class="minglePersonNumber max">
 										8
 									</div>
 									<div class="minglePersonNumberOptionInc max">
@@ -168,7 +195,7 @@
 						</div>
 					</div>
 					<div class="mingleContainer">
-						<textarea class="placeholderCenter green" placeholder="진행할 밍글 이벤트에 대해 소개해주세요 &#13;&#10;부적절한 내용은 제한될 수 있어요" style="height:200px"></textarea>
+						<textarea id="detail" class="placeholderCenter green" placeholder="진행할 밍글 이벤트에 대해 소개해주세요 &#13;&#10;부적절한 내용은 제한될 수 있어요" style="height:200px"></textarea>
 					</div>
 
 					<div class="d-flex justify-content-end">

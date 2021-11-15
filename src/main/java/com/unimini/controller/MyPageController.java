@@ -9,7 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,34 +22,16 @@ public class MyPageController {
     @Autowired
     MyPageService myPageService;
 
-    @GetMapping(value = "/myPage")
-    public String myPage() {
-        return "myPage";
-    }
-    
-    @GetMapping(value = "/myPage_changeNickname")
-    public String myPage_changeNickname() {
-        return "myPage_changeNickname";
-    }
+    @GetMapping(value = "/myPage/myPageForm")
+    public ModelAndView myPage(Principal principal) {
+        ModelAndView mav = new ModelAndView("myPage");
+        Map<String, String> paramMap = new HashMap<>();
 
-    @GetMapping(value = "/myPage_changePassword")
-    public String myPage_changePassword() {
-        return "myPage_changePassword";
-    }
+        paramMap.put("userId", principal.getName());
+        Map<String, String> userInfo = myPageService.getUserInfo(paramMap);
+        mav.addObject("userInfo", userInfo);
 
-    @GetMapping(value = "/myPage_changePhone")
-    public String myPage_changePhone() {
-        return "myPage_changePhone";
-    }
-
-    @GetMapping(value = "/myPage_leaveComment")
-    public String myPage_leaveComment() {
-        return "myPage_leaveComment";
-    }
-
-    @GetMapping(value = "/myPage_changeProfile")
-    public String myPage_changeProfile() {
-        return "myPage_changeProfile";
+        return mav;
     }
 
     /*
@@ -82,5 +67,31 @@ public class MyPageController {
 
         return resultMap;
     }
-    
+
+    @GetMapping(value = "/myPage/leaveCommentForm")
+    public ModelAndView myPageLeaveCommentForm() {
+        ModelAndView mav = new ModelAndView("myPage_leaveComment");
+        return mav;
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/myPage/leaveComment")
+    public Map<String, String> leaveComment(@RequestBody Map<String, String> paramMap, Principal principal) {
+        paramMap.put("createUser", principal.getName());
+        int resultNum = myPageService.setLeaveComment(paramMap);
+
+        Map<String, String> resultMap = new HashMap<>();
+        if (resultNum > 0) {
+            resultMap.put("result", "success");
+        }
+
+        return resultMap;
+    }
+
+    @GetMapping(value = "/myPage/reportCommentForm")
+    public ModelAndView reportCommentForm() {
+        ModelAndView mav = new ModelAndView("myPage_reportComment");
+        return mav;
+    }
+
 }

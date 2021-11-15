@@ -17,6 +17,87 @@
 		<script th:src="@{/static/js/lib/handlebars.min.js}"></script>
 		<script th:src="@{/static/js/countDown.js}"></script>
 		<script th:src="@{/static/js/default.js}"></script>
+		
+		<script>
+		    var webSocket;
+		    var nickname = 'TEST00' + getRandomInt(1,100);
+		    var roomId = 'db283ce8-b201-4b56-b10e-ce56b79edcbc-20211112162645';
+		    
+		    connect();
+		    
+		    document.getElementById("sendChattingBtn").addEventListener("click",function(){
+		        send();
+		    })
+
+		    function connect(){
+		        webSocket = new WebSocket("ws://localhost:8080/chat");
+		        webSocket.onopen = onOpen;
+		        webSocket.onclose = onClose;
+		        webSocket.onmessage = onMessage;
+		    }
+		    
+		    function onOpen(){
+		        webSocket.send(JSON.stringify({chatRoomId : roomId,type:'ENTER',writer:nickname}));
+		    }
+		    
+		    function onClose(){
+		        disconnect();
+		    }
+		    
+		    function disconnect(){
+		        webSocket.send(JSON.stringify({chatRoomId : roomId,type:'LEAVE',writer:nickname}));
+		        webSocket.close();
+		    }
+		    
+		    function onMessage(e){
+		        data = e.data;
+		        chatroom = document.getElementById("eventMenuOpenChatting");
+		        
+		        /* 맨앞,뒤 삭제 */
+		        data = data.replace(/\"/gi, "");
+		        var userId = data.substr(0,data.indexOf(":"));
+		        userId = userId.replace(" ", "");
+		        var msg    = data.substr(data.indexOf(":")+1,data.length);
+		        var innerHtml = "";
+		        
+		        if(nickname == userId){
+		        	innerHtml = "<div class='myChatting d-flex justify-content-end'> <div class='d-flex flex-column'> <div class='d-flex align-items-end'> <div class='chattingMyTime'><span class='size10 weight400' style='margin-right:6px'> 오후 12:12 </span></div> <div class='openChattingMyContent'><span class='size13 weight500'> "+msg+" </span></div> </div> </div> </div>";
+		        } else {
+		        	innerHtml = "\
+		        	<div class='otherChatting d-flex'>\
+		        		<div class='chattingUserProfile' style='margin:0px 10px;'>\
+		        			<img src='../static/image/profile/profile10.png' alt='' width='100%' height='100%'>\
+		        		</div>\
+		        		<div class='d-flex flex-column'>\
+		        			<div class='chattingUserName'><span class='size12 weight500'>"+userId+"</span></div>\
+		        			<div class='d-flex align-items-end'>\
+		        				<div class='openChattingUserContent'><span class='size13 weight500'>\
+		        					"+msg+"\
+		        				</span></div>\
+		        				<div class='chattingUserTime'><span class='size10 weight400' style='margin-left:6px'>오후 12:12</span></div>\
+		        			</div>\
+		        		</div>\
+		        	</div>";
+		        }
+		        
+		        chatroom.innerHTML = chatroom.innerHTML + innerHtml;
+		        console.log(data);
+		    }
+		    
+		    function send(){
+		        msg = document.getElementById("sendChattingInput-2").value;
+		        webSocket.send(JSON.stringify({chatRoomId : roomId,type:'CHAT',writer:nickname,message : msg}));
+		        document.getElementById("sendChattingInput-2").value = "";
+		    }
+		    
+		    function getRandomInt(min, max) {
+		    	  min = Math.ceil(min);
+		    	  max = Math.floor(max);
+		    	  return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+	    	}
+		</script>		
+		
+		
     </th:block>
 
     <!-- Content -->
@@ -105,7 +186,6 @@
 								</div>
 								<p id="eventInfoContent"> 
 									<span class="size14 weight400">
-										
 									칵테일 한 잔 하면서 새로운 사람과 편하게<br>
 									이야기 나눠보는 것은 어떠세요?<br>
 									칵테일에 대해서도 알아보고 직접<br>
@@ -120,7 +200,7 @@
 						</div>
 					</div>
 					<div class="container eventMenuContent" id="eventMenuOpenChatting" style="height:80%">
-						<div class="otherChatting d-flex" style="width:fit-content">
+<!-- 						<div class="otherChatting d-flex" style="width:fit-content">
 							<div class="chattingUserProfile" style="margin:0px 10px;">
 								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
 							</div>
@@ -178,7 +258,8 @@
 								</div>
 							</div>
 						</div>
-					</div>
+ -->					
+ 					</div>
 					
 					<div class="container eventMenuContent inactive" id="eventMenuPartyChattingWaiting" style="height:80%">
 						<div style="position: relative; margin-top:100px;">
@@ -244,101 +325,6 @@
 								</div>
 							</div>
 						</div>
-						<div class="userAcceptedList" style="margin-top:50px;">
-							<div><span class="size14">수락된 신청자</span></div>
-							<div>
-								<div class="userAccepted d-flex justify-content-between align-items-center" style="margin:16px 0px;">
-									<div class="userAcceptedInfo d-flex align-items-center">
-										<div class="userAcceptedProfile" style="width:44px; height:44px; margin-right:10px;">
-											<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%" >
-	
-										</div>
-										<div><span class="size14 weight500">USERNAME</span></div>
-									</div>
-									<div class="userAcceptedController">
-										<div>
-											<button class="refuseUserAccepted"><span class="size14">함께하기 거절</span></button>
-										</div>
-									</div>
-								</div>
-								<div class="userAccepted d-flex justify-content-between align-items-center" style="margin:16px 0px;">
-									<div class="userAcceptedInfo d-flex align-items-center">
-										<div class="userAcceptedProfile" style="width:44px; height:44px; margin-right:10px;">
-											<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%" >
-	
-										</div>
-										<div><span class="size14 weight500">USERNAME</span></div>
-									</div>
-									<div class="userAcceptedController">
-										<div>
-											<button class="refuseUserAccepted"><span class="size14">함께하기 거절</span></button>    
-										<div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="container eventMenuContent" id="eventMenuPartyChatting" style="height:80%">
-						<div class="otherChatting d-flex" style="width:fit-content">
-							<div class="chattingUserProfile" style="margin:0px 10px;">
-								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
-							</div>
-							<div class="d-flex flex-column">
-								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
-								<div class="d-flex align-items-end">
-									<div class="chattingUserContent"><span class="size13 weight500">
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-									</span></div>
-									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
-								</div>
-							</div>
-						</div>
-						<div class="otherChatting d-flex">
-							<div class="chattingUserProfile" style="margin:0px 10px;">
-								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
-							</div>
-							<div class="d-flex flex-column">
-								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
-								<div class="d-flex align-items-end">
-									<div class="chattingUserContent"><span class="size13 weight500">
-										채팅내용입니다.
-									</span></div>
-									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
-								</div>
-							</div>
-						</div>
-						<div class="myChatting d-flex justify-content-end">
-							<div class="d-flex flex-column">
-								<div class="d-flex align-items-end">
-									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px">오후 12:12</span></div>
-									<div class="chattingMyContent"><span class="size13 weight500">
-										채팅내용입니다.
-									</span></div>
-								</div>
-							</div>
-						</div>
-						<div class="myChatting d-flex justify-content-end">
-							<div class="d-flex flex-column">
-								<div class="d-flex align-items-end">
-									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px">오후 12:12</span></div>
-									<div class="chattingMyContent"><span class="size13 weight500">
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-									</span></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 					</div>
 				</div>
 				<div class="container eventCloseButton" style="height:10%; margin:0px; padding:0px;">
@@ -348,14 +334,14 @@
 						<button class="inactive" style="width:85%; background-color: #ccc8c2 !important; color:white !important">종료하기</button>
 					</div>
 					<div class="eventMenuContentBtn inactive d-flex justify-content-center align-items-center" id="eventChatting" >
-						<input id="sendChattingInput" type="text" style="width:85%" placeholder="채팅해보세요!">
-						<button id="sendChattingBtn"></button>
+						<input id="sendChattingInput-1" type="text" style="width:85%" placeholder="채팅해보세요!">
+						<button id="sendChattingBtn-1"></button>
 					</div>
 					<div class="eventMenuContentBtn inactive d-flex justify-content-center align-items-center" id="eventChattingInvalidated" >
-						<input id="sendChattingInput" type="text" style="width:85%; background-color: #eee9e2 !important; color:#bfbbb5 !important" placeholder="밍글 종료 후 채팅이 비활성화 됩니다.">
+						<input id="sendChattingInput-2" type="text" style="width:85%; background-color: #eee9e2 !important; color:#bfbbb5 !important" placeholder="밍글 종료 후 채팅이 비활성화 됩니다.">
 						<button id="sendChattingBtn" style="background-color: #ccc8c2 !important;"></button>
 					</div>
-					<div class="eventMenuContentBtn d-flex justify-content-center" id="eventApplyBtn">
+ 					<div class="eventMenuContentBtn d-flex justify-content-center" id="eventApplyBtn">
 						<div class="d-flex justify-content-center" style="width:10%; margin-right:10px">
 							<button class="inactive d-flex justify-content-center align-items-center likeBtn" id="likeBtnFilled"><img src="../static/image/heart_filled.png" alt="" width="60%"></button>
 							<button class="d-flex justify-content-center align-items-center likeBtn" id="likeBtnUnfilled"><img src="../static/image/heart_unfilled.png" alt="" width="60%"></button>
@@ -363,9 +349,8 @@
 						<div style="width:75%;">
 							<button class="inactive eventJoinBtn">함께하기</button>
 							<button class="eventJoinBtn">함께하기 취소</button>
-					 
 						</div>
-						   </div>
+				   	</div>
 					<div class="eventMenuContentBtn inactive d-flex justify-content-center" id="eventEnterBtn">
 						<button style="width:85%;">입장하기</button>
 					</div>

@@ -13,7 +13,42 @@
     <th:block layout:fragment="script">
 		<script th:src="@{/static/js/load_html.js}"></script>
 		<script th:src="@{/static/js/default.js}"></script>
-		<script th:src="@{/static/js/validation.js}"></script>				
+		<script th:src="@{/static/js/validation.js}"></script>
+		<script>
+			function setComment() {
+				if ($('#comment').val() == '') {
+					alert('의견을 남겨주세요.');
+					return;
+				}
+
+				$.ajax({
+					url: '/myPage/leaveComment',
+					type: "POST",
+					data: JSON.stringify({'opinionContent' : $('#comment').val()}),
+					dataType : 'json',
+					contentType: "application/json; charset=utf-8",
+					cache :  false,
+					beforeSend : function(xhr)
+					{
+					},
+					success: function(__data, __textStatus, __jqXHR){
+						console.log('data', __data);
+						if (__data.result == "success") {
+							alert('의견을 남겨주셔서 감사합니다.');
+							window.location.href = "/myPage/myPageForm";
+						}
+					},
+					fail: function(__data, __textStatus, __jqXHR){
+						console.log("data", __data);
+					},
+					error: function(request, status, error){
+
+					},
+					complete: function(__data, __textStatus, __jqXHR) {
+					}
+				});
+			}
+		</script>
     </th:block>
 
     <!-- Content -->
@@ -21,26 +56,30 @@
 
 		<div id="app">
 			<header>
-			<script>loadHTML("./layout/header.html","./myPage.html")</script>
+				<nav class="container align-items-end" style="padding:10px;">
+					<div style="width:30px;margin-left:10px;">
+						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" onclick="window.history.back();">
+					</div>
+					<div><span id="header_title" class="size20">의견남기기</span></div>
+				</nav>
 			</header>
 			<leavecomment class="appContainer">
 			<div class="container padding responsiveApp">
 				<div class="d-flex">
 					<form style="width:100%; margin-top:10px;">
 						<div style="height:200px;">
-							<textarea onkeyup="checkEmpty(this)" placeholder="유니미니를 사용하고 난 경험에 대해서 &#13;&#10;자유롭게 의견을 남겨주세요."></textarea>
+							<textarea id="comment" placeholder="유니미니를 사용하고 난 경험에 대해서 &#13;&#10;자유롭게 의견을 남겨주세요."></textarea>
 						</div>
 						<div class="buttonBox2">
-							<button type="button" onclick="location.href='./myPage.html'">
+							<button type="button" onclick="location.href='myPage/myPageForm'">
 							<span class="grey2">취소</span>
 							</button>
-							<button class="btnSubmit" id="btnCheckEmpty">저장</button>
+							<button type="button" onclick="setComment();" class="btnSubmit" id="btnCheckEmpty">저장</button>
 						</div>
 					</form>
 				</div>
 			</div>
 			</leavecomment>
 		</div>
-	
     </th:block>
 </html>

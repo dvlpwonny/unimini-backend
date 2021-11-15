@@ -23,6 +23,18 @@ public class EventPageController {
 		
 		return "EventContent";
 	}
+
+	@GetMapping(value = "/EventContent2")
+	public String EventContent2(Model model) {
+		
+		Map<String, String> eventInfo = MakeTempEventInfo();
+		List<Map<String, String>> userList = MakeTempUserList();
+		
+		model.addAttribute("eventInfo", eventInfo);
+		model.addAttribute("userList", userList);
+		
+		return "EventContent2";
+	}
 	
 	private Map<String, String> MakeTempEventInfo() {
 		Map<String, String> eventInfo = new HashMap<String, String>();

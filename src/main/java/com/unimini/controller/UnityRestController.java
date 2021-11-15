@@ -82,12 +82,17 @@ public class UnityRestController {
 
 
     /*
-     * 밍글리스트
+     * 유니존리스트
      */
     @RequestMapping(value = "/unity/getUnizoneList", method = {RequestMethod.GET, RequestMethod.POST})
     @ApiOperation(value = "유니존리스트", notes = "핀 클릭시 노출되는 유니존리스트")
-    public ResponseEntity getUnizoneList() {
-        List<Map<String, String>> categoryList = unityService.getUnizoneList();
+    public ResponseEntity getUnizoneList(
+            @ApiParam(value = "영역코드", required = false, example = "SECA0001") @RequestParam(value = "sectionCode", required = false) String sectionCode
+            , @ApiParam(value = "빌딩코드", required = false, example = "BUIL001") @RequestParam(value = "buildingCode", required = false) String buildingCode) {
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("sectionCode", sectionCode);
+        paramMap.put("buildingCode", buildingCode);
+        List<Map<String, String>> categoryList = unityService.getUnizoneList(paramMap);
         Map<String, Object> result = new HashMap<>();
         result.put("result", categoryList);
 
@@ -101,7 +106,7 @@ public class UnityRestController {
     @RequestMapping(value = "/unity/getLikeEventList", method = {RequestMethod.GET, RequestMethod.POST})
     @ApiOperation(value = "좋아요 리스트", notes = "홈화면에서의 좋아요 리스트")
     public ResponseEntity getLikeEventList(
-            @ApiParam(value = "유저코드", required = false, example = "SYSTEM") @RequestParam(value = "userCode", required = false) String userCode) {
+            @ApiParam(value = "유저아이디", required = false, example = "admin") @RequestParam(value = "userId", required = false) String userCode) {
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("userCode", userCode);
         List<Map<String, String>> likeEventList = unityService.getLikeEventList(paramMap);
@@ -111,4 +116,65 @@ public class UnityRestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+
+    /*
+     * 좋아요 취소 및 하기
+     */
+    @RequestMapping(value = "/unity/setLikeEvent", method = {RequestMethod.GET, RequestMethod.POST})
+    @ApiOperation(value = "이벤트 좋아요 및 좋아요 취소", notes = "이벤트 좋아요 및 좋아요 취소")
+    public ResponseEntity setLikeEvent(
+            @ApiParam(value = "이벤트 코드", required = false, example = "1") @RequestParam(value = "eventCode", required = false) String eventCode
+            , @ApiParam(value = "유저아이디", required = false, example = "admin") @RequestParam(value = "userId", required = false) String userId
+            , @ApiParam(value = "좋아요 여부", required = false, example = "Y(N일 경우 좋아요 취소)") @RequestParam(value = "likeFlag", required = false) String likeFlag) {
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("eventCode", eventCode);
+        paramMap.put("userId", userId);
+        paramMap.put("likeFlag", likeFlag);
+
+        int resultNum = unityService.setLikeEvent(paramMap);
+        Map<String, Object> result = new HashMap<>();
+
+        if (resultNum > 0) {
+            result.put("result", "success");
+        } else {
+            result.put("result", "fail");
+        }
+
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    /*
+     * 함께하기 취소 및 하기
+     */
+    @RequestMapping(value = "/unity/setWithEvent", method = {RequestMethod.GET, RequestMethod.POST})
+    @ApiOperation(value = "함께하기 및 함께하기 취소", notes = "유니존에서 함께하기, 함께하기 취소")
+    public ResponseEntity setWithEvent(
+            @ApiParam(value = "이벤트 코드", required = false, example = "1") @RequestParam(value = "eventCode", required = false) String eventCode
+            , @ApiParam(value = "유저아이디", required = false, example = "admin") @RequestParam(value = "userId", required = false) String userId
+            , @ApiParam(value = "함께하기 여부", required = false, example = "N(N일 경우 함께하기 취소)") @RequestParam(value = "withFlag", required = false) String withFlag) {
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("eventCode", eventCode);
+        paramMap.put("userId", userId);
+        String userStatusCode = "";
+        if (withFlag.equals("Y")) {
+            userStatusCode = "EVTUSRST003";
+        } else {
+            userStatusCode = null;
+        }
+        paramMap.put("userStatusCode", userStatusCode);
+
+        int resultNum = unityService.setWithEvent(paramMap);
+        Map<String, Object> result = new HashMap<>();
+
+        if (resultNum > 0) {
+            result.put("result", "success");
+        } else {
+            result.put("result", "fail");
+        }
+
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    
 }

@@ -5,13 +5,24 @@
     <!-- 사용자 정보 조회 -->
     <select id="getUserInfo" resultType="uniMap" parameterType="map">
         SELECT
-            A.USER_CODE
-            , A.USER_ID
-            , A.UNI_NUMBER
-            , A.UNI_CODE
-            , A.CAMPUS_CODE
-            , A.COLLEGE_CODE
-            , A.MAJOR_CODE
+            USER_ID
+            , USER_NAME
+            , NICKNAME
+            , UNI_NUMBER
+            , SUBSTRING(UNI_NUMBER, 3, 2 ) AS UNI_YEAR
+            , (
+                SELECT
+                    DETAIL_CODE_NAME
+                FROM TB_DETAIL_CODE B
+                WHERE GROUP_CODE = 'GENDER'
+                  AND A.GENDER_CODE = B.DETAIL_CODE
+            ) AS GENDER_NAME
+            , (
+                SELECT
+                    B.UNI_NAME
+                FROM TB_UNI B
+                WHERE A.UNI_CODE = B.UNI_CODE
+            ) AS UNI_NAME
             , (
                 SELECT
                     B.COLLEGE_NAME
@@ -22,16 +33,17 @@
             ) AS COLLEGE_NAME
             , (
                 SELECT
-                    B.MAJOR_NAME
+                    MAJOR_NAME
                 FROM TB_MAJOR B
                 WHERE A.UNI_CODE = B.UNI_CODE
                   AND A.CAMPUS_CODE = B.CAMPUS_CODE
                   AND A.COLLEGE_CODE = B.COLLEGE_CODE
                   AND A.MAJOR_CODE = B.MAJOR_CODE
             ) AS MAJOR_NAME
+            , UNI_NUMBER
+            , CONCAT('/static/image/profile/profile', PROFILE_IMAGE_CODE, '.png') AS PROFILE_IMAGE_CODE
         FROM TB_USER A
-        WHERE A.USER_CODE = #{userCode}
-          AND A.USER_ID = #{userId}
+        WHERE  A.USER_ID = #{userId}
     </select>
 
     <!-- 사용자 수정 -->
@@ -55,5 +67,21 @@
         WHERE USER_CODE = #{userCode}
           AND USER_ID = #{userId}
     </update>
+
+    <insert id="setLeaveComment" parameterType="map">
+        INSERT INTO TB_OPINION (
+            OPINION_CONTENT
+            , CREATE_USER
+            , UPDATE_USER
+            , CREATE_DATE
+            , UPDATE_DATE
+        ) VALUES (
+             #{opinionContent}
+            , #{createUser}
+            , #{createUser}
+            , NOW()
+            , NOW()
+        )
+    </insert>
 
 </mapper>

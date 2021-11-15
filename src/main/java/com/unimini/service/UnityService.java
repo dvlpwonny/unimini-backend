@@ -33,12 +33,20 @@ public class UnityService {
     }
 
 
-    public List<Map<String, String>> getUnizoneList() {
-        return unityMapper.getUnizoneList();
+    public List<Map<String, String>> getUnizoneList(Map<String, String> paramMap) {
+        return unityMapper.getUnizoneList(paramMap);
     }
 
 
     public List<Map<String, String>> getLikeEventList(Map<String, String> paramMap) {
         return unityMapper.getLikeEventList(paramMap);
+    }
+
+    public int setLikeEvent(Map<String, String> paramMap) {
+        return unityMapper.setLikeEvent(paramMap);
+    }
+
+    public int setWithEvent(Map<String, String> paramMap) {
+        return unityMapper.setWithEvent(paramMap);
     }
 }

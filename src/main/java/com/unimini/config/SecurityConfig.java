@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-        		.antMatchers("/makeMingleEvent")             /* Temp */
+        		.antMatchers("/mingle/makeMingleEvent")             /* Temp */
         		.antMatchers("/makeMingleEvent_searchPlace") /* Temp */
         		
         		.antMatchers("/EventContent")        /* Temp */
@@ -75,8 +75,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.antMatchers("/room")                /* Temp */        		
         		.antMatchers("/rooms")               /* Temp */        		
         		.antMatchers("/rooms/**")            /* Temp */        		
-        		.antMatchers("/new")                 /* Temp */        		
-        		
+        		.antMatchers("/new")                 /* Temp */
+
+
+                .antMatchers("/unityPage/studentCouncilPage1")
+                .antMatchers("/unityPage/studentCouncilPage2")
+                .antMatchers("/unityPage/studentCouncilPage3")
+                .antMatchers("/unityPage/studentCouncilPage4") // 총학페이지는 security X
                 .antMatchers("/resource/**")
                 .antMatchers("/static/css/**")
                 .antMatchers("/static/iconfont/**")
@@ -84,6 +89,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/js/**");
 
     }
+
+
 
     /**
      * 로그인 인증 처리 메소드

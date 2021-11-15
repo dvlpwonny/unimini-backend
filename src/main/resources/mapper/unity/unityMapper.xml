@@ -23,6 +23,7 @@
                     BUILDING_CODE
                 </otherwise>
             </choose>
+            <if test="eventTypeCode == 'EVT001'">
             , (
                 SELECT
                     CATEGORY_CODE
@@ -34,11 +35,14 @@
                 ORDER BY EVENT_START_TIME
                 LIMIT 1
             ) AS CATEGORY_CODE
+            </if>
             , EVENT_TYPE_CODE
         FROM TB_EVENT
         WHERE DATE_FORMAT(EVENT_START_TIME, "%Y-%m-%d") = CURDATE()
-        <if test="categoryCode != null and !categoryCode.equals('')">
-            AND CATEGORY_CODE = #{categoryCode}
+        <if test="eventTypeCode == 'EVT001'">
+            <if test="categoryCode != null and !categoryCode.equals('')">
+                AND CATEGORY_CODE = #{categoryCode}
+            </if>
         </if>
         <if test="eventTypeCode != null and !eventTypeCode.equals('')">
             AND EVENT_TYPE_CODE = #{eventTypeCode}
@@ -61,7 +65,9 @@
         SELECT
             A.EVENT_CODE
             , A.EVENT_NAME
-            , CATEGORY_CODE
+            , A.CATEGORY_CODE
+            , A.SECTION_CODE
+            , A.BUILDING_CODE
             , A.PLACE_CODE
             , (
                 SELECT
@@ -74,6 +80,7 @@
             , A.EVENT_TYPE_CODE
             , DATE_fORMAT(EVENT_START_TIME, '%H:%i') AS EVENT_START_TIME
             , DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
+            , DATE_fORMAT(EVENT_START_TIME, "%Y-%m-%d") AS EVENT_DATE
             , CONCAT(DATE_fORMAT(EVENT_START_TIME, '%H:%i'), '~', DATE_fORMAT(EVENT_END_TIME, '%H:%i')) AS EVENT_TIME
             , (
                 SELECT
@@ -92,7 +99,7 @@
             ),0) AS TOT_LIKE
             , MINIMUM_PRSNNL
             , MAXIMUM_PRSNNL
-            , DETAIL_INFO
+            , CONVERT(DETAIL_INFO USING utf8) AS DETAIL_INFO
         FROM TB_EVENT A
         WHERE A.SECTION_CODE = #{sectionCode}
           AND (A.EVENT_STATUS_CODE = 'EVTSTS001' OR A.EVENT_STATUS_CODE = 'EVTSTS001')
@@ -104,8 +111,10 @@
         SELECT
             EVENT_CODE
             , EVENT_NAME
+            , CATEGORY_CODE
             , SECTION_CODE
             , BUILDING_CODE
+            , PLACE_CODE
             , CASE
                 WHEN PLACE_CODE = 'PLCE000170'
                     THEN '차츰 (영통구 청명북로7번길 13)'
@@ -119,9 +128,13 @@
                     THEN '외국어대학 달콤커피'
                     ELSE ''
                 END AS PLACE_NAME
+            , A.EVENT_TYPE_CODE
+            , DATE_fORMAT(EVENT_START_TIME, '%H:%i') AS EVENT_START_TIME
+            , DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
             , DATE_fORMAT(EVENT_START_TIME, "%Y-%m-%d") AS EVENT_DATE
             , CONCAT(DATE_fORMAT(EVENT_START_TIME, '%H:%i'), '~', DATE_fORMAT(EVENT_END_TIME, '%H:%i')) AS EVENT_TIME
-            , MINIMUM_PRSNNL AS TOT_PRSNNL
+            , MINIMUM_PRSNNL
+            , MAXIMUM_PRSNNL
             , UNIZONE_HOST_NAME
             , UNIZONE_FEE
             , CONVERT(DETAIL_INFO USING utf8) AS DETAIL_INFO
@@ -131,11 +144,19 @@
                 FROM TB_EVENT_USER_MAPP_GROUP B
                 WHERE A.EVENT_CODE = B.EVENT_CODE
                  AND B.USER_STATUS_CODE = 'EVTUSRST003'
-            ) AS REAL_PRSNNL -- 실참가자
-            , DATE_fORMAT(EVENT_START_TIME, '%H:%i') AS EVENT_START_TIME
-            , DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
+            ) AS TOT_PRSNNL -- 실참가자
+            , IFNULL((
+                SELECT
+                    IFNULL(COUNT(USER_CODE), 0)
+                FROM TB_EVENT_USER_MAPP_GROUP G
+                WHERE A.EVENT_CODE = G.EVENT_CODE
+                 AND G.LIKE_FLAG = 'Y'
+                GROUP BY A.EVENT_CODE
+            ),0) AS TOT_LIKE
         FROM TB_EVENT A
-        WHERE (EVENT_STATUS_CODE = 'EVTSTS001' OR EVENT_STATUS_CODE = 'EVTSTS002')
+        WHERE A.SECTION_CODE = #{sectionCode}
+        AND A.BUILDING_CODE = #{buildingCode}
+        AND (EVENT_STATUS_CODE = 'EVTSTS001' OR EVENT_STATUS_CODE = 'EVTSTS002')
         AND EVENT_TYPE_CODE = 'EVT002'
     </select>
 
@@ -177,28 +198,60 @@
             , A.MAXIMUM_PRSNNL
             , A.DETAIL_INFO
         FROM TB_EVENT A INNER JOIN TB_EVENT_USER_MAPP_GROUP B ON A.EVENT_CODE = B.EVENT_CODE
-        WHERE B.USER_CODE = #{userCode}
+        WHERE B.USER_ID = #{userId}
          AND (A.EVENT_STATUS_CODE = 'EVTSTS001' OR A.EVENT_STATUS_CODE = 'EVTSTS002')
          AND DATE_FORMAT(EVENT_START_TIME, "%Y-%m-%d") >= CURDATE()
          AND B.LIKE_FLAG = 'Y'
     </select>
 
-    <!-- 좋아요 하기 -->
+    <!-- 좋아요 -->
     <insert id="setLikeEvent" parameterType="map">
-        INSERT INTO TB_EVENT_USER_MAPP_GROUP (
-            EVENT_CODE
-            , USER_CODE
-            , LIKE_FLAG
-            , CREATE_DATE
-            , UPDATE_DATE
-            , USE_FLAG
-        ) VALUES (
-            #{eventCode}
-            , #{userCode}
-            , #{likeFlag}
-            , NOW()
-            , NOW()
-            , 'Y'
-        )
+        INSERT INTO
+           TB_EVENT_USER_MAPP_GROUP (
+                EVENT_CODE
+                , USER_ID
+                , LIKE_FLAG
+                , CREATE_DATE
+                , UPDATE_DATE
+                , USE_FLAG
+           ) VALUES (
+                #{eventCode}
+                , #{userId}
+                , #{likeFlag}
+                , NOW()
+                , NOW()
+                , 'Y'
+           )
+           ON
+              DUPLICATE KEY
+           UPDATE
+              LIKE_FLAG = #{likeFlag},
+              UPDATE_DATE = NOW();
     </insert>
+
+    <!-- 유니존 함께하기 -->
+    <insert id="setWithEvent" parameterType="map">
+        INSERT INTO
+           TB_EVENT_USER_MAPP_GROUP (
+                EVENT_CODE
+                , USER_ID
+                , USER_STATUS_CODE
+                , CREATE_DATE
+                , UPDATE_DATE
+                , USE_FLAG
+           ) VALUES (
+                #{eventCode}
+                , #{userId}
+                , #{userStatusCode}
+                , NOW()
+                , NOW()
+                , 'Y'
+           )
+           ON
+              DUPLICATE KEY
+           UPDATE
+              USER_STATUS_CODE = #{userStatusCode},
+              UPDATE_DATE = NOW()
+    </insert>
+
 </mapper>
