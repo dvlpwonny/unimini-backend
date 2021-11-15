@@ -44,9 +44,7 @@
 						}
 						var userId = __data.userId;
 
-						// todo 앱 함수 호출로 변경
-						console.log('success', __data.userId);
-						//////////////////////////
+						window.Unity('login:{'+userId+'}');
 
 					},
 					fail: function(__data, __textStatus, __jqXHR){
