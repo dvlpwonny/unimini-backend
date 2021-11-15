@@ -29,10 +29,7 @@
                 SELECT
                     B.CATEGORY_CODE
                 FROM TB_EVENT B
-                WHERE 1=1
-                <if test="categoryCode != null and !categoryCode.equals('')">
-                    AND A.CATEGORY_CODE = B.CATEGORY_CODE
-                </if>
+                WHERE A.CATEGORY_CODE = B.CATEGORY_CODE
                 ORDER BY EVENT_START_TIME
                 LIMIT 1
             ) AS CATEGORY_CODE
