@@ -20,42 +20,41 @@
                     SECTION_CODE
                 </when>
                 <otherwise>
-                    BUILDING_CODE
+                    SECTION_CODE
+                    , BUILDING_CODE
                 </otherwise>
             </choose>
             <if test="eventTypeCode == 'EVT001'">
             , (
                 SELECT
-                    CATEGORY_CODE
-                FROM TB_EVENT
-                WHERE 1=1
-                <if test="categoryCode != null and !categoryCode.equals('')">
-                    AND CATEGORY_CODE = #{categoryCode}
-                </if>
+                    B.CATEGORY_CODE
+                FROM TB_EVENT B
+                WHERE A.CATEGORY_CODE = B.CATEGORY_CODE
                 ORDER BY EVENT_START_TIME
                 LIMIT 1
             ) AS CATEGORY_CODE
             </if>
             , EVENT_TYPE_CODE
-        FROM TB_EVENT
-        WHERE DATE_FORMAT(EVENT_START_TIME, "%Y-%m-%d") = CURDATE()
+        FROM TB_EVENT A
+        WHERE 1=1
         <if test="eventTypeCode == 'EVT001'">
+            AND DATE_FORMAT(EVENT_START_TIME, "%Y-%m-%d") = CURDATE()
             <if test="categoryCode != null and !categoryCode.equals('')">
                 AND CATEGORY_CODE = #{categoryCode}
             </if>
         </if>
+        <if test="timeSearch != null and !timeSearch.equals('')">
+            AND DATE_FORMAT(EVENT_START_TIME, '%H:%i') > DATE_fORMAT(#{timeSearch}, '%H:%i')
+        </if>
         <if test="eventTypeCode != null and !eventTypeCode.equals('')">
             AND EVENT_TYPE_CODE = #{eventTypeCode}
-        </if>
-        <if test="timeSearch != null and !timeSearch.equals('')">
-            AND DATE_fORMAT(EVENT_START_TIME, '%H:%i') > DATE_fORMAT(#{timeSearch}, '%H:%i')
         </if>
         <choose>
             <when test="eventTypeCode == 'EVT001'">
                 GROUP BY SECTION_CODE
             </when>
             <otherwise>
-                GROUP BY BUILDING_CODE
+                GROUP BY SECTION_CODE, BUILDING_CODE
             </otherwise>
         </choose>
     </select>

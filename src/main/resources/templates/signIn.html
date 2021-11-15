@@ -23,13 +23,9 @@
 				});
 			}());
 
-			function signInValidation() {
-
-			}
-
 			function signIn() {
 
-				$('input[name=username]').val($('#userId').val());
+				$('input[name=username]').val($('#email-login').val());
 
 				$.ajax({
 					url: '/signIn/signIn',
@@ -48,9 +44,7 @@
 						}
 						var userId = __data.userId;
 
-						// todo 앱 함수 호출로 변경
-						console.log('success', __data.userId);
-						//////////////////////////
+						window.Unity.call('login:'+userId);
 
 					},
 					fail: function(__data, __textStatus, __jqXHR){
@@ -95,7 +89,7 @@
 	                <form class="loginForm d-flex flex-column justify-content-between" id="needs-validation" novalidate=""  style="height:41%; padding: 0px 30px">
 	                    <div class="d-flex flex-column justify-content-end align-items-center" style="margin-top:40px;">
 	                        <div class="d-flex align-items-center" style="width:100%;">
-	                            <input name="userId" type="text" placeholder="이메일" id="email-login" style="width:100%;margin:7px 0px;">
+	                            <input name="userId" type="email" placeholder="이메일" id="email-login" style="width:100%;margin:7px 0px;">
 								<span></span>
 	                            <span class="weight600" id="uniDomain" style="margin:8px;">@khu.ac.kr</span>
 								<input type="hidden" name="username" />
