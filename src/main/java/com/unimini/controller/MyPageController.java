@@ -1,6 +1,5 @@
 package com.unimini.controller;
 
-import com.unimini.security.CurrentUser;
 import com.unimini.service.MyPageService;
 import com.unimini.vo.UserInfo;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,12 +23,11 @@ public class MyPageController {
     MyPageService myPageService;
 
     @GetMapping(value = "/myPage/myPageForm")
-    public ModelAndView myPage(@CurrentUser UserInfo user) {
+    public ModelAndView myPage(Principal principal) {
         ModelAndView mav = new ModelAndView("myPage");
         Map<String, String> paramMap = new HashMap<>();
 
-        paramMap.put("userId", user.getUsername());
-        paramMap.put("userCode", user.getUserCode());
+        paramMap.put("userId", principal.getName());
         Map<String, String> userInfo = myPageService.getUserInfo(paramMap);
         mav.addObject("userInfo", userInfo);
 
@@ -36,7 +35,7 @@ public class MyPageController {
     }
 
     @GetMapping(value = "/myPage/myEventList")
-    public ModelAndView myEventList(@CurrentUser UserInfo user) {
+    public ModelAndView myEventList(UserInfo user) {
         ModelAndView mav = new ModelAndView("myEventList");
 
         return mav;

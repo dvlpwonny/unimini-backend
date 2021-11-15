@@ -41,10 +41,9 @@
                   AND A.MAJOR_CODE = B.MAJOR_CODE
             ) AS MAJOR_NAME
             , UNI_NUMBER
-            , PROFILE_IMAGE_CODE
+            , CONCAT('/static/image/profile/profile', PROFILE_IMAGE_CODE, '.png') AS PROFILE_IMAGE_CODE
         FROM TB_USER A
-        WHERE  A.USER_CODE = #{userCode}
-          AND  A.USER_ID = #{userId}
+        WHERE  A.USER_ID = #{userId}
     </select>
 
     <!-- 사용자 수정 -->

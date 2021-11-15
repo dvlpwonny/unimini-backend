@@ -49,19 +49,19 @@
 			<div class="container padding responsiveApp">
 				<div class="d-flex" id="my_profile">
 					<div class="d-flex align-items-center justify-content-center" id="my_icon">
-						<img th:src="@{/static/image/profile/profile${userInfo.profileImageCode}.png}" width="100%" height="100%" alt="" id="var-profile">
+						<img th:src="@{${userInfo.profileImageCode}}" width="100%" height="100%" alt="" id="var-profile">
 					</div>
 					<div class="d-flex justify-content-center flex-column" id="my_profile_info">
 						<div>
-							<span id="nickname" class="size20">${userInfo.nickname}</span>
-							<span class="size12 weight400" id="var-gender">${userInfo.genderName}</span>
+							<span id="nickname" class="size20" th:text="${userInfo.nickname}"></span>
+							<span class="size12 weight400" id="var-gender" th:text="${userInfo.genderName}"></span>
 						</div>
 						<div style="margin-top:5px;">
 							<div>
-								<span class="size12 weight800">${userInfo.collegeName}</span>
+								<span class="size12 weight800" th:text="${userInfo.collegeName}"></span>
 							</div>
 							<div>
-								<span class="size12 weight800" id="var-studentClass">${userInfo.uniYear}</span>
+								<span class="size12 weight800" id="var-studentClass" th:text="${userInfo.uniYear}"></span>
 								<span class="size12 weight800">학번</span>
 							</div>
 						</div>
@@ -69,22 +69,22 @@
 				</div>
 				<div class="d-flex flex-column" id="my_info">
 					<div class="text_myInfo">
-						<span class="size12 weight500" id="var-name">${userInfo.userName}</span>
+						<span class="size12 weight500" id="var-name" th:text="${userInfo.userName}"></span>
 					</div>
 					<div class="text_myInfo">
-						<span class="size12 weight500" id="var-email">${userInfo.userId}@khu.ac.kr</span>
+						<span class="size12 weight500" id="var-email" th:text="${userInfo.userId}+'@khu.ac.kr'"></span>
 					</div>
 					<div class="text_myInfo">
-						<span class="size12 weight500">${userInfo.uniName}</span>
+						<span class="size12 weight500" th:text="${userInfo.uniName}"></span>
 					</div>
 					<div class="text_myInfo">
-						<span class="size12 weight500" id="var-college">${userInfo.collegeName}</span>
+						<span class="size12 weight500" id="var-college" th:text="${userInfo.collegeName}"></span>
 					</div>
 					<div class="text_myInfo">
-						<span class="size12 weight500" id="var-major">${userInfo.majorName}</span>
+						<span class="size12 weight500" id="var-major" th:text="${userInfo.majorName}"></span>
 					</div>
 					<div class="text_myInfo">
-						<span class="size12 weight500" id="var-studentID">${userInfo.uniNumber}</span>
+						<span class="size12 weight500" id="var-studentID" th:text="${userInfo.uniNumber}"></span>
 					</div>
 				</div>
 				<div id="myPage_menu">
@@ -101,7 +101,7 @@
 						</a>
 					</div>
 					<div class="d-flex align-items-center menu_bar" style="border-bottom: solid 0.5px #efe5e0;">
-						<a href="myPage_logout">로그아웃
+						<a href="/logout">로그아웃
 						<div class="clickable">
 						</div>
 						</a>
