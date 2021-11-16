@@ -94,7 +94,7 @@
                     <div class="form column">
                         <div class="formTitle">아이디</div>
                         <div class="formContent">
-                            <div style="width:75%"><input name="userId" id ="emailSignUp" type="text" placeholder="학교 이메일 입력">
+                            <div style="width:75%"><input name="userId" id ="email-signup" type="text" placeholder="학교 이메일 입력">
                             </div>
                             <div><span class="size15 weight400">@khu.ac.kr</span></div>
                         </div>
@@ -104,7 +104,7 @@
                             <span>비밀번호</span>
                         </div>
                         <div>
-                            <input required id="password" name="password" type="password"
+                            <input required id="password-signup" name="password" type="password"
                                    placeholder="새 비밀번호" style="margin-bottom: 0px;">
                             <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">규칙에 맞는 비밀번호를 입력해주세요.</span>
                         </div>
@@ -113,7 +113,7 @@
                     <div>
                         <div class="formTitle">비밀번호 확인</div>
                         <div>
-                            <input required id="passwordConfirm" name="passwordConfirm" type="password"
+                            <input required id="password-double-signup" name="passwordConfirm" type="password"
                                    placeholder="새 비밀번호 확인" style="margin-top:10px; margin-bottom: 0px;">
                             <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">비밀번호가 일치하지않습니다.</span>
                         </div>
@@ -121,7 +121,7 @@
                     <div class="d-flex align-items-start" style="margin: 25px 0px;">
                         <div class="formTitle" style="width:80px; margin:12px 0px 0px 0px;">닉네임</div>
                         <div style="width:100%">
-                            <input name="nickname" id="nickname" type="text" placeholder="닉네임 입력"
+                            <input name="nickname" id="nickname-signup" type="text" placeholder="닉네임 입력"
                                    style="margin:0px;">
                             <span id="nicknameError" class="validation-feedback size12 pink weight400 inactive"
                                   style="margin-left:8px;">한자리 이상의 닉네임을 입력해주세요.</span>
@@ -147,7 +147,7 @@
                     <div class="form column" style="margin: 25px 0px;">
                         <div class="formTitle">학과</div>
                         <div class="formContent">
-                            <input id="major" type="text" name="major"
+                            <input id="major" type="text" name="major" id="major-signup"
                                    placeholder="학과를 선택해주세요">
                         </div>
                         <div id="majorSearchResultContainer">
@@ -160,7 +160,7 @@
                     <div class="d-flex align-items-start" style="margin: 25px 0px;">
                         <div class="formTitle" style="width:80px; margin:12px 0px 0px 0px;">학번</div>
                         <div id="studentId" style="width:100%">
-                            <input name="uniNumber" id="uniNumber" type="number" placeholder="학번 입력 (숫자 10자리)"
+                            <input name="uniNumber" id="studentId-signup" type="number" placeholder="학번 입력 (숫자 10자리)"
                                    style="margin:0px;" maxlength="10" oninput="maxLengthCheck(this)">
                             <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">학번을 알맞게 입력해주세요.</span>
                         </div>
@@ -169,7 +169,7 @@
                         <div class="d-flex align-items-center" style="margin:15px 0px;">
                             <div class="formTitle" style="width:100px; margin:0px;">이름</div>
                             <div style="width:100%;">
-                                <input name="userName" id="userName" type="text" placeholder="이름 입력"
+                                <input name="userName" id="name-signup" type="text" placeholder="이름 입력"
                                        style="margin:0px;">
                                 <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">1자 이상 입력해주세요.</span>
                             </div>
@@ -177,7 +177,7 @@
                         <div class="d-flex align-items-center" style="margin:15px 0px;">
                             <div class="formTitle" style="width:100px; margin:0px;">휴대폰 번호</div>
                             <div id="name" style="width:100%;">
-                                <input name="mobileNo" id="mobileNo" type="text" placeholder="휴대폰 번호 입력"
+                                <input name="mobileNo" id="phone-signup" type="text" placeholder="휴대폰 번호 입력"
                                        style="margin:0px;" maxlength="11" oninput="maxLengthCheck(this)">
                                 <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">전화번호를 알맞게 입력해주세요.</span>
                             </div>
