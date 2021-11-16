@@ -11,5 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface MingleMapper {
 
 	List<Map<String, String>> getAllMingleList();
+	Map<String, String> getMingleInfo(String eventCode);
+	List<Map<String, String>> getMingleUserInfo(String userId, String eventCode);
 
 }

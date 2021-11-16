@@ -21,9 +21,9 @@
 			<header>
 				<nav class="container align-items-end" style="padding:10px;">
 					<div style="width:30px;margin-left:10px;">
-						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" onclick="window.Unity.call('CloseWebView:');">
+						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;">
 					</div>
-					<div><span id="header_title" class="size20">내 참여리스트</span></div>
+					<div><span id="header_title" class="size20"></span></div>
 				</nav>
 			</header>
 			<div class="appContainer" style="height:88%">
@@ -35,8 +35,8 @@
 						  <div class="myEventBox">
 							  <div class="d-flex align-items-center"style="width:80%">
 								  <div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
-									  <img th:src="@{/static/image/profile/profile10.png}" width="42px" height="42px" alt="">
-									  <img th:src="@{/static/image/host}" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
+									  <img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
+									  <img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
 								  </div>
 								  <div class="myEventInfo">
 									  <div><span class="size14" id="var-eventTitle">EVENT_TITLE</span></div>

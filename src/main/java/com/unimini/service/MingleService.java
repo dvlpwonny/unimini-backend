@@ -21,4 +21,12 @@ public class MingleService {
 		return mingleMapper.getAllMingleList();
 	}
 
+	public Map<String, String> getMingleInfo(String eventCode) {
+		return mingleMapper.getMingleInfo(eventCode);
+	}
+
+	public List<Map<String, String>> getMingleUserInfo(String userId, String eventCode) {
+		return mingleMapper.getMingleUserInfo(userId, eventCode);
+	}
+
 }
