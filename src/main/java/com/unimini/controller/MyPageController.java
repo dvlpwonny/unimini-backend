@@ -92,4 +92,10 @@ public class MyPageController {
         return mav;
     }
 
+    @RequestMapping(value = "/myPage/myEventList", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView myEventList() {
+        ModelAndView mav = new ModelAndView("myEventList");
+        return mav;
+    }
+
 }
