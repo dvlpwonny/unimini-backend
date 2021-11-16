@@ -19,7 +19,12 @@
 
 		<div id="app">
 			<header>
-			  <script>loadHTML("./layout/header.html")</script>
+				<nav class="container align-items-end" style="padding:10px;">
+					<div style="width:30px;margin-left:10px;">
+						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;">
+					</div>
+					<div><span id="header_title" class="size20"></span></div>
+				</nav>
 			</header>
 			<div class="appContainer" style="height:88%">
 			  <div class="container padding responsiveApp" style="margin-top:40px;height:90%; overflow-y: auto;">
