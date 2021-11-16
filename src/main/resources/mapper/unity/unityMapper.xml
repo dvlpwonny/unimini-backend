@@ -191,16 +191,30 @@
         SELECT
             A.EVENT_CODE
             , A.EVENT_NAME
-            , CATEGORY_CODE
+            , A.CATEGORY_CODE
+            , A.SECTION_CODE
+            , A.BUILDING_CODE
             , A.PLACE_CODE
-            , (
-                SELECT
-                    PLACE_NAME
-                FROM TB_PLACE P
-                WHERE A.SECTION_CODE = P.SECTION_CODE
-                  AND A.BUILDING_CODE = P.BUILDING_CODE
-                  AND A.PLACE_CODE = P.PLACE_CODE
-            ) AS PLACE_NAME
+            , CASE
+                WHEN A.PLACE_CODE = 'PLCE000170'
+                    THEN '차츰 (영통구 청명북로7번길 13)'
+                WHEN A.PLACE_CODE = 'PLCE000179'
+                    THEN '나니아루프탑 파티룸 (영통구 반달로 32-1 5층)'
+                WHEN A.PLACE_CODE = 'PLCE000144'
+                    THEN '나니아라운지 파티룸\n(영통구 반달로35번길 19 지하1층 101호)'
+                WHEN A.PLACE_CODE = 'PLCE000013'
+                    THEN '****도예공방 라온제나*****\n(영통구 청명남로 54 이호빌딩 지하1층)'
+                WHEN A.PLACE_CODE = 'PLCE000036'
+                    THEN '외국어대학 달콤커피'
+                    ELSE (
+                            SELECT
+                            PLACE_NAME
+                        FROM TB_PLACE P
+                        WHERE A.SECTION_CODE = P.SECTION_CODE
+                          AND A.BUILDING_CODE = P.BUILDING_CODE
+                          AND A.PLACE_CODE = P.PLACE_CODE
+                    )
+                END AS PLACE_NAME
             , A.EVENT_TYPE_CODE
             , DATE_fORMAT(EVENT_START_TIME, '%H:%i') AS EVENT_START_TIME
             , DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
@@ -220,10 +234,39 @@
                  AND G.LIKE_FLAG = 'Y'
                 GROUP BY A.EVENT_CODE
             ),0) AS TOT_LIKE
+            , IFNULL((
+            	SELECT
+            		D.LIKE_FLAG
+            	FROM TB_EVENT_USER_MAPP_GROUP D
+            	WHERE A.EVENT_CODE = D.EVENT_CODE
+            	  AND USER_ID = #{userId}
+            ),'N') AS LIKE_FLAG
             , A.MINIMUM_PRSNNL
             , A.MAXIMUM_PRSNNL
-            , A.DETAIL_INFO
-        FROM TB_EVENT A INNER JOIN TB_EVENT_USER_MAPP_GROUP B ON A.EVENT_CODE = B.EVENT_CODE
+            , CONVERT(DETAIL_INFO USING utf8) AS DETAIL_INFO
+            , IFNULL((
+            	SELECT
+            		CASE
+		                WHEN C.TOT_USER_CNT = A.MINIMUM_PRSNNL
+		                    THEN 'WTH003'
+		                WHEN D.USER_STATUS_CODE = 'EVTUSRST002' OR D.USER_STATUS_CODE = 'EVTUSRST003'
+		                    THEN 'WTH002'
+		             	ELSE 'WTH001'
+	                END AS WITH_FLAG
+            	FROM TB_EVENT_USER_MAPP_GROUP D
+            	WHERE A.EVENT_CODE = D.EVENT_CODE
+            	  AND USER_ID = #{userId}
+            ),'WTH001') AS WITH_FLAG
+            , UNIZONE_HOST_NAME
+            , UNIZONE_FEE
+        FROM TB_EVENT A INNER JOIN TB_EVENT_USER_MAPP_GROUP B ON A.EVENT_CODE = B.EVENT_CODE LEFT OUTER JOIN (
+            	SELECT
+					COUNT(USER_ID) AS TOT_USER_CNT
+					, EVENT_CODE
+				FROM TB_EVENT_USER_MAPP_GROUP
+				WHERE USER_STATUS_CODE = 'EVTUSRST002' OR USER_STATUS_CODE = 'EVTUSRST003'
+				GROUP BY EVENT_CODE
+            ) C ON A.EVENT_CODE = C.EVENT_CODE
         WHERE B.USER_ID = #{userId}
          AND (A.EVENT_STATUS_CODE = 'EVTSTS001' OR A.EVENT_STATUS_CODE = 'EVTSTS002')
          AND DATE_FORMAT(EVENT_START_TIME, "%Y-%m-%d") >= CURDATE()
