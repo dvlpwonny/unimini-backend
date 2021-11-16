@@ -191,7 +191,7 @@
         SELECT
             A.EVENT_CODE
             , A.EVENT_NAME
-            , A.CATEGORY_CODE
+            , IFNULL(A.CATEGORY_CODE, '유니존') AS CATEGORY_CODE
             , A.SECTION_CODE
             , A.BUILDING_CODE
             , A.PLACE_CODE
@@ -216,6 +216,7 @@
                     )
                 END AS PLACE_NAME
             , A.EVENT_TYPE_CODE
+            , DATE_fORMAT(EVENT_START_TIME, "%Y-%m-%d") AS EVENT_DATE
             , DATE_fORMAT(EVENT_START_TIME, '%H:%i') AS EVENT_START_TIME
             , DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
             , CONCAT(DATE_fORMAT(EVENT_START_TIME, '%H:%i'), '~', DATE_fORMAT(EVENT_END_TIME, '%H:%i')) AS EVENT_TIME
