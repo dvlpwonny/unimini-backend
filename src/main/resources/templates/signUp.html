@@ -84,17 +84,17 @@
                 <div><span id="header_title" class="size20">회원가입</span></div>
             </nav>
         </header>
-        <div class="signup_stage" style="margin-top:2%">
-            <div class="stage now"></div>
-        </div>
         
-        <div class="appContainer signup" id="signupFirstStage">
+        <div class="appContainer signup overflow" id="signupFirstStage" style="height:75%">
             <div class="container padding responsiveApp">
+              <div class="signup_stage" style="margin-top:2%">
+                <div class="stage now"></div>
+              </div>
                 <form id="signUpForm">
                     <div class="form column">
                         <div class="formTitle">아이디</div>
                         <div class="formContent">
-                            <div style="width:75%"><input name="userId" type="text" placeholder="학교 이메일 입력">
+                            <div style="width:75%"><input name="userId" id ="emailSignUp" type="text" placeholder="학교 이메일 입력">
                             </div>
                             <div><span class="size15 weight400">@khu.ac.kr</span></div>
                         </div>
@@ -179,10 +179,10 @@
                     </div>
                 </form>
             </div>
-            <div class="container padding done">
-                <button id="toFinishSignUp">회원가입 완료</button>
-            </div>
-            
+        </div>
+  
+        <div class="container padding done" id="signupFinishBtnContainer">
+          <button id="toFinishSignUp">회원가입 완료</button>
         </div>
         
     </div>
