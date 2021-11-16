@@ -323,6 +323,24 @@
               UPDATE_DATE = NOW()
     </insert>
 
+    <select id="withEventCheck" resultType="uniMap" parameterType="map">
+        SELECT
+            CASE
+                WHEN C.TOT_USER_CNT = A.MINIMUM_PRSNNL
+                    THEN 'Y'
+                ELSE 'N'
+            END AS WITH_CHECK
+        FROM TB_EVENT A LEFT OUTER JOIN (
+                        SELECT
+                            COUNT(USER_ID) AS TOT_USER_CNT
+                            , EVENT_CODE
+                        FROM TB_EVENT_USER_MAPP_GROUP
+                        WHERE USER_STATUS_CODE = 'EVTUSRST002'
+                        GROUP BY EVENT_CODE
+                    ) C ON A.EVENT_CODE = C.EVENT_CODE
+        WHERE A.EVENT_CODE = #{eventCode}
+    </select>
+
     <!-- 프로필 -->
     <select id="getProfileCode" resultType="uniMap" parameterType="map">
         SELECT

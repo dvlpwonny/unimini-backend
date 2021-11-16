@@ -157,8 +157,15 @@ public class UnityRestController {
             , @ApiParam(value = "유저아이디", required = false, example = "admin") @RequestParam(value = "userId", required = false) String userId
             , @ApiParam(value = "함께하기 여부", required = false, example = "N(N일 경우 함께하기 취소)") @RequestParam(value = "withFlag", required = false) String withFlag) {
         Map<String, String> paramMap = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         paramMap.put("eventCode", eventCode);
         paramMap.put("userId", userId);
+
+        if ("Y".equals(unityService.withEventCheck(paramMap).get("withCheck"))) {
+            result.put("result", "fail");
+            result.put("withFlag", "참가자가 다 찼습니다.");
+        }
+
         String userStatusCode = "";
         if (withFlag.equals("Y")) {
             userStatusCode = "EVTUSRST003";
@@ -168,7 +175,6 @@ public class UnityRestController {
         paramMap.put("userStatusCode", userStatusCode);
 
         int resultNum = unityService.setWithEvent(paramMap);
-        Map<String, Object> result = new HashMap<>();
 
         if (resultNum > 0) {
             result.put("result", "success");
