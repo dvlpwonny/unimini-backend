@@ -164,6 +164,7 @@ public class UnityRestController {
         if ("Y".equals(unityService.withEventCheck(paramMap).get("withCheck"))) {
             result.put("result", "fail");
             result.put("withFlag", "참가자가 다 찼습니다.");
+            return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
         String userStatusCode = "";
