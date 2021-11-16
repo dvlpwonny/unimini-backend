@@ -1,12 +1,15 @@
 package com.unimini.mapper;
 
-import com.unimini.vo.User;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @Mapper
-public interface EventPageMapper {
+public interface MingleMapper {
 
-	
+	List<Map<String, String>> getAllMingleList();
+
 }

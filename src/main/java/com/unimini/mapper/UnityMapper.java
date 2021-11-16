@@ -30,4 +30,8 @@ public interface UnityMapper {
     int setLikeEvent(Map<String, String> paramMap);
 
     int setWithEvent(Map<String, String> paramMap);
+
+    Map<String, String> withEventCheck(Map<String, String> paramMap);
+
+    Map<String, String> getProfileCode(Map<String, String> paramMap);
 }

@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -22,12 +19,13 @@ public class MyPageController {
     @Autowired
     MyPageService myPageService;
 
-    @GetMapping(value = "/myPage/myPageForm")
-    public ModelAndView myPage(Principal principal) {
+    @RequestMapping(value = "/myPage/myPageForm", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView myPage(@RequestParam String userId) {
         ModelAndView mav = new ModelAndView("myPage");
         Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("userId", userId);
 
-        paramMap.put("userId", principal.getName());
+        /*paramMap.put("userId", principal.getName());*/
         Map<String, String> userInfo = myPageService.getUserInfo(paramMap);
         mav.addObject("userInfo", userInfo);
 
@@ -91,6 +89,12 @@ public class MyPageController {
     @GetMapping(value = "/myPage/reportCommentForm")
     public ModelAndView reportCommentForm() {
         ModelAndView mav = new ModelAndView("myPage_reportComment");
+        return mav;
+    }
+
+    @RequestMapping(value = "/myPage/myEventList", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView myEventList(@RequestParam String userId) {
+        ModelAndView mav = new ModelAndView("myEventList");
         return mav;
     }
 

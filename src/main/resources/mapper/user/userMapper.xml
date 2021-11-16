@@ -24,6 +24,7 @@
             , USER_AUTH
             , MOBILE_NO
             , PROFILE_IMAGE_CODE
+            , GENDER_CODE
         )
         VALUES (
             #{userId}
@@ -34,6 +35,7 @@
             , #{userAuth}
             , #{mobileNo}
             , #{profileImageCode}
+            , #{genderCode}
         );
     </insert>
 </mapper>

@@ -50,7 +50,7 @@
 		<div id="app"> 
 			<header>
 			  <div class="iconContainer" id="goBackIcon" style="width:10%">
-				  <img src="../static/image/back.png" alt="" style="width:20px; height:20px;">
+				  <img th:src="@{/static/image/back.png}" style="width:20px; height:20px;">
 			  </div>
 			  <div id="searchInput" style="width:70%">
 				<input type="text" placeholder="장소를 검색해주세요" style="background-color: transparent !important;">
@@ -60,57 +60,8 @@
 			  </div>
 			</header>
 			<div class="appContainer" style="height:88%">
-			  <div class="container responsiveApp padding inactive" id="adPlaceContainer" style="margin-top:20px;">
-				<span class="size14 weight400 grey2">밍글을 주최할 장소를 선택해주세요!</span>
-				<div id="adPlaceList">
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-				  <div class="place">
-					<span class="size16 weight700">주원초밥과 참치</span>
-					<span class="size12 grey weight400" style="float:right">쥬스전문점</span>
-				  </div>
-		
-				</div>
-			  </div>
 			  <div class="container responsiveApp padding" id="placeSearchResultContainer" style="margin-top:20px;height:90%">
+			  
 				<div class="placeSearchResult">
 				  <span class="size12 weight500 grey2">카테고리</span>
 				  <div id="placeList">
@@ -128,57 +79,7 @@
 					</div>
 				  </div>
 				</div>
-				<div class="placeSearchResult">
-				  <span class="size12 weight500 grey2">카테고리</span>
-				  <div id="placeList">
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-				  </div>
-				</div>
-				<div class="placeSearchResult">
-				  <span class="size12 weight500 grey2">카테고리</span>
-				  <div id="placeList">
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-				  </div>
-				</div>
-				<div class="placeSearchResult">
-				  <span class="size12 weight500 grey2">카테고리</span>
-				  <div id="placeList">
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-				  </div>
-				</div>
+				
 			  </div>
 			</div>
 		</div>

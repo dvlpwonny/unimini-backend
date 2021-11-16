@@ -50,7 +50,7 @@
                 success: function(__data, __textStatus, __jqXHR){
                     if (__data.result == "success" ) {
                         alert("회원가입이 완료되었습니다.");
-                        window.location.href = "/signIn/signIn";
+                        window.location.href = "/signIn/signInForm";
                     }
                 },
                 fail: function(__data, __textStatus, __jqXHR){
@@ -195,6 +195,30 @@
                                   style="margin-left:8px;">한자리 이상의 닉네임을 입력해주세요.</span>
                         </div>
                     </div>
+                    <div class="d-flex align-items-center" style="margin: 25px 0px;">
+                        <div class="formTitle" style="width:80px; margin:5px 0px 0px 0px;">성별</div>
+                        <div class="formContent">
+                            <div style="width:50%; display: flex;">
+                                <input class="form-check-input gender-signup" type="radio" name="genderCode"
+                                       id="male" value="GEN001">
+                                <label class="form-check-label text-title" for="male"
+                                       style="margin-top:5px; white-space: nowrap;"><span>남자</span></label>
+                            </div>
+                            <div style="width:50%; display:flex">
+                                <input class="form-check-input gender-signup" type="radio" name="genderCode"
+                                       id="female" value="GEN002">
+                                <label class="form-check-label text-title" for="female"
+                                       style="margin-top:5px; white-space: nowrap;"><span>여자</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form column" style="margin: 25px 0px;">
+                        <div class="formTitle">학과</div>
+                        <div class="formContent">
+                            <input id="major" type="text" name="major"
+                                   placeholder="학과를 선택해주세요">
+                        </div>
+                    </div>
                     <div class="d-flex align-items-start" style="margin: 25px 0px;">
                         <div class="formTitle" style="width:80px; margin:12px 0px 0px 0px;">학번</div>
                         <div id="studentId" style="width:100%">
@@ -203,7 +227,7 @@
                             <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">학번을 알맞게 입력해주세요.</span>
                         </div>
                     </div>
-                    <div style="margin-top:80px">
+                    <div>
                         <div class="d-flex align-items-center" style="margin:15px 0px;">
                             <div class="formTitle" style="width:100px; margin:0px;">이름</div>
                             <div style="width:100%;">
