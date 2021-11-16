@@ -34,6 +34,12 @@ form i {
 
 
 /*Sign Up*/
+#signupFinishBtnContainer{
+    height:10%;
+    position: fixed;
+    bottom:0px;
+    background-color: #fffaf2;
+}
 .signup_stage{
     display : flex;
     justify-content: center;
@@ -204,6 +210,25 @@ div,span{
     80%{opacity: 100%;}
     100% {opacity: 0%;}
 }
+#majorSearchResultContainer{
+    height:120px;
+    width: 100%;
+    border-radius: 14px;
+    background-color: #f6f1e9;
+    margin-top:10px;
+    overflow-y: auto;
+}
+.majorSearchResult{
+    height:40px;
+    width:90%;
+    margin-left:5%;
+    font-size: 14px;
+    font-weight: 400;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 0.2px lightgrey solid;
+}
 
 /*MyPage 하위메뉴*/
 .form_instruction{
@@ -244,6 +269,12 @@ textarea::placeholder{
 }
 
 /*MakeMingle*/
+#makeMingleBtn{
+    background-color: #ff3a5b !important;
+    color:white !important;
+    padding:0px 14px!important;
+    height: 34px !important;
+}
 .mingleContainer{
     margin-top: 30px;
 }
