@@ -12,16 +12,19 @@
     <th:block layout:fragment="script">
 		<script th:src="@{/static/js/load_html.js}"></script>
 		<script th:src="@{/static/js/default.js}"></script>
+		<script th:src="@{/static/js/incAndDecNum.js}"></script>
 		
 		<script>
 			/* Time */
 			var date = new Date();
-			document.getElementById('startTime').value = date.toString().slice(16,21);
+			// document.getElementById('startTime').value = date.toString().slice(16,21);
 			
 			var ONE_HOUR = 60 * 60 * 1000;
 			var dateOneHourAgo = new Date(date.getTime() + ONE_HOUR);
-			
-			document.getElementById('endTime').value = dateOneHourAgo.toString().slice(16,21);
+			var dateTwoHourAgo = new Date(date.getTime() + ONE_HOUR + ONE_HOUR);
+
+			document.getElementById('startTime').value = dateOneHourAgo.toString().slice(16,21);
+			document.getElementById('endTime').value = dateTwoHourAgo.toString().slice(16,21);
 			
 			
 			function moveSearchPlace() {
@@ -58,6 +61,14 @@
 			function setPlacePin(placeInfo) {
 				alert(placeInfo);
 			}
+
+			// 정문지정시
+			function setPlaceText() {
+				$('#placeText').text('장소가 자동으로 \'정문\'으로 지정됩니다.');
+				$('#sectionCode').val('SEC001');
+				$('#buildingCode').val('BUIL0001');
+				$('#placeCode').val('PLCE000001');
+			}
 			
 		</script> 
     </th:block>
@@ -69,10 +80,10 @@
                 <div class="d-flex">
                     <div style="width:30px;margin-left:10px;">
                         <a href="" id="backToPage">
-                            <img src="../static/image/back.png" alt="" style="width:18px; height:18px;">
+                            <img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" onclick="window.Unity.call('CloseWebView:');">
                         </a>
                     </div>
-                    <div><span id="header_title" class="size20">{{title}}</span></div>
+                    <div><span id="header_title" class="size20">밍글 만들기</span></div>
                 </div>
                 <div>
                     <button id="makeMingleBtn">
@@ -88,20 +99,8 @@
 					<div class="mingleContainer">
 						<input id="title" name="title" class="green" type="text" placeholder="제목을 입력해주세요">
 						<div id="mingleCategory">
-							<div id="mingleCategory-std" class="category">
+							<div class="category" th:each="category : ${categoryList}" th:text="${category.categoryName}" th:data="${category.categoryCode}">
 								스터디
-							</div>
-							<div id="mingleCategory-exe" class="category">
-								운동
-							</div>
-							<div id="mingleCategory-chal" class="category">
-								챌린지
-							</div>
-							<div id="mingleCategory-show" class="category">
-								공연/전시
-							</div>
-							<div id="mingleCategory-hobby" class="category">
-								취미
 							</div>
 						</div>
 					</div>
@@ -149,9 +148,12 @@
 							<span class="text-info"> 미리 설정하는 것을 권장해요. </span>
 						</div>
 						<div class="d-flex justify-content-center">
-							<div class="locationSelected" style="margin:10px 0px">
-								!! 위치가 들어갈곳 !!
+							<div class="locationSelected" style="margin:10px 0px" id="placeText">
+								!! 선택 위치 !!
 							</div>
+							<input type="hidden" id="sectionCode"/>
+							<input type="hidden" id="buildingCode"/>
+							<input type="hidden" id="placeCode"/>
 						</div>
 						<div class="d-flex justify-content-around">
 							<div class="locationOption d-flex flex-column justify-content-center align-items-center" OnClick="javascript:moveSearchPlace()">
@@ -176,7 +178,7 @@
 									<span class="text-info2">지도에서 핀 선택</span>
 								</div>
 							</div>-->
-							<div class="locationOption d-flex align-items-center justify-content-center" id="locationOption-later">
+							<div class="locationOption d-flex align-items-center justify-content-center" id="locationOption-later" onclick="setPlaceText();">
 								<span class="text-info2">나중에<br>정할래요</span>
 							</div>
 						</div>

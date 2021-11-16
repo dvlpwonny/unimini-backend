@@ -1,6 +1,7 @@
 package com.unimini.controller;
 
 import com.unimini.service.MingleService;
+import com.unimini.service.UnityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -19,6 +22,9 @@ public class MingleController {
 
 	@Autowired
 	MingleService mingleService;
+
+	@Autowired
+	UnityService unityService;
 
 	@RequestMapping(value = "/mingle/makeMingleEvent", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView makeMingleEvent(@RequestParam String userId) {
@@ -30,8 +36,14 @@ public class MingleController {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss u");
 		String toDay = simpleDateFormat.format(cal.getTime());
 
+		// category
+		List<Map<String, String>> categoryList = unityService.getCategorySort();
+
+
+
 		mav.addObject("toDay",toDay);
-		
+		mav.addObject("categoryList", categoryList);
+
 		log.info("MakeMingleEvent / toDay / " + toDay);
 		
 		return mav;
