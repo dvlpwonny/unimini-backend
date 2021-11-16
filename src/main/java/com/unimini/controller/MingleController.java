@@ -63,7 +63,7 @@ public class MingleController {
 	//	public ModelAndView mingleDetail(@RequestParam String userId, @RequestParam String eventCode) {
 		ModelAndView mav = new ModelAndView("EventContent");
 		
-		String eventCode = "18";
+		String eventCode = "22";
 		String userId = "admin";
 		
 		Map<String, String> eventInfo      = mingleService.getMingleInfo(eventCode);
@@ -78,6 +78,15 @@ public class MingleController {
 		mav.addObject("eventInfo", eventInfo);
 		mav.addObject("userList", userList);
 		
+		return mav;
+	}
+
+	///////////어드민 상세 페이지 (유니존)
+	@RequestMapping(value = "/mingle/unizoneDetailAdmin", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView unizoneDetailAdmin(@RequestParam String eventCode) {
+		ModelAndView mav = new ModelAndView("EventContentForAdmin");
+
+
 		return mav;
 	}
 
