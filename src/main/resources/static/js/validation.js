@@ -60,8 +60,6 @@ const BTN_TO_FINISH_LOGIN = document.querySelector("#toLogin");
 const CHECKBOX_SERVICE_TERM = document.querySelector("#checkServiceTerm");
 const CHECKBOX_PERSONAL_INFO = document.querySelector("#checkPersonalInfo");
 const CHECKBOX_TERMS = document.querySelectorAll("input[type='checkbox']");
-const INPUT_STAGE2 = [INPUT_PASSWORD_SIGNUP,INPUT_PASSWORD_DOUBLE_SIGNUP,INPUT_NAME_SIGNUP,INPUT_PHONE_SIGNUP];
-const INPUT_STAGE3 = [INPUT_NICKNAME_SIGNUP,INPUT_STUDENT_ID_SIGNUP, INPUT_MAJOR_SIGNUP];
 
 function validationLogin(){
   INPUT_PASSWORD_LOGIN.addEventListener('keyup',event=>{
@@ -75,78 +73,161 @@ function validationLogin(){
 }
 
 function validationSignUp(){
-  //1단계
   INPUT_EMAIL_SIGNUP.addEventListener('keyup',event=>{
-    if(!checkIfEmpty(INPUT_EMAIL_SIGNUP) && CHECKBOX_PERSONAL_INFO.checked && CHECKBOX_SERVICE_TERM.checked){
-      enableBtn(BTN_TO_SIGNUP_SECOND_STAGE);
-      validateBtn(BTN_TO_SIGNUP_SECOND_STAGE);
-    }
-    else{
-      disableBtn(BTN_TO_SIGNUP_SECOND_STAGE);
-      invalidateBtn(BTN_TO_SIGNUP_SECOND_STAGE);
+    if(!checkIfEmpty(INPUT_EMAIL_SIGNUP) 
+    && checkPassword(INPUT_PASSWORD_SIGNUP) 
+    && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
+    && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
+    && checkRadioBtn(INPUT_GENDER_SIGNUP)
+    && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
+    && !checkIfEmpty(INPUT_NAME_SIGNUP)
+    && checkPhone(INPUT_PHONE_SIGNUP)){
+      enableBtn(BTN_TO_FINISH_SIGNUP);
+      validateBtn(BTN_TO_FINISH_SIGNUP);}
+  else{
+    disableBtn(BTN_TO_FINISH_SIGNUP);
+    invalidateBtn(BTN_TO_FINISH_SIGNUP);
     }
   })
-  CHECKBOX_TERMS.forEach((term)=>{
-    term.addEventListener(('input'),event=>{
-      if(!checkIfEmpty(INPUT_EMAIL_SIGNUP) && CHECKBOX_PERSONAL_INFO.checked && CHECKBOX_SERVICE_TERM.checked){
-        enableBtn(BTN_TO_SIGNUP_SECOND_STAGE);
-        validateBtn(BTN_TO_SIGNUP_SECOND_STAGE);
-      }
-      else{
-        disableBtn(BTN_TO_SIGNUP_SECOND_STAGE);
-        invalidateBtn(BTN_TO_SIGNUP_SECOND_STAGE);
-      }
-    })
+  INPUT_PASSWORD_SIGNUP.addEventListener('keyup',event=>{
+    if(checkPassword(INPUT_PASSWORD_SIGNUP) 
+    && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
+    && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
+    && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
+    && checkRadioBtn(INPUT_GENDER_SIGNUP)
+    && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
+    && !checkIfEmpty(INPUT_NAME_SIGNUP)
+    && checkPhone(INPUT_PHONE_SIGNUP)){
+      enableBtn(BTN_TO_FINISH_SIGNUP);
+      validateBtn(BTN_TO_FINISH_SIGNUP);}
+  else{
+    disableBtn(BTN_TO_FINISH_SIGNUP);
+    invalidateBtn(BTN_TO_FINISH_SIGNUP);
+    }
   })
-  //2단계
-  INPUT_STAGE2.forEach((input)=>{
-    input.addEventListener('keyup', event=>{
-      if(checkPassword(INPUT_PASSWORD_SIGNUP) 
-      && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
-      && !checkIfEmpty(INPUT_NAME_SIGNUP) 
+  INPUT_PASSWORD_DOUBLE_SIGNUP.addEventListener('keyup',event=>{
+      if(doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+      && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
+      && checkPassword(INPUT_PASSWORD_SIGNUP) 
+      && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
+      && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
+      && checkRadioBtn(INPUT_GENDER_SIGNUP)
+      && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
+      && !checkIfEmpty(INPUT_NAME_SIGNUP)
       && checkPhone(INPUT_PHONE_SIGNUP)){
-        enableBtn(BTN_TO_SIGNUP_THIRD_STAGE);
-        validateBtn(BTN_TO_SIGNUP_THIRD_STAGE);
-    }
+        enableBtn(BTN_TO_FINISH_SIGNUP);
+        validateBtn(BTN_TO_FINISH_SIGNUP);}
     else{
-      disableBtn(BTN_TO_SIGNUP_THIRD_STAGE);
-      invalidateBtn(BTN_TO_SIGNUP_THIRD_STAGE);
+      disableBtn(BTN_TO_FINISH_SIGNUP);
+      invalidateBtn(BTN_TO_FINISH_SIGNUP);
+      }
+    })
+  INPUT_NICKNAME_SIGNUP.addEventListener('keyup',event=>{
+      if(doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+      && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
+      && checkPassword(INPUT_PASSWORD_SIGNUP) 
+      && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
+      && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
+      && checkRadioBtn(INPUT_GENDER_SIGNUP)
+      && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
+      && !checkIfEmpty(INPUT_NAME_SIGNUP)
+      && checkPhone(INPUT_PHONE_SIGNUP)){
+        enableBtn(BTN_TO_FINISH_SIGNUP);
+        validateBtn(BTN_TO_FINISH_SIGNUP);}
+    else{
+      disableBtn(BTN_TO_FINISH_SIGNUP);
+      invalidateBtn(BTN_TO_FINISH_SIGNUP);
+      }
+    })
+  INPUT_GENDER_SIGNUP.forEach(gender=>{
+    gender.addEventListener('keyup',event=>{
+        if(checkRadioBtn(INPUT_GENDER_SIGNUP)
+        && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
+        && checkPassword(INPUT_PASSWORD_SIGNUP) 
+        && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
+        && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
+        && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+        && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
+        && !checkIfEmpty(INPUT_NAME_SIGNUP)
+        && checkPhone(INPUT_PHONE_SIGNUP)){
+          enableBtn(BTN_TO_FINISH_SIGNUP);
+          validateBtn(BTN_TO_FINISH_SIGNUP);}
+      else{
+        disableBtn(BTN_TO_FINISH_SIGNUP);
+        invalidateBtn(BTN_TO_FINISH_SIGNUP);
+        }
+    })
+  })
+  INPUT_MAJOR_SIGNUP.addEventListener('keyup',event=>{
+    if(!checkIfEmpty(INPUT_MAJOR_SIGNUP)
+    && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
+    && checkPassword(INPUT_PASSWORD_SIGNUP) 
+    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
+    && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+    && checkRadioBtn(INPUT_GENDER_SIGNUP)
+    && !checkIfEmpty(INPUT_NAME_SIGNUP)
+    && checkPhone(INPUT_PHONE_SIGNUP)){
+      enableBtn(BTN_TO_FINISH_SIGNUP);
+      validateBtn(BTN_TO_FINISH_SIGNUP);}
+  else{
+    disableBtn(BTN_TO_FINISH_SIGNUP);
+    invalidateBtn(BTN_TO_FINISH_SIGNUP);
     }
   })
-  //3단계
-  INPUT_STAGE3.forEach((input)=>{
-    input.addEventListener('keyup',event=>{
-      if(!checkIfEmpty(INPUT_NICKNAME_SIGNUP)
-      &&checkRadioBtn(INPUT_GENDER_SIGNUP)
-      &&checkStudentId(INPUT_STUDENT_ID_SIGNUP)
-      &&!checkIfEmpty(INPUT_MAJOR_SIGNUP)){
-        enableBtn(BTN_TO_FINISH_SIGNUP);
-        validateBtn(BTN_TO_FINISH_SIGNUP);
-      }
-      else{
-        disableBtn(BTN_TO_FINISH_SIGNUP);
-        invalidateBtn(BTN_TO_FINISH_SIGNUP);
-      }
-    })
+  INPUT_STUDENT_ID_SIGNUP.addEventListener('keyup',event=>{
+    if(!checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
+    && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
+    && checkPassword(INPUT_PASSWORD_SIGNUP) 
+    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
+    && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+    && checkRadioBtn(INPUT_GENDER_SIGNUP)
+    && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
+    && !checkIfEmpty(INPUT_NAME_SIGNUP)
+    && checkPhone(INPUT_PHONE_SIGNUP)){
+      enableBtn(BTN_TO_FINISH_SIGNUP);
+      validateBtn(BTN_TO_FINISH_SIGNUP);}
+  else{
+    disableBtn(BTN_TO_FINISH_SIGNUP);
+    invalidateBtn(BTN_TO_FINISH_SIGNUP);
+    }
   })
-  INPUT_GENDER_SIGNUP.forEach((input)=>{
-    input.addEventListener('input',event=>{
-      if(!checkIfEmpty(INPUT_NICKNAME_SIGNUP)
-      &&checkRadioBtn(INPUT_GENDER_SIGNUP)
-      &&checkStudentId(INPUT_STUDENT_ID_SIGNUP)
-      &&!checkIfEmpty(INPUT_MAJOR_SIGNUP)){
-        enableBtn(BTN_TO_FINISH_SIGNUP);
-        validateBtn(BTN_TO_FINISH_SIGNUP);
-      }
-      else{
-        disableBtn(BTN_TO_FINISH_SIGNUP);
-        invalidateBtn(BTN_TO_FINISH_SIGNUP);
-      }
-    })
+  INPUT_NAME_SIGNUP.addEventListener('keyup',event=>{
+    if(!checkIfEmpty(INPUT_NAME_SIGNUP)
+    && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
+    && checkPassword(INPUT_PASSWORD_SIGNUP) 
+    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
+    && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+    && checkRadioBtn(INPUT_GENDER_SIGNUP)
+    && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
+    && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
+    && checkPhone(INPUT_PHONE_SIGNUP)){
+      enableBtn(BTN_TO_FINISH_SIGNUP);
+      validateBtn(BTN_TO_FINISH_SIGNUP);}
+  else{
+    disableBtn(BTN_TO_FINISH_SIGNUP);
+    invalidateBtn(BTN_TO_FINISH_SIGNUP);
+    }
   })
-})
+  INPUT_PHONE_SIGNUP.addEventListener('keyup',event=>{
+    if(checkPhone(INPUT_PHONE_SIGNUP)
+    && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
+    && checkPassword(INPUT_PASSWORD_SIGNUP) 
+    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
+    && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+    && checkRadioBtn(INPUT_GENDER_SIGNUP)
+    && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
+    && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
+    && !checkIfEmpty(INPUT_NAME_SIGNUP)){
+      enableBtn(BTN_TO_FINISH_SIGNUP);
+      validateBtn(BTN_TO_FINISH_SIGNUP);}
+  else{
+    disableBtn(BTN_TO_FINISH_SIGNUP);
+    invalidateBtn(BTN_TO_FINISH_SIGNUP);
+    }
+  })
 }
-
 
 
   //이메일
@@ -161,8 +242,17 @@ function validationSignUp(){
   //비밀번호
   function checkPassword(args){
     var input = String(args.value);
-    var patternPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,}$/;
-    var validated = (patternPassword.test(input)? true : false);
+    var num = input.search(/[0-9]/g);
+    var eng = input.search(/[a-z]/ig);
+    var spe = input.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+    var validated;
+    if(input.length < 8 || input.length > 20)
+      validated =  false;
+    else if(input.search(/₩s/) != -1)
+      validated =  false;
+    else if(num < 0 || eng < 0 || spe < 0 )
+      validated = false;
+    else validated = true;
     showFeedback(args, validated);
     return validated
   }

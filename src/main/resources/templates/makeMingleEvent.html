@@ -75,38 +75,43 @@
 
     <!-- Content -->
     <div layout:fragment="content">
-		<header>
-            <nav class="container align-items-end justify-content-between" style="padding:10px;">
-                <div class="d-flex">
-                    <div style="width:30px;margin-left:10px;">
-                        <a href="" id="backToPage">
-                            <img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" onclick="window.Unity.call('CloseWebView:');">
-                        </a>
-                    </div>
-                    <div><span id="header_title" class="size20">밍글 만들기</span></div>
-                </div>
-                <div>
-                    <button id="makeMingleBtn">
-                        완료
-                    </button>
-                </div>
-            </nav>
-        </header>
 		<div id="app">
+			<header>
+				<nav class="container align-items-end justify-content-between" style="padding:10px;">
+					<div class="d-flex">
+						<div style="width:30px;margin-left:10px;">
+							<a href="" id="backToPage">
+								<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" onclick="window.Unity.call('CloseWebView:');">
+							</a>
+						</div>
+						<div><span id="header_title" class="size20">밍글 만들기</span></div>
+					</div>
+					<div>
+						<button id="makeMingleBtn">
+							완료
+						</button>
+					</div>
+				</nav>
+			</header>
 			<div class="appContainer" style="overflow-y:auto;">
-			<div class="responsiveApp">
-				<div class="container padding">
+				<div class="container padding responsiveApp">
 					<div class="mingleContainer">
-						<input id="title" name="title" class="green" type="text" placeholder="제목을 입력해주세요">
+						<div>
+							<span class="size12 grey2 weight700" style="margin-right:10px">제목</span>
+						</div>
+						<input class="green" type="text" placeholder="제목을 입력해주세요">
 						<div id="mingleCategory">
-							<div class="category" th:each="category : ${categoryList}" th:text="${category.categoryName}" th:data="${category.categoryCode}">
-								스터디
-							</div>
+							<div class="category">취미</div>
+							<div class="category">밥/술</div>
+							<div class="category">운동</div>
+							<div class="category">게임</div>
+							<div class="category">공연/전시</div>
+							<div class="category">공부</div>
 						</div>
 					</div>
 					<div class="mingleContainer" id="mingleDate">
 						<div>
-							<span class="size12 weight700 grey2">날짜 <span th:text="${toDay}" /> </span >
+							<span class="size12 weight700 grey2">날짜 <span th:text="${toDay}"></span>
 						</div>
 						<div id="mingleDay" class="d-flex justify-content-around" style="margin:10px 0px;">
 							<div class="mingleDate selected">
@@ -148,8 +153,8 @@
 							<span class="text-info"> 미리 설정하는 것을 권장해요. </span>
 						</div>
 						<div class="d-flex justify-content-center">
-							<div class="locationSelected" style="margin:10px 0px" id="placeText">
-								!! 선택 위치 !!
+							<div class="inactiveBtn d-flex justify-content-center align-items-center" id="locationSelected" style="margin:10px 0px">
+								<span class="size12 weight500" id="locationSelectedPlaceholder"> !! 선택 위치 !! </span>
 							</div>
 							<input type="hidden" id="sectionCode"/>
 							<input type="hidden" id="buildingCode"/>
@@ -172,12 +177,12 @@
 								<input id="moveSearchPlaceForm_maxPerson" name="moveSearchPlaceForm_maxPerson" type="hidden">
 								<input id="moveSearchPlaceForm_detail" name="moveSearchPlaceForm_detail" type="hidden">
 							</form>
-							<!--<div class="locationOption d-flex flex-column justify-content-center align-items-center" onclick="unityMapCall();">
-								<img th:src="@{/static/image/search_big.png}" alt="" width="18px" height="18px">
-								<div>
-									<span class="text-info2">지도에서 핀 선택</span>
-								</div>
-							</div>-->
+								<!--<div class="locationOption d-flex flex-column justify-content-center align-items-center" onclick="unityMapCall();">
+									<img th:src="@{/static/image/search_big.png}" alt="" width="18px" height="18px">
+									<div>
+										<span class="text-info2">지도에서 핀 선택</span>
+									</div>
+								</div>-->
 							<div class="locationOption d-flex align-items-center justify-content-center" id="locationOption-later" onclick="setPlaceText();">
 								<span class="text-info2">나중에<br>정할래요</span>
 							</div>
@@ -185,56 +190,31 @@
 					</div>
 					<div class="mingleContainer" id="minglePerson">
 						<div>
-							<span class="text-info text-bold">인원</span>
+							<span class="size12 grey2 weight700">인원</span>
 						</div>
 						<div class="d-flex justify-content-end">
 							<div class="minglePersonNumberOption">
-								<div class="minglePersonNumberOptionText min">
-									<span class="text-info2">최소</span>
-								</div>
+								<div class="minglePersonNumberOptionText min"> <span class="text-info2">최소</span></div>
 								<div class="minglePersonNumberOptionController">
-									<div class="minglePersonNumberOptionDec min">
-										-
-									</div>
-									<div id="minPerson" class="minglePersonNumber min">
-										3
-									</div>
-									<div class="minglePersonNumberOptionInc min">
-										+
-									</div>
+									<div class="minglePersonNumberOptionDec min inactiveBtn">-</div>
+									<div class="minglePersonNumber min">3</div>
+									<div class="minglePersonNumberOptionInc min">+</div>
 								</div>
 							</div>
 							<div class="minglePersonNumberOption">
-								<div class="minglePersonNumberOptionText max">
-									<span class="text-info2">최대</span>
-								</div>
+								<div class="minglePersonNumberOptionText max"> <span class="text-info2">최대</span> </div>    
 								<div class="minglePersonNumberOptionController">
-									<div class="minglePersonNumberOptionDec max">
-										-
-									</div>
-									<div id="maxPerson" class="minglePersonNumber max">
-										8
-									</div>
-									<div class="minglePersonNumberOptionInc max">
-										+
-									</div>
-								</div>
+									<div class="minglePersonNumberOptionDec max">-</div>
+									<div class="minglePersonNumber max">10</div>
+									<div class="minglePersonNumberOptionInc max inactiveBtn">+</div></div>
 							</div>
 						</div>
 					</div>
 					<div class="mingleContainer">
 						<textarea id="detail" class="placeholderCenter green" placeholder="진행할 밍글 이벤트에 대해 소개해주세요 &#13;&#10;부적절한 내용은 제한될 수 있어요" style="height:200px"></textarea>
-					</div>
-
-					<div class="d-flex justify-content-end">
-						<div class="locationOption d-flex align-items-center justify-content-center">
-							<span class="text-info2">만들기</span>
-						</div>
-					</div>				
-					
+					</div>		
 				</div>
-			</div>
-        </div>
+        	</div>
 		</div>
     </div>
 </html>
