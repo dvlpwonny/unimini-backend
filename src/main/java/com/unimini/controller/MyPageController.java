@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,12 +21,12 @@ public class MyPageController {
     MyPageService myPageService;
 
     @RequestMapping(value = "/myPage/myPageForm", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView myPage(@RequestParam String userId) {
+    public ModelAndView myPage(Principal principal) {
         ModelAndView mav = new ModelAndView("myPage");
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put("userId", userId);
+        /*paramMap.put("userId", userId);*/
 
-        /*paramMap.put("userId", principal.getName());*/
+        paramMap.put("userId", principal.getName());
         Map<String, String> userInfo = myPageService.getUserInfo(paramMap);
         mav.addObject("userInfo", userInfo);
 
@@ -93,8 +94,16 @@ public class MyPageController {
     }
 
     @RequestMapping(value = "/myPage/myEventList", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView myEventList(@RequestParam String userId) {
+    public ModelAndView myEventList(Principal principal) {
         ModelAndView mav = new ModelAndView("myEventList");
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("userId", principal.getName());
+        List<Map<String, String>> expectMingleList = myPageService.getExpectMingle(paramMap);
+        List<Map<String, String>> finishMingleList = myPageService.getFinishMingle(paramMap);
+
+        mav.addObject("expectMingleList", expectMingleList);
+        mav.addObject("finishMingleList", finishMingleList);
+
         return mav;
     }
 

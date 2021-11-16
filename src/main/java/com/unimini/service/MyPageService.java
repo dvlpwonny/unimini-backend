@@ -12,6 +12,7 @@ import com.unimini.mapper.MyPageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -31,5 +32,13 @@ public class MyPageService {
 
     public int setLeaveComment(Map<String, String> paramMap) {
         return myPageMapper.setLeaveComment(paramMap);
+    }
+
+    public List<Map<String, String>> getExpectMingle(Map<String, String> paramMap) {
+        return myPageMapper.getExpectMingle(paramMap);
+    }
+
+    public List<Map<String, String>> getFinishMingle(Map<String, String> paramMap) {
+        return myPageMapper.getFinishMingle(paramMap);
     }
 }

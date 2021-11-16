@@ -1,186 +1,124 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout_v1">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout_v1">
 
-    <!-- For use on this page only [CSS] -->
-    <th:block layout:fragment="css">
-		<link rel="stylesheet" th:href="@{/static/css/reset.css}">
-		<link rel="stylesheet" th:href="@{/static/css/default.css}">
-		<link rel="stylesheet" th:href="@{/static/css/styles.css}">
-    </th:block>
-    
-    <!-- For use on this page only [JS] -->
-    <th:block layout:fragment="script">
-		<script th:src="@{/static/js/load_html.js}"></script>
-		<script th:src="@{/static/js/default.js}"></script>
-    </th:block>
+<!-- For use on this page only [CSS] -->
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/static/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/static/css/default.css}">
+    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
+</th:block>
 
-    <!-- Content -->
-    <div layout:fragment="content">
+<!-- For use on this page only [JS] -->
+<th:block layout:fragment="script">
+    <script th:src="@{/static/js/load_html.js}"></script>
+    <script th:src="@{/static/js/default.js}"></script>
+</th:block>
 
-		<div id="app">
-			<header>
-				<nav class="container align-items-end" style="padding:10px;">
-					<div style="width:30px;margin-left:10px;">
-						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;">
-					</div>
-					<div><span id="header_title" class="size20"></span></div>
-				</nav>
-			</header>
-			<div class="appContainer" style="height:88%">
-			  <div class="container padding responsiveApp" style="margin-top:40px;height:90%; overflow-y: auto;">
-				<div class="placeSearchResult">
-				  <div id="myEvnetListOnBoard">
-					  <span class="size12 weight500 grey2">진행</span>
-					  <div class="myEventOnBoard">
-						  <div class="myEventBox">
-							  <div class="d-flex align-items-center"style="width:80%">
-								  <div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
-									  <img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
-									  <img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
-								  </div>
-								  <div class="myEventInfo">
-									  <div><span class="size14" id="var-eventTitle">EVENT_TITLE</span></div>
-									  <div style="margin-top:2px;">
-										  <span class="size13 weight400" id="var-eventDay">DAY</span>
-										  <span class="size13 weight400" id="var-eventBeginTime">13:00</span>
-										  <span class="size13 weight400">~</span>
-										  <span class="size13 weight400" id="var-eventEndTime">13:00</span>
-									  </div>
-								  </div>
-							  </div>
-							  <div>
-								  <div class="myEventAlert d-flex justify-content-center align-items-center">
-									  <img src="../static/image/alert.png" alt="" height="16px" width="4px">
-								  </div>
-							  </div>
-						  </div>
-						  <div class="myEventController">
-							  <span class="size14">종료하기</span>
-						  </div>
-					  </div>
-					  <div class="myEventOnBoard">
-						  <div class="myEventBox">
-							  <div class="d-flex align-items-center"style="width:80%">
-								  <div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
-									  <img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
-									  <img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
-								  </div>
-								  <div class="myEventInfo">
-									  <div><span class="size14" id="var-eventTitle">EVENT_TITLE</span></div>
-									  <div style="margin-top:2px;">
-										  <span class="size13 weight400" id="var-eventDay">DAY</span>
-										  <span class="size13 weight400" id="var-eventBeginTime">13:00</span>
-										  <span class="size13 weight400">~</span>
-										  <span class="size13 weight400" id="var-eventEndTime">13:00</span>
-									  </div>
-								  </div>
-							  </div>
-							  <div>
-								  <div class="myEventAlert d-flex justify-content-center align-items-center">
-									  <img src="../static/image/alert.png" alt="" height="16px" width="4px">
-								  </div>
-							  </div>
-						  </div>
-						  <div class="myEventController">
-							  <span class="size14">종료하기</span>
-						  </div>
-					  </div>
-					  <div class="myEventOnBoard">
-						  <div class="myEventBox">
-							  <div class="d-flex align-items-center"style="width:80%">
-								  <div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
-									  <img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
-									  <img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
-								  </div>
-								  <div class="myEventInfo">
-									  <div><span class="size14" id="var-eventTitle">EVENT_TITLE</span></div>
-									  <div style="margin-top:2px;">
-										  <span class="size13 weight400" id="var-eventDay">DAY</span>
-										  <span class="size13 weight400" id="var-eventBeginTime">13:00</span>
-										  <span class="size13 weight400">~</span>
-										  <span class="size13 weight400" id="var-eventEndTime">13:00</span>
-									  </div>
-								  </div>
-							  </div>
-							  <div>
-								  <div class="myEventAlert d-flex justify-content-center align-items-center">
-									  <img src="../static/image/alert.png" alt="" height="16px" width="4px">
-								  </div>
-							  </div>
-						  </div>
-						  <div class="myEventController">
-							  <span class="size14">종료하기</span>
-						  </div>
-					  </div>
-	  
-				  </div>
-				  <div id="myEvnetListFinished" style="margin-top:100px">
-					  <span class="size12 weight500 grey2">종료</span>
-					  <div class="myEventFinished">
-						  <div class="myEventBox">
-							  <div class="d-flex align-items-center"style="width:80%">
-								  <div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
-									  <img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
-									  <img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
-								  </div>
-								  <div class="myEventInfo">
-									  <div><span class="size14 grey2" id="var-eventTitle">EVENT_TITLE</span></div>
-									  <div style="margin-top:2px;">
-										  <span class="size13 weight400 grey2" id="var-eventDay">DAY</span>
-										  <span class="size13 weight400 grey2" id="var-eventBeginTime">13:00</span>
-										  <span class="size13 weight400 grey2">~</span>
-										  <span class="size13 weight400 grey2" id="var-eventEndTime">13:00</span>
-									  </div>
-								  </div>
-							  </div>
-							  <div>
-								  <div class="myEventAlert d-flex justify-content-center align-items-center">
-									  <img src="../static/image/alert.png" alt="" height="16px" width="4px">
-								  </div>
-							  </div>
-						  </div>
-						  <div class="myEventController">
-							  <span class="size14 center lineheight">별점을<br>남겨주세요</span>
-						  </div>
-					  </div>
-					  <div class="myEventFinished">
-						  <div class="myEventBox">
-							  <div class="d-flex align-items-center"style="width:80%">
-								  <div class="myEventProfile d-flex justify-content-center align-items-center" style="width:70px; height:100%">
-									  <img src="../static/image/profile/profile10.png" width="42px" height="42px" alt="">
-									  <img src="../static/image/host" alt="" width="22px" height="22px" style="position:absolute; transform: translate(-60%, -60%);">
-								  </div>
-								  <div class="myEventInfo">
-									  <div><span class="size14 grey2" id="var-eventTitle">EVENT_TITLE</span></div>
-									  <div style="margin-top:2px;">
-										  <span class="size13 weight400 grey2" id="var-eventDay">DAY</span>
-										  <span class="size13 weight400 grey2" id="var-eventBeginTime">13:00</span>
-										  <span class="size13 weight400 grey2">~</span>
-										  <span class="size13 weight400 grey2" id="var-eventEndTime">13:00</span>
-									  </div>
-								  </div>
-							  </div>
-							  <div>
-								  <div class="myEventAlert d-flex justify-content-center align-items-center">
-									  <img src="../static/image/alert.png" alt="" height="16px" width="4px">
-								  </div>
-							  </div>
-						  </div>
-						  <div class="myEventController flex-column">
-							  <div style="margin-bottom: 2px;">
-								  <span class="size14 center lineheight">참여자<br>별점</span>
-							  </div>
-							  <div class="d-flex align-items-center just">
-								  <img src="../static/image/star.png" alt="" height="16px" style="margin-right: 5px;">
-								  <span class="size14">5.0</span>
-							  </div>
-						  </div>
-					  </div>
-				  </div>
-				</div>
-			  </div>
-			</div>
-		  </div>
+<!-- Content -->
+<div layout:fragment="content">
 
+    <div id="app">
+        <header>
+            <nav class="container align-items-end" style="padding:10px;">
+                <div style="width:30px;margin-left:10px;">
+                    <img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;"
+                         onclick="window.Unity.call('CloseWebView:');">
+                </div>
+                <div><span id="header_title" class="size20">내 참여리스트</span></div>
+            </nav>
+        </header>
+        <div class="appContainer" style="height:88%">
+            <div class="container padding responsiveApp" style="margin-top:40px;height:90%; overflow-y: auto;">
+                <div class="placeSearchResult">
+                    <div id="myEvnetListOnBoard"  th:if="${expectMingleList.size() > 0}">
+                        <span class="size12 weight500 grey2">진행</span>
+                        <div class="myEventOnBoard" th:each="expectMingle : ${expectMingleList}">
+                            <div class="myEventBox">
+                                <div class="d-flex align-items-center" style="width:80%">
+                                    <div class="myEventProfile d-flex justify-content-center align-items-center"
+                                         style="width:70px; height:100%">
+                                        <img th:src="@{${expectMingle.hostProfileImageCode}}" width="42px" height="42px"
+                                             alt="">
+                                        <img th:if="${expectMingle.hostFlag eq 'Y'}" th:src="@{/static/image/host.png}"
+                                             alt="" width="22px" height="22px"
+                                             style="position:absolute; transform: translate(-60%, -60%);">
+                                    </div>
+                                    <div class="myEventInfo">
+                                        <div><span class="size14" th:text="${expectMingle.eventName}">EVENT_TITLE</span>
+                                        </div>
+                                        <div style="margin-top:2px;">
+                                            <span class="size13 weight400"
+                                                  th:text="${expectMingle.eventDate}">DAY</span>
+                                            <span class="size13 weight400" th:text="${expectMingle.eventStartTime}">13:00</span>
+                                            <span class="size13 weight400">~</span>
+                                            <span class="size13 weight400"
+                                                  th:text="${expectMingle.eventEndTime}">13:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="myEventController" th:if="${expectMingle.hostFlag eq 'Y'}">
+                                <span class="size14">종료하기</span>
+                            </div>
+                            <div class="myEventController" th:if="${expectMingle.hostFlag ne 'Y'}">
+                                <span class="size14">참여하기 취소</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="myEvnetListFinished" style="margin-top:100px" th:if="${finishMingleList.size() > 0}">
+                        <span class="size12 weight500 grey2">종료</span>
+                        <div class="myEventFinished" th:each="finishMingle : ${finishMingleList}">
+                            <div class="myEventBox">
+                                <div class="d-flex align-items-center" style="width:80%">
+                                    <div class="myEventProfile d-flex justify-content-center align-items-center"
+                                         style="width:70px; height:100%">
+                                        <img th:src="@{${finishMingle.hostProfileImageCode}}" width="42px" height="42px"
+                                             alt="">
+                                        <img th:if="${finishMingle.hostFlag eq 'Y'}" th:src="@{/static/image/host.png}"
+                                             alt="" width="22px" height="22px"
+                                             style="position:absolute; transform: translate(-60%, -60%);">
+                                    </div>
+                                    <div class="myEventInfo">
+                                        <div><span class="size14" th:text="${finishMingle.eventName}">EVENT_TITLE</span>
+                                        </div>
+                                        <div style="margin-top:2px;">
+                                            <span class="size13 weight400"
+                                                  th:text="${finishMingle.eventDate}">DAY</span>
+                                            <span class="size13 weight400" th:text="${finishMingle.eventStartTime}">13:00</span>
+                                            <span class="size13 weight400">~</span>
+                                            <span class="size13 weight400"
+                                                  th:text="${finishMingle.eventEndTime}">13:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div th:if="${finishMingle.quitFlag eq 'Y'}">
+                                    <div class="myEventAlert d-flex justify-content-center align-items-center">
+                                        <img th:src="@{/static/image/alert.png}" alt="" height="16px" width="4px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="myEventController flex-column" th:if="${finishMingle.hostFlag eq 'Y'}">
+                                <div style="margin-bottom: 2px;">
+                                    <span class="size14 center lineheight">참여자<br>별점</span>
+                                </div>
+                                <div class="d-flex align-items-center just">
+                                    <img th:src="@{/static/image/star.png}" alt="" height="16px" style="margin-right: 5px;">
+                                    <span class="size14" th:text="${finishMingle.eventScore}">5.0</span>
+                                </div>
+                            </div>
+                            <div class="myEventController" th:if="${finishMingle.hostFlag ne 'Y' and  finishMingle.eventScore eq '0'}">
+                                <span class="size14 center lineheight">별점을<br>남겨주세요</span>
+                            </div>
+                            <div class="myEventController" th:if="${finishMingle.hostFlag ne 'Y' and  finishMingle.eventScore ne '0'}">
+                                <span class="size14 center lineheight">별점<br>완료</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+</div>
 </html>

@@ -84,4 +84,98 @@
         )
     </insert>
 
+    <!-- 예정된 밍글 -->
+    <select id="getExpectMingle" resultType="uniMap" parameterType="map">
+        SELECT
+            A.EVENT_CODE
+            , A.EVENT_STATUS_CODE
+            , A.CATEGORY_CODE
+            , A.EVENT_NAME
+            , DATE_fORMAT(A.EVENT_START_TIME , '%H:%i') AS EVENT_START_TIME
+            , DATE_fORMAT(A.EVENT_END_TIME , '%H:%i') AS EVENT_END_TIME
+            , DATE_fORMAT(A.EVENT_START_TIME, "%m월 %d일") AS EVENT_DATE
+            , B.HOST_FLAG
+            , C.TOT_USER_CNT
+            , CASE
+                WHEN A.EVENT_START_TIME <![CDATA[<]]> NOW() AND C.TOT_USER_CNT <![CDATA[<]]> A.MINIMUM_PRSNNL
+                THEN 'Y'
+                ELSE 'N'
+            END AS QUIT_FLAG
+            , (
+                SELECT
+                    CONCAT('/static/image/profile/profile', PROFILE_IMAGE_CODE, '.png') AS PROFILE_IMAGE_CODE
+                FROM TB_USER D INNER JOIN TB_EVENT_USER_MAPP_GROUP E
+                WHERE D.USER_ID = E.USER_ID
+                  AND E.EVENT_CODE = A.EVENT_CODE
+                  AND HOST_FLAG = 'Y'
+            ) AS HOST_PROFILE_IMAGE_CODE
+            , IFNULL((
+                SELECT
+                    ROUND(AVG(EVENT_SCORE), 1)
+                FROM TB_EVENT_USER_MAPP_GROUP D
+                WHERE D.EVENT_CODE = A.EVENT_CODE
+                GROUP BY EVENT_CODE
+            ), 0) AS EVENT_SCORE
+        FROM TB_EVENT A INNER JOIN TB_EVENT_USER_MAPP_GROUP B ON A.EVENT_CODE = B.EVENT_CODE
+            LEFT OUTER JOIN (
+                SELECT
+                    COUNT(USER_ID) AS TOT_USER_CNT
+                    , EVENT_CODE
+                FROM TB_EVENT_USER_MAPP_GROUP
+                WHERE USER_STATUS_CODE = 'EVTUSRST002'
+                GROUP BY EVENT_CODE
+            ) C ON A.EVENT_CODE = C.EVENT_CODE
+        WHERE B.USER_ID = #{userId}
+        AND A.EVENT_TYPE_CODE = 'EVT001'
+        AND ((A.EVENT_STATUS_CODE = 'EVTSTS001' OR A.EVENT_STATUS_CODE = 'EVTSTS002')
+        AND A.EVENT_END_TIME <![CDATA[>]]> NOW());
+    </select>
+
+    <!-- 종료된 밍글 -->
+    <select id="getFinishMingle" resultType="uniMap" parameterType="map">
+        SELECT
+            A.EVENT_CODE
+            , A.EVENT_STATUS_CODE
+            , A.CATEGORY_CODE
+            , A.EVENT_NAME
+            , DATE_fORMAT(A.EVENT_START_TIME , '%H:%i') AS EVENT_START_TIME
+            , DATE_fORMAT(A.EVENT_END_TIME , '%H:%i') AS EVENT_END_TIME
+            , DATE_fORMAT(A.EVENT_START_TIME, "%m월 %d일") AS EVENT_DATE
+            , B.HOST_FLAG
+            , C.TOT_USER_CNT
+            , CASE
+                WHEN A.EVENT_START_TIME <![CDATA[<]]> NOW() AND C.TOT_USER_CNT <![CDATA[<]]> A.MINIMUM_PRSNNL
+                THEN 'Y'
+                ELSE 'N'
+            END AS QUIT_FLAG
+            , IFNULL((
+                SELECT
+                    ROUND(AVG(EVENT_SCORE), 1)
+                FROM TB_EVENT_USER_MAPP_GROUP D
+                WHERE D.EVENT_CODE = A.EVENT_CODE
+                GROUP BY EVENT_CODE
+            ), 0) AS EVENT_SCORE
+            , (
+                SELECT
+                    CONCAT('/static/image/profile/profile', PROFILE_IMAGE_CODE, '.png') AS PROFILE_IMAGE_CODE
+                FROM TB_USER D INNER JOIN TB_EVENT_USER_MAPP_GROUP E
+                WHERE D.USER_ID = E.USER_ID
+                  AND E.EVENT_CODE = A.EVENT_CODE
+                  AND HOST_FLAG = 'Y'
+            ) AS HOST_PROFILE_IMAGE_CODE
+        FROM TB_EVENT A INNER JOIN TB_EVENT_USER_MAPP_GROUP B ON A.EVENT_CODE = B.EVENT_CODE
+            LEFT OUTER JOIN (
+                SELECT
+                    COUNT(USER_ID) AS TOT_USER_CNT
+                    , EVENT_CODE
+                FROM TB_EVENT_USER_MAPP_GROUP
+                WHERE USER_STATUS_CODE = 'EVTUSRST002'
+                GROUP BY EVENT_CODE
+            ) C ON A.EVENT_CODE = C.EVENT_CODE
+        WHERE B.USER_ID = #{userId}
+        AND A.EVENT_TYPE_CODE = 'EVT001'
+        AND (A.EVENT_STATUS_CODE = 'EVTSTS003'
+        OR A.EVENT_END_TIME <![CDATA[<]]> NOW())
+    </select>
+
 </mapper>

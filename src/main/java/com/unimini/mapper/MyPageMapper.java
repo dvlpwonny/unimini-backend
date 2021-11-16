@@ -10,6 +10,7 @@ package com.unimini.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -21,5 +22,9 @@ public interface MyPageMapper {
     int updateUser(Map<String, String> paramMap);
 
     int setLeaveComment(Map<String, String> paramMap);
+
+    List<Map<String, String>> getExpectMingle(Map<String, String> paramMap);
+
+    List<Map<String, String>> getFinishMingle(Map<String, String> paramMap);
 
 }
