@@ -64,6 +64,23 @@
 
     <!-- Content -->
     <div layout:fragment="content">
+		<header>
+            <nav class="container align-items-end justify-content-between" style="padding:10px;">
+                <div class="d-flex">
+                    <div style="width:30px;margin-left:10px;">
+                        <a href="" id="backToPage">
+                            <img src="../static/image/back.png" alt="" style="width:18px; height:18px;">
+                        </a>
+                    </div>
+                    <div><span id="header_title" class="size20">{{title}}</span></div>
+                </div>
+                <div>
+                    <button id="makeMingleBtn">
+                        완료
+                    </button>
+                </div>
+            </nav>
+        </header>
 		<div id="app">
 			<div class="appContainer" style="overflow-y:auto;">
 			<div class="responsiveApp">
