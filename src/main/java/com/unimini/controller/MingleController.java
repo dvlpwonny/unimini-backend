@@ -5,9 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -18,22 +19,22 @@ public class MingleController {
 
 	@Autowired
 	MingleService mingleService;
-	
-	@GetMapping(value = "/mingle/makeMingleEvent")
-	public String makeMingleEvent(Model model) {
-		
+
+	@RequestMapping(value = "/mingle/makeMingleEvent", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView makeMingleEvent(@RequestParam String userId) {
+		ModelAndView mav = new ModelAndView("makeMingleEvent");
 		Calendar cal = Calendar.getInstance();
 		
 		/* u : Day of Week Number
 		 * 1 = Monday, ..., 7 = Sunday */
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss u");
 		String toDay = simpleDateFormat.format(cal.getTime());
-		
-		model.addAttribute("toDay",toDay);
+
+		mav.addObject("toDay",toDay);
 		
 		log.info("MakeMingleEvent / toDay / " + toDay);
 		
-		return "makeMingleEvent";
+		return mav;
 	}
 
 	@RequestMapping(value = "/mingle/makeMingleEvent_searchPlace", method = {RequestMethod.GET, RequestMethod.POST})
@@ -45,15 +46,16 @@ public class MingleController {
         return "makeMingleEvent_searchPlace";
     }
 
-	@GetMapping(value = "/mingle/mingleDetail")
-	public String mingleDetail(Model model) {
+	@RequestMapping(value = "/mingle/mingleDetail", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView mingleDetail(@RequestParam String userId, @RequestParam String eventCode) {
+		ModelAndView mav = new ModelAndView("EventContent");
 		Map<String, String> eventInfo = MakeTempEventInfo();
 		List<Map<String, String>> userList = MakeTempUserList();
+
+		mav.addObject("eventInfo", eventInfo);
+		mav.addObject("userList", userList);
 		
-		model.addAttribute("eventInfo", eventInfo);
-		model.addAttribute("userList", userList);
-		
-		return "EventContent";
+		return mav;
 	}
 
 	private Map<String, String> MakeTempEventInfo() {
@@ -114,10 +116,10 @@ public class MingleController {
 		userList.add(user4);
 		
 		return userList;
-	}	
-	
-	@GetMapping(value = "/mingle/totalMigleList")
-	public String totalMigleList(Model model) {
+	}
+
+	@RequestMapping(value = "/mingle/totalMigleList", method = {RequestMethod.GET, RequestMethod.POST})
+	public String totalMigleList() {
 
 		return "myEventList";
 	}
