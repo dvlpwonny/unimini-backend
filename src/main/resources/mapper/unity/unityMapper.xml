@@ -43,6 +43,10 @@
                 AND CATEGORY_CODE = #{categoryCode}
             </if>
         </if>
+        <if test="eventTypeCode == 'EVT002'">
+            AND UNIZON_START_TIME <![CDATA[<=]]> NOW()
+            AND EVENT_END_TIME <![CDATA[>=]]> NOW()
+        </if>
         <if test="timeSearch != null and !timeSearch.equals('')">
             AND DATE_FORMAT(EVENT_START_TIME, '%H:%i') > DATE_fORMAT(#{timeSearch}, '%H:%i')
         </if>
