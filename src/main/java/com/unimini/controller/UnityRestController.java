@@ -169,7 +169,7 @@ public class UnityRestController {
 
         String userStatusCode = "";
         if (withFlag.equals("Y")) {
-            userStatusCode = "EVTUSRST003";
+            userStatusCode = "EVTUSRST002";
         } else {
             userStatusCode = null;
         }
