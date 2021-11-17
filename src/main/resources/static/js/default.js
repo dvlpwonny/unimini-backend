@@ -372,3 +372,21 @@ EVENT_DATE, EVENT_DAY, EVENT_BEGIN_TIME, EVENT_END_TIME, EVENT_LOCATION,
 EVENT_NOW_NUMBER, EVENT_MAX_NUMBER, EVENT_CONTENT
 ]
 
+
+
+//더블탭 및 확대 방지
+document.documentElement.addEventListener('touchstart', function (event) {
+  if (event.touches.length > 1) {
+       event.preventDefault(); 
+     } 
+ }, false);
+
+var lastTouchEnd = 0; 
+
+document.documentElement.addEventListener('touchend', function (event) {
+  var now = (new Date()).getTime();
+  if (now - lastTouchEnd <= 300) {
+       event.preventDefault(); 
+     } lastTouchEnd = now; 
+ }, false);
+ 
