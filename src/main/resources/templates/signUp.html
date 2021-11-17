@@ -19,7 +19,7 @@
     <script>
         $(function(){
             $('#toFinishSignUp').click(function () {
-                if ($('#password').val() != $('#passwordConfirm').val()) {
+                if ($('#password-signup').val() != $('#password-double-signup').val()) {
                     alert('비빌번호를 확인해주세요');
                     return;
                 }
@@ -162,7 +162,7 @@
                             <div class="formTitle" style="width:100px; margin: 0px;">학번</div>
                             <div id="studentId" style="width:100%">
                                 <input name="uniNumber" id="studentId-signup" type="number" placeholder="학번 입력 (숫자 10자리)"
-                                       style="margin:0px;" maxlength="10" oninput="maxLengthCheck(this)">
+                                       style="margin:0px;" maxlengtfh="10" oninput="maxLengthCheck(this)">
                                 <span class="validation-feedback size12 pink weight400 inactive" style="margin-left:8px;">학번을 알맞게 입력해주세요.</span>
                             </div>
                         </div>
@@ -182,6 +182,52 @@
                             </div>
                         </div>
                     </div>
+                    <div class="contraction">
+                        <hr>
+                        <div class="form-check d-flex align-items-center justify-content-between">
+                            <input onclick="checkAllTermsF(this)" class="form-check-input allTerms" type="checkbox" value="" id="checkAllTerms" required>
+                            <label class="form-check-label" for="checkAllTerms">
+                            <span class="size14 weight600" style="margin-left: 50px; margin-top:2px;">전체 약관 동의</span>
+                            </label>
+                            <a onclick="extendTermForm()">
+                            <div>
+                                <img id="validationExtend" th:src="@{/static/image/expandMore.png}" alt="" width="24px;">
+                            </div>
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="inactive" id="termForm">
+                        <div class="term form-check d-flex align-items-center justify-content-between">
+                            <input class="form-check-input term" type="checkbox" value="" id="checkServiceTerm" required>
+                            <label class="form-check-label" for="checkServiceTerm">
+                            <span class="size14 weight400" style="margin-left: 50px; margin-top:2px;">(필수) 서비스 이용약관 동의</span>
+                            </label>
+                            <div>
+                            <span onclick="openTerm(this)" class="size13 underline weight400">보기</span>
+                            </div>
+                        </div>
+                        <div class="term form-check d-flex align-items-center justify-content-between">
+                            <input class="form-check-input term" type="checkbox" value="" id="checkPersonalInfo" required>
+                            <label class="form-check-label" for="checkPersonalInfo">
+                            <span class="size14 weight400" style="margin-left: 50px; margin-top:2px;">(필수) 개인정보 동의</span>
+                            </label>
+                            <div>
+                            <span onclick="openTerm(this)" class="size13 underline weight400">보기</span>
+                            </div>
+                        </div>
+                        <div class="term form-check d-flex align-items-center justify-content-between">
+                            <input class="form-check-input term" type="checkbox" value="" id="checkMarketingPush">
+                            <label class="form-check-label" for="checkMarketingPush">
+                            <span class="size14 weight400" style="margin-left: 50px; margin-top:2px;">(선택) 마케팅 수신 동의</span>
+                            </label>
+                            <div>
+                            <span onclick="openTerm(this)" class="size13 underline weight400">보기</span>  
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+              
                 </form>
             </div>
         </div>
@@ -190,7 +236,20 @@
           <button id="toFinishSignUp">회원가입 완료</button>
         </div>
         
-        
+        <div id="popup" class="inactive">
+            <div class="box" id="term">
+              <div class="boxMenu d-flex justify-content-between align-items-center">
+                  <span class="size14 weight400" id="termName"></span>
+                  <span onclick="closeTerm()">
+                      <img th:src="@{/static/image/close.png}" alt="">
+                  </span>
+              </div>
+              <div class="boxContent wide" style="overflow-y: auto; margin-top:30px; height:90%">
+                <span class="size12 weight400" id="termContent"></span>
+            </div>
+          </div>
+        </div>
+
     </div>
 
 </th:block>
