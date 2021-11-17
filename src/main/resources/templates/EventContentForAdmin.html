@@ -13,9 +13,9 @@
     <!-- For use on this page only [JS] -->
     <th:block layout:fragment="script">
 		<script th:src="@{/static/js/jquery-ui-1.13.0/jquery-ui.js}"></script>
-		<script th:src="@{/static/js/load_html.js}"></script>
+		<!--<script th:src="@{/static/js/load_html.js}"></script>-->
 		<script th:src="@{/static/js/lib/handlebars.min.js}"></script>
-		<script th:src="@{/static/js/countDown.js}"></script>
+		<!--<script th:src="@{/static/js/countDown.js}"></script>-->
 		<script th:src="@{/static/js/default.js}"></script>
 		<script>
 
@@ -182,8 +182,8 @@
 									</div>
 									<div class="userWaitingForAcceptanceController">
 										<div>
-											<button class="refuseUserJoin" style="margin-right:4px" type="button" th:onclick="'userRefuse('+${index}+')'"><span class="size14">거절</span></button>
-											<button class="acceptUserJoin" type="button" th:onclick="'userAccept('+${index}+')'"><span class="size14">수락</span></button>
+											<button class="refuseUserJoin" style="margin-right:4px" type="button" th:onclick="userRefuse([[${index}]])"><span class="size14">거절</span></button>
+											<button class="acceptUserJoin" type="button" th:onclick="userAccept([[${index}]])"><span class="size14">수락</span></button>
 										</div>
 									</div>
 								</div>
@@ -202,7 +202,7 @@
 									</div>
 									<div class="userAcceptedController">
 										<div>
-											<button class="refuseUserAccepted" type="button" th:onclick="'withCancel('+${index}+')'"><span class="size14">함께하기 거절</span></button>
+											<button class="refuseUserAccepted" type="button" th:onclick="withCancel([[${index}]])"><span class="size14">함께하기 거절</span></button>
 										</div>
 									</div>
 								</div>
