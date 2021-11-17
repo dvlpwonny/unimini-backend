@@ -9,15 +9,16 @@
 		<link rel="stylesheet" th:href="@{/static/css/popup.css}">
 		<link rel="stylesheet" th:href="@{/static/css/jquery-ui-1.13.0/jquery-ui.min.css}">
     </th:block>
-    
+
     <!-- For use on this page only [JS] -->
     <th:block layout:fragment="script">
 		<script th:src="@{/static/js/jquery-ui-1.13.0/jquery-ui.js}"></script>
-		<!--<script th:src="@{/static/js/load_html.js}"></script>-->
+		<script th:src="@{/static/js/load_html.js}"></script>
 		<script th:src="@{/static/js/lib/handlebars.min.js}"></script>
 		<!--<script th:src="@{/static/js/countDown.js}"></script>-->
 		<script th:src="@{/static/js/default.js}"></script>
 		<script>
+
 
 			function getUserInfoAlert(e) {
 				var userName = $(e).attr('data-userName');
@@ -25,17 +26,15 @@
 				var mobileNo = $(e).attr('data-mobile');
 				var updateDate = $(e).attr('data-updateDate');
 
-				alert('이름 : '+ userName + '\n전공' + major + '\n휴대폰번호' + mobileNo + '\n신청일' + updateDate);
+				alert('이름 : '+ userName + '\n전공 : ' + major + '\n휴대폰번호 : ' + mobileNo + '\n신청일 : ' + updateDate);
 			}
 
-			function withCancel(index) {
+			function withCancel(e) {
 
-				var userId = $('#pUser'+ index).attr("data-id");
-				var eventCode= $('#eventCode').val();
 				var data = {
-					'userId' : userId
-					, 'eventCode' : eventCode
-				}
+					'userId' : $(e).attr("data-userId")
+					, 'eventCode' : $('#eventCode').val()
+				};
 
 				$.ajax({
 					url: '/mingle/setUnizoneParticipantCancel',
@@ -51,6 +50,8 @@
 						if (__data.result == "success") {
 							alert("수락된 신청자 거절이 완료되었습니다.");
 							window.location.reload();
+						} else {
+							alert("수락된 신청자 거절이 실패하었습니다.");
 						}
 					},
 					fail: function(__data, __textStatus, __jqXHR){
@@ -64,14 +65,12 @@
 				});
 			}
 
-			function userRefuse(index) {
+			function userRefuse(e) {
 
-				var userId = $('#pUser'+ index).attr("data-id");
-				var eventCode= $('#eventCode').val();
 				var data = {
-					'userId' : userId
-					, 'eventCode' : eventCode
-				}
+					'userId' : $(e).attr("data-userId")
+					, 'eventCode' : $('#eventCode').val()
+				};
 
 				$.ajax({
 					url: '/mingle/setUnizoneApplicantRefuse',
@@ -87,6 +86,8 @@
 						if (__data.result == "success") {
 							alert("함께하기 거절이 완료되었습니다.");
 							window.location.reload();
+						} else {
+							alert("함께하기 거절이 실패하었습니다.");
 						}
 					},
 					fail: function(__data, __textStatus, __jqXHR){
@@ -100,14 +101,12 @@
 				});
 			}
 
-			function userAccept(index) {
+			function userAccept(e) {
 
-				var userId = $('#pUser'+ index).attr("data-id");
-				var eventCode= $('#eventCode').val();
 				var data = {
-					'userId' : userId
-					, 'eventCode' : eventCode
-				}
+					'userId' : $(e).attr("data-userId")
+					, 'eventCode' : $('#eventCode').val()
+				};
 
 				$.ajax({
 					url: '/mingle/setUnizoneParticipantAccept',
@@ -123,6 +122,8 @@
 						if (__data.result == "success") {
 							alert("함께하기 수락이 완료되었습니다.");
 							window.location.reload();
+						} else {
+							alert("함께하기 수락이 실패하었습니다.");
 						}
 					},
 					fail: function(__data, __textStatus, __jqXHR){
@@ -135,6 +136,7 @@
 					}
 				});
 			}
+
 		</script>
     </th:block>
 
@@ -169,7 +171,7 @@
 					<div class="eventMenuBar d-flex justify-content-start align-items-center" style="height:50px">
 						<div class="eventMenu"><span class="size15 weight700 grey2">수락 대기</span></div>
 					</div>
-					<div class="container eventMenuContent inactive" id="eventParticipationList" style="height:80%">
+					<div class="container eventMenuContent" id="eventParticipationList" style="height:80%">
 						<div class="userWaitingForAcceptanceList">
 							<div><span class="size14">함께하기 신청자</span></div>
 							<div>
@@ -178,12 +180,12 @@
 										<div class="userWaitingForAcceptanceProfile" style="width:44px; height:44px; margin-right:10px;" th:data-userName="${applicant.userName}" th:data-mobile="${applicant.mobileNo}" th:data-major="${applicant.majorName}" th:data-updateDate="${applicant.updateDate}" onclick="getUserInfoAlert(this);">
 											<img th:src="@{${applicant.profileImageCode}}" alt="" width="100%" height="100%" >
 										</div>
-										<div><span th:id="'aUser'+${index}" class="size14 weight500" th:text="${applicant.userName}+' / '+${applicant.updateDate}" th:data-mobile="${applicant.mobileNo}" th:data-major="${applicant.majorName}">USERNAME</span></div>
+										<div><span th:id="'aUser'+${index.index}" class="size14 weight500" th:text="${applicant.userName}+' / '+${applicant.updateDate}" th:data-mobile="${applicant.mobileNo}" th:data-major="${applicant.majorName}">USERNAME</span></div>
 									</div>
 									<div class="userWaitingForAcceptanceController">
 										<div>
-											<button class="refuseUserJoin" style="margin-right:4px" type="button" th:onclick="userRefuse([[${index}]])"><span class="size14">거절</span></button>
-											<button class="acceptUserJoin" type="button" th:onclick="userAccept([[${index}]])"><span class="size14">수락</span></button>
+											<button class="refuseUserJoin" style="margin-right:4px" type="button"  th:data-userId="${applicant.userId}" onclick="userRefuse(this);"><span class="size14">거절</span></button>
+											<button class="acceptUserJoin" type="button" th:data-userId="${applicant.userId}" onclick="userAccept(this);"><span class="size14">수락</span></button>
 										</div>
 									</div>
 								</div>
@@ -198,11 +200,11 @@
 											<img th:src="@{${participant.profileImageCode}}" alt="" width="100%" height="100%" >
 	
 										</div>
-										<div><span th:id="'pUser'+${index}" class="size14 weight500" th:data-id="${participant.userId}" th:text="${participant.userName}+' / '+${participant.updateDate}" th:data-mobile="${participant.mobileNo}" th:data-major="${participant.majorName}">USERNAME</span></div>
+										<div><span th:id="'pUser'+${index.index}" class="size14 weight500" th:data-id="${participant.userId}" th:text="${participant.userName}+' / '+${participant.updateDate}" th:data-mobile="${participant.mobileNo}" th:data-major="${participant.majorName}">USERNAME</span></div>
 									</div>
 									<div class="userAcceptedController">
 										<div>
-											<button class="refuseUserAccepted" type="button" th:onclick="withCancel([[${index}]])"><span class="size14">함께하기 거절</span></button>
+											<button class="refuseUserAccepted" type="button"  th:data-userId="${participant.userId}" onclick="withCancel(this);"><span class="size14">함께하기 거절</span></button>
 										</div>
 									</div>
 								</div>
@@ -217,7 +219,7 @@
 											<img th:src="@{${refuse.profileImageCode}}" alt="" width="100%" height="100%" >
 
 										</div>
-										<div><span th:id="'rUser'+${index}" class="size14 weight500" th:data-id="${refuse.userId}" th:text="${refuse.userName}+' / '+${refuse.updateDate}" th:data-mobile="${refuse.mobileNo}" th:data-major="${refuse.majorName}">USERNAME</span></div>
+										<div><span th:id="'rUser'+${index.index}" class="size14 weight500" th:data-id="${refuse.userId}" th:text="${refuse.userName}+' / '+${refuse.updateDate}" th:data-mobile="${refuse.mobileNo}" th:data-major="${refuse.majorName}">USERNAME</span></div>
 									</div>
 									<!--<div class="userAcceptedController">
 										<div>
@@ -227,7 +229,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
 					</div>
 				</div>
 			</div>

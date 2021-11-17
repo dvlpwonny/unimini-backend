@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -65,7 +62,7 @@ public class MingleController {
 	public ModelAndView mingleDetail(@RequestParam String eventCode, Principal principal) {
 	//	public ModelAndView mingleDetail(@RequestParam String userId, @RequestParam String eventCode) {
 		///// 유니존 admin
-		if (eventCode.equals("23") || eventCode.equals("24") || eventCode.equals("25") || eventCode.equals("26") || eventCode.equals("27")
+			if (eventCode.equals("23") || eventCode.equals("24") || eventCode.equals("25") || eventCode.equals("26") || eventCode.equals("27")
 				|| eventCode.equals("35") || eventCode.equals("36") || eventCode.equals("37") || eventCode.equals("38") || eventCode.equals("39")
 				|| eventCode.equals("40") || eventCode.equals("41")	|| eventCode.equals("42") || eventCode.equals("43") || eventCode.equals("44")) {
 
@@ -76,7 +73,7 @@ public class MingleController {
 			List<Map<String, String>> participantList = mingleService.getParticipantUnizone(eventCode);
 			// 거절된 참가자
 			List<Map<String, String>> refuseList = mingleService.getRefuseUnizone(eventCode);
-			// 이벤트 정보
+				// 이벤트 정보
 			Map<String, String> mingleInfo = mingleService.getMingleInfo(eventCode);
 
 			mav.addObject("applicantList", applicantList);
@@ -131,7 +128,7 @@ public class MingleController {
 	// 참가자 삭제
 	@ResponseBody
 	@RequestMapping(value = "/mingle/setUnizoneParticipantCancel", method = {RequestMethod.POST})
-	public Map<String, String> setUnizoneParticipantCancel(Map<String, String> paramMap) {
+	public Map<String, String> setUnizoneParticipantCancel(@RequestBody Map<String, String> paramMap) {
 		Map<String, String> resultMap = new HashMap<>();
 		paramMap.put("userStatusCode", null);
 		int resultNum = mingleService.setUserStatusCode(paramMap);
@@ -147,7 +144,7 @@ public class MingleController {
 	// 함께하기 거절
 	@ResponseBody
 	@RequestMapping(value = "/mingle/setUnizoneApplicantRefuse", method = {RequestMethod.POST})
-	public Map<String, String> setUnizoneApplicantRefuse(Map<String, String> paramMap) {
+	public Map<String, String> setUnizoneApplicantRefuse(@RequestBody Map<String, String> paramMap) {
 		Map<String, String> resultMap = new HashMap<>();
 		paramMap.put("userStatusCode", "EVTUSRST005");
 		int resultNum = mingleService.setUserStatusCode(paramMap);
@@ -163,7 +160,7 @@ public class MingleController {
 	// 함께하기 수락
 	@ResponseBody
 	@RequestMapping(value = "/mingle/setUnizoneParticipantAccept", method = {RequestMethod.POST})
-	public Map<String, String> setUnizoneParticipantAccept(Map<String, String> paramMap) {
+	public Map<String, String> setUnizoneParticipantAccept(@RequestBody Map<String, String> paramMap) {
 		Map<String, String> resultMap = new HashMap<>();
 		paramMap.put("userStatusCode", "EVTUSRST003");
 		int resultNum = mingleService.setUserStatusCode(paramMap);

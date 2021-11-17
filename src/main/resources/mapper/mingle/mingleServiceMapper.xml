@@ -189,6 +189,6 @@
 			USER_STATUS_CODE = #{userStatusCode}
 			, UPDATE_DATE = NOW()
 		 WHERE USER_ID = #{userId}
-		 AND EVENT_CODE = #{evnetCode}
+		 AND EVENT_CODE = #{eventCode}
 	</update>
 </mapper>
