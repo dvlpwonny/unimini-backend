@@ -34,6 +34,9 @@ public class MingleService {
 	public List<Map<String, String>> getParticipantUnizone(String eventCode) {
 		return mingleMapper.getParticipantUnizone(eventCode);
 	}
+	public List<Map<String, String>> getRefuseUnizone(String eventCode) {
+		return mingleMapper.getRefuseUnizone(eventCode);
+	}
 
 	public int setUserStatusCode(Map<String, String> paramMap) {
 		return mingleMapper.setUserStatusCode(paramMap);

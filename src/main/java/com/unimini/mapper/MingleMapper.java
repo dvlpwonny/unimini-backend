@@ -16,6 +16,7 @@ public interface MingleMapper {
 
 	List<Map<String, String>> getApplicantUnizone(String eventCode);
 	List<Map<String, String>> getParticipantUnizone(String eventCode);
+	List<Map<String, String>> getRefuseUnizone(String eventCode);
 	int setUserStatusCode(Map<String, String> paramMap);
 
 }

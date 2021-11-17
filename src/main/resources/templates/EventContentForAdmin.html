@@ -27,6 +27,7 @@
 
 				alert('이름 : '+ userName + '\n전공' + major + '\n휴대폰번호' + mobileNo + '\n신청일' + updateDate);
 			}
+
 			function withCancel(index) {
 
 				var userId = $('#pUser'+ index).attr("data-id");
@@ -48,7 +49,7 @@
 					},
 					success: function(__data, __textStatus, __jqXHR){
 						if (__data.result == "success") {
-							alert("함께하기 거절이 완료되었습니다.");
+							alert("수락된 신청자 거절이 완료되었습니다.");
 							window.location.reload();
 						}
 					},
@@ -73,7 +74,7 @@
 				}
 
 				$.ajax({
-					url: '/mingle/setUnizoneParticipantCancel',
+					url: '/mingle/setUnizoneApplicantRefuse',
 					type: "POST",
 					data: JSON.stringify(data),
 					dataType : 'json',
@@ -109,7 +110,7 @@
 				}
 
 				$.ajax({
-					url: '/mingle/setUnizoneParticipantCancel',
+					url: '/mingle/setUnizoneParticipantAccept',
 					type: "POST",
 					data: JSON.stringify(data),
 					dataType : 'json',
@@ -120,7 +121,7 @@
 					},
 					success: function(__data, __textStatus, __jqXHR){
 						if (__data.result == "success") {
-							alert("함께하기 거절이 완료되었습니다.");
+							alert("함께하기 수락이 완료되었습니다.");
 							window.location.reload();
 						}
 					},
@@ -151,8 +152,8 @@
 									<img th:src="@{/static/image/back_white.png}" alt="" style="width:26px; height:20px;" onclick="window.Unity.call('CloseWebView:');">
 								</a>
 							</div>
-							<div><span class="white" id="var-eventTitle" th:text="${mingleInfo.eventName}">EVENTTITLE</span></div>
-							<input type="hidden" id="eventCode" th:value="${mingleInfo.eventCode}">
+							<div><span class="white" id="var-eventTitle" th:text="${mingleInfo.EVENT_NAME}">EVENTTITLE</span></div>
+							<input type="hidden" id="eventCode" th:value="${mingleInfo.EVENT_CODE}">
 						</div>
 						<div id="dropdown" style="margin-right: 10px;">
 							<img th:src="@{/static/image/moreVert_white.png}" alt="" width="26px" height="26px">
@@ -204,6 +205,25 @@
 											<button class="refuseUserAccepted" type="button" th:onclick="'withCancel('+${index}+')'"><span class="size14">함께하기 거절</span></button>
 										</div>
 									</div>
+								</div>
+							</div>
+						</div>
+						<div class="userAcceptedList" style="margin-top:50px;">
+							<div><span class="size14">거절된 사람 ㅠㅠ</span></div>
+							<div>
+								<div th:each="refuse,index : ${refuseList}" class="userAccepted d-flex justify-content-between align-items-center" style="margin:16px 0px;">
+									<div class="userAcceptedInfo d-flex align-items-center">
+										<div class="userAcceptedProfile" style="width:44px; height:44px; margin-right:10px;" th:data-userName="${refuse.userName}" th:data-mobile="${refuse.mobileNo}" th:data-major="${refuse.majorName}" th:data-updateDate="${refuse.updateDate}" onclick="getUserInfoAlert(this);">
+											<img th:src="@{${refuse.profileImageCode}}" alt="" width="100%" height="100%" >
+
+										</div>
+										<div><span th:id="'rUser'+${index}" class="size14 weight500" th:data-id="${refuse.userId}" th:text="${refuse.userName}+' / '+${refuse.updateDate}" th:data-mobile="${refuse.mobileNo}" th:data-major="${refuse.majorName}">USERNAME</span></div>
+									</div>
+									<!--<div class="userAcceptedController">
+										<div>
+											<button class="refuseUserAccepted" type="button" th:onclick="'withCancel('+${index}+')'"><span class="size14">함께하기 거절</span></button>
+										</div>
+									</div>-->
 								</div>
 							</div>
 						</div>

@@ -91,11 +91,14 @@ public class MingleController {
 		List<Map<String, String>> applicantList = mingleService.getApplicantUnizone(eventCode);
 		// 수락된 신청자
 		List<Map<String, String>> participantList = mingleService.getParticipantUnizone(eventCode);
+		// 거절된 참가자
+		List<Map<String, String>> refuseList = mingleService.getRefuseUnizone(eventCode);
 		// 이벤트 정보
 		Map<String, String> mingleInfo = mingleService.getMingleInfo(eventCode);
 
 		mav.addObject("applicantList", applicantList);
 		mav.addObject("participantList", participantList);
+		mav.addObject("refuseList", refuseList);
 		mav.addObject("mingleInfo", mingleInfo);
 
 		return mav;
@@ -117,6 +120,38 @@ public class MingleController {
 		return resultMap;
 	}
 
+	// 함께하기 거절
+	@ResponseBody
+	@RequestMapping(value = "/mingle/setUnizoneApplicantRefuse", method = {RequestMethod.POST})
+	public Map<String, String> setUnizoneApplicantRefuse(Map<String, String> paramMap) {
+		Map<String, String> resultMap = new HashMap<>();
+		paramMap.put("userStatusCode", "EVTUSRST005");
+		int resultNum = mingleService.setUserStatusCode(paramMap);
+		if (resultNum > 0) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+
+		return resultMap;
+	}
+
+	// 함께하기 수락
+	@ResponseBody
+	@RequestMapping(value = "/mingle/setUnizoneParticipantAccept", method = {RequestMethod.POST})
+	public Map<String, String> setUnizoneParticipantAccept(Map<String, String> paramMap) {
+		Map<String, String> resultMap = new HashMap<>();
+		paramMap.put("userStatusCode", "EVTUSRST003");
+		int resultNum = mingleService.setUserStatusCode(paramMap);
+		if (resultNum > 0) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+
+		return resultMap;
+	}
+	
 	@RequestMapping(value = "/mingle/totalMigleList", method = {RequestMethod.GET, RequestMethod.POST})
 	public String totalMigleList() {
 
