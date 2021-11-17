@@ -132,7 +132,7 @@
             , A.EVENT_TYPE_CODE
             , DATE_fORMAT(EVENT_START_TIME, '%H:%i') AS EVENT_START_TIME
             , DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
-            , DATE_fORMAT(EVENT_START_TIME, "%Y-%m-%d") AS EVENT_DATE
+            , DATE_fORMAT(EVENT_START_TIME, '%Y-%m-%d') AS EVENT_DATE
             , CONCAT(DATE_fORMAT(EVENT_START_TIME, '%H:%i'), '~', DATE_fORMAT(EVENT_END_TIME, '%H:%i')) AS EVENT_TIME
             , MINIMUM_PRSNNL
             , MAXIMUM_PRSNNL
@@ -144,7 +144,7 @@
                     COUNT(*)
                 FROM TB_EVENT_USER_MAPP_GROUP B
                 WHERE A.EVENT_CODE = B.EVENT_CODE
-                 AND B.USER_STATUS_CODE = 'EVTUSRST003'
+                 AND (B.USER_STATUS_CODE = 'EVTUSRST003' OR B.USER_STATUS_CODE = 'EVTUSRST002')
             ) AS TOT_PRSNNL -- 실참가자
             , IFNULL((
                 SELECT
