@@ -18,7 +18,7 @@
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script>
         $(function(){
-            //validationSignUp();
+            validationSignUp();
             $('#toFinishSignUp').click(function () {
                 if ($('#password').val() != $('#passwordConfirm').val()) {
                     alert('비빌번호를 확인해주세요');
@@ -204,7 +204,7 @@
                     <div class="form column" style="margin: 25px 0px;">
                         <div class="formTitle">학과</div>
                         <div class="formContent">
-                            <input type="text" id="major" name="major" placeholder="학과를 선택해주세요" onkeyup="javascript:getMajor(this);">
+                            <input type="text" id="major-signup" name="major" placeholder="학과를 선택해주세요" onkeyup="javascript:getMajor(this);">
                             <input type="hidden" id="uniCode" name="uniCode">
                             <input type="hidden" id="campusCode" name="campusCode">
                             <input type="hidden" id="collegeCode" name="collegeCode">
