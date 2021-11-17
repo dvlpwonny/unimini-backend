@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -61,12 +62,35 @@ public class MingleController {
     }
 
 	@RequestMapping(value = "/mingle/mingleDetail", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView mingleDetail(Model model) {
+	public ModelAndView mingleDetail(@RequestParam String eventCode, Principal principal) {
 	//	public ModelAndView mingleDetail(@RequestParam String userId, @RequestParam String eventCode) {
+		///// 유니존 admin
+		if (eventCode.equals("23") || eventCode.equals("24") || eventCode.equals("25") || eventCode.equals("26") || eventCode.equals("27")
+				|| eventCode.equals("35") || eventCode.equals("36") || eventCode.equals("37") || eventCode.equals("38") || eventCode.equals("39")
+				|| eventCode.equals("40") || eventCode.equals("41")	|| eventCode.equals("42") || eventCode.equals("43") || eventCode.equals("44")) {
+
+			ModelAndView mav = new ModelAndView("EventContentForAdmin");
+			// 함께하기 신청자
+			List<Map<String, String>> applicantList = mingleService.getApplicantUnizone(eventCode);
+			// 수락된 신청자
+			List<Map<String, String>> participantList = mingleService.getParticipantUnizone(eventCode);
+			// 거절된 참가자
+			List<Map<String, String>> refuseList = mingleService.getRefuseUnizone(eventCode);
+			// 이벤트 정보
+			Map<String, String> mingleInfo = mingleService.getMingleInfo(eventCode);
+
+			mav.addObject("applicantList", applicantList);
+			mav.addObject("participantList", participantList);
+			mav.addObject("refuseList", refuseList);
+			mav.addObject("mingleInfo", mingleInfo);
+
+			return mav;
+		}
+
 		ModelAndView mav = new ModelAndView("EventContent");
 		
-		String eventCode = "22";
-		String userId = "admin";
+		eventCode = "22";
+		String userId = principal.getName();
 		
 		Map<String, String> eventInfo      = mingleService.getMingleInfo(eventCode);
 		List<Map<String, String>> userList = mingleService.getMingleUserInfo(userId, eventCode);
