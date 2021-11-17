@@ -25,6 +25,10 @@
             , MOBILE_NO
             , PROFILE_IMAGE_CODE
             , GENDER_CODE
+            , UNI_CODE
+            , CAMPUS_CODE
+            , COLLEGE_CODE
+            , MAJOR_CODE
         )
         VALUES (
             #{userId}
@@ -36,6 +40,31 @@
             , #{mobileNo}
             , #{profileImageCode}
             , #{genderCode}
+            , #{uniCode}
+            , #{campusCode}
+            , #{collegeCode}
+            , #{majorCode}
         );
     </insert>
+
+    <select id="checkUserId" parameterType="map" resultType="uniMap">
+        SELECT
+            USER_CODE
+            , USER_ID
+            , USER_AUTH
+            , PASSWORD
+        FROM TB_USER
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="getMajor" parameterType="map" resultType="uniMap">
+       SELECT
+          UNI_CODE
+          , CAMPUS_CODE
+          , COLLEGE_CODE
+          , MAJOR_CODE
+          , MAJOR_NAME
+       FROM TB_MAJOR
+       WHERE MAJOR_NAME LIKE CONCAT('%', #{majorText}, '%')
+    </select>
 </mapper>

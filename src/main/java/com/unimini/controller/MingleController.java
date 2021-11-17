@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,9 +87,34 @@ public class MingleController {
 	@RequestMapping(value = "/mingle/unizoneDetailAdmin", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView unizoneDetailAdmin(@RequestParam String eventCode) {
 		ModelAndView mav = new ModelAndView("EventContentForAdmin");
+		// 함께하기 신청자
+		List<Map<String, String>> applicantList = mingleService.getApplicantUnizone(eventCode);
+		// 수락된 신청자
+		List<Map<String, String>> participantList = mingleService.getParticipantUnizone(eventCode);
+		// 이벤트 정보
+		Map<String, String> mingleInfo = mingleService.getMingleInfo(eventCode);
 
+		mav.addObject("applicantList", applicantList);
+		mav.addObject("participantList", participantList);
+		mav.addObject("mingleInfo", mingleInfo);
 
 		return mav;
+	}
+
+	// 참가자 삭제
+	@ResponseBody
+	@RequestMapping(value = "/mingle/setUnizoneParticipantCancel", method = {RequestMethod.POST})
+	public Map<String, String> setUnizoneParticipantCancel(Map<String, String> paramMap) {
+		Map<String, String> resultMap = new HashMap<>();
+		paramMap.put("userStatusCode", null);
+		int resultNum = mingleService.setUserStatusCode(paramMap);
+		if (resultNum > 0) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+
+		return resultMap;
 	}
 
 	@RequestMapping(value = "/mingle/totalMigleList", method = {RequestMethod.GET, RequestMethod.POST})
