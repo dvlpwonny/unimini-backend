@@ -66,6 +66,129 @@
 			) M_USER, TB_USER TU, TB_PROFILE_IMAGE TPI
 		 WHERE M_USER.USER_ID = TU.USER_ID AND TU.PROFILE_IMAGE_CODE = TPI.PROFILE_IMAGE_CODE
 	 </select>
-	 
 
+	<!-- 유니존 어드민 페이지 -->
+	<!-- 함께하기 신청자 -->
+	<select id="getApplicantUnizone" resultType="uniMap" parameterType="String">
+        SELECT
+            A.EVENT_CODE
+            , (
+                SELECT
+                    EVENT_NAME
+                FROM TB_EVENT C
+                WHERE A.EVENT_CODE = C.EVENT_CODE
+            ) AS EVENT_NAME
+            , A.USER_ID
+            , B.NICKNAME
+            , B.USER_NAME
+            , B.MOBILE_NO
+            , B.UNI_NUMBER
+            , (
+                SELECT
+                    C.DETAIL_CODE_NAME
+                FROM TB_DETAIL_CODE C
+                WHERE C.GROUP_CODE = 'GENDER'
+                  AND B.GENDER_CODE = C.DETAIL_CODE
+            ) AS GENDER_NAME
+            , (
+                SELECT
+                    MAJOR_NAME
+                FROM TB_MAJOR C
+                WHERE B.UNI_CODE = C.UNI_CODE
+                  AND B.CAMPUS_CODE = C.CAMPUS_CODE
+                  AND B.COLLEGE_CODE = C.COLLEGE_CODE
+                  AND B.MAJOR_CODE = C.MAJOR_CODE
+            ) AS MAJOR_NAME
+            , CONCAT('/static/image/profile/profile', B.PROFILE_IMAGE_CODE, '.png') AS PROFILE_IMAGE_CODE
+            , DATE_fORMAT(A.UPDATE_DATE, '%Y-%m-%d %H:%i:%s') AS UPDATE_DATE
+        FROM TB_EVENT_USER_MAPP_GROUP A INNER JOIN TB_USER B ON A.USER_ID = B.USER_ID
+        WHERE USER_STATUS_CODE = 'EVTUSRST002'
+          AND EVENT_CODE = #{eventCode}
+        ORDER BY A.UPDATE_DATE
+    </select>
+
+	<!-- 수락된 신청자 (참가자) -->
+	<select id="getParticipantUnizone" resultType="uniMap" parameterType="String">
+        SELECT
+            A.EVENT_CODE
+            , (
+                SELECT
+                    EVENT_NAME
+                FROM TB_EVENT C
+                WHERE A.EVENT_CODE = C.EVENT_CODE
+            ) AS EVENT_NAME
+            , A.USER_ID
+            , B.USER_NAME
+            , B.MOBILE_NO
+            , B.UNI_NUMBER
+            , (
+                SELECT
+                    C.DETAIL_CODE_NAME
+                FROM TB_DETAIL_CODE C
+                WHERE C.GROUP_CODE = 'GENDER'
+                  AND B.GENDER_CODE = C.DETAIL_CODE
+            ) AS GENDER_NAME
+            , (
+                SELECT
+                    MAJOR_NAME
+                FROM TB_MAJOR C
+                WHERE B.UNI_CODE = C.UNI_CODE
+                  AND B.CAMPUS_CODE = C.CAMPUS_CODE
+                  AND B.COLLEGE_CODE = C.COLLEGE_CODE
+                  AND B.MAJOR_CODE = C.MAJOR_CODE
+            ) AS MAJOR_NAME
+            , CONCAT('/static/image/profile/profile', B.PROFILE_IMAGE_CODE, '.png') AS PROFILE_IMAGE_CODE
+            , DATE_fORMAT(A.UPDATE_DATE, '%Y-%m-%d %H:%i:%s') AS UPDATE_DATE
+        FROM TB_EVENT_USER_MAPP_GROUP A INNER JOIN TB_USER B ON A.USER_ID = B.USER_ID
+        WHERE USER_STATUS_CODE = 'EVTUSRST003'
+          AND EVENT_CODE = #{eventCode}
+          ORDER BY A.UPDATE_DATE
+    </select>
+
+	<!-- 거절된 참가자 -->
+	<select id="getRefuseUnizone" resultType="uniMap" parameterType="String">
+        SELECT
+            A.EVENT_CODE
+            , (
+                SELECT
+                    EVENT_NAME
+                FROM TB_EVENT C
+                WHERE A.EVENT_CODE = C.EVENT_CODE
+            ) AS EVENT_NAME
+            , A.USER_ID
+            , B.USER_NAME
+            , B.MOBILE_NO
+            , B.UNI_NUMBER
+            , (
+                SELECT
+                    C.DETAIL_CODE_NAME
+                FROM TB_DETAIL_CODE C
+                WHERE C.GROUP_CODE = 'GENDER'
+                  AND B.GENDER_CODE = C.DETAIL_CODE
+            ) AS GENDER_NAME
+            , (
+                SELECT
+                    MAJOR_NAME
+                FROM TB_MAJOR C
+                WHERE B.UNI_CODE = C.UNI_CODE
+                  AND B.CAMPUS_CODE = C.CAMPUS_CODE
+                  AND B.COLLEGE_CODE = C.COLLEGE_CODE
+                  AND B.MAJOR_CODE = C.MAJOR_CODE
+            ) AS MAJOR_NAME
+            , CONCAT('/static/image/profile/profile', B.PROFILE_IMAGE_CODE, '.png') AS PROFILE_IMAGE_CODE
+            , DATE_fORMAT(A.UPDATE_DATE, '%Y-%m-%d %H:%i:%s') AS UPDATE_DATE
+        FROM TB_EVENT_USER_MAPP_GROUP A INNER JOIN TB_USER B ON A.USER_ID = B.USER_ID
+        WHERE USER_STATUS_CODE = 'EVTUSRST005'
+          AND EVENT_CODE = #{eventCode}
+          ORDER BY A.UPDATE_DATE
+    </select>
+
+	<update id="setUserStatusCode" parameterType="map">
+		 UPDATE TB_EVENT_USER_MAPP_GROUP
+		 SET
+			USER_STATUS_CODE = #{userStatusCode}
+			, UPDATE_DATE = NOW()
+		 WHERE USER_ID = #{userId}
+		 AND EVENT_CODE = #{eventCode}
+	</update>
 </mapper>

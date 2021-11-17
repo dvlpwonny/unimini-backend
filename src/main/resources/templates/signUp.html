@@ -18,6 +18,7 @@
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script>
         $(function(){
+             validationSignUp();
             $('#toFinishSignUp').click(function () {
                 if ($('#password-signup').val() != $('#password-double-signup').val()) {
                     alert('비빌번호를 확인해주세요');
@@ -35,6 +36,11 @@
                 , "password" : $('input[name=password]').val()
                 , "uniNumber" : $('input[name=uniNumber]').val()
                 , "mobileNo" : $('input[name=mobileNo]').val()
+                , "uniCode" : $('input[name=uniCode]').val()
+                , "campusCode" : $('input[name=campusCode]').val()
+                , "collegeCode" : $('input[name=collegeCode]').val()
+                , "majorCode" : $('input[name=majorCode]').val()
+                , "genderCode" : $('input[name=genderCode]:checked').val()
             }
 
             $.ajax({
@@ -48,7 +54,11 @@
                 {
                 },
                 success: function(__data, __textStatus, __jqXHR){
-                    if (__data.result == "success" ) {
+                    if (__data.result == "id Check") {
+                        alert("아이디를 체크해주세요.");
+                    }
+
+                    if (__data.result == "success") {
                         alert("회원가입이 완료되었습니다.");
                         window.location.href = "/signIn/signInForm";
                     }
@@ -68,6 +78,52 @@
             if (object.value.length > object.maxLength){
                 object.value = object.value.slice(0, object.maxLength);
             }
+        }
+
+        function getMajor(e) {
+
+            var majorText = $(e).val();
+
+            $.ajax({
+                url: '/signUp/getMajor',
+                type: "POST",
+                data: JSON.stringify({"majorText" : majorText}),
+                dataType : 'json',
+                contentType: "application/json",
+                cache :  false,
+                beforeSend : function(xhr)
+                {
+                },
+                success: function(__data, __textStatus, __jqXHR){
+                    var majorHtml = "";
+                    $('#majorSearchResultContainer').html("");
+                    console.log('__data.majorList', __data.majorList);
+                    for (var i = 0; i < __data.majorList.length; i++) {
+                        majorHtml += '<div class="majorSearchResult" onclick="getMajorValue(\''+ __data.majorList[i].uniCode +'\', \''+ __data.majorList[i].campusCode +'\', \''+
+                            __data.majorList[i].collegeCode +'\', \''+ __data.majorList[i].majorCode +'\', \''+ __data.majorList[i].majorName +'\')">' + __data.majorList[i].majorName +'</div>';
+                    }
+                    console.log('majorHtml', majorHtml);
+                    $('#majorSearchResultContainer').append(majorHtml);
+                },
+                fail: function(__data, __textStatus, __jqXHR){
+                    console.log("data", __data);
+                },
+                error: function(__data, __textStatus, __jqXHR){
+
+                },
+                complete: function(__data, __textStatus, __jqXHR) {
+                }
+            });
+        }
+        
+        function getMajorValue(uniCode, campusCode, collegeCode, majorCode, majorName) {
+            $('#major-signup').val(majorName);
+            $('#uniCode').val(uniCode);
+            $('#campusCode').val(campusCode);
+            $('#collegeCode').val(collegeCode);
+            $('#majorCode').val(majorCode);
+
+            $('#majorSearchResultContainer').html("");
         }
     </script>
 </th:block>
@@ -148,13 +204,13 @@
                     <div class="form column" style="margin: 25px 0px;">
                         <div class="formTitle">학과</div>
                         <div class="formContent">
-                            <input type="text" name="major" id="major-signup" placeholder="학과를 선택해주세요">
+                            <input type="text" id="major-signup" name="major" placeholder="학과를 선택해주세요" onkeyup="javascript:getMajor(this);">
+                            <input type="hidden" id="uniCode" name="uniCode">
+                            <input type="hidden" id="campusCode" name="campusCode">
+                            <input type="hidden" id="collegeCode" name="collegeCode">
+                            <input type="hidden" id="majorCode" name="majorCode">
                         </div>
                         <div id="majorSearchResultContainer">
-                            <div class="majorSearchResult">응용물리학</div>
-                            <div class="majorSearchResult">컴퓨터공학과</div>
-                            <div class="majorSearchResult">글로벌커뮤니케이션</div>
-                            <div class="majorSearchResult">산업경영공학</div>
                         </div>
                     </div>
                     <div>

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -42,5 +43,13 @@ public class UserService implements UserDetailsService {
         int profileImageCode = random.nextInt(16) + 1;
         paramMap.put("profileImageCode", profileImageCode);
         userMapper.createUserInfo(paramMap);
+    }
+
+    public Map<String, String> checkUserId(Map<String, Object> paramMap) {
+        return userMapper.checkUserId(paramMap);
+    }
+
+    public List<Map<String, String>> getMajor(Map<String, Object> paramMap) {
+        return userMapper.getMajor(paramMap);
     }
 }
