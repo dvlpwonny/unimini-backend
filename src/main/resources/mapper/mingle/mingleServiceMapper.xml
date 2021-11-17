@@ -63,9 +63,58 @@
 			  FROM TB_EVENT_USER_MAPP_GROUP TEUMG
 			  WHERE TEUMG.USE_FLAG = 'Y'
 			    AND TEUMG.EVENT_CODE = #{eventCode}
+			    AND TEUMG.USER_STATUS_CODE IN ('EVTUSRST001','EVTUSRST003')
 			) M_USER, TB_USER TU, TB_PROFILE_IMAGE TPI
-		 WHERE M_USER.USER_ID = TU.USER_ID AND TU.PROFILE_IMAGE_CODE = TPI.PROFILE_IMAGE_CODE
+		 WHERE M_USER.USER_ID = TU.USER_ID 
+		 	AND TU.PROFILE_IMAGE_CODE = TPI.PROFILE_IMAGE_CODE
 	 </select>
+
+	<select id="getMingleMyInfo" resultType="map">
+		 SELECT
+		  TU.USER_ID
+		  , TU.USER_NAME
+		  , TU.NICKNAME
+		  , IF(( 
+		  		SELECT 
+				  	COUNT(*) 
+				FROM TB_EVENT_USER_MAPP_GROUP TEUMG 
+				WHERE TEUMG.USER_ID = TU.USER_ID
+				  AND TEUMG.USER_STATUS_CODE IN ('EVTUSRST001','EVTUSRST003')
+				  AND TEUMG.EVENT_CODE = #{eventCode}
+			  )>0,'Y','N') AS IS_IN
+			, IF((
+		  		SELECT 
+				  	COUNT(*)
+				FROM TB_EVENT_USER_MAPP_GROUP TEUMG 
+				WHERE TEUMG.USER_ID = TU.USER_ID
+				  AND TEUMG.EVENT_CODE = #{eventCode}
+				  AND TEUMG.LIKE_FLAG = 'Y'
+			  )>0,'Y','N') AS IS_LIKE
+		 FROM TB_USER TU
+		 WHERE TU.USER_ID = #{userId}
+	</select>	
+
+	<update id="updateMingleLike" parameterType="String">
+		INSERT INTO TB_EVENT_USER_MAPP_GROUP (
+		  EVENT_CODE
+		  , USER_ID
+		  , USER_STATUS_CODE
+		  , LIKE_FLAG
+		  , CREATE_DATE
+		  , UPDATE_DATE
+		  , USE_FLAG
+		 ) VALUES ( 
+		  #{isInForm_EventCode}
+		  , #{isInForm_UserId}
+		  , 'EVTUSRST004'
+		  , #{isInForm_Flag}
+		  , NOW()
+		  , NOW()
+		  , 'Y'
+		 ) ON DUPLICATE KEY UPDATE 
+		   	LIKE_FLAG = #{isInForm_Flag}
+		   	, UPDATE_DATE = NOW()
+	</update>
 
 	<!-- 유니존 어드민 페이지 -->
 	<!-- 함께하기 신청자 -->
@@ -145,12 +194,53 @@
           ORDER BY A.UPDATE_DATE
     </select>
 
+	<!-- 거절된 참가자 -->
+	<select id="getRefuseUnizone" resultType="uniMap" parameterType="String">
+        SELECT
+            A.EVENT_CODE
+            , (
+                SELECT
+                    EVENT_NAME
+                FROM TB_EVENT C
+                WHERE A.EVENT_CODE = C.EVENT_CODE
+            ) AS EVENT_NAME
+            , A.USER_ID
+            , B.USER_NAME
+            , B.MOBILE_NO
+            , B.UNI_NUMBER
+            , (
+                SELECT
+                    C.DETAIL_CODE_NAME
+                FROM TB_DETAIL_CODE C
+                WHERE C.GROUP_CODE = 'GENDER'
+                  AND B.GENDER_CODE = C.DETAIL_CODE
+            ) AS GENDER_NAME
+            , (
+                SELECT
+                    MAJOR_NAME
+                FROM TB_MAJOR C
+                WHERE B.UNI_CODE = C.UNI_CODE
+                  AND B.CAMPUS_CODE = C.CAMPUS_CODE
+                  AND B.COLLEGE_CODE = C.COLLEGE_CODE
+                  AND B.MAJOR_CODE = C.MAJOR_CODE
+            ) AS MAJOR_NAME
+            , CONCAT('/static/image/profile/profile', B.PROFILE_IMAGE_CODE, '.png') AS PROFILE_IMAGE_CODE
+            , DATE_fORMAT(A.UPDATE_DATE, '%Y-%m-%d %H:%i:%s') AS UPDATE_DATE
+        FROM TB_EVENT_USER_MAPP_GROUP A INNER JOIN TB_USER B ON A.USER_ID = B.USER_ID
+        WHERE USER_STATUS_CODE = 'EVTUSRST005'
+          AND EVENT_CODE = #{eventCode}
+          ORDER BY A.UPDATE_DATE
+    </select>
+
 	<update id="setUserStatusCode" parameterType="map">
 		 UPDATE TB_EVENT_USER_MAPP_GROUP
 		 SET
 			USER_STATUS_CODE = #{userStatusCode}
 			, UPDATE_DATE = NOW()
 		 WHERE USER_ID = #{userId}
-		 AND EVENT_CODE = #{evnetCode}
+		 AND EVENT_CODE = #{eventCode}
 	</update>
+	
+
+	
 </mapper>

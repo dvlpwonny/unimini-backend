@@ -34,8 +34,19 @@ public class MingleService {
 	public List<Map<String, String>> getParticipantUnizone(String eventCode) {
 		return mingleMapper.getParticipantUnizone(eventCode);
 	}
+	public List<Map<String, String>> getRefuseUnizone(String eventCode) {
+		return mingleMapper.getRefuseUnizone(eventCode);
+	}
 
 	public int setUserStatusCode(Map<String, String> paramMap) {
 		return mingleMapper.setUserStatusCode(paramMap);
+	}
+
+	public Map<String, String> getMingleMyInfo(String userId, String eventCode) {
+		return mingleMapper.getMingleMyInfo(userId, eventCode);
+	}
+
+	public void updateMingleLike(String isInForm_EventCode, String isInForm_UserId, String isInForm_Flag) {
+		mingleMapper.updateMingleLike(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
 	}
 }
