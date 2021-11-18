@@ -16,15 +16,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
     private AuthenticationFailureHandler authenticationFailureHandler;
     private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    private final UserService userService;
+    private final DataSource dataSource;
 
 
     /**
@@ -43,6 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**", "/unity/**").permitAll() // swagger 예외
                 .anyRequest()
                 .authenticated()
+        .and()
+            .rememberMe()
+                .userDetailsService(userService)
+                .tokenValiditySeconds(604800)
+                .tokenRepository(tokenRepository())
                 
         .and()
             .formLogin()
@@ -53,7 +64,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
             .logout()
                 .logoutSuccessUrl("/signIn/signInForm")
-                .invalidateHttpSession(true);
+                .invalidateHttpSession(true)
+                .deleteCookies("remember-me", "JSESSIONID");
+    }
+
+    /**
+     * JDBC 기반의 tokenRepository 구현체
+     */
+    @Bean
+    public PersistentTokenRepository tokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource); // dataSource 주입
+        return jdbcTokenRepository;
     }
 
     /**
@@ -63,9 +85,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-        		.antMatchers("/mingle/makeMingleEvent")             /* Temp */
-        		.antMatchers("/mingle/mingleDetail")        /* Temp */
-        		.antMatchers("/mingle/makeMingleEvent_searchPlace") /* Temp */
+        		// .antMatchers("/mingle/makeMingleEvent")             /* Temp */
+        		// .antMatchers("/mingle/mingleDetail")        /* Temp */
+        		// .antMatchers("/mingle/makeMingleEvent_searchPlace") /* Temp */
         		
         		.antMatchers("/EventContentForHost") /* Temp */
         		.antMatchers("/EventContentForUser") /* Temp */
