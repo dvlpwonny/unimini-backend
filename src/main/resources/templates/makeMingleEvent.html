@@ -13,7 +13,12 @@
 		<script th:src="@{/static/js/load_html.js}"></script>
 		<script th:src="@{/static/js/default.js}"></script>
 		<script th:src="@{/static/js/incAndDecNum.js}"></script>
-		
+		<script>
+			$(function () {
+				alert('해당 기능은 서비스 준비중입니다!');
+				window.Unity.call('CloseWebView:');
+			})
+		</script>
 		<script>
 			/* Time */
 			var date = new Date();
@@ -75,7 +80,7 @@
 
     <!-- Content -->
     <div layout:fragment="content">
-		<div id="app">
+		<!--<div id="app">
 			<header>
 				<nav class="container align-items-end justify-content-between" style="padding:10px;">
 					<div class="d-flex">
@@ -177,12 +182,12 @@
 								<input id="moveSearchPlaceForm_maxPerson" name="moveSearchPlaceForm_maxPerson" type="hidden">
 								<input id="moveSearchPlaceForm_detail" name="moveSearchPlaceForm_detail" type="hidden">
 							</form>
-								<!--<div class="locationOption d-flex flex-column justify-content-center align-items-center" onclick="unityMapCall();">
+								&lt;!&ndash;<div class="locationOption d-flex flex-column justify-content-center align-items-center" onclick="unityMapCall();">
 									<img th:src="@{/static/image/search_big.png}" alt="" width="18px" height="18px">
 									<div>
 										<span class="text-info2">지도에서 핀 선택</span>
 									</div>
-								</div>-->
+								</div>&ndash;&gt;
 							<div class="locationOption d-flex align-items-center justify-content-center" id="locationOption-later" onclick="setPlaceText();">
 								<span class="text-info2">나중에<br>정할래요</span>
 							</div>
@@ -215,6 +220,6 @@
 					</div>		
 				</div>
         	</div>
-		</div>
+		</div>-->
     </div>
 </html>
