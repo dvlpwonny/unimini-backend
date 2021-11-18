@@ -296,6 +296,7 @@ span.padding{
     justify-content: flex-start;
     align-content: center;
     align-items: center;
+    overflow-y: hidden;
 }
 @media screen and (min-width:540px){
     #app{

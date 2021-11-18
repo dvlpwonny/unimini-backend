@@ -298,15 +298,3 @@ function validationSignUp(){
     }
     return false;
   }
-  
-/*회원가입 - 이용약관*/
-function openTerm(elem){
-  const termName = elem.parentElement.parentElement.childNodes[3].childNodes[1].innerText;
-  TERMNAME.innerHTML = termName;
-  POPUP.classList.remove("inactive");
-  BACKDROP.classList.add("show");
-}
-function closeTerm(){
-  POPUP.classList.add("inactive");
-  BACKDROP.classList.remove("show");
-}

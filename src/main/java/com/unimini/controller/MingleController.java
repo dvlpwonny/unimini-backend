@@ -11,10 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -27,17 +24,19 @@ public class MingleController {
 	UnityService unityService;
 
 	@RequestMapping(value = "/mingle/makeMingleEvent", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView makeMingleEvent(@RequestParam String userId) {
+	public ModelAndView makeMingleEvent(Principal principal) {
 		ModelAndView mav = new ModelAndView("makeMingleEvent");
 		Calendar cal = Calendar.getInstance();
 		
 		/* u : Day of Week Number
 		 * 1 = Monday, ..., 7 = Sunday */
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss u");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E요일", Locale.KOREAN);
 		String toDay = simpleDateFormat.format(cal.getTime());
 
 		// category
 		List<Map<String, String>> categoryList = unityService.getCategorySort();
+
+		//
 
 
 
@@ -185,7 +184,7 @@ public class MingleController {
 	@RequestMapping(value = "/mingle/totalMigleList", method = {RequestMethod.GET, RequestMethod.POST})
 	public String totalMigleList() {
 
-		return "myEventList";
+		return "totalEventList";
 	}
 
 }
