@@ -15,9 +15,13 @@
 		<script th:src="@{/static/js/incAndDecNum.js}"></script>
 		<script>
 			$(function () {
+				service();
+			})
+
+			function service() {
 				alert('해당 기능은 서비스 준비중입니다!');
 				window.Unity.call('CloseWebView:');
-			})
+			}
 		</script>
 		<script>
 			/* Time */
