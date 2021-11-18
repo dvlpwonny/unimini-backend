@@ -59,7 +59,7 @@ public class MingleController {
 
 	@RequestMapping(value = "/mingle/mingleDetail", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView mingleDetail(@RequestParam String eventCode, Principal principal) {
-	//	public ModelAndView mingleDetail(@RequestParam String userId, @RequestParam String eventCode) {
+//		public ModelAndView mingleDetail(Model model) {
 		///// 유니존 admin
 			if (eventCode.equals("23") || eventCode.equals("24") || eventCode.equals("25") || eventCode.equals("26") || eventCode.equals("27")
 				|| eventCode.equals("35") || eventCode.equals("36") || eventCode.equals("37") || eventCode.equals("38") || eventCode.equals("39")
@@ -88,9 +88,12 @@ public class MingleController {
 		eventCode = "22";
 		String userId = principal.getName();
 		
+//		String eventCode = "22";
+//		String userId = "admin";
+		
 		Map<String, String> eventInfo      = mingleService.getMingleInfo(eventCode);
-		Map<String, String> myInfo         = mingleService.getMingleMyInfo(userId, eventCode);		
 		List<Map<String, String>> userList = mingleService.getMingleUserInfo(userId, eventCode);
+		Map<String, String> myInfo         = mingleService.getMingleMyInfo(userId, eventCode);		
 
 		mav.addObject("eventInfo", eventInfo);
 		mav.addObject("userList", userList);
@@ -99,17 +102,29 @@ public class MingleController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/mingle/mingleDetail_isIn", method = {RequestMethod.POST})
+	@RequestMapping(value = "/mingle/mingleDetail_isLike", method = {RequestMethod.POST})
 	@ResponseBody
-	public Map<String, Object> mingleDetail_isIn(@RequestParam String isInForm_EventCode, @RequestParam String isInForm_UserId, @RequestParam String isInForm_Flag) {
+	public Map<String, Object> mingleDetail_isLike(@RequestParam String isLikeForm_EventCode, @RequestParam String isLikeForm_UserId, @RequestParam String isLikeForm_Flag) {
         
-        mingleService.updateMingleLike(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
+        mingleService.updateMingleLike(isLikeForm_EventCode, isLikeForm_UserId, isLikeForm_Flag);
         
         Map<String, Object> responseMap = new HashMap<String, Object>();
         responseMap.put("result",true);
         
 		return responseMap;
 	}
+	
+	@RequestMapping(value = "/mingle/mingleDetail_isIn", method = {RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> mingleDetail_isIn(@RequestParam String isInForm_EventCode, @RequestParam String isInForm_UserId, @RequestParam String isInForm_Flag) {
+        
+        mingleService.updateMingleIn(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
+        
+        Map<String, Object> responseMap = new HashMap<String, Object>();
+        responseMap.put("result",true);
+        
+		return responseMap;
+	}	
 	
 
 	///////////어드민 상세 페이지 (유니존)

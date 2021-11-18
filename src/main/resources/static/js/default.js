@@ -1,12 +1,12 @@
 //0. 헤더
 
-const TITLE = document.getElementsByTagName("title")[0].innerHTML;
-const HEADER_TITLE = document.getElementById("header_title")
-console.log(TITLE);
-if(HEADER_TITLE){
-    HEADER_TITLE.innerHTML = TITLE;
-    HEADER_TITLE.innerText = TITLE;
-}
+//const TITLE = document.getElementsByTagName("title")[0].innerHTML;
+//const HEADER_TITLE = document.getElementById("header_title")
+//console.log(TITLE);
+//if(HEADER_TITLE){
+//    HEADER_TITLE.innerHTML = TITLE;
+//    HEADER_TITLE.innerText = TITLE;
+//}
 
 //1. 로그인
 

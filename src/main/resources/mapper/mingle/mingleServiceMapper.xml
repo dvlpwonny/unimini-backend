@@ -93,7 +93,7 @@
 		 FROM TB_USER TU
 		 WHERE TU.USER_ID = #{userId}
 	</select>	
-
+	
 	<update id="updateMingleLike" parameterType="String">
 		INSERT INTO TB_EVENT_USER_MAPP_GROUP (
 		  EVENT_CODE
@@ -104,15 +104,45 @@
 		  , UPDATE_DATE
 		  , USE_FLAG
 		 ) VALUES ( 
-		  #{isInForm_EventCode}
-		  , #{isInForm_UserId}
+		  #{isLikeForm_EventCode}
+		  , #{isLikeForm_UserId}
 		  , 'EVTUSRST004'
-		  , #{isInForm_Flag}
+		  , #{isLikeForm_Flag}
 		  , NOW()
 		  , NOW()
 		  , 'Y'
 		 ) ON DUPLICATE KEY UPDATE 
-		   	LIKE_FLAG = #{isInForm_Flag}
+		   	LIKE_FLAG = #{isLikeForm_Flag}
+		   	, UPDATE_DATE = NOW()
+	</update>
+	
+	<update id="updateMingleIn" parameterType="String">
+		INSERT INTO TB_EVENT_USER_MAPP_GROUP (
+		  EVENT_CODE
+		  , USER_ID
+		  , USER_STATUS_CODE
+		  , CREATE_DATE
+		  , UPDATE_DATE
+		  , USE_FLAG
+		 ) VALUES ( 
+		   #{isInForm_EventCode}
+		  , #{isInForm_UserId}
+		 <if test='"Y".equals(isInForm_Flag)'> 
+		  , 'EVTUSRST002'
+		 </if>
+		 <if test='"N".equals(isInForm_Flag)'>
+		  , 'EVTUSRST004'
+		 </if>
+		  , NOW()
+		  , NOW()
+		  , 'Y'
+		 ) ON DUPLICATE KEY UPDATE 
+			 <if test='"Y".equals(isInForm_Flag)'> 
+				  USER_STATUS_CODE = 'EVTUSRST002'
+			 </if>
+			 <if test='"N".equals(isInForm_Flag)'>
+				  USER_STATUS_CODE = 'EVTUSRST004'
+			 </if>
 		   	, UPDATE_DATE = NOW()
 	</update>
 

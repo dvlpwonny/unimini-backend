@@ -20,12 +20,12 @@
 		
 		<script>
 			function isLike(flag){
-				document.getElementById('isInForm_Flag').value = flag;
+				document.getElementById('isLikeForm_Flag').value = flag;
 				
 		        $.ajax({
-		            url: "/mingle/mingleDetail_isIn",
+		            url: "/mingle/mingleDetail_isLike",
 		            type: "POST",
-		            data: $('#isInForm').serialize(),
+		            data: $('#isLikeForm').serialize(),
 		            beforeSend: function (xhr) {
 		                xhr.setRequestHeader("X-Ajax-call", "true");
 		            },		            
@@ -48,14 +48,36 @@
 		            complete:function (data) {
 		            }
 		        });
-				
 			}
 			
 			function isIn(flag){
-				console.log(flag);
-				
-				
-				
+				document.getElementById('isInForm_Flag').value = flag;
+		        $.ajax({
+		            url: "/mingle/mingleDetail_isIn",
+		            type: "POST",
+		            data: $('#isInForm').serialize(),
+		            beforeSend: function (xhr) {
+		                xhr.setRequestHeader("X-Ajax-call", "true");
+		            },
+		            success:function (data) {
+		                if(data.result){
+		                	if(flag == 'Y') {
+		                		document.getElementById('isInY').className += ' inactive';
+		                		document.getElementById('isInN').classList.remove('inactive');
+		                	} else {
+		                		document.getElementById('isInN').className += ' inactive';
+		                		document.getElementById('isInY').classList.remove('inactive');
+		                	}		                	
+		                } else {
+							console.log('Error ! : ' + data);
+		                }
+		            },
+		            error:function(request,status,error){
+		            	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		            },
+		            complete:function (data) {
+		            }
+		        });
 			}
 			
 			
@@ -162,19 +184,26 @@
 					<br><br>
  					<div class="eventMenuContentBtn d-flex justify-content-center" id="eventApplyBtn">
 						<div class="d-flex justify-content-center" style="width:10%; margin-right:10px">
-							<button id="isLikeY" class="d-flex justify-content-center align-items-center likeBtn" th:classappend="${myInfo.IS_LIKE} == 'N' ? 'inactive' "><img th:src="@{/static/image/heart_unfilled.png}" width="60%" OnClick="javascript:isLike('Y')"></button>
-							<button id="isLikeN" class="d-flex justify-content-center align-items-center likeBtn" th:classappend="${myInfo.IS_LIKE} == 'Y' ? 'inactive' "><img th:src="@{/static/image/heart_filled.png}" width="60%" OnClick="javascript:isLike('N')"></button>
+							<button id="isLikeY" class="d-flex justify-content-center align-items-center likeBtn" th:classappend="${myInfo.IS_LIKE} == 'Y' ? 'inactive' "><img th:src="@{/static/image/heart_unfilled.png}" width="60%" OnClick="javascript:isLike('Y')"></button>
+							<button id="isLikeN" class="d-flex justify-content-center align-items-center likeBtn" th:classappend="${myInfo.IS_LIKE} == 'N' ? 'inactive' "><img th:src="@{/static/image/heart_filled.png}" width="60%" OnClick="javascript:isLike('N')"></button>
 						</div>
 						<div style="width:75%;">
-							<button id="isInN" class="eventJoinBtn" th:classappend="${myInfo.IS_IN} == 'N' ? 'inactive' " OnClick="javascript:isIn('Y')">함께하기</button>
-							<button id="isInY" class="eventJoinBtn" th:classappend="${myInfo.IS_IN} == 'Y' ? 'inactive' " OnClick="javascript:isIn('N')">함께하기 취소</button>
+							<button id="isInY" class="eventJoinBtn" th:classappend="${myInfo.IS_IN} == 'Y' ? 'inactive' " OnClick="javascript:isIn('Y')">함께하기</button>
+							<button id="isInN" class="eventJoinBtn" th:classappend="${myInfo.IS_IN} == 'N' ? 'inactive' " OnClick="javascript:isIn('N')">함께하기 취소</button>
 						</div>
 						
+						<form id="isLikeForm">
+							<input id="isLikeForm_EventCode" name="isLikeForm_EventCode" type="hidden" th:value="${eventInfo.EVENT_CODE}">
+							<input id="isLikeForm_UserId" name="isLikeForm_UserId" type="hidden" th:value="${myInfo.USER_ID}">
+							<input id="isLikeForm_Flag" name="isLikeForm_Flag" type="hidden">
+						</form>
+
 						<form id="isInForm">
 							<input id="isInForm_EventCode" name="isInForm_EventCode" type="hidden" th:value="${eventInfo.EVENT_CODE}">
 							<input id="isInForm_UserId" name="isInForm_UserId" type="hidden" th:value="${myInfo.USER_ID}">
 							<input id="isInForm_Flag" name="isInForm_Flag" type="hidden">
 						</form>
+
 						
 				   	</div>
 				</div>

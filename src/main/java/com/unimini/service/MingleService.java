@@ -46,7 +46,11 @@ public class MingleService {
 		return mingleMapper.getMingleMyInfo(userId, eventCode);
 	}
 
-	public void updateMingleLike(String isInForm_EventCode, String isInForm_UserId, String isInForm_Flag) {
-		mingleMapper.updateMingleLike(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
+	public void updateMingleLike(String isLikeForm_EventCode, String isLikeForm_UserId, String isLikeForm_Flag) {
+		mingleMapper.updateMingleLike(isLikeForm_EventCode, isLikeForm_UserId, isLikeForm_Flag);
+	}
+
+	public void updateMingleIn(String isInForm_EventCode, String isInForm_UserId, String isInForm_Flag) {
+		mingleMapper.updateMingleIn(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
 	}
 }
