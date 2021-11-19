@@ -78,8 +78,8 @@ function validationSignUp(){
     && checkPassword(INPUT_PASSWORD_SIGNUP) 
     && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
     && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
-    && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
     && checkRadioBtn(INPUT_GENDER_SIGNUP)
+    && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
     && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
     && !checkIfEmpty(INPUT_NAME_SIGNUP)
     && checkPhone(INPUT_PHONE_SIGNUP)){
@@ -95,8 +95,8 @@ function validationSignUp(){
     && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
     && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
     && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
-    && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
     && checkRadioBtn(INPUT_GENDER_SIGNUP)
+    && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
     && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
     && !checkIfEmpty(INPUT_NAME_SIGNUP)
     && checkPhone(INPUT_PHONE_SIGNUP)){
@@ -112,8 +112,8 @@ function validationSignUp(){
       && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
       && checkPassword(INPUT_PASSWORD_SIGNUP) 
       && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
-      && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
       && checkRadioBtn(INPUT_GENDER_SIGNUP)
+      && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
       && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
       && !checkIfEmpty(INPUT_NAME_SIGNUP)
       && checkPhone(INPUT_PHONE_SIGNUP)){
@@ -125,12 +125,12 @@ function validationSignUp(){
       }
     })
   INPUT_NICKNAME_SIGNUP.addEventListener('keyup',event=>{
-      if(doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+      if(!checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
       && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
       && checkPassword(INPUT_PASSWORD_SIGNUP) 
-      && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
-      && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
+      && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
       && checkRadioBtn(INPUT_GENDER_SIGNUP)
+      && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
       && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
       && !checkIfEmpty(INPUT_NAME_SIGNUP)
       && checkPhone(INPUT_PHONE_SIGNUP)){
@@ -143,12 +143,12 @@ function validationSignUp(){
     })
   INPUT_GENDER_SIGNUP.forEach(gender=>{
     gender.addEventListener('keyup',event=>{
-        if(checkRadioBtn(INPUT_GENDER_SIGNUP)
-        && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
+        if(!checkIfEmpty(INPUT_EMAIL_SIGNUP) 
         && checkPassword(INPUT_PASSWORD_SIGNUP) 
-        && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
-        && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
         && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+        && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
+        && checkRadioBtn(INPUT_GENDER_SIGNUP)
+        && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
         && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
         && !checkIfEmpty(INPUT_NAME_SIGNUP)
         && checkPhone(INPUT_PHONE_SIGNUP)){
@@ -164,9 +164,10 @@ function validationSignUp(){
     if(!checkIfEmpty(INPUT_MAJOR_SIGNUP)
     && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
     && checkPassword(INPUT_PASSWORD_SIGNUP) 
-    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
     && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
     && checkRadioBtn(INPUT_GENDER_SIGNUP)
+    && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
     && !checkIfEmpty(INPUT_NAME_SIGNUP)
     && checkPhone(INPUT_PHONE_SIGNUP)){
       enableBtn(BTN_TO_FINISH_SIGNUP);
@@ -180,8 +181,8 @@ function validationSignUp(){
     if(!checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
     && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
     && checkPassword(INPUT_PASSWORD_SIGNUP) 
-    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
     && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
     && checkRadioBtn(INPUT_GENDER_SIGNUP)
     && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
     && !checkIfEmpty(INPUT_NAME_SIGNUP)
@@ -197,8 +198,8 @@ function validationSignUp(){
     if(!checkIfEmpty(INPUT_NAME_SIGNUP)
     && !checkIfEmpty(INPUT_EMAIL_SIGNUP) 
     && checkPassword(INPUT_PASSWORD_SIGNUP) 
-    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
     && doubleCheckPassword(INPUT_PASSWORD_DOUBLE_SIGNUP) 
+    && !checkIfEmpty(INPUT_NICKNAME_SIGNUP) 
     && checkRadioBtn(INPUT_GENDER_SIGNUP)
     && !checkIfEmpty(INPUT_MAJOR_SIGNUP)
     && !checkIfEmpty(INPUT_STUDENT_ID_SIGNUP)
