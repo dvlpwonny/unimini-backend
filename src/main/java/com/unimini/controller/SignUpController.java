@@ -46,12 +46,13 @@ public class SignUpController {
 
     @ResponseBody
     @PostMapping(value = "/signUp/getMajor")
-    public Map<String, Object> getMajor(@RequestBody Map<String, Object> paramMap) {Map<String, Object> resultMap = new HashMap<>();
+    public Map<String, Object> getMajor(@RequestBody Map<String, Object> paramMap) {
+        Map<String, Object> resultMap = new HashMap<>();
         List<Map<String, String>> majorList = userService.getMajor(paramMap);
 
         resultMap.put("majorList", majorList);
 
         return resultMap;
-    }
+    } 
 
 }

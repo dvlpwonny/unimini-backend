@@ -67,9 +67,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.antMatchers("/mingle/mingleDetail")        /* Temp */
         		.antMatchers("/mingle/mingleDetail_isLike")        /* Temp */
         		.antMatchers("/mingle/mingleDetail_isIn")        /* Temp */
-        		
+        		.antMatchers("/mingle/mingleDetail_isAcpt")        /* Temp */
         		.antMatchers("/mingle/makeMingleEvent_searchPlace") /* Temp */
-        		
+        		 
         		.antMatchers("/c")                   /* Temp */        		
         		.antMatchers("/chat")                /* Temp */        		
         		.antMatchers("/room")                /* Temp */        		

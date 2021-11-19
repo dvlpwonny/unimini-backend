@@ -4,6 +4,7 @@ import com.unimini.mapper.MingleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -53,4 +54,40 @@ public class MingleService {
 	public void updateMingleIn(String isInForm_EventCode, String isInForm_UserId, String isInForm_Flag) {
 		mingleMapper.updateMingleIn(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
 	}
+
+	public List<Map<String, String>> getMingleReqUserList(String eventCode) {
+		return mingleMapper.getMingleReqUserList(eventCode);
+	}
+
+	public void updateMingleAcpt(String isAcptForm_EventCode, String isAcptForm_UserId, String isAcptForm_Flag) {
+		mingleMapper.updateMingleAcpt(isAcptForm_EventCode, isAcptForm_UserId, isAcptForm_Flag);
+	}
+
+	public List<Map<String, String>> getPlaceList(Map<String, Object> paramMap) {
+		return mingleMapper.getPlaceList(paramMap);
+	}
+
+	@Transactional
+	public int setMingle(Map<String, Object> paramMap) {
+		int result;
+		result = mingleMapper.setMingle(paramMap);
+		result = mingleMapper.setMingleHost(paramMap);
+
+		return result;
+	}
+
+
+	public List<Map<String, String>> getPlaceList(Map<String, Object> paramMap) {
+		return mingleMapper.getPlaceList(paramMap);
+	}
+
+	@Transactional
+	public int setMingle(Map<String, Object> paramMap) {
+		int result;
+		result = mingleMapper.setMingle(paramMap);
+		result = mingleMapper.setMingleHost(paramMap);
+
+		return result;
+	}
+
 }

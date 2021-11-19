@@ -145,6 +145,33 @@
 			 </if>
 		   	, UPDATE_DATE = NOW()
 	</update>
+	
+	<select id="getMingleReqUserList" resultType="map">
+		 SELECT 
+		 	TEUMG.EVENT_CODE
+		 	, TEUMG.USER_ID
+		 	, TU.USER_NAME
+		 	, TPI.PROFILE_IMAGE_PATH
+		 FROM TB_EVENT_USER_MAPP_GROUP TEUMG, TB_USER TU, TB_PROFILE_IMAGE TPI
+		 WHERE TEUMG.USER_ID = TU.USER_ID 
+		  AND TU.PROFILE_IMAGE_CODE = TPI.PROFILE_IMAGE_CODE
+		  AND TEUMG.EVENT_CODE = #{eventCode}
+		  AND TEUMG.USER_STATUS_CODE = 'EVTUSRST002'
+		  AND TEUMG.USE_FLAG = 'Y'
+	</select>
+	
+	<update id="updateMingleAcpt" parameterType="String">
+		 UPDATE TB_EVENT_USER_MAPP_GROUP 
+			SET 
+				<if test='"Y".equals(isAcptForm_Flag)'> 	
+				USER_STATUS_CODE = 'EVTUSRST003'
+				</if>
+				<if test='"N".equals(isAcptForm_Flag)'>
+				USER_STATUS_CODE = 'EVTUSRST005'
+				</if>
+			WHERE EVENT_CODE = #{isAcptForm_EventCode}
+			 AND USER_ID = #{isAcptForm_UserId}
+	</update>
 
 	<!-- 유니존 어드민 페이지 -->
 	<!-- 함께하기 신청자 -->
@@ -270,7 +297,84 @@
 		 WHERE USER_ID = #{userId}
 		 AND EVENT_CODE = #{eventCode}
 	</update>
-	
 
-	
+	<select id="getPlaceList" resultType="uniMap" parameterType="map">
+		SELECT
+			SECTION_CODE
+			, BUILDING_CODE
+			, PLACE_CODE
+			, PLACE_NAME
+			, (
+				SELECT
+					 B.DETAIL_CODE_NAME
+				FROM TB_DETAIL_CODE B
+				WHERE GROUP_CODE = 'PCATEGORY'
+				  AND B.DETAIL_CODE = A.PLACE_CATEGORY
+			) AS PLACE_CATEGORY_NAME
+		FROM TB_PLACE A
+		WHERE 1=1
+		AND (A.PLACE_NAME LIKE CONCAT('%', #{placeText}, '%')
+		OR A.RELATION_PLACE_NAME1 LIKE CONCAT('%', #{placeText}, '%'))
+	</select>
+
+	<insert id="setMingle" parameterType="map" useGeneratedKeys="true"
+			keyProperty="eventCode" keyColumn="EVENT_CODE">
+        INSERT INTO TB_EVENT (
+        	EVENT_NAME
+            , EVENT_TYPE_CODE
+            , EVENT_STATUS_CODE
+            , CATEGORY_CODE
+            , PLACE_CODE
+            , BUILDING_CODE
+            , SECTION_CODE
+            , EVENT_START_TIME
+            , EVENT_END_TIME
+            , MINIMUM_PRSNNL
+            , MAXIMUM_PRSNNL
+            , DETAIL_INFO
+            , CREATE_USER
+            , UPDATE_USER
+            , CREATE_DATE
+            , UPDATE_DATE
+            , USE_FLAG
+        ) VALUES (
+        	#{eventName}
+            , #{eventTypeCode}
+            , #{eventStatusCode}
+            , #{categoryCode}
+            , #{placeCode}
+            , #{buildingCode}
+            , #{sectionCode}
+            , #{eventStartTime}
+            , #{eventEndTime}
+            , #{mininumPrsnnl}
+            , #{maxinumPrsnnl}
+            , #{detailInfo}
+            , #{createUser}
+            , #{createUser}
+            , NOW()
+            , NOW()
+            , 'Y'
+        )
+    </insert> 
+
+	<insert id="setMingleHost" parameterType="map">
+		INSERT INTO TB_EVENT_USER_MAPP_GROUP (
+		  EVENT_CODE
+		  , USER_ID
+		  , USER_STATUS_CODE
+		  , HOST_FLAG
+		  , CREATE_DATE
+		  , UPDATE_DATE
+		  , USE_FLAG
+		 ) VALUES (
+		  #{eventCode}
+		  , #{userId}
+		  , 'EVTUSRST001'
+		  , 'Y'
+		  , NOW()
+		  , NOW()
+		  , 'Y'
+		 )
+	</insert>
 </mapper>

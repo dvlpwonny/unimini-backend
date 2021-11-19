@@ -4,12 +4,14 @@ import com.unimini.service.MingleService;
 import com.unimini.service.UnityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -50,12 +52,53 @@ public class MingleController {
 
 	@RequestMapping(value = "/mingle/makeMingleEvent_searchPlace", method = {RequestMethod.GET, RequestMethod.POST})
     public String makeMingleEvent_searchPlace(Model model) {
-		List<Map<String, String>> placeList = mingleService.getAllMingleList();
-
-		model.addAttribute("placeList",placeList);
 		
         return "makeMingleEvent_searchPlace";
     }
+
+    @ResponseBody
+	@RequestMapping(value = "/mingle/getPlaceList", method = {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> getPlaceList(@RequestBody Map<String, Object> paramMap) {
+		Map<String, Object> resultMap = new HashMap<>();
+		List<Map<String, String>> placeList = mingleService.getPlaceList(paramMap);
+
+		resultMap.put("placeList", placeList);
+		return resultMap;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/mingle/setMingle", method = {RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> setMingle(@RequestBody Map<String, Object> paramMap, Principal principal) {
+		Map<String, Object> resultMap = new HashMap<>();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+		// 밍글 기초 데이터
+		paramMap.put("eventTypeCode", "EVT001"); // 밍글
+		paramMap.put("eventStatusCode", "EVTSTS001"); // 예정
+
+		// 밍글 시간 데이터
+		if (paramMap.get("eventDate").toString() != null) {
+			int addDay = Integer.parseInt(paramMap.get("eventDate").toString());
+			cal.add(Calendar.DATE, +addDay);
+
+			String eventStartTime = df.format(cal.getTime()) + " " + paramMap.get("eventStartDate");
+			String eventEndTime = df.format(cal.getTime()) + " " + paramMap.get("eventEndDate");
+
+			paramMap.put("eventStartTime", eventStartTime);
+			paramMap.put("eventEndTime", eventEndTime);
+		}
+
+		paramMap.put("createUser", principal.getName());
+		paramMap.put("userId", principal.getName());
+
+		mingleService.setMingle(paramMap);
+
+		resultMap.put("result", "success");
+
+		return resultMap;
+	}
 
 	@RequestMapping(value = "/mingle/mingleDetail", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView mingleDetail(@RequestParam String eventCode, Principal principal) {
@@ -75,12 +118,11 @@ public class MingleController {
 				// 이벤트 정보
 			Map<String, String> mingleInfo = mingleService.getMingleInfo(eventCode);
 
-			mav.addObject("applicantList", applicantList);
-			mav.addObject("participantList", participantList);
-			mav.addObject("refuseList", refuseList);
-			mav.addObject("mingleInfo", mingleInfo);
+			String eventStartTime = df.format(cal.getTime()) + " " + paramMap.get("eventStartDate");
+			String eventEndTime = df.format(cal.getTime()) + " " + paramMap.get("eventEndDate");
 
-			return mav;
+			paramMap.put("eventStartTime", eventStartTime);
+			paramMap.put("eventEndTime", eventEndTime);
 		}
 
 		ModelAndView mav = new ModelAndView("EventContent");
@@ -93,10 +135,12 @@ public class MingleController {
 		
 		Map<String, String> eventInfo      = mingleService.getMingleInfo(eventCode);
 		List<Map<String, String>> userList = mingleService.getMingleUserInfo(userId, eventCode);
+		List<Map<String, String>> reqUserList = mingleService.getMingleReqUserList(eventCode);
 		Map<String, String> myInfo         = mingleService.getMingleMyInfo(userId, eventCode);		
 
 		mav.addObject("eventInfo", eventInfo);
 		mav.addObject("userList", userList);
+		mav.addObject("reqUserList", reqUserList);
 		mav.addObject("myInfo", myInfo);
 		
 		return mav;
@@ -114,6 +158,18 @@ public class MingleController {
 		return responseMap;
 	}
 	
+	@RequestMapping(value = "/mingle/mingleDetail_isAcpt", method = {RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> mingleDetail_isAcpt(@RequestParam String isAcptForm_EventCode, @RequestParam String isAcptForm_UserId, @RequestParam String isAcptForm_Flag) {
+        
+        mingleService.updateMingleAcpt(isAcptForm_EventCode, isAcptForm_UserId, isAcptForm_Flag);
+        
+        Map<String, Object> responseMap = new HashMap<String, Object>();
+        responseMap.put("result",true);
+        
+		return responseMap;
+	}	
+
 	@RequestMapping(value = "/mingle/mingleDetail_isIn", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> mingleDetail_isIn(@RequestParam String isInForm_EventCode, @RequestParam String isInForm_UserId, @RequestParam String isInForm_Flag) {
@@ -124,8 +180,7 @@ public class MingleController {
         responseMap.put("result",true);
         
 		return responseMap;
-	}	
-	
+	}		
 
 	///////////어드민 상세 페이지 (유니존)
 	@RequestMapping(value = "/mingle/unizoneDetailAdmin", method = {RequestMethod.GET, RequestMethod.POST})
