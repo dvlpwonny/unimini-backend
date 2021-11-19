@@ -118,11 +118,12 @@ public class MingleController {
 				// 이벤트 정보
 			Map<String, String> mingleInfo = mingleService.getMingleInfo(eventCode);
 
-			String eventStartTime = df.format(cal.getTime()) + " " + paramMap.get("eventStartDate");
-			String eventEndTime = df.format(cal.getTime()) + " " + paramMap.get("eventEndDate");
+			mav.addObject("applicantList", applicantList);
+			mav.addObject("participantList", participantList);
+			mav.addObject("refuseList", refuseList);
+			mav.addObject("mingleInfo", mingleInfo);
 
-			paramMap.put("eventStartTime", eventStartTime);
-			paramMap.put("eventEndTime", eventEndTime);
+			return mav;
 		}
 
 		ModelAndView mav = new ModelAndView("EventContent");
@@ -180,7 +181,8 @@ public class MingleController {
         responseMap.put("result",true);
         
 		return responseMap;
-	}		
+	}	
+	
 
 	///////////어드민 상세 페이지 (유니존)
 	@RequestMapping(value = "/mingle/unizoneDetailAdmin", method = {RequestMethod.GET, RequestMethod.POST})

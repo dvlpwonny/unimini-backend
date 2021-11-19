@@ -356,7 +356,11 @@
             , NOW()
             , 'Y'
         )
+<<<<<<< HEAD
     </insert> 
+=======
+    </insert>
+>>>>>>> branch 'master' of https://github.com/dvlpwonny/unimini-backend.git
 
 	<insert id="setMingleHost" parameterType="map">
 		INSERT INTO TB_EVENT_USER_MAPP_GROUP (

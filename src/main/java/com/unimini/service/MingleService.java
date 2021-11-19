@@ -55,6 +55,7 @@ public class MingleService {
 		mingleMapper.updateMingleIn(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
 	}
 
+<<<<<<< HEAD
 	public List<Map<String, String>> getMingleReqUserList(String eventCode) {
 		return mingleMapper.getMingleReqUserList(eventCode);
 	}
@@ -77,6 +78,8 @@ public class MingleService {
 	}
 
 
+=======
+>>>>>>> branch 'master' of https://github.com/dvlpwonny/unimini-backend.git
 	public List<Map<String, String>> getPlaceList(Map<String, Object> paramMap) {
 		return mingleMapper.getPlaceList(paramMap);
 	}
