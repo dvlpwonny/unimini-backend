@@ -55,7 +55,7 @@ public class MingleService {
 		mingleMapper.updateMingleIn(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
 	}
 
-<<<<<<< HEAD
+
 	public List<Map<String, String>> getMingleReqUserList(String eventCode) {
 		return mingleMapper.getMingleReqUserList(eventCode);
 	}
@@ -64,22 +64,6 @@ public class MingleService {
 		mingleMapper.updateMingleAcpt(isAcptForm_EventCode, isAcptForm_UserId, isAcptForm_Flag);
 	}
 
-	public List<Map<String, String>> getPlaceList(Map<String, Object> paramMap) {
-		return mingleMapper.getPlaceList(paramMap);
-	}
-
-	@Transactional
-	public int setMingle(Map<String, Object> paramMap) {
-		int result;
-		result = mingleMapper.setMingle(paramMap);
-		result = mingleMapper.setMingleHost(paramMap);
-
-		return result;
-	}
-
-
-=======
->>>>>>> branch 'master' of https://github.com/dvlpwonny/unimini-backend.git
 	public List<Map<String, String>> getPlaceList(Map<String, Object> paramMap) {
 		return mingleMapper.getPlaceList(paramMap);
 	}

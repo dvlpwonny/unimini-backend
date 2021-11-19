@@ -21,7 +21,9 @@ public interface MingleMapper {
 	Map<String, String> getMingleMyInfo(String userId, String eventCode);
 	void updateMingleLike(String isLikeForm_EventCode, String isLikeForm_UserId, String isLikeForm_Flag);
 	void updateMingleIn(String isInForm_EventCode, String isInForm_UserId, String isInForm_Flag);
-
+	List<Map<String, String>> getMingleReqUserList(String eventCode);
+	void updateMingleAcpt(String isAcptForm_EventCode, String isAcptForm_UserId, String isAcptForm_Flag);
+	
 	List<Map<String, String>> getPlaceList(Map<String, Object> paramMap);
 
 	int setMingle(Map<String, Object> paramMap);
