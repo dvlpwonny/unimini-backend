@@ -53,6 +53,6 @@ public class SignUpController {
         resultMap.put("majorList", majorList);
 
         return resultMap;
-    }
+    } 
 
 }

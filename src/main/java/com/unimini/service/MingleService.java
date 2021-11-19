@@ -55,6 +55,15 @@ public class MingleService {
 		mingleMapper.updateMingleIn(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
 	}
 
+
+	public List<Map<String, String>> getMingleReqUserList(String eventCode) {
+		return mingleMapper.getMingleReqUserList(eventCode);
+	}
+
+	public void updateMingleAcpt(String isAcptForm_EventCode, String isAcptForm_UserId, String isAcptForm_Flag) {
+		mingleMapper.updateMingleAcpt(isAcptForm_EventCode, isAcptForm_UserId, isAcptForm_Flag);
+	}
+
 	public List<Map<String, String>> getPlaceList(Map<String, Object> paramMap) {
 		return mingleMapper.getPlaceList(paramMap);
 	}

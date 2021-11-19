@@ -18,6 +18,13 @@
     <th:block layout:fragment="content">
 
 		<div id="app">
+			<header>
+				<nav class="container align-items-end" style="padding:10px; background-color: #fffaf2;">
+					<div style="width:30px;margin-left:10px;" onclick="window.history.back();">
+						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;">
+					</div>
+				</nav>
+			</header>
 			<div class="container padding d-flex flex-column justify-content-center align-items-center" style="height:100%">
 				<div style="background-color:#ff3a5b; padding : 10px 40px; border-radius: 20px;">
 					<span class="size16 white weight700">잠시 후에 다시 시도해주세요!</span>

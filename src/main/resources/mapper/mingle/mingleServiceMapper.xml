@@ -145,6 +145,33 @@
 			 </if>
 		   	, UPDATE_DATE = NOW()
 	</update>
+	
+	<select id="getMingleReqUserList" resultType="map">
+		 SELECT 
+		 	TEUMG.EVENT_CODE
+		 	, TEUMG.USER_ID
+		 	, TU.USER_NAME
+		 	, TPI.PROFILE_IMAGE_PATH
+		 FROM TB_EVENT_USER_MAPP_GROUP TEUMG, TB_USER TU, TB_PROFILE_IMAGE TPI
+		 WHERE TEUMG.USER_ID = TU.USER_ID 
+		  AND TU.PROFILE_IMAGE_CODE = TPI.PROFILE_IMAGE_CODE
+		  AND TEUMG.EVENT_CODE = #{eventCode}
+		  AND TEUMG.USER_STATUS_CODE = 'EVTUSRST002'
+		  AND TEUMG.USE_FLAG = 'Y'
+	</select>
+	
+	<update id="updateMingleAcpt" parameterType="String">
+		 UPDATE TB_EVENT_USER_MAPP_GROUP 
+			SET 
+				<if test='"Y".equals(isAcptForm_Flag)'> 	
+				USER_STATUS_CODE = 'EVTUSRST003'
+				</if>
+				<if test='"N".equals(isAcptForm_Flag)'>
+				USER_STATUS_CODE = 'EVTUSRST005'
+				</if>
+			WHERE EVENT_CODE = #{isAcptForm_EventCode}
+			 AND USER_ID = #{isAcptForm_UserId}
+	</update>
 
 	<!-- 유니존 어드민 페이지 -->
 	<!-- 함께하기 신청자 -->

@@ -136,10 +136,12 @@ public class MingleController {
 		
 		Map<String, String> eventInfo      = mingleService.getMingleInfo(eventCode);
 		List<Map<String, String>> userList = mingleService.getMingleUserInfo(userId, eventCode);
+		List<Map<String, String>> reqUserList = mingleService.getMingleReqUserList(eventCode);
 		Map<String, String> myInfo         = mingleService.getMingleMyInfo(userId, eventCode);		
 
 		mav.addObject("eventInfo", eventInfo);
 		mav.addObject("userList", userList);
+		mav.addObject("reqUserList", reqUserList);
 		mav.addObject("myInfo", myInfo);
 		
 		return mav;
@@ -157,6 +159,18 @@ public class MingleController {
 		return responseMap;
 	}
 	
+	@RequestMapping(value = "/mingle/mingleDetail_isAcpt", method = {RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> mingleDetail_isAcpt(@RequestParam String isAcptForm_EventCode, @RequestParam String isAcptForm_UserId, @RequestParam String isAcptForm_Flag) {
+        
+        mingleService.updateMingleAcpt(isAcptForm_EventCode, isAcptForm_UserId, isAcptForm_Flag);
+        
+        Map<String, Object> responseMap = new HashMap<String, Object>();
+        responseMap.put("result",true);
+        
+		return responseMap;
+	}	
+
 	@RequestMapping(value = "/mingle/mingleDetail_isIn", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> mingleDetail_isIn(@RequestParam String isInForm_EventCode, @RequestParam String isInForm_UserId, @RequestParam String isInForm_Flag) {
