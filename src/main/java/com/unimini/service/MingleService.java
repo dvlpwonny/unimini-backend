@@ -84,4 +84,12 @@ public class MingleService {
 	public List<Map<String, String>> getTotalMingleHourList(Map<String, String> paramMap) {
 		return mingleMapper.getTotalMingleHourList(paramMap);
 	}
+
+	public void deleteMingle(String eventDeleteForm_EventCode, String eventDeleteForm_UserId) {
+		mingleMapper.deleteMingle(eventDeleteForm_EventCode, eventDeleteForm_UserId);
+	}
+
+	public void editEvent(String eventEditForm_eventCode, String eventEditForm_title, String eventEditForm_detail) {
+		mingleMapper.editEvent(eventEditForm_eventCode, eventEditForm_title, eventEditForm_detail);
+	}
 }

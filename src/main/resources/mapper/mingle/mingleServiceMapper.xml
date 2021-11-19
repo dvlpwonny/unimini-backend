@@ -146,6 +146,12 @@
 		   	, UPDATE_DATE = NOW()
 	</update>
 	
+	<update id="deleteMingle" parameterType="String">
+		 UPDATE TB_EVENT
+		  SET USE_FLAG = 'N'
+		 WHERE EVENT_CODE = #{eventDeleteForm_EventCode}	
+	</update>
+	
 	<select id="getMingleReqUserList" resultType="map">
 		 SELECT 
 		 	TEUMG.EVENT_CODE
@@ -171,6 +177,15 @@
 				</if>
 			WHERE EVENT_CODE = #{isAcptForm_EventCode}
 			 AND USER_ID = #{isAcptForm_UserId}
+	</update>
+
+	<update id="editEvent" parameterType="String">
+		 UPDATE TB_EVENT
+		  SET
+		   EVENT_NAME = #{eventEditForm_title}
+		   , DETAIL_INFO = #{eventEditForm_detail}
+		 WHERE 
+		 	EVENT_CODE = #{eventEditForm_eventCode}
 	</update>
 
 	<!-- 유니존 어드민 페이지 -->

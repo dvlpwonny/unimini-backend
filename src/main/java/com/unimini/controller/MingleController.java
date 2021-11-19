@@ -181,9 +181,46 @@ public class MingleController {
         responseMap.put("result",true);
         
 		return responseMap;
-	}	
+	}
 	
+	@RequestMapping(value = "/mingle/mingleDetail_delEvent", method = {RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> mingleDetail_delEvent(@RequestParam String eventDeleteForm_EventCode, @RequestParam String eventDeleteForm_UserId) {
+        
+        mingleService.deleteMingle(eventDeleteForm_EventCode, eventDeleteForm_UserId);
+        
+        Map<String, Object> responseMap = new HashMap<String, Object>();
+        responseMap.put("result",true);
+        
+		return responseMap;
+	}
+	
+	@RequestMapping(value = "/mingle/mingleDetail_edit", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView mingleDetail_edit(@RequestParam String eventEditForm_EventCode, @RequestParam String eventEditForm_UserId) {
+		ModelAndView mav = new ModelAndView("EditMingleEvent");
+		
+		List<Map<String, String>> categoryList = unityService.getCategorySort();
+		Map<String, String> eventInfo      = mingleService.getMingleInfo(eventEditForm_EventCode);
 
+		mav.addObject("eventInfo", eventInfo);
+		mav.addObject("categoryList", categoryList);
+
+        return mav;
+    }
+	
+	@RequestMapping(value = "/mingle/mingleDetail_editEvent", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+    public Map<String, Object> mingleDetail_editEvent(@RequestParam String eventEditForm_eventCode, @RequestParam String eventEditForm_title, @RequestParam String eventEditForm_detail) {
+		
+        mingleService.editEvent(eventEditForm_eventCode, eventEditForm_title, eventEditForm_detail);
+        
+        Map<String, Object> responseMap = new HashMap<String, Object>();
+        responseMap.put("result",true);
+
+        return responseMap;
+    }	
+	
+	
 	///////////어드민 상세 페이지 (유니존)
 	@RequestMapping(value = "/mingle/unizoneDetailAdmin", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView unizoneDetailAdmin(@RequestParam String eventCode) {

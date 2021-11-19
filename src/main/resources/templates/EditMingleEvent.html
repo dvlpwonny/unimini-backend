@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout_v1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- For use on this page only [CSS] -->
+    <th:block layout:fragment="css">
+		<link rel="stylesheet" th:href="@{/static/css/reset.css}">
+		<link rel="stylesheet" th:href="@{/static/css/default.css}">
+		<link rel="stylesheet" th:href="@{/static/css/styles.css}">
+    </th:block>
+    
+    <!-- For use on this page only [JS] -->
+    <th:block layout:fragment="script">
+		<script th:src="@{/static/js/load_html.js}"></script>
+		<script th:src="@{/static/js/default.js}"></script>
+		<script>
+		function editMingle() {
+
+			// 밍글 타이틀이 없을 경우
+			if ($('#mingleTitle').val() == '') {
+				alert('밍글의 제목을 입력해 주세요!');
+				$('#mingleTitle').focus();
+				return;
+			}
+			
+			document.getElementById('eventEditForm_title').value = document.getElementById('mingleTitle').value;
+			document.getElementById('eventEditForm_detail').value = document.getElementById('detail').value;
+			
+			console.log($('#eventEditForm').serialize());
+
+	        $.ajax({
+	            url: "/mingle/mingleDetail_editEvent",
+	            type: "POST",
+	            data: $('#eventEditForm').serialize(),
+	            beforeSend: function (xhr) {
+	                xhr.setRequestHeader("X-Ajax-call", "true");
+	            },		            
+	            success:function (data) {
+	                if(data.result){
+	                	alert('수정되었습니다.');
+	                } else {
+						console.log('Error ! : ' + data);
+	                }
+	            },
+	            error:function(request,status,error){
+	            	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	            },
+	            complete:function (data) {
+	            }
+	        });
+		}
+		
+
+		</script> 
+    </th:block>
+
+    <!-- Content -->
+    <div layout:fragment="content">
+		<div id="app">
+			<header>
+				<nav class="container align-items-end justify-content-between" style="padding:10px;">
+					<div class="d-flex">
+						<div style="width:30px;margin-left:10px;">
+							<a href="" id="backToPage">
+								<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" id="imgback" onclick="window.Unity.call('CloseWebView:');">
+							</a>
+						</div>
+						<div><span id="header_title" class="size20">밍글 수정</span></div>
+					</div>
+					<div>
+						<button id="makeMingleBtn" type="button" onclick="editMingle();">
+							완료
+						</button>
+					</div>
+				</nav>
+			</header>
+			<div class="appContainer" style="overflow-y:auto;">
+				<form id="eventEditForm">
+					<input id="eventEditForm_eventCode" name="eventEditForm_eventCode" type="hidden" th:value="${eventInfo.EVENT_CODE}">
+					<input id="eventEditForm_title" name="eventEditForm_title" type="hidden">
+					<input id="eventEditForm_detail" name="eventEditForm_detail" type="hidden">
+				</form>
+				<div class="container padding responsiveApp">
+					<div class="mingleContainer">
+						<div>
+							<span class="size12 grey2 weight700" style="margin-right:10px">제목</span>
+						</div>
+						<input class="green" type="text" placeholder="제목을 입력해주세요" id="mingleTitle" th:value="${eventInfo.EVENT_NAME}">
+					</div>
+					<div class="mingleContainer">
+						<div>
+							<span class="size12 grey2 weight700" style="margin-right:10px">내용</span>
+						</div>
+						<textarea id="detail" class="placeholderCenter green" placeholder="진행할 밍글 이벤트에 대해 소개해주세요 &#13;&#10;부적절한 내용은 제한될 수 있어요" style="height:200px" th:text="${eventInfo.DETAIL_INFO}"> </textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</html>

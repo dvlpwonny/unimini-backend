@@ -63,13 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-        		.antMatchers("/mingle/makeMingleEvent")             /* Temp */
-        		.antMatchers("/mingle/mingleDetail")        /* Temp */
-        		.antMatchers("/mingle/mingleDetail_isLike")        /* Temp */
-        		.antMatchers("/mingle/mingleDetail_isIn")        /* Temp */
-        		.antMatchers("/mingle/mingleDetail_isAcpt")        /* Temp */
-        		.antMatchers("/mingle/makeMingleEvent_searchPlace") /* Temp */
-        		 
         		.antMatchers("/c")                   /* Temp */        		
         		.antMatchers("/chat")                /* Temp */        		
         		.antMatchers("/room")                /* Temp */        		

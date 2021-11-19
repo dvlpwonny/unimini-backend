@@ -31,4 +31,7 @@ public interface MingleMapper {
 
 	List<Map<String, String>> getTotalMingleList(Map<String, String> paramMap);
 	List<Map<String, String>> getTotalMingleHourList(Map<String, String> paramMap);
+	void deleteMingle(String eventDeleteForm_EventCode, String eventDeleteForm_UserId);
+	void editEvent(String eventEditForm_eventCode, String eventEditForm_title, String eventEditForm_detail);
+	
 }

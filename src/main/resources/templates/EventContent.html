@@ -62,9 +62,11 @@
 		            success:function (data) {
 		                if(data.result){
 		                	if(flag == 'Y') {
+			                	alert('신청되었습니다.');
 		                		document.getElementById('isInY').className += ' inactive';
 		                		document.getElementById('isInN').classList.remove('inactive');
 		                	} else {
+			                	alert('취소되었습니다.');
 		                		document.getElementById('isInN').className += ' inactive';
 		                		document.getElementById('isInY').classList.remove('inactive');
 		                	}		                	
@@ -82,9 +84,6 @@
 			
 			function isAcpt(userId, flag){
 				document.getElementById('isAcptForm_Flag').value = flag;
-
-				console.log($('#isAcptForm').serialize())
-
 		        $.ajax({
 		            url: "/mingle/mingleDetail_isAcpt",
 		            type: "POST",
@@ -94,6 +93,7 @@
 		            },		            
 		            success:function (data) {
 		                if(data.result){
+		                	alert('처리되었습니다.');
 	                		document.getElementById(userId + '-acpt').className += ' inactive';
 		                } else {
 							console.log('Error ! : ' + data);
@@ -106,6 +106,33 @@
 		            }
 		        });
 				
+			}
+			
+			function editEvent(){
+				document.getElementById('eventEditForm').submit();
+			}
+			
+			function deleteEvent(){
+		        $.ajax({
+		            url: "/mingle/mingleDetail_delEvent",
+		            type: "POST",
+		            data: $('#eventDeleteForm').serialize(),
+		            beforeSend: function (xhr) {
+		                xhr.setRequestHeader("X-Ajax-call", "true");
+		            },		            
+		            success:function (data) {
+		                if(data.result){
+		                	alert('삭제되었습니다.');
+		                } else {
+							console.log('Error ! : ' + data);
+		                }
+		            },
+		            error:function(request,status,error){
+		            	console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		            },
+		            complete:function (data) {
+		            }
+		        });
 			}
 		
 		</script>
@@ -138,12 +165,22 @@
 					</div>
 				</nav>
 				<div class="inactive d-flex flex-column align-items-center justify-content-around" id="dropdown-menu">
-					<div id="editEventBtn">
+					<div id="editEventBtn" onclick="javascript:editEvent()">
 						<span class="size14 weight500">수정하기</span>
 					</div>
-					<div id="deleteEventBtn">
+					<form id="eventEditForm" method="post" th:action="@{/mingle/mingleDetail_edit}">
+							<input id="eventEditForm_EventCode" name="eventEditForm_EventCode" type="hidden" th:value="${eventInfo.EVENT_CODE}">
+							<input id="eventEditForm_UserId" name="eventEditForm_UserId" type="hidden" th:value="${myInfo.USER_ID}">
+					</form>
+					
+					<div id="deleteEventBtn" onclick="javascript:deleteEvent()">
 						<span class="size14 weight500 pink">삭제하기</span>
 					</div>
+					<form id="eventDeleteForm">
+							<input id="eventDeleteForm_EventCode" name="eventDeleteForm_EventCode" type="hidden" th:value="${eventInfo.EVENT_CODE}">
+							<input id="eventDeleteForm_UserId" name="eventDeleteForm_UserId" type="hidden" th:value="${myInfo.USER_ID}">
+					</form>
+					
 				</div>
 			</header>
 			<div class="container eventBackground" style="height:100%; top:10%">
@@ -384,7 +421,7 @@
 						
 					</div>
 				</div>
-    		
+				
     	</div>
 		</div>
     </th:block>
