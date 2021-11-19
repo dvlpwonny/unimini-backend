@@ -240,9 +240,39 @@ public class MingleController {
 	}
 	
 	@RequestMapping(value = "/mingle/totalMigleList", method = {RequestMethod.GET, RequestMethod.POST})
-	public String totalMigleList() {
+	public ModelAndView totalMigleList(@RequestParam(required = false) String day) {
+		ModelAndView mav = new ModelAndView("totalEventList");
+		Map<String, String> paramMap = new HashMap<>();
+		List<Map<String, String>> calMapList = new ArrayList<>();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df2 = new SimpleDateFormat("dd");
+		DateFormat df3 = new SimpleDateFormat("E");
+		if (day == null || day.equals("")) {
+			day = df.format(cal.getTime());
+		}
+		paramMap.put("eventDate", day);
 
-		return "totalEventList";
+		List<Map<String, String>> mingleList = mingleService.getTotalMingleList(paramMap);
+		List<Map<String, String>> hourList = mingleService.getTotalMingleHourList(paramMap);
+
+
+		for (int i = 0; i < 7; i++) {
+			Map<String, String> calMap = new HashMap<>();
+			calMap.put("week", df3.format(cal.getTime()));
+			calMap.put("day", df2.format(cal.getTime()));
+			calMap.put("fullDay", df.format(cal.getTime()));
+			calMapList.add(i, calMap);
+			cal.add(Calendar.DATE, +1);
+		}
+
+		mav.addObject("mingleList", mingleList);
+		mav.addObject("hourList", hourList);
+		mav.addObject("calMapList", calMapList);
+		mav.addObject("day", day);
+
+		return mav;
 	}
 
 }

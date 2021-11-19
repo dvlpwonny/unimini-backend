@@ -1,165 +1,104 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout_v1">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <!-- For use on this page only [CSS] -->
 <th:block layout:fragment="css">
     <link rel="stylesheet" th:href="@{/static/css/reset.css}">
     <link rel="stylesheet" th:href="@{/static/css/default.css}">
     <link rel="stylesheet" th:href="@{/static/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/static/css/popup.css}">
+    <link rel="stylesheet" th:href="@{/static/css/jquery-ui-1.13.0/jquery-ui.min.css}">
 </th:block>
 
 <!-- For use on this page only [JS] -->
 <th:block layout:fragment="script">
+    <script th:src="@{/static/js/jquery-ui-1.13.0/jquery-ui.js}"></script>
     <script th:src="@{/static/js/load_html.js}"></script>
+    <script th:src="@{/static/js/lib/handlebars.min.js}"></script>
     <script th:src="@{/static/js/default.js}"></script>
+    <script>
+        function searchDay(e) {
+            var day = $(e).attr('data');
+            $('#totalEvent input[name=day]').val(day)
+            $('#totalEvent').submit();
+        }
+    </script>
 </th:block>
 
 <!-- Content -->
 <div layout:fragment="content">
+    <form id="totalEvent" th:action="@{/mingle/totalMigleList}" method="post">
+        <input type="hidden" name="day">
+    </form>
     <div id="app">
-        <header style="background-color: #fffaf2">
-            <nav class="container align-items-end" style="padding:10px;">
+        <div class="backdrop"></div>
+        <header>
+            <nav class="container align-items-end green" style="padding:10px;">
                 <div style="width:30px;margin-left:10px;">
-                    <img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" onclick="window.Unity.call('CloseWebView:');">
+                    <a href="" id="backToPage">
+                        <img th:src="@{/static/image/back_white.png}" alt="" style="width:26px; height:20px;" onclick="window.Unity.call('CloseWebView:');">
+                    </a>
                 </div>
+                <div><span class="white" id="var-eventTitle">전체 리스트</span></div>
             </nav>
         </header>
-        <div class="container padding d-flex flex-column justify-content-center align-items-center" style="height:100%">
-            <div style="background-color:#ff3a5b; padding : 10px 40px; border-radius: 20px;">
-                <span class="size16 white weight700">해당 기능은 서비스 준비중입니다!</span>
-            </div>
-            <div style="padding:50px; text-align: center;">
-                <span class="size16 weight700">같은 문제가 반복된다면?</span>
-                <p style="padding:20px;">
-						<span class="size12 weight400">
-							'마이페이지-의견 남기기' 또는 <br>
-							유니미니의 인스타그램 공식 계정 <br>
-							@unimini_official_kr으로 DM 부탁드립니다! <br>
-						</span>
-                </p>
+        <div class="appContainer" style="height:88%">
+            <div class="container" style="height:100%; padding:0px">
+                <div class="calendar" style="height:80px">
+                    <div class="d-flex justify-content-around" style="padding-top:16px">
+                        <div class="calendarDate" th:each="cal, index : ${calMapList}" th:classappend="${cal.fullDay eq day ? 'selected' : ''}" th:data="${cal.fullDay}" onclick="searchDay(this)">
+                            <span class="eventDay white size12" th:text="${cal.week}">월</span>
+                            <span class="eventDate white size16" th:text="${cal.day}">16</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="container padding eventList" style="height:inherit; margin-top:40px;height: 80%; overflow-y: auto;">
+                    <div id="eventLinePosition">
+                        <div id="eventLine"></div>
+                        <div class="eventCircle last"></div>
+                    </div>
+                    <div class="event d-flex justify-content-between align-items-start" th:if="${hourList} ne null" th:each="hour,index : ${hourList}">
+                        <div class="d-flex" style="height:inherit">
+                            <span class="size14" th:text="${hour.eventStartTimeHour}">13:00</span>
+                            <div class="d-flex flex-column align-items-center" style="margin-left:20px;">
+                                <div class="eventCircle"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column align-items-end" style="width:100%">
+                            <div class="eventListContent d-flex" th:each="mingle,index : ${mingleList}">
+                                <th:block th:if="${hour.eventStartTimeHour eq mingle.eventStartTimeHour}">
+                                <div class="eventContentProfile d-flex justify-content-center align-items-center" >
+                                    <img th:if="${mingle.categoryCode eq 'CAT000001'}" th:src="@{/static/image/category6.png}" alt="" width="45px" height="45px">
+                                    <img th:if="${mingle.categoryCode eq 'CAT000002'}" th:src="@{/static/image/category3.png}" alt="" width="45px" height="45px">
+                                    <img th:if="${mingle.categoryCode eq 'CAT000003'}" th:src="@{/static/image/category1.png}" alt="" width="45px" height="45px">
+                                    <img th:if="${mingle.categoryCode eq 'CAT000004'}" th:src="@{/static/image/category2.png}" alt="" width="45px" height="45px">
+                                    <img th:if="${mingle.categoryCode eq 'CAT000005'}" th:src="@{/static/image/category5.png}" alt="" width="45px" height="45px">
+                                    <img th:if="${mingle.categoryCode eq 'CAT000006'}" th:src="@{/static/image/category4.png}" alt="" width="45px" height="45px">
+                                </div>
+                                <div class="eventContentInfo d-flex flex-column justify-content-center ">
+                                    <div><span th:text="${mingle.eventName}">EVENT TITLE</span></div>
+                                    <div>
+                                        <span class="size12 weight500" id="EVENT_BEGIN_TIME" th:text="${mingle.eventStartTime}">13:00</span>
+                                        <span class="size12 weight500">~</span>
+                                        <span class="size12 weight500" id="EVENT_END_TIME" th:text="${mingle.eventEndTime}">14:00</span>
+                                    </div>
+                                    <div></div>
+                                </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                    <th:block th:if="${mingleList} eq null">
+                        <div style="background-color:#ff3a5b; padding : 10px 40px; border-radius: 20px;">
+                            <span class="size16 white weight700">오늘은 생성된 밍글이 없습니다.</span>
+                        </div>
+                    </th:block>
+                </div>
             </div>
         </div>
     </div>
-    <!--<div id="app">
-        <header>
-            <nav class="container align-items-end" style="padding:10px;">
-                <div style="width:30px;margin-left:10px;">
-                    <img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;"
-                         onclick="window.Unity.call('CloseWebView:');">
-                </div>
-                &lt;!&ndash;<div><span id="header_title" class="size20">내 참여리스트</span></div>&ndash;&gt;
-            </nav>
-        </header>
-        <div style="background-color:#ff3a5b; padding : 10px 40px; border-radius: 20px;">
-            <span class="size16 white weight700">해당 기능은 서비스 준비중입니다!</span>
-        </div>
-        <div style="padding:50px; text-align: center;">
-            &lt;!&ndash;<span class="size16 weight700">같은 문제가 반복된다면?</span>&ndash;&gt;
-            <p style="padding:20px;">
-                <span class="size12 weight400">
-                    '마이페이지-의견 남기기' 또는 <br>
-                    유니미니의 인스타그램 공식 계정 <br>
-                    @unimini_official_kr으로 DM 부탁드립니다! <br>
-                &lt;!&ndash;유니미니의 인스타그램 공식 계정<br>
-                 @unimini_official_kr으로 연락,<br>
-                <br>
-                 또는 '마이페이지-의견 남기기'를 통해<br>
-                 오류를 신고해주세요!<br>&ndash;&gt;
-                </span>
-            </p>
-        </div>
-        &lt;!&ndash;<div class="appContainer" style="height:88%">
-            <div class="container padding responsiveApp" style="margin-top:40px;height:90%; overflow-y: auto;">
-                <div class="placeSearchResult">
-                    <div id="myEvnetListOnBoard"  th:if="${expectMingleList.size() > 0}">
-                        <span class="size12 weight500 grey2">진행</span>
-                        <div class="myEventOnBoard" th:each="expectMingle : ${expectMingleList}">
-                            <div class="myEventBox">
-                                <div class="d-flex align-items-center" style="width:80%">
-                                    <div class="myEventProfile d-flex justify-content-center align-items-center"
-                                         style="width:70px; height:100%">
-                                        <img th:src="@{${expectMingle.hostProfileImageCode}}" width="42px" height="42px"
-                                             alt="">
-                                        <img th:if="${expectMingle.hostFlag eq 'Y'}" th:src="@{/static/image/host.png}"
-                                             alt="" width="22px" height="22px"
-                                             style="position:absolute; transform: translate(-60%, -60%);">
-                                    </div>
-                                    <div class="myEventInfo">
-                                        <div><span class="size14" th:text="${expectMingle.eventName}">EVENT_TITLE</span>
-                                        </div>
-                                        <div style="margin-top:2px;">
-                                            <span class="size13 weight400"
-                                                  th:text="${expectMingle.eventDate}">DAY</span>
-                                            <span class="size13 weight400" th:text="${expectMingle.eventStartTime}">13:00</span>
-                                            <span class="size13 weight400">~</span>
-                                            <span class="size13 weight400"
-                                                  th:text="${expectMingle.eventEndTime}">13:00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="myEventController" th:if="${expectMingle.hostFlag eq 'Y'}">
-                                <span class="size14">종료하기</span>
-                            </div>
-                            <div class="myEventController" th:if="${expectMingle.hostFlag ne 'Y'}">
-                                <span class="size14">참여하기 취소</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="myEvnetListFinished" style="margin-top:100px" th:if="${finishMingleList.size() > 0}">
-                        <span class="size12 weight500 grey2">종료</span>
-                        <div class="myEventFinished" th:each="finishMingle : ${finishMingleList}">
-                            <div class="myEventBox">
-                                <div class="d-flex align-items-center" style="width:80%">
-                                    <div class="myEventProfile d-flex justify-content-center align-items-center"
-                                         style="width:70px; height:100%">
-                                        <img th:src="@{${finishMingle.hostProfileImageCode}}" width="42px" height="42px"
-                                             alt="">
-                                        <img th:if="${finishMingle.hostFlag eq 'Y'}" th:src="@{/static/image/host.png}"
-                                             alt="" width="22px" height="22px"
-                                             style="position:absolute; transform: translate(-60%, -60%);">
-                                    </div>
-                                    <div class="myEventInfo">
-                                        <div><span class="size14" th:text="${finishMingle.eventName}">EVENT_TITLE</span>
-                                        </div>
-                                        <div style="margin-top:2px;">
-                                            <span class="size13 weight400"
-                                                  th:text="${finishMingle.eventDate}">DAY</span>
-                                            <span class="size13 weight400" th:text="${finishMingle.eventStartTime}">13:00</span>
-                                            <span class="size13 weight400">~</span>
-                                            <span class="size13 weight400"
-                                                  th:text="${finishMingle.eventEndTime}">13:00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div th:if="${finishMingle.quitFlag eq 'Y'}">
-                                    <div class="myEventAlert d-flex justify-content-center align-items-center">
-                                        <img th:src="@{/static/image/alert.png}" alt="" height="16px" width="4px">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="myEventController flex-column" th:if="${finishMingle.hostFlag eq 'Y'}">
-                                <div style="margin-bottom: 2px;">
-                                    <span class="size14 center lineheight">참여자<br>별점</span>
-                                </div>
-                                <div class="d-flex align-items-center just">
-                                    <img th:src="@{/static/image/star.png}" alt="" height="16px" style="margin-right: 5px;">
-                                    <span class="size14" th:text="${finishMingle.eventScore}">5.0</span>
-                                </div>
-                            </div>
-                            <div class="myEventController" th:if="${finishMingle.hostFlag ne 'Y' and  finishMingle.eventScore eq '0'}">
-                                <span class="size14 center lineheight">별점을<br>남겨주세요</span>
-                            </div>
-                            <div class="myEventController" th:if="${finishMingle.hostFlag ne 'Y' and  finishMingle.eventScore ne '0'}">
-                                <span class="size14 center lineheight">별점<br>완료</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>&ndash;&gt;
-    </div>-->
+</div>
 
 </div>
 </html>

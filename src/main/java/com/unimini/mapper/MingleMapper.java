@@ -27,4 +27,6 @@ public interface MingleMapper {
 	int setMingle(Map<String, Object> paramMap);
 	int setMingleHost(Map<String, Object> paramMap);
 
+	List<Map<String, String>> getTotalMingleList(Map<String, String> paramMap);
+	List<Map<String, String>> getTotalMingleHourList(Map<String, String> paramMap);
 }

@@ -10,63 +10,25 @@
 </th:block>
 
 <!-- For use on this page only [JS] -->
-<th:block layout:fragment="script">ㅡ
+<th:block layout:fragment="script">
     <script th:src="@{/static/js/load_html.js}"></script>
     <script th:src="@{/static/js/default.js}"></script>
 </th:block>
 
 <!-- Content -->
 <div layout:fragment="content">
+
     <div id="app">
-        <header style="background-color: #fffaf2">
-            <nav class="container align-items-end" style="padding:10px;">
-                <div style="width:30px;margin-left:10px;">
-                    <img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" onclick="window.Unity.call('CloseWebView:');">
-                </div>
-            </nav>
-        </header>
-        <div class="container padding d-flex flex-column justify-content-center align-items-center" style="height:100%">
-            <div style="background-color:#ff3a5b; padding : 10px 40px; border-radius: 20px;">
-                <span class="size16 white weight700">해당 기능은 서비스 준비중입니다!</span>
-            </div>
-            <div style="padding:50px; text-align: center;">
-                <span class="size16 weight700">같은 문제가 반복된다면?</span>
-                <p style="padding:20px;">
-						<span class="size12 weight400">
-							'마이페이지-의견 남기기' 또는 <br>
-							유니미니의 인스타그램 공식 계정 <br>
-							@unimini_official_kr으로 DM 부탁드립니다! <br>
-						</span>
-                </p>
-            </div>
-        </div>
-    </div>
-    <!--<div id="app">
         <header>
             <nav class="container align-items-end" style="padding:10px;">
                 <div style="width:30px;margin-left:10px;">
                     <img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;"
                          onclick="window.Unity.call('CloseWebView:');">
                 </div>
-                &lt;!&ndash;<div><span id="header_title" class="size20">내 참여리스트</span></div>&ndash;&gt;
+                <div><span id="header_title" class="size20">내 참여리스트</span></div>
             </nav>
         </header>
-        <div class="appContainer padding d-flex flex-column justify-content-center align-items-center" style="height:100%">
-            <div style="background-color:#ff3a5b; padding : 10px 40px; border-radius: 20px;">
-                <span class="size16 white weight700">해당 기능은 서비스 준비중입니다!</span>
-            </div>
-            <div style="padding:50px; text-align: center;">
-                &lt;!&ndash;<span class="size16 weight700">같은 문제가 반복된다면?</span>&ndash;&gt;
-                <p style="padding:20px;">
-						<span class="size12 weight400">
-						'마이페이지-의견 남기기' 또는 <br>
-                            <br>
-                    유니미니의 인스타그램 공식 계정 <br>
-                    @unimini_official_kr으로 DM 부탁드립니다! <br>
-                </p>
-            </div>
-        </div>
-        &lt;!&ndash;<div class="appContainer" style="height:88%">
+        <div class="appContainer" style="height:88%">
             <div class="container padding responsiveApp" style="margin-top:40px;height:90%; overflow-y: auto;">
                 <div class="placeSearchResult">
                     <div id="myEvnetListOnBoard"  th:if="${expectMingleList.size() > 0}">
@@ -155,8 +117,8 @@
                     </div>
                 </div>
             </div>
-        </div>&ndash;&gt;
-    </div>-->
+        </div>
+    </div>
 
 </div>
 </html>

@@ -350,4 +350,49 @@
 		  , 'Y'
 		 )
 	</insert>
+
+	<select id="getTotalMingleList" parameterType="map" resultType="uniMap">
+		SELECT
+			A.EVENT_CODE
+			, A.EVENT_NAME
+			, A.EVENT_DATE
+			, A.EVENT_START_TIME
+			, A.EVENT_END_TIME
+			, A.EVENT_START_TIME_HOUR
+			, A.CATEGORY_CODE
+		FROM (
+			SELECT
+				EVENT_CODE
+				, EVENT_NAME
+				, DATE_fORMAT(EVENT_START_TIME, '%H:%i') AS EVENT_START_TIME
+				, DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
+				, DATE_fORMAT(EVENT_START_TIME, '%Y-%m-%d') AS EVENT_DATE
+				, DATE_fORMAT(EVENT_START_TIME, '%H:00') AS EVENT_START_TIME_HOUR
+				, CATEGORY_CODE
+			FROM TB_EVENT
+			WHERE EVENT_TYPE_CODE = 'EVT001'
+			  AND EVENT_END_TIME >= NOW()
+		) A
+		WHERE EVENT_DATE = #{eventDate}
+	</select>
+
+	<select id="getTotalMingleHourList" parameterType="map" resultType="uniMap">
+		SELECT
+			A.EVENT_START_TIME_HOUR
+		FROM (
+			SELECT
+				EVENT_CODE
+				, EVENT_NAME
+				, DATE_fORMAT(EVENT_START_TIME, '%H:%i') AS EVENT_START_TIME
+				, DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
+				, DATE_fORMAT(EVENT_START_TIME, '%Y-%m-%d') AS EVENT_DATE
+				, DATE_fORMAT(EVENT_START_TIME, '%H:00') AS EVENT_START_TIME_HOUR
+				, CATEGORY_CODE
+			FROM TB_EVENT
+			WHERE EVENT_TYPE_CODE = 'EVT001'
+			  AND EVENT_END_TIME >= NOW()
+		) A
+		WHERE EVENT_DATE = #{eventDate}
+		GROUP BY A.EVENT_START_TIME_HOUR
+	</select>
 </mapper>

@@ -68,4 +68,11 @@ public class MingleService {
 		return result;
 	}
 
+	public List<Map<String, String>> getTotalMingleList(Map<String, String> paramMap) {
+		return mingleMapper.getTotalMingleList(paramMap);
+	}
+
+	public List<Map<String, String>> getTotalMingleHourList(Map<String, String> paramMap) {
+		return mingleMapper.getTotalMingleHourList(paramMap);
+	}
 }
