@@ -12,12 +12,12 @@
     <th:block layout:fragment="script">
 		<script th:src="@{/static/js/load_html.js}"></script>
 		<script th:src="@{/static/js/default.js}"></script>
-		<script th:src="@{/static/js/incAndDecNum.js}"></script>
 		<script>
 			/* Time */
-			var date = new Date();
 			// document.getElementById('startTime').value = date.toString().slice(16,21);
-			
+
+			var date = new Date();
+
 			var ONE_HOUR = 60 * 60 * 1000;
 			var dateOneHourAgo = new Date(date.getTime() + ONE_HOUR);
 			var dateTwoHourAgo = new Date(date.getTime() + ONE_HOUR + ONE_HOUR);
@@ -27,47 +27,149 @@
 			
 			
 			function moveSearchPlace() {
-				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_title'].value = document.getElementById('title').value;
-				
-				var mingleCategory = document.getElementById('mingleCategory');
-				var mingleCategoryClassHtml = mingleCategory.getElementsByClassName('selected');
-				for(var i=0; i<mingleCategoryClassHtml; i++){
-					document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_category'].value = mingleCategoryClassHtml[i].id;
-				}
-				
-				var mingleDay = document.getElementById('mingleDay');
-				var mingleDayHtml = mingleDay.getElementsByClassName('selected');
-				for(var i=0; i<mingleCategoryClassHtml; i++){
-					document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_day'].value = mingleCategoryClassHtml[i].id;
-				}
-				
-				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_startTime'].value = document.getElementById('startTime').value;
-				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_endTime'].value = document.getElementById('endTime').value;
-				
-				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_minPerson'].value = document.getElementById('minPerson').innerText;
-				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_maxPerson'].value = document.getElementById('maxPerson').innerText;
-				
-				document.forms['moveSearchPlaceForm']['moveSearchPlaceForm_detail'].value = document.getElementById('detail').value;
-				
-				document.getElementById('moveSearchPlaceForm').submit();
-			}
+				window.open('/mingle/makeMingleEvent_searchPlace', '_blank');
 
-			//// 유니티 통신
-			function unityMapCall() {
-				window.Unity.call('CreateMingle:');
-			}
-
-			function setPlacePin(placeInfo) {
-				alert(placeInfo);
 			}
 
 			// 정문지정시
 			function setPlaceText() {
-				$('#placeText').text('장소가 자동으로 \'정문\'으로 지정됩니다.');
-				$('#sectionCode').val('SEC001');
-				$('#buildingCode').val('BUIL0001');
-				$('#placeCode').val('PLCE000001');
+				/*$('#placeText').text('장소가 자동으로 \'정문\'으로 지정됩니다.');*/
+				$('#moveSearchPlaceForm_sectionCode').val('SEC001');
+				$('#moveSearchPlaceForm_buildingCode').val('BUIL0001');
+				$('#moveSearchPlaceForm_placeCode').val('PLCE000001');
 			}
+
+			function setMingleForm() {
+
+				$('#moveSearchPlaceForm input[name=eventName]').val($('#mingleTitle').val());
+
+				var mingleCategory = document.getElementById('mingleCategory');
+				var mingleCategoryClassHtml = mingleCategory.getElementsByClassName('selected');
+
+				// 밍글 타이틀이 없을 경우
+				if ($('#mingleTitle').val() == '') {
+					alert('밍글의 제목을 입력해 주세요!');
+					$('#mingleTitle').focus();
+					return;
+				}
+
+				// 카테고리 선택 안했을 경우
+				if (mingleCategoryClassHtml.length == 0) {
+					alert('밍글의 카테고리를 선택해 주세요!');
+					return;
+				}
+
+				for(var i=0; i<mingleCategoryClassHtml.length; i++){
+					$('#moveSearchPlaceForm input[name=categoryCode]').val(mingleCategoryClassHtml[i].getAttribute("data"))
+				}
+
+				var mingleDay = document.getElementById('mingleDay');
+				var mingleDayHtml = mingleDay.getElementsByClassName('selected');
+				var eventDateId;
+
+				// 날짜 선택 안했을 경우
+				if (mingleDayHtml.length == 0) {
+					alert('밍글의 개최 날짜를 선택해 주세요!');
+					return;
+				}
+
+				// 시간 선택 안했을 경우
+				if ($('#startTime').val() == '' || $('#endTime').val() == '') {
+					alert('밍글의 시간을 선택해 주세요!');
+					return;
+				}
+				// 장소 선택 안했을 경우
+				if ($('#locationSelectedPlaceholder').text() == ' !! 선택 위치 !! ') {
+					alert('장소를 선택해 주세요!\n장소가 정해지지 않았다면? "나중에 정할래요" 클릭해주세요.');
+					return;
+				}
+
+				// 인원
+				if (parseInt($('#minPerson').text()) > parseInt($('#maxPerson').text())) {
+					alert('최소 인원은 최대 인원보다 클 수 없습니다.\n다시 지정해주세요!');
+					return;
+				}
+
+				if ($('#detail').val().replace(/\s| /gi, "").length == 0) {
+					alert('진행할 밍글 이벤트에 대해 소개해주세요!');
+					$('#detail').focus();
+					return;
+				}
+
+				for(var i=0; i<mingleDayHtml.length; i++) {
+					eventDateId = mingleDayHtml[i].id;
+				}
+				if (eventDateId != 'today') {
+					eventDateId = eventDateId.split( "+" )[1]
+				}
+
+				$('#moveSearchPlaceForm input[name=eventDate]').val(eventDateId);
+
+				$('#moveSearchPlaceForm input[name=eventStartDate]').val(document.getElementById('startTime').value);
+				$('#moveSearchPlaceForm input[name=eventEndDate]').val(document.getElementById('endTime').value);
+
+				$('#moveSearchPlaceForm input[name=mininumPrsnnl]').val(document.getElementById('minPerson').innerText);
+				$('#moveSearchPlaceForm input[name=maxinumPrsnnl]').val(document.getElementById('maxPerson').innerText);
+
+				$('#moveSearchPlaceForm input[name=detailInfo]').val(document.getElementById('detail').value);
+
+				setMingle();
+			}
+
+			function setMingle() {
+				var eventName = $('#moveSearchPlaceForm input[name=eventName]').val();
+				var categoryCode = $('#moveSearchPlaceForm input[name=categoryCode]').val();
+				var eventDate = $('#moveSearchPlaceForm input[name=eventDate]').val();
+				var eventStartDate = $('#moveSearchPlaceForm input[name=eventStartDate]').val();
+				var eventEndDate = $('#moveSearchPlaceForm input[name=eventEndDate]').val();
+				var mininumPrsnnl = $('#moveSearchPlaceForm input[name=mininumPrsnnl]').val();
+				var maxinumPrsnnl = $('#moveSearchPlaceForm input[name=maxinumPrsnnl]').val();
+				var detailInfo = $('#moveSearchPlaceForm input[name=detailInfo]').val();
+				var sectionCode = $('#moveSearchPlaceForm input[name=sectionCode]').val();
+				var buildingCode = $('#moveSearchPlaceForm input[name=buildingCode]').val();
+				var placeCode = $('#moveSearchPlaceForm input[name=placeCode]').val();
+
+				var data = {
+					"eventName" : eventName
+					, "categoryCode" : categoryCode
+					, "eventDate" : eventDate
+					, "eventStartDate" : eventStartDate
+					, "eventEndDate" : eventEndDate
+					, "mininumPrsnnl" : mininumPrsnnl
+					, "maxinumPrsnnl" : maxinumPrsnnl
+					, "detailInfo" : detailInfo
+					, "sectionCode" : sectionCode
+					, "buildingCode" : buildingCode
+					, "placeCode" : placeCode
+				};
+
+				$.ajax({
+					url: '/mingle/setMingle',
+					type: "POST",
+					data: JSON.stringify(data),
+					dataType : 'json',
+					contentType: "application/json; charset=utf-8",
+					cache :  false,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader("X-Ajax-call", "true");
+					},
+					success: function(__data, __textStatus, __jqXHR){
+						if (__data.result == "success") {
+							alert("밍글이 생성 되었습니다.");
+							$('#imgback').trigger("click");
+						}
+					},
+					fail: function(__data, __textStatus, __jqXHR){
+						console.log("data", __data);
+					},
+					error: function(__data, __textStatus, __jqXHR){
+
+					},
+					complete: function(__data, __textStatus, __jqXHR) {
+					}
+				});
+			}
+
 			
 		</script> 
     </th:block>
@@ -75,61 +177,48 @@
     <!-- Content -->
     <div layout:fragment="content">
 		<div id="app">
-			<header style="background-color: #fffaf2">
-				<nav class="container align-items-end" style="padding:10px;">
-					<div style="width:30px;margin-left:10px;">
-						<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" onclick="window.Unity.call('CloseWebView:');">
-					</div>
-				</nav>
-			</header>
-			<div class="container padding d-flex flex-column justify-content-center align-items-center" style="height:100%">
-				<div style="background-color:#ff3a5b; padding : 10px 40px; border-radius: 20px;">
-					<span class="size16 white weight700">해당 기능은 서비스 준비중입니다!</span>
-				</div>
-				<div style="padding:50px; text-align: center;">
-					<span class="size16 weight700">같은 문제가 반복된다면?</span>
-					<p style="padding:20px;">
-						<span class="size12 weight400">
-							'마이페이지-의견 남기기' 또는 <br>
-							유니미니의 인스타그램 공식 계정 <br>
-							@unimini_official_kr으로 DM 부탁드립니다! <br>
-						</span>
-					</p>
-				</div>
-			</div>
-		</div>
-		<!--<div id="app">
 			<header>
 				<nav class="container align-items-end justify-content-between" style="padding:10px;">
 					<div class="d-flex">
 						<div style="width:30px;margin-left:10px;">
 							<a href="" id="backToPage">
-								<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" onclick="window.Unity.call('CloseWebView:');">
+								<img th:src="@{/static/image/back.png}" alt="" style="width:18px; height:18px;" id="imgback" onclick="window.Unity.call('CloseWebView:');">
 							</a>
 						</div>
 						<div><span id="header_title" class="size20">밍글 만들기</span></div>
 					</div>
 					<div>
-						<button id="makeMingleBtn">
+						<button id="makeMingleBtn" type="button" onclick="setMingleForm();">
 							완료
 						</button>
 					</div>
 				</nav>
 			</header>
 			<div class="appContainer" style="overflow-y:auto;">
+				<form id="moveSearchPlaceForm">
+					<input id="moveSearchPlaceForm_title" name="eventName" type="hidden">
+					<input id="moveSearchPlaceForm_category" name="categoryCode" type="hidden">
+					<input id="moveSearchPlaceForm_day" name="eventDate" type="hidden">
+					<input id="moveSearchPlaceForm_startTime" name="eventStartDate" type="hidden">
+					<input id="moveSearchPlaceForm_endTime" name="eventEndDate" type="hidden">
+					<input id="moveSearchPlaceForm_minPerson" name="mininumPrsnnl" type="hidden">
+					<input id="moveSearchPlaceForm_maxPerson" name="maxinumPrsnnl" type="hidden">
+					<input id="moveSearchPlaceForm_detail" name="detailInfo" type="hidden">
+					<input id="moveSearchPlaceForm_sectionCode" name="sectionCode" type="hidden">
+					<input id="moveSearchPlaceForm_buildingCode" name="buildingCode" type="hidden">
+					<input id="moveSearchPlaceForm_placeCode" name="placeCode" type="hidden">
+				</form>
 				<div class="container padding responsiveApp">
 					<div class="mingleContainer">
 						<div>
 							<span class="size12 grey2 weight700" style="margin-right:10px">제목</span>
 						</div>
-						<input class="green" type="text" placeholder="제목을 입력해주세요">
+						<input class="green" type="text" placeholder="제목을 입력해주세요" id="mingleTitle">
 						<div id="mingleCategory">
-							<div class="category">취미</div>
-							<div class="category">밥/술</div>
-							<div class="category">운동</div>
-							<div class="category">게임</div>
-							<div class="category">공연/전시</div>
-							<div class="category">공부</div>
+							<div class="category" th:each="category, index : ${categoryList}" th:text="${category.categoryName}" th:data="${category.categoryCode}"
+								 th:classappend="${index.index eq 0 ? 'selected' : ''}">
+								스터디
+							</div>
 						</div>
 					</div>
 					<div class="mingleContainer" id="mingleDate">
@@ -137,32 +226,32 @@
 							<span class="size12 weight700 grey2">날짜 <span th:text="${toDay}"></span>
 						</div>
 						<div id="mingleDay" class="d-flex justify-content-around" style="margin:10px 0px;">
-							<div class="mingleDate selected">
-								<span class="size14 weight500" style="white-space: nowrap;">오늘</span>
+							<div class="mingleDate selected" id="today">
+								<span class="size14 weight500" style="white-space: nowrap;" >오늘</span>
 							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+1"></span>
-								<span class="mingleCreateDate" id="date+1"></span>
+							<div class="mingleDate notSelected" id="day+1" data="day+1">
+								<span class="mingleCreateDay"></span>
+								<span class="mingleCreateDate"></span>
 							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+2"></span>
-								<span class="mingleCreateDate" id="date+2"></span>
+							<div class="mingleDate notSelected" id="day+2" data="day+2">
+								<span class="mingleCreateDay"></span>
+								<span class="mingleCreateDate"></span>
 							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+3"></span>
-								<span class="mingleCreateDate" id="date+3"></span>
+							<div class="mingleDate notSelected" id="day+3" data="day+3">
+								<span class="mingleCreateDay"></span>
+								<span class="mingleCreateDate"></span>
 							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+4"></span>
-								<span class="mingleCreateDate" id="date+4"></span>
+							<div class="mingleDate notSelected" id="day+4" data="day+4">
+								<span class="mingleCreateDay"></span>
+								<span class="mingleCreateDate"></span>
 							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+5"></span>
-								<span class="mingleCreateDate" id="date+5"></span>
+							<div class="mingleDate notSelected" id="day+5" data="day+5">
+								<span class="mingleCreateDay"></span>
+								<span class="mingleCreateDate"></span>
 							</div>
-							<div class="mingleDate notSelected">
-								<span class="mingleCreateDay" id="day+6"></span>
-								<span class="mingleCreateDate" id="date+6"></span>
+							<div class="mingleDate notSelected" id="day+6" data="day+6">
+								<span class="mingleCreateDay"></span>
+								<span class="mingleCreateDate"></span>
 							</div>
 						</div>
 					</div>
@@ -179,33 +268,20 @@
 							<div class="inactiveBtn d-flex justify-content-center align-items-center" id="locationSelected" style="margin:10px 0px">
 								<span class="size12 weight500" id="locationSelectedPlaceholder"> !! 선택 위치 !! </span>
 							</div>
-							<input type="hidden" id="sectionCode"/>
-							<input type="hidden" id="buildingCode"/>
-							<input type="hidden" id="placeCode"/>
 						</div>
 						<div class="d-flex justify-content-around">
-							<div class="locationOption d-flex flex-column justify-content-center align-items-center" OnClick="javascript:moveSearchPlace()">
+							<div class="locationOption d-flex flex-column justify-content-center align-items-center" onClick="javascript:moveSearchPlace()">
 								<img th:src="@{/static/image/search_big.png}" alt="" width="18px" height="18px">
 								<div>
 									<span class="text-info2">장소 이름 검색</span>
 								</div>
 							</div>
-							<form id="moveSearchPlaceForm" method="post" th:action="@{/mingle/makeMingleEvent_searchPlace}">
-								<input id="moveSearchPlaceForm_title" name="moveSearchPlaceForm_title" type="hidden">
-								<input id="moveSearchPlaceForm_category" name="moveSearchPlaceForm_category" type="hidden">
-								<input id="moveSearchPlaceForm_day" name="moveSearchPlaceForm_day" type="hidden">
-								<input id="moveSearchPlaceForm_startTime" name="moveSearchPlaceForm_startTime" type="hidden">
-								<input id="moveSearchPlaceForm_endTime" name="moveSearchPlaceForm_endTime" type="hidden">
-								<input id="moveSearchPlaceForm_minPerson" name="moveSearchPlaceForm_minPerson" type="hidden">
-								<input id="moveSearchPlaceForm_maxPerson" name="moveSearchPlaceForm_maxPerson" type="hidden">
-								<input id="moveSearchPlaceForm_detail" name="moveSearchPlaceForm_detail" type="hidden">
-							</form>
-								&lt;!&ndash;<div class="locationOption d-flex flex-column justify-content-center align-items-center" onclick="unityMapCall();">
-									<img th:src="@{/static/image/search_big.png}" alt="" width="18px" height="18px">
-									<div>
-										<span class="text-info2">지도에서 핀 선택</span>
-									</div>
-								</div>&ndash;&gt;
+							<!--<div class="locationOption d-flex flex-column justify-content-center align-items-center" onclick="unityMapCall();">
+                                <img th:src="@{/static/image/search_big.png}" alt="" width="18px" height="18px">
+                                <div>
+                                    <span class="text-info2">지도에서 핀 선택</span>
+                                </div>
+                            </div>-->
 							<div class="locationOption d-flex align-items-center justify-content-center" id="locationOption-later" onclick="setPlaceText();">
 								<span class="text-info2">나중에<br>정할래요</span>
 							</div>
@@ -220,24 +296,24 @@
 								<div class="minglePersonNumberOptionText min"> <span class="text-info2">최소</span></div>
 								<div class="minglePersonNumberOptionController">
 									<div class="minglePersonNumberOptionDec min inactiveBtn">-</div>
-									<div class="minglePersonNumber min">3</div>
+									<div class="minglePersonNumber min" id="minPerson">3</div>
 									<div class="minglePersonNumberOptionInc min">+</div>
 								</div>
 							</div>
 							<div class="minglePersonNumberOption">
-								<div class="minglePersonNumberOptionText max"> <span class="text-info2">최대</span> </div>    
+								<div class="minglePersonNumberOptionText max"> <span class="text-info2">최대</span> </div>
 								<div class="minglePersonNumberOptionController">
 									<div class="minglePersonNumberOptionDec max">-</div>
-									<div class="minglePersonNumber max">10</div>
+									<div class="minglePersonNumber max" id="maxPerson">10</div>
 									<div class="minglePersonNumberOptionInc max inactiveBtn">+</div></div>
 							</div>
 						</div>
 					</div>
 					<div class="mingleContainer">
 						<textarea id="detail" class="placeholderCenter green" placeholder="진행할 밍글 이벤트에 대해 소개해주세요 &#13;&#10;부적절한 내용은 제한될 수 있어요" style="height:200px"></textarea>
-					</div>		
+					</div>
 				</div>
-        	</div>
-		</div>-->
+			</div>
+		</div>
     </div>
 </html>

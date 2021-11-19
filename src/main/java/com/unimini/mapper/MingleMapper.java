@@ -22,4 +22,9 @@ public interface MingleMapper {
 	void updateMingleLike(String isLikeForm_EventCode, String isLikeForm_UserId, String isLikeForm_Flag);
 	void updateMingleIn(String isInForm_EventCode, String isInForm_UserId, String isInForm_Flag);
 
+	List<Map<String, String>> getPlaceList(Map<String, Object> paramMap);
+
+	int setMingle(Map<String, Object> paramMap);
+	int setMingleHost(Map<String, Object> paramMap);
+
 }

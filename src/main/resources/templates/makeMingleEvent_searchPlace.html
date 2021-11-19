@@ -1,88 +1,122 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout_v1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- For use on this page only [CSS] -->
-    <th:block layout:fragment="css">
-		<link rel="stylesheet" th:href="@{/static/css/reset.css}">
-		<link rel="stylesheet" th:href="@{/static/css/default.css}">
-		<link rel="stylesheet" th:href="@{/static/css/styles.css}">
-		
-		<style>
-			header{
-				display: flex;
-				justify-content: space-around;
-				align-items: flex-end;
-				height:12%;
-			}
-		</style>
-		
-    </th:block>
-    
-    <!-- For use on this page only [JS] -->
-    <th:block layout:fragment="script">
-		<script th:src="@{/static/js/load_html.js}"></script>
-		
-		<script>
-		  const floatUpMenuElem = document.getElementById("floatUpMenu");
-		  const appElem = document.getElementById("app");
-		  const headerElem = document.getElementsByTagName("header")[0];
-		  function openMenu(){
-		    floatUpMenuElem.classList.replace("inactive","menuActive");
-		    floatUpMenuElem.classList.replace("menuInactive","menuActive");
-		    appElem.classList.add("menuActiveBackground");
-		    headerElem.classList.add("menuActiveBackground");
-		  }
-		  function closeMenu(){
-		    floatUpMenuElem.classList.replace("menuActive","menuInactive",);
-		    appElem.classList.remove("menuActiveBackground");
-		    headerElem.classList.remove("menuActiveBackground");
-		  }
-		  function applyOption(){
-		    closeMenu();
-		  }
-		</script>
-		
-    </th:block>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout_v1">
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+<!-- For use on this page only [CSS] -->
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{/static/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/static/css/default.css}">
+    <link rel="stylesheet" th:href="@{/static/css/styles.css}">
 
-    <!-- Content -->
-    <div layout:fragment="content">
-    
-		<div id="app"> 
-			<header>
-			  <div class="iconContainer" id="goBackIcon" style="width:10% " onclick="window.history.back();">
-				  <img th:src="@{/static/image/back.png}" style="width:20px; height:20px;">
-			  </div>
-			  <div id="searchInput" style="width:70%">
-				<input type="text" placeholder="장소를 검색해주세요" style="background-color: transparent !important;">
-			  </div>
-			  <div class="iconContainer" id="searchIcon" style="width:10%">
-				<img src="../static/image/search.png" alt="" style="width:30px; height:30px;">
-			  </div>
-			</header>
-			<div class="appContainer" style="height:88%">
-			  <div class="container responsiveApp padding" id="placeSearchResultContainer" style="margin-top:20px;height:90%">
-			  
-				<div class="placeSearchResult">
-				  <span class="size12 weight500 grey2">카테고리</span>
-				  <div id="placeList">
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-					<div class="place">
-					  <span class="size16 weight700">검색장소1</span>
-					  <span class="size12 grey weight400" style="float:right">검색장소특징</span>
-					</div>
-				  </div>
-				</div>
-				
-			  </div>
-			</div>
-		</div>
-	</div>
-	
+    <style>
+        header {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 12%;
+        }
+    </style>
+
+</th:block>
+
+<!-- For use on this page only [JS] -->
+<th:block layout:fragment="script">
+    <script th:src="@{/static/js/load_html.js}"></script>
+
+    <script>
+        function getPlaceValue(sectionCode, buildCode, placeCode, placeName) {
+            window.opener.document.getElementById("moveSearchPlaceForm_sectionCode").value = sectionCode;
+            window.opener.document.getElementById("moveSearchPlaceForm_buildingCode").value = buildCode;
+            window.opener.document.getElementById("moveSearchPlaceForm_placeCode").value = placeCode;
+            window.opener.document.getElementById("locationSelectedPlaceholder").innerText = placeName;
+            window.close();
+        }
+
+        function getPlaceList(e) {
+
+            var placeText = $(e).val();
+
+            $.ajax({
+                url: '/mingle/getPlaceList',
+                type: "POST",
+                data: JSON.stringify({"placeText" : placeText}),
+                dataType : 'json',
+                contentType: "application/json",
+                cache :  false,
+                beforeSend : function(xhr)
+                {
+                },
+                success: function(__data, __textStatus, __jqXHR){
+                    var placeHtml = "";
+                    $('#placeList').html("");
+
+                    for (var i = 0; i < __data.placeList.length; i++) {
+                        var place = __data.placeList[i];
+                        var placeCategoryName = place.placeCategoryName;
+                        if (placeCategoryName == undefined) {
+                            placeCategoryName = '교내';
+                        }
+                        placeHtml += '<div class="place" style="cursor: pointer;" onClick="javascript:getPlaceValue(\''+ place.sectionCode +'\', \''+ place.buildingCode +'\', \''+ place.placeCode +'\', \''+ place.placeName +'\')">\n' +
+                        '   <span class="size16 weight700">'+ place.placeName +'</span>\n' +
+                        '   <span class="size12 grey weight400" style="float:right">'+ placeCategoryName +'</span>\n' +
+                        '</div>'
+                    }
+                    $('#placeList').append(placeHtml);
+                },
+                fail: function(__data, __textStatus, __jqXHR){
+                    console.log("data", __data);
+                },
+                error: function(__data, __textStatus, __jqXHR){
+
+                },
+                complete: function(__data, __textStatus, __jqXHR) {
+                }
+            });
+        }
+    </script>
+
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+
+    <div id="app">
+        <header>
+            <div class="iconContainer" id="goBackIcon" style="width:10% " onclick="window.close();">
+                <img th:src="@{/static/image/back.png}" style="width:20px; height:20px;">
+            </div>
+            <div id="searchInput" style="width:70%">
+                <input type="text" placeholder="장소를 검색해주세요" style="background-color: transparent !important;" onkeyup="javascript:getPlaceList(this);">
+            </div>
+            <div class="iconContainer" id="searchIcon" style="width:10%">
+                <img th:src="@{/static/image/search.png}" alt="" style="width:30px; height:30px;">
+            </div>
+        </header>
+        <div class="appContainer" style="height:88%">
+            <div class="container responsiveApp padding" id="placeSearchResultContainer"
+                 style="margin-top:20px;height:90%">
+
+                <div class="placeSearchResult">
+                    <!--<span class="size12 weight500 grey2">카테고리</span>-->
+                    <div id="placeList">
+                        <!--<div class="place">
+                            <span class="size16 weight700">검색장소1</span>
+                            <span class="size12 grey weight400" style="float:right">검색장소특징</span>
+                        </div>
+                        <div class="place">
+                            <span class="size16 weight700">검색장소1</span>
+                            <span class="size12 grey weight400" style="float:right">검색장소특징</span>
+                        </div>
+                        <div class="place">
+                            <span class="size16 weight700">검색장소1</span>
+                            <span class="size12 grey weight400" style="float:right">검색장소특징</span>
+                        </div>-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 </html>

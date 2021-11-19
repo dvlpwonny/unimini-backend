@@ -4,12 +4,14 @@ import com.unimini.service.MingleService;
 import com.unimini.service.UnityService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -50,12 +52,53 @@ public class MingleController {
 
 	@RequestMapping(value = "/mingle/makeMingleEvent_searchPlace", method = {RequestMethod.GET, RequestMethod.POST})
     public String makeMingleEvent_searchPlace(Model model) {
-		List<Map<String, String>> placeList = mingleService.getAllMingleList();
-
-		model.addAttribute("placeList",placeList);
 		
         return "makeMingleEvent_searchPlace";
     }
+
+    @ResponseBody
+	@RequestMapping(value = "/mingle/getPlaceList", method = {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Object> getPlaceList(@RequestBody Map<String, Object> paramMap) {
+		Map<String, Object> resultMap = new HashMap<>();
+		List<Map<String, String>> placeList = mingleService.getPlaceList(paramMap);
+
+		resultMap.put("placeList", placeList);
+		return resultMap;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/mingle/setMingle", method = {RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> setMingle(@RequestBody Map<String, Object> paramMap, Principal principal) {
+		Map<String, Object> resultMap = new HashMap<>();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+		// 밍글 기초 데이터
+		paramMap.put("eventTypeCode", "EVT001"); // 밍글
+		paramMap.put("eventStatusCode", "EVTSTS001"); // 예정
+
+		// 밍글 시간 데이터
+		if (paramMap.get("eventDate").toString() != null) {
+			int addDay = Integer.parseInt(paramMap.get("eventDate").toString());
+			cal.add(Calendar.DATE, +addDay);
+
+			String eventStartTime = df.format(cal.getTime()) + " " + paramMap.get("eventStartDate");
+			String eventEndTime = df.format(cal.getTime()) + " " + paramMap.get("eventEndDate");
+
+			paramMap.put("eventStartTime", eventStartTime);
+			paramMap.put("eventEndTime", eventEndTime);
+		}
+
+		paramMap.put("createUser", principal.getName());
+		paramMap.put("userId", principal.getName());
+
+		mingleService.setMingle(paramMap);
+
+		resultMap.put("result", "success");
+
+		return resultMap;
+	}
 
 	@RequestMapping(value = "/mingle/mingleDetail", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView mingleDetail(@RequestParam String eventCode, Principal principal) {
