@@ -1,5 +1,6 @@
 package com.unimini.controller;
 
+import com.unimini.service.MingleService;
 import com.unimini.service.MyPageService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class MyPageController {
 
     @Autowired
     MyPageService myPageService;
+    @Autowired
+    MingleService mingleService;
 
     @RequestMapping(value = "/myPage/myPageForm", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView myPage(Principal principal) {
@@ -108,4 +111,54 @@ public class MyPageController {
         return mav;
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "/myPage/setCloseMingle", method = {RequestMethod.GET, RequestMethod.POST})
+    public Map<String, String> setCloseMingle(@RequestBody Map<String, String> paramMap, Principal principal) {
+        Map<String, String> resultMap = new HashMap<>();
+
+        paramMap.put("updateUser", principal.getName());
+        paramMap.put("eventStatusCode", "EVTSTS003");
+
+        int resultNum = myPageService.setMingleStatus(paramMap);
+
+        if (resultNum > 0) {
+            resultMap.put("result", "success");
+        }
+
+        return resultMap;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/myPage/setEventScore", method = {RequestMethod.GET, RequestMethod.POST})
+    public Map<String, String> setEventScore(@RequestBody Map<String, String> paramMap, Principal principal) {
+        Map<String, String> resultMap = new HashMap<>();
+
+        paramMap.put("updateUser", principal.getName());
+
+        int resultNum = myPageService.setRating(paramMap);
+
+        if (resultNum > 0) {
+            resultMap.put("result", "success");
+        }
+
+        return resultMap;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/myPage/setCancelMingle", method = {RequestMethod.GET, RequestMethod.POST})
+    public Map<String, String> setCancelMingle(@RequestBody Map<String, String> paramMap, Principal principal) {
+        Map<String, String> resultMap = new HashMap<>();
+        paramMap.put("userStatusCode", null);
+        paramMap.put("userId", principal.getName());
+        int resultNum = mingleService.setUserStatusCode(paramMap);
+        if (resultNum > 0) {
+            resultMap.put("result", "success");
+        } else {
+            resultMap.put("result", "fail");
+        }
+
+        return resultMap;
+    }
 }

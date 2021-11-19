@@ -41,4 +41,11 @@ public class MyPageService {
     public List<Map<String, String>> getFinishMingle(Map<String, String> paramMap) {
         return myPageMapper.getFinishMingle(paramMap);
     }
+
+    public int setMingleStatus(Map<String, String> paramMap) {
+        return myPageMapper.setMingleStatus(paramMap);
+    }
+    public int setRating(Map<String, String> paramMap) {
+        return myPageMapper.setRating(paramMap);
+    }
 }

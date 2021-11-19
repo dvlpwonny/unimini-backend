@@ -90,6 +90,7 @@
                     COUNT(USER_ID) AS TOT_USER_CNT
                 FROM TB_EVENT_USER_MAPP_GROUP G
                 WHERE A.EVENT_CODE = G.EVENT_CODE
+                 AND (G.USER_STATUS_CODE = 'EVTUSRST003' OR G.USER_STATUS_CODE = 'EVTUSRST002')
                 GROUP BY G.EVENT_CODE
             ),0) AS TOT_PRSNNL
             , IFNULL((
@@ -149,6 +150,7 @@
                 FROM TB_EVENT_USER_MAPP_GROUP B
                 WHERE A.EVENT_CODE = B.EVENT_CODE
                  AND (B.USER_STATUS_CODE = 'EVTUSRST003' OR B.USER_STATUS_CODE = 'EVTUSRST002')
+                GROUP BY G.EVENT_CODE
             ) AS TOT_PRSNNL -- 실참가자
             , IFNULL((
                 SELECT
@@ -233,7 +235,8 @@
                     COUNT(USER_ID) AS TOT_USER_CNT
                 FROM TB_EVENT_USER_MAPP_GROUP G
                 WHERE A.EVENT_CODE = G.EVENT_CODE
-                GROUP BY A.EVENT_CODE
+                 AND (G.USER_STATUS_CODE = 'EVTUSRST003' OR G.USER_STATUS_CODE = 'EVTUSRST002')
+                GROUP BY G.EVENT_CODE
             ) AS TOT_PRSNNL
             , IFNULL((
                 SELECT

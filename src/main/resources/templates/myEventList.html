@@ -7,16 +7,236 @@
     <link rel="stylesheet" th:href="@{/static/css/reset.css}">
     <link rel="stylesheet" th:href="@{/static/css/default.css}">
     <link rel="stylesheet" th:href="@{/static/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/static/css/popup.css}">
+    <link rel="stylesheet" th:href="@{/static/css/jquery-ui-1.13.0/jquery-ui.min.css}">
+    <style type="text/css">
+        .icon{
+            margin-right:10px;
+            width:33px;
+            height:33px;
+        }
+        .rating {
+            display: inline-block;
+            position: relative;
+            height: 50px;
+            line-height: 50px;
+            font-size: 50px;
+            margin:5px 0 0 0;
+        }
+        .rating label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .rating label:last-child {
+            position: static;
+        }
+
+        .rating label:nth-child(1) {
+            z-index: 5;
+        }
+
+        .rating label:nth-child(2) {
+            z-index: 4;
+        }
+
+        .rating label:nth-child(3) {
+            z-index: 3;
+        }
+
+        .rating label:nth-child(4) {
+            z-index: 2;
+        }
+
+        .rating label:nth-child(5) {
+            z-index: 1;
+        }
+
+        .rating label input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .rating label .icon {
+            float: left;
+            color: transparent;
+        }
+
+        .rating label:last-child .icon {
+            color: #ffffff;
+        }
+
+        .rating:not(:hover) label input:checked ~ .icon,
+        .rating:hover label:hover input ~ .icon {
+            color: #ff3a5b;
+        }
+
+        .rating label input:focus:not(:checked) ~ .icon:last-child {
+            color: #000;
+            text-shadow: 0 0 5px #09f;
+        }
+    </style>
 </th:block>
 
 <!-- For use on this page only [JS] -->
 <th:block layout:fragment="script">
     <script th:src="@{/static/js/load_html.js}"></script>
     <script th:src="@{/static/js/default.js}"></script>
+    <script>
+
+        function eventCloseNotice(e) {
+            $('#mingleMessage').text('밍글을 종료하시겠습니까?');
+            $('#closePopup').addClass('show');
+            $('#closePopup').removeClass('inactive');
+            $('#btnText').text('종료하기');
+
+            $('#closeBtn').attr('data', $(e).attr('data'));
+            $('#closeBtn').attr('onclick', 'eventClose(this);');
+        }
+
+        function setRatingNotice(e) {
+            $('#ratingPopup').addClass('show');
+            $('#ratingPopup').removeClass('inactive');
+
+            $('#ratingBtn').attr('data', $(e).attr('data'));
+        }
+
+        function eventCancelNotice(e) {
+            $('#mingleMessage').html('밍글 함께하기를 </br> 취소하시겠습니까?');
+            $('#closePopup').addClass('show');
+            $('#closePopup').removeClass('inactive');
+            $('#btnText').html('함께하기 </br>취소');
+
+            $('#closeBtn').attr('data', $(e).attr('data'));
+            $('#closeBtn').attr('onclick', 'eventCancel(this);');
+        }
+
+        function closeCancelBtnCleck() {
+            $('#closePopup').removeClass('show');
+            $('#closePopup').addClass('inactive');
+        }
+
+        function ratingCancelBtnClick() {
+            $('#ratingPopup').removeClass('show');
+            $('#ratingPopup').addClass('inactive');
+        }
+
+        function eventCancel(e) {
+            var data = {
+                "eventCode" : $(e).attr("data")
+            };
+            $.ajax({
+                url: '/myPage/setCancelMingle',
+                type: "POST",
+                data: JSON.stringify(data),
+                dataType : 'json',
+                contentType: "application/json",
+                cache :  false,
+                beforeSend : function(xhr)
+                {
+                },
+                success: function(__data, __textStatus, __jqXHR){
+                    if (__data.result == "success") {
+                        alert("해당 밍글 함께하기를 취소하였습니다.");
+                        window.location.reload();
+                    } else {
+                        alert("해당 밍글 함께하기 취소에 실패했습니다.");
+                    }
+                },
+                fail: function(__data, __textStatus, __jqXHR){
+                    console.log("data", __data);
+                },
+                error: function(__data, __textStatus, __jqXHR){
+
+                },
+                complete: function(__data, __textStatus, __jqXHR) {
+                }
+            });
+        }
+
+        function eventClose(e) {
+            var data = {
+                "eventCode" : $(e).attr("data")
+            };
+            $.ajax({
+                url: '/myPage/setCloseMingle',
+                type: "POST",
+                data: JSON.stringify(data),
+                dataType : 'json',
+                contentType: "application/json",
+                cache :  false,
+                beforeSend : function(xhr)
+                {
+                },
+                success: function(__data, __textStatus, __jqXHR){
+                    if (__data.result == "success") {
+                        alert("해당 밍글이 종료되었습니다.");
+                        window.location.reload();
+                    } else {
+                        alert("해당 밍글 종료에 실패했습니다.");
+                    }
+                },
+                fail: function(__data, __textStatus, __jqXHR){
+                    console.log("data", __data);
+                },
+                error: function(__data, __textStatus, __jqXHR){
+
+                },
+                complete: function(__data, __textStatus, __jqXHR) {
+                }
+            });
+        }
+
+        function eventRating(e) {
+            var data = {
+                "eventCode" : $(e).attr("data")
+                , "eventScore" : $(e).attr("datarating")
+            };
+            $.ajax({
+                url: '/myPage/setEventScore',
+                type: "POST",
+                data: JSON.stringify(data),
+                dataType : 'json',
+                contentType: "application/json",
+                cache :  false,
+                beforeSend : function(xhr)
+                {
+                },
+                success: function(__data, __textStatus, __jqXHR){
+                    if (__data.result == "success") {
+                        alert("별점을 남겨주셔서 감사합니다.");
+                        window.location.reload();
+                    } else {
+                        alert("별점 저장에 실패했습니다.");
+                    }
+                },
+                fail: function(__data, __textStatus, __jqXHR){
+                    console.log("data", __data);
+                },
+                error: function(__data, __textStatus, __jqXHR){
+
+                },
+                complete: function(__data, __textStatus, __jqXHR) {
+                }
+            });
+        }
+
+        $(function () {
+            $(':radio').change(function() {
+                console.log('New star rating: ' + this.value);
+                $('#ratingBtn').attr('dataRating', this.value);
+            });
+        })
+    </script>
 </th:block>
 
 <!-- Content -->
-<div layout:fragment="content">
+<th:block layout:fragment="content">
 
     <div id="app">
         <header>
@@ -58,11 +278,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="myEventController" th:if="${expectMingle.hostFlag eq 'Y'}">
+                            <div class="myEventController" th:if="${expectMingle.hostFlag eq 'Y'}" onclick="eventCloseNotice(this)" th:data="${expectMingle.eventCode}">
                                 <span class="size14">종료하기</span>
                             </div>
-                            <div class="myEventController" th:if="${expectMingle.hostFlag ne 'Y'}">
-                                <span class="size14">참여하기 취소</span>
+                            <div class="myEventController" th:if="${expectMingle.hostFlag ne 'Y'}" onclick="eventCancelNotice(this)" th:data="${expectMingle.eventCode}">
+                                <span class="size14" style="text-align: center;">참여하기 취소</span>
                             </div>
                         </div>
                     </div>
@@ -107,10 +327,10 @@
                                     <span class="size14" th:text="${finishMingle.eventScore}">5.0</span>
                                 </div>
                             </div>
-                            <div class="myEventController" th:if="${finishMingle.hostFlag ne 'Y' and  finishMingle.eventScore eq '0'}">
+                            <div class="myEventController" onclick="setRatingNotice(this)" th:data="${finishMingle.eventCode}" th:if="${finishMingle.hostFlag ne 'Y' and  finishMingle.eventScore eq 0}">
                                 <span class="size14 center lineheight">별점을<br>남겨주세요</span>
                             </div>
-                            <div class="myEventController" th:if="${finishMingle.hostFlag ne 'Y' and  finishMingle.eventScore ne '0'}">
+                            <div class="myEventController" th:if="${finishMingle.hostFlag ne 'Y' and  finishMingle.eventScore ne 0}">
                                 <span class="size14 center lineheight">별점<br>완료</span>
                             </div>
                         </div>
@@ -118,7 +338,85 @@
                 </div>
             </div>
         </div>
+
+        <div class="flex_container inactive" id="closePopup">
+            <div class="message">
+                <button type="button" class="btn_exit">
+                    <span class="material-icons" onclick="closeCancelBtnCleck();">
+                        <img th:src="@{/static/image/close2.png}" alt="">
+                    </span>
+                </button>
+                <div class="flex_container message_info" id="mingleMessage">밍글을 종료하시겠습니까?</div>
+                <hr>
+                <div class="flex_container">
+                    <button class="message_button left" id="closeCancelBtn" onclick="closeCancelBtnCleck();">
+                        <div>취소</div>
+                    </button>
+                    <hr class="vertical">
+                    <button class="message_button right" id="closeBtn" onclick="eventClose(this);">
+                        <div id="btnText">종료하기</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex_container inactive" id="ratingPopup">
+            <div class="message">
+                <button type="button" class="btn_exit">
+                    <span class="material-icons" onclick="ratingCancelBtnClick();">
+                        <img th:src="@{/static/image/close2.png}" alt="">
+                    </span>
+                </button>
+                <div class="flex_container message_info">밍글에 대한 만족도를<br>별점으로 남겨주세요!
+                    <div>
+                        <form class="rating">
+                            <label>
+                                <input type="radio" name="stars" value="1" />
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="2" />
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="3" />
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="4" />
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="stars" value="5" />
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                                <span class="icon">★</span>
+                            </label>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                <div class="flex_container">
+                    <button class="message_button left" onclick="ratingCancelBtnClick();">
+                        <div>취소</div>
+                    </button>
+                    <hr class="vertical">
+                    <button class="message_button right" id="ratingBtn" onclick="eventRating(this)">
+                        <div>별점 저장</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-</div>
+</th:block>
 </html>

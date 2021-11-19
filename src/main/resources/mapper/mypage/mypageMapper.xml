@@ -128,6 +128,7 @@
         WHERE B.USER_ID = #{userId}
         AND A.EVENT_TYPE_CODE = 'EVT001'
         AND ((A.EVENT_STATUS_CODE = 'EVTSTS001' OR A.EVENT_STATUS_CODE = 'EVTSTS002')
+        AND (B.USER_STATUS_CODE = 'EVTUSRST001' OR B.USER_STATUS_CODE = 'EVTUSRST002' OR B.USER_STATUS_CODE = 'EVTUSRST003')
         AND A.EVENT_END_TIME <![CDATA[>]]> NOW());
     </select>
 
@@ -178,4 +179,21 @@
         OR A.EVENT_END_TIME <![CDATA[<]]> NOW())
     </select>
 
+    <!-- 밍글 종료하기 -->
+    <update id="setMingleStatus" parameterType="map">
+        UPDATE TB_EVENT
+        SET EVENT_STATUS_CODE = #{eventStatusCode}
+        , UPDATE_DATE = NOW()
+        , UPDATE_USER = #{updateUser}
+        WHERE EVENT_CODE = #{eventCode}
+    </update>
+
+    <!-- 별점 주기 -->
+    <update id="setRating" parameterType="map">
+        UPDATE TB_EVENT_USER_MAPP_GROUP
+        SET EVENT_SCORE = #{eventScore}
+        , UPDATE_DATE = NOW()
+        WHERE EVENT_CODE = #{eventCode}
+          AND USER_ID = #{updateUser}
+    </update>
 </mapper>

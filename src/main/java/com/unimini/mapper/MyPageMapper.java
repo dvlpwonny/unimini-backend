@@ -27,4 +27,8 @@ public interface MyPageMapper {
 
     List<Map<String, String>> getFinishMingle(Map<String, String> paramMap);
 
+    int setMingleStatus(Map<String, String> paramMap);
+
+    int setRating(Map<String, String> paramMap);
+
 }
