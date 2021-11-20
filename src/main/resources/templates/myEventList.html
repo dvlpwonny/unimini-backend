@@ -360,62 +360,59 @@
             </div>
         </div>
 
-        <div class="d-flex inactive" id="ratingPopup">
-            <div class="message">
-                <button type="button" class="btn_exit">
-                    <span class="material-icons" onclick="ratingCancelBtnClick();">
-                        <img th:src="@{/static/image/close2.png}" alt="">
-                    </span>
-                </button>
-                <div class="flex_container message_info">밍글에 대한 만족도를<br>별점으로 남겨주세요!
-                    <div>
-                        <form class="rating">
-                            <label>
-                                <input type="radio" name="stars" value="1" />
-                                <span class="icon">★</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="stars" value="2" />
-                                <span class="icon">★</span>
-                                <span class="icon">★</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="stars" value="3" />
-                                <span class="icon">★</span>
-                                <span class="icon">★</span>
-                                <span class="icon">★</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="stars" value="4" />
-                                <span class="icon">★</span>
-                                <span class="icon">★</span>
-                                <span class="icon">★</span>
-                                <span class="icon">★</span>
-                            </label>
-                            <label>
-                                <input type="radio" name="stars" value="5" />
-                                <span class="icon">★</span>
-                                <span class="icon">★</span>
-                                <span class="icon">★</span>
-                                <span class="icon">★</span>
-                                <span class="icon">★</span>
-                            </label>
-                        </form>
+        <div id="popup">
+            <div class="d-flex " id="ratingPopup">
+                <div class="message">
+                    <button type="button" class="btn_exit">
+                        <span class="material-icons" onclick="ratingCancelBtnClick();">
+                            <img th:src="@{/static/image/close2.png}" alt="">
+                        </span>
+                    </button>
+                    <div class="d-flex message_info justify-content-center align-items-center">
+                      <span class="size14 ">밍글에 대한 만족도를<br>별점으로 남겨주세요!</span>
+                        <div>
+                            <form class="rating">
+                                <label>
+                                    <input type="radio" name="stars" value="1" />
+                                    <span class="icon">★</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="stars" value="2" />
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="stars" value="3" />
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="stars" value="4" />
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="stars" value="5" />
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                    <span class="icon">★</span>
+                                </label>
+                            </form>
+                        </div>
                     </div>
+                    <hr>
+                    <div class="boxBtn d-flex">
+                      <button class="transparent"><span class="size14 grey2">취소</span></button>
+                      <button class="transparent"><span class="highlighted size14">확인</span></button>
+                  </div>
                 </div>
-                <hr>
-                <div class="d-flex">
-                    <button class="message_button left" onclick="ratingCancelBtnClick();">
-                        <div>취소</div>
-                    </button>
-                    <hr class="vertical">
-                    <button class="message_button right" id="ratingBtn" onclick="eventRating(this)">
-                        <div>별점 저장</div>
-                    </button>
-                </div>
-            </div>
+              </div>
         </div>
-
     </div>
 
 </th:block>
