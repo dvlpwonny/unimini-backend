@@ -134,6 +134,194 @@
 		            }
 		        });
 			}
+
+			/* ------------------------------------------------------------------------------------------------------------- */
+			
+			var pubWebSocket;
+			var priWebSocket;
+			
+			/*<![CDATA[*/
+			var wsHost = "[[${wsHost}]]";
+	    	var userId = "[[${myInfo.USER_ID}]]";
+	    	var pubRoomId = "[[${chatInfo.PUB_ROOM_ID}]]";
+	    	var priRoomId = "[[${chatInfo.PRI_ROOM_ID}]]";
+	    	var ppath = "[[${myInfo.PROFILE_IMAGE_PATH}]]";
+	    	
+		    /*]]>*/
+			
+		    /* ------------------------------------------------------------------------------------------------------------- */
+		    
+		    pubConnect(wsHost, pubRoomId);
+		    
+		    function pubConnect(wsHost, roomId){
+		        pubWebSocket = new WebSocket(wsHost);
+		        pubWebSocket.onopen = pubOnOpen;
+		        pubWebSocket.onclose = pubOnClose;
+		        pubWebSocket.onmessage = pubOnMessage;
+		    }
+		    
+		    function pubOnOpen(){
+		    	pubWebSocket.send(JSON.stringify({chatRoomId : pubRoomId, type:'ENTER', writer:userId}));
+		    }
+		    
+		    function pubOnClose(){
+		    	pubDisconnect();
+		    }		    
+		    
+		    function pubDisconnect(){
+		    	pubWebSocket.send(JSON.stringify({chatRoomId : pubRoomId, type:'LEAVE', writer:userId}));
+		    	pubWebSocket.close();
+		    }		    
+		    
+		    function pubOnMessage(e){
+		        data = e.data;
+		        
+		        var sObj = JSON.parse(data);
+		        var jObj = JSON.parse(sObj);
+		        
+		        var jObj_msg = jObj.msg;
+		        var jObj_name = jObj.name;
+		        var jObj_time = jObj.time;
+		        var jObj_ppath = jObj.ppath;
+		        
+		        var pubChatRoom = document.getElementById("pubChatLoc");
+		        var innerHtml = "";
+		        
+		        if(jObj_name == userId){
+		        	innerHtml = " \
+		        		<div> \
+						<div class='myChatting d-flex justify-content-end'> \
+							<div class='d-flex flex-column'> \
+								<div class='d-flex align-items-end'> \
+									<div class='chattingMyTime'><span class='size10 weight400' style='margin-right:6px'>" + jObj.time + " </span></div> \
+									<div class='chattingMyContent'><span class='size13 weight500'> " + jObj_msg + " </span> \
+									</div> \
+								</div> \
+							</div> \
+						</div> \
+						</div> \
+	        	";
+		        } else {
+		        	innerHtml = " \
+						<div> \
+		        		<div class='otherChatting d-flex' style='width:fit-content' > \
+							<div class='chattingUserProfile' style='margin:0px 10px;'> \
+								<img src=\"'/static' +"+ jObj_ppath +"\" alt='' width='100%' height='100%'> \
+							</div> \
+							<div class='d-flex flex-column'> \
+								<div class='chattingUserName'><span class='size12 weight500'> "+ jObj_name +" </span></div> \
+								<div class='d-flex align-items-end'> \
+									<div class='chattingUserContent'> \
+										<span class='size13 weight500'> "+ jObj_msg +" </span> \
+										</div> \
+									<div class='chattingUserTime'><span class='size10 weight400' style='margin-left:6px'> "+ jObj_time +" </span></div> \
+								</div> \
+							</div> \
+						</div> \
+						</div> \
+		        	";
+		        }
+		        
+		        pubChatRoom.innerHTML = pubChatRoom.innerHTML + innerHtml;
+		    }
+		    
+		    function pubSend(){
+		        msg = document.getElementById("pubSendChattingInput").value;
+		        pubWebSocket.send(JSON.stringify({chatRoomId : pubRoomId, type:'CHAT', writer:userId, message : msg, ppath : ppath}));
+		        document.getElementById("pubSendChattingInput").value = "";
+		    }
+		    
+			function pubChatSend(){
+				pubSend(pubRoomId);
+			}
+			
+		    /* ------------------------------------------------------------------------------------------------------------- */
+		    
+		    priConnect(wsHost, priRoomId);
+		    
+		    function priConnect(wsHost, roomId){
+		        priWebSocket = new WebSocket(wsHost);
+		        priWebSocket.onopen = priOnOpen;
+		        priWebSocket.onclose = priOnClose;
+		        priWebSocket.onmessage = priOnMessage;
+		    }
+		    
+		    function priOnOpen(){
+		    	priWebSocket.send(JSON.stringify({chatRoomId : priRoomId, type:'ENTER', writer:userId}));
+		    }
+		    
+		    function priOnClose(){
+		    	priDisconnect();
+		    }		    
+		    
+		    function priDisconnect(){
+		    	priWebSocket.send(JSON.stringify({chatRoomId : priRoomId, type:'LEAVE', writer:userId}));
+		    	priWebSocket.close();
+		    }		    
+		    
+		    function priOnMessage(e){
+		        data = e.data;
+		        
+		        var sObj = JSON.parse(data);
+		        var jObj = JSON.parse(sObj);
+		        
+		        var jObj_msg = jObj.msg;
+		        var jObj_name = jObj.name;
+		        var jObj_time = jObj.time;
+		        var jObj_ppath = jObj.ppath;
+		        
+		        var priChatRoom = document.getElementById("priChatLoc");
+		        var innerHtml = "";
+		        
+		        if(jObj_name == userId){
+		        	innerHtml = " \
+		        		<div> \
+						<div class='myChatting d-flex justify-content-end'> \
+							<div class='d-flex flex-column'> \
+								<div class='d-flex align-items-end'> \
+									<div class='chattingMyTime'><span class='size10 weight400' style='margin-right:6px'>" + jObj.time + " </span></div> \
+									<div class='chattingMyContent'><span class='size13 weight500'> " + jObj_msg + " </span> \
+									</div> \
+								</div> \
+							</div> \
+						</div> \
+						</div> \
+	        	";
+		        } else {
+		        	innerHtml = " \
+						<div> \
+		        		<div class='otherChatting d-flex' style='width:fit-content' > \
+							<div class='chattingUserProfile' style='margin:0px 10px;'> \
+								<img src=\"'/static' +"+ jObj_ppath +"\" alt='' width='100%' height='100%'> \
+							</div> \
+							<div class='d-flex flex-column'> \
+								<div class='chattingUserName'><span class='size12 weight500'> "+ jObj_name +" </span></div> \
+								<div class='d-flex align-items-end'> \
+									<div class='chattingUserContent'> \
+										<span class='size13 weight500'> "+ jObj_msg +" </span> \
+										</div> \
+									<div class='chattingUserTime'><span class='size10 weight400' style='margin-left:6px'> "+ jObj_time +" </span></div> \
+								</div> \
+							</div> \
+						</div> \
+						</div> \
+		        	";
+		        }
+		        
+		        priChatRoom.innerHTML = priChatRoom.innerHTML + innerHtml;
+		    }
+		    
+		    function priSend(){
+		        msg = document.getElementById("priSendChattingInput").value;
+		        priWebSocket.send(JSON.stringify({chatRoomId : priRoomId, type:'CHAT', writer:userId, message : msg, ppath : ppath}));
+		        document.getElementById("priSendChattingInput").value = "";
+		    }
+		    
+			function priChatSend(){
+				priSend(priRoomId);
+			}
+		    
+   		    /* ------------------------------------------------------------------------------------------------------------- */
 		
 		</script>
 		
@@ -159,12 +347,12 @@
 								</span>
 							</div>
 						</div>
-						<div id="dropdown" style="margin-right: 10px;">
+						<div id="dropdown" style="margin-right: 10px;" th:if="${myInfo.IS_HOST eq 'Y'}">
 							<img th:src="@{/static/image/moreVert_white.png}" alt="" width="26px" height="26px">
 						</div>
 					</div>
 				</nav>
-				<div class="inactive d-flex flex-column align-items-center justify-content-around" id="dropdown-menu">
+				<div class="inactive d-flex flex-column align-items-center justify-content-around" id="dropdown-menu" th:if="${myInfo.IS_HOST eq 'Y'}" >
 					<div id="editEventBtn" onclick="javascript:editEvent()">
 						<span class="size14 weight500">수정하기</span>
 					</div>
@@ -198,8 +386,8 @@
 				<div class="eventMenuBar d-flex justify-content-start align-items-center" style="height:50px">
 					<div class="eventMenu"><span class="size15 weight700 grey2">정보</span></div>
 					<div class="eventMenu"><span class="size15 weight700 grey2" id="this">공개 채팅</span></div>
-					<div class="eventMenu"><span class="size15 weight700 grey2">참여자 채팅</span></div>
-					<div class="eventMenu"><span class="size15 weight700 grey2">수락 대기</span></div>
+					<div class="eventMenu" th:if="${eventInfo.PRI_CHAT_OPEN_FLAG eq 'Y'}"><span class="size15 weight700 grey2">참여자 채팅</span></div>
+					<div class="eventMenu" th:if="${myInfo.IS_HOST eq 'Y'}"><span class="size15 weight700 grey2">수락 대기</span></div>
 				</div>
 				
 				<div class="container eventMenuContent inactive" id="eventInfo" style="height:80%">
@@ -249,7 +437,7 @@
 							<button id="isLikeY" class="d-flex justify-content-center align-items-center likeBtn" th:classappend="${myInfo.IS_LIKE} == 'Y' ? 'inactive' "><img th:src="@{/static/image/heart_unfilled.png}" width="60%" OnClick="javascript:isLike('Y')"></button>
 							<button id="isLikeN" class="d-flex justify-content-center align-items-center likeBtn" th:classappend="${myInfo.IS_LIKE} == 'N' ? 'inactive' "><img th:src="@{/static/image/heart_filled.png}" width="60%" OnClick="javascript:isLike('N')"></button>
 						</div>
-						<div style="width:75%;">
+						<div style="width:75%;" th:if="${eventInfo.CAN_IN eq 'Y'}">
 							<button id="isInY" class="eventJoinBtn" th:classappend="${myInfo.IS_IN} == 'Y' ? 'inactive' " OnClick="javascript:isIn('Y')">함께하기</button>
 							<button id="isInN" class="eventJoinBtn" th:classappend="${myInfo.IS_IN} == 'N' ? 'inactive' " OnClick="javascript:isIn('N')">함께하기 취소</button>
 						</div>
@@ -271,76 +459,80 @@
 				</div>
 				
 				<div class="container eventMenuContent" id="eventInfo" style="height:80%">
-						
-					<div th:each="pubChat, stat : ${pubChatHist}" th:object="${pubChat}">
 
-						<div class="otherChatting d-flex" style="width:fit-content"  th:if="*{USER_ID} != ${myInfo.USER_ID}">
-							<div class="chattingUserProfile" style="margin:0px 10px;">
-								<img th:src="'/static' +*{PROFILE_IMAGE_PATH}" alt="" width="100%" height="100%">
-							</div>
-							<div class="d-flex flex-column">
-								<div class="chattingUserName"><span class="size12 weight500"><span th:text="*{USER_NAME}"></span></span></div>
-								<div class="d-flex align-items-end">
-									<div class="chattingUserContent">
-										<span class="size13 weight500" th:text="*{MESSAGE}"></span>
-										</div>
-									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px" th:text="*{TIME}"></span></div>
+					<div id="pubChatLoc">
+						<div th:each="pubChat, stat : ${pubChatHist}" th:object="${pubChat}">
+	
+							<div class="otherChatting d-flex" style="width:fit-content"  th:if="*{USER_ID} != ${myInfo.USER_ID}">
+								<div class="chattingUserProfile" style="margin:0px 10px;">
+									<img th:src="'/static' +*{PROFILE_IMAGE_PATH}" alt="" width="100%" height="100%">
 								</div>
-							</div>
-						</div>
-
-						<div class="myChatting d-flex justify-content-end" th:if="*{USER_ID} == ${myInfo.USER_ID}">
-							<div class="d-flex flex-column">
-								<div class="d-flex align-items-end">
-									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px" th:text="*{TIME}"></span></div>
-									<div class="chattingMyContent"><span class="size13 weight500" th:text="*{MESSAGE}"></span>
+								<div class="d-flex flex-column">
+									<div class="chattingUserName"><span class="size12 weight500"><span th:text="*{MESSAGE_JSON_NAM}"></span></span></div>
+									<div class="d-flex align-items-end">
+										<div class="chattingUserContent">
+											<span class="size13 weight500" th:text="*{MESSAGE_JSON_MSG}"></span>
+											</div>
+										<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px" th:text="*{MESSAGE_JSON_TIM}"></span></div>
 									</div>
 								</div>
 							</div>
+	
+							<div class="myChatting d-flex justify-content-end" th:if="*{USER_ID} == ${myInfo.USER_ID}">
+								<div class="d-flex flex-column">
+									<div class="d-flex align-items-end">
+										<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px" th:text="*{MESSAGE_JSON_TIM}"></span></div>
+										<div class="chattingMyContent"><span class="size13 weight500" th:text="*{MESSAGE_JSON_MSG}"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							
 						</div>
-						
 					</div>
-						
+											
 					<div class="eventMenuContentBtn d-flex justify-content-center align-items-center" id="eventChatting" >
-						<input id="sendChattingInput" type="text" style="width:85%" placeholder="채팅해보세요!">
-						<button id="sendChattingBtn"></button>
+						<input id="pubSendChattingInput" type="text" style="width:85%" placeholder="채팅해보세요!">
+						<button id="pubSendChattingBtn" OnClick='pubChatSend()' style=" position: absolute; right: 10%; width: 32px !important; height: 32px !important; background-color: #07c083 !important;"></button>
 					</div>
 				</div>
 				
 				<div class="container eventMenuContent" id="eventInfo" style="height:80%">
 
-					<div th:each="priChat, stat : ${priChatHist}" th:object="${priChat}">
-
-						<div class="otherChatting d-flex" style="width:fit-content"  th:if="*{USER_ID} != ${myInfo.USER_ID}">
-							<div class="chattingUserProfile" style="margin:0px 10px;">
-								<img th:src="'/static' +*{PROFILE_IMAGE_PATH}" alt="" width="100%" height="100%">
-							</div>
-							<div class="d-flex flex-column">
-								<div class="chattingUserName"><span class="size12 weight500"><span th:text="*{USER_NAME}"></span></span></div>
-								<div class="d-flex align-items-end">
-									<div class="chattingUserContent">
-										<span class="size13 weight500" th:text="*{MESSAGE}"></span>
-										</div>
-									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px" th:text="*{TIME}"></span></div>
+					<div id="priChatLoc">
+						<div th:each="priChat, stat : ${priChatHist}" th:object="${priChat}">
+	
+							<div class="otherChatting d-flex" style="width:fit-content"  th:if="*{USER_ID} != ${myInfo.USER_ID}">
+								<div class="chattingUserProfile" style="margin:0px 10px;">
+									<img th:src="'/static' +*{PROFILE_IMAGE_PATH}" alt="" width="100%" height="100%">
 								</div>
-							</div>
-						</div>
-
-						<div class="myChatting d-flex justify-content-end" th:if="*{USER_ID} == ${myInfo.USER_ID}">
-							<div class="d-flex flex-column">
-								<div class="d-flex align-items-end">
-									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px" th:text="*{TIME}"></span></div>
-									<div class="chattingMyContent"><span class="size13 weight500" th:text="*{MESSAGE}"></span>
+								<div class="d-flex flex-column">
+									<div class="chattingUserName"><span class="size12 weight500"><span th:text="*{MESSAGE_JSON_NAM}"></span></span></div>
+									<div class="d-flex align-items-end">
+										<div class="chattingUserContent">
+											<span class="size13 weight500" th:text="*{MESSAGE_JSON_MSG}"></span>
+											</div>
+										<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px" th:text="*{MESSAGE_JSON_TIM}"></span></div>
 									</div>
 								</div>
 							</div>
+	
+							<div class="myChatting d-flex justify-content-end" th:if="*{USER_ID} == ${myInfo.USER_ID}">
+								<div class="d-flex flex-column">
+									<div class="d-flex align-items-end">
+										<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px" th:text="*{MESSAGE_JSON_TIM}"></span></div>
+										<div class="chattingMyContent"><span class="size13 weight500" th:text="*{MESSAGE_JSON_MSG}"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							
 						</div>
-						
 					</div>
 					
 					<div class="eventMenuContentBtn d-flex justify-content-center align-items-center" id="eventChatting" >
-						<input id="sendChattingInput" type="text" style="width:85%" placeholder="채팅해보세요!">
-						<button id="sendChattingBtn"></button>
+						<input id="priSendChattingInput" type="text" style="width:85%" placeholder="채팅해보세요!">
+						<button id="priSendChattingBtn" OnClick='priChatSend()' style=" position: absolute; right: 10%; width: 32px !important; height: 32px !important; background-color: #07c083 !important;"></button>
 					</div>
 				</div>				
 				

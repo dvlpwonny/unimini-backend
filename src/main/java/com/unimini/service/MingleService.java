@@ -1,13 +1,18 @@
 package com.unimini.service;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.unimini.mapper.MingleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -99,11 +104,44 @@ public class MingleService {
 	}
 
 	public List<Map<String, String>> getPubChatHist(String eventCode) {
-		return mingleMapper.getPubChatHist(eventCode);
+		List<Map<String, String>> jsonlist = mingleMapper.getPubChatHist(eventCode);
+		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+		
+		for(int i=0; i<jsonlist.size(); i++) {
+			Map<String, String> map = jsonlist.get(i);
+			String jsonString = map.get("MESSAGE");
+			
+			Type type = new TypeToken<Map<String, String>>(){}.getType();
+			Map<String, String> json = new Gson().fromJson(jsonString, type);
+			
+			map.put("MESSAGE_JSON_MSG", json.get("msg"));
+			map.put("MESSAGE_JSON_NAM", json.get("name"));
+			map.put("MESSAGE_JSON_TIM", json.get("time"));
+			list.add(map);
+		}
+		
+		return list;
 	}
 
 	public List<Map<String, String>> getPriChatHist(String eventCode) {
-		return mingleMapper.getPriChatHist(eventCode);
+		List<Map<String, String>> jsonlist = mingleMapper.getPriChatHist(eventCode);
+		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+		
+		for(int i=0; i<jsonlist.size(); i++) {
+			Map<String, String> map = jsonlist.get(i);
+			String jsonString = map.get("MESSAGE");
+			
+			Type type = new TypeToken<Map<String, String>>(){}.getType();
+			Map<String, String> json = new Gson().fromJson(jsonString, type);
+			
+			map.put("MESSAGE_JSON_MSG", json.get("msg"));
+			map.put("MESSAGE_JSON_NAM", json.get("name"));
+			map.put("MESSAGE_JSON_TIM", json.get("time"));
+			list.add(map);
+		}
+		
+		return list;
+		
 	}
 
 	public Map<String, String> getChatInfo(String eventCode) {

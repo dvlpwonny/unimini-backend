@@ -3,7 +3,9 @@ package com.unimini.vo;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -11,6 +13,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.unimini.enums.MessageType;
 
 import lombok.Getter;
@@ -38,6 +42,8 @@ public class ChatRoom {
 	}
 
 	public void handleMessage(WebSocketSession session, ChatMessage chatMessage, ObjectMapper objectMapper) throws IOException {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		
 		if (chatMessage.getType() == MessageType.ENTER) {
 			sessions.add(session);
 			chatMessage.setMessage(chatMessage.getWriter() + "님이 입장하셨습니다.");
@@ -45,7 +51,16 @@ public class ChatRoom {
 			sessions.remove(session);
 			chatMessage.setMessage(chatMessage.getWriter() + "님이 퇴장하셨습니다.");
 		} else {
-			chatMessage.setMessage(chatMessage.getWriter() + " : " + chatMessage.getMessage());
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("name", chatMessage.getWriter());
+	        map.put("msg", chatMessage.getMessage());
+	        map.put("ppath", chatMessage.getPpath());
+	        map.put("time", simpleDateFormat.format(chatMessage.getTimestamp()));
+	        
+	        Gson gson = new Gson();
+	        JsonObject json = gson.toJsonTree(map).getAsJsonObject();
+			
+			chatMessage.setMessage(json.toString());
 			send(chatMessage, objectMapper);
 		}
 		//send(chatMessage, objectMapper);

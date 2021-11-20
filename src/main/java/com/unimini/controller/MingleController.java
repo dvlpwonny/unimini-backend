@@ -110,7 +110,7 @@ public class MingleController {
 	@RequestMapping(value = "/mingle/mingleDetail", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView mingleDetail(@RequestParam String eventCode, Principal principal) {
 //		public ModelAndView mingleDetail(Model model) {
-		///// 유니존 admin
+		// 유니존 admin
 			if (eventCode.equals("23") || eventCode.equals("24") || eventCode.equals("25") || eventCode.equals("26") || eventCode.equals("27")
 				|| eventCode.equals("35") || eventCode.equals("36") || eventCode.equals("37") || eventCode.equals("38") || eventCode.equals("39")
 				|| eventCode.equals("40") || eventCode.equals("41")	|| eventCode.equals("42") || eventCode.equals("43") || eventCode.equals("44")) {
@@ -135,11 +135,10 @@ public class MingleController {
 
 		ModelAndView mav = new ModelAndView("EventContent");
 		
-//		String eventCode = "22";
 		String userId = principal.getName();
-		
-//		eventCode = "22";
-//		String userId = "admin";
+//		String eventCode = "22";
+
+		String wsHost = "ws://uniminiwithus.com:9080/chat";
 		
 		Map<String, String> eventInfo      = mingleService.getMingleInfo(eventCode);
 		List<Map<String, String>> userList = mingleService.getMingleUserInfo(userId, eventCode);
@@ -150,6 +149,7 @@ public class MingleController {
 		List<Map<String, String>> pubChatHist = mingleService.getPubChatHist(eventCode);
 		List<Map<String, String>> priChatHist = mingleService.getPriChatHist(eventCode);
 
+		mav.addObject("wsHost", wsHost);
 		mav.addObject("eventInfo", eventInfo);
 		mav.addObject("userList", userList);
 		mav.addObject("reqUserList", reqUserList);

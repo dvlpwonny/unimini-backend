@@ -63,12 +63,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-        		.antMatchers("/c")                   /* Temp */        		
+        		//.antMatchers("/c")                   /* Temp */        		
         		.antMatchers("/chat")                /* Temp */        		
-        		.antMatchers("/room")                /* Temp */        		
+        		//.antMatchers("/room")                /* Temp */        		
         		.antMatchers("/rooms")               /* Temp */        		
         		.antMatchers("/rooms/**")            /* Temp */        		
-        		.antMatchers("/new")                 /* Temp */
+        		//.antMatchers("/new")                 /* Temp */
 
                 //.antMatchers("/myPage/myPageForm")                 /* Temp */
                 //.antMatchers("/myPage/myEventList")                     /* Temp */

@@ -56,7 +56,6 @@ public class ChatService {
 
 	public void insertMessage(ChatMessage chatMessage) {
 		chatMapper.insertMessage(chatMessage);
-	}	
-
+	}
 
 }
