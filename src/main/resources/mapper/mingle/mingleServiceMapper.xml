@@ -392,6 +392,28 @@
 		  , 'Y'
 		 )
 	</insert>
+	
+	<insert id="setPublicChatRoom" parameterMap="map">
+		INSERT INTO TB_CHAT_ROOM 
+			(EVENT_CODE, ROOM_TYPE, ROOM_ID, CREATE_DATE) 
+		VALUES
+			(#{eventCode}
+			, 'CHATST001'
+			, #{publicChat}
+			, NOW()
+			)
+	</insert>
+
+	<insert id="setPrivateChatRoom" parameterMap="map">
+		INSERT INTO TB_CHAT_ROOM 
+			(EVENT_CODE, ROOM_TYPE, ROOM_ID, CREATE_DATE) 
+		VALUES
+			(#{eventCode}
+			, 'CHATST002'
+			, #{privateChat}
+			, NOW()
+			)
+	</insert>
 
 	<select id="getTotalMingleList" parameterType="map" resultType="uniMap">
 		SELECT

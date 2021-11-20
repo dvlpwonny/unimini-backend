@@ -93,6 +93,13 @@ public class MingleController {
 		paramMap.put("createUser", principal.getName());
 		paramMap.put("userId", principal.getName());
 
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		String publicChat  = UUID.randomUUID().toString() + "-" + simpleDateFormat.format(Calendar.getInstance());
+		String privateChat = UUID.randomUUID().toString() + "-" + simpleDateFormat.format(Calendar.getInstance());		
+		
+		paramMap.put("publicChat", publicChat);
+		paramMap.put("privateChat", privateChat);
+		
 		mingleService.setMingle(paramMap);
 
 		resultMap.put("result", "success");
