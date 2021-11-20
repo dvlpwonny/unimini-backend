@@ -34,6 +34,8 @@ public interface MingleMapper {
 	void deleteMingle(String eventDeleteForm_EventCode, String eventDeleteForm_UserId);
 	void editEvent(String eventEditForm_eventCode, String eventEditForm_title, String eventEditForm_detail);
 	
-	void setPublicChatRoom(Map<String, Object> paramMap);
-	void setPrivateChatRoom(Map<String, Object> paramMap);
+	void setChatRoom(Map<String, Object> paramMap);
+	Map<String, String> getChatInfo(String eventCode);
+	List<Map<String, String>> getPubChatHist(String eventCode);
+	List<Map<String, String>> getPriChatHist(String eventCode);
 }

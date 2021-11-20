@@ -271,59 +271,36 @@
 				</div>
 				
 				<div class="container eventMenuContent" id="eventInfo" style="height:80%">
-					<div>
 						
-						<div class="otherChatting d-flex" style="width:fit-content">
+					<div th:each="pubChat, stat : ${pubChatHist}" th:object="${pubChat}">
+
+						<div class="otherChatting d-flex" style="width:fit-content"  th:if="*{USER_ID} != ${myInfo.USER_ID}">
 							<div class="chattingUserProfile" style="margin:0px 10px;">
-								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
+								<img th:src="'/static' +*{PROFILE_IMAGE_PATH}" alt="" width="100%" height="100%">
 							</div>
 							<div class="d-flex flex-column">
-								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
+								<div class="chattingUserName"><span class="size12 weight500"><span th:text="*{USER_NAME}"></span></span></div>
 								<div class="d-flex align-items-end">
-									<div class="chattingUserContent"><span class="size13 weight500">
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-									</span></div>
-									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
+									<div class="chattingUserContent">
+										<span class="size13 weight500" th:text="*{MESSAGE}"></span>
+										</div>
+									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px" th:text="*{TIME}"></span></div>
 								</div>
 							</div>
 						</div>
-						
-						<div class="otherChatting d-flex" style="width:fit-content">
-							<div class="chattingUserProfile" style="margin:0px 10px;">
-								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
-							</div>
-							<div class="d-flex flex-column">
-								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
-								<div class="d-flex align-items-end">
-									<div class="chattingUserContent"><span class="size13 weight500">
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-									</span></div>
-									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="myChatting d-flex justify-content-end">
+
+						<div class="myChatting d-flex justify-content-end" th:if="*{USER_ID} == ${myInfo.USER_ID}">
 							<div class="d-flex flex-column">
 								<div class="d-flex align-items-end">
-									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px">오후 12:12</span></div>
-									<div class="chattingMyContent"><span class="size13 weight500">
-										채팅내용입니다.
-									</span></div>
+									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px" th:text="*{TIME}"></span></div>
+									<div class="chattingMyContent"><span class="size13 weight500" th:text="*{MESSAGE}"></span>
+									</div>
 								</div>
 							</div>
 						</div>
 						
 					</div>
-					
+						
 					<div class="eventMenuContentBtn d-flex justify-content-center align-items-center" id="eventChatting" >
 						<input id="sendChattingInput" type="text" style="width:85%" placeholder="채팅해보세요!">
 						<button id="sendChattingBtn"></button>
@@ -331,53 +308,30 @@
 				</div>
 				
 				<div class="container eventMenuContent" id="eventInfo" style="height:80%">
-					<div>
-						
-						<div class="otherChatting d-flex" style="width:fit-content">
+
+					<div th:each="priChat, stat : ${priChatHist}" th:object="${priChat}">
+
+						<div class="otherChatting d-flex" style="width:fit-content"  th:if="*{USER_ID} != ${myInfo.USER_ID}">
 							<div class="chattingUserProfile" style="margin:0px 10px;">
-								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
+								<img th:src="'/static' +*{PROFILE_IMAGE_PATH}" alt="" width="100%" height="100%">
 							</div>
 							<div class="d-flex flex-column">
-								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
+								<div class="chattingUserName"><span class="size12 weight500"><span th:text="*{USER_NAME}"></span></span></div>
 								<div class="d-flex align-items-end">
-									<div class="chattingUserContent"><span class="size13 weight500">
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-									</span></div>
-									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
+									<div class="chattingUserContent">
+										<span class="size13 weight500" th:text="*{MESSAGE}"></span>
+										</div>
+									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px" th:text="*{TIME}"></span></div>
 								</div>
 							</div>
 						</div>
-						
-						<div class="myChatting d-flex justify-content-end">
+
+						<div class="myChatting d-flex justify-content-end" th:if="*{USER_ID} == ${myInfo.USER_ID}">
 							<div class="d-flex flex-column">
 								<div class="d-flex align-items-end">
-									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px">오후 12:12</span></div>
-									<div class="chattingMyContent"><span class="size13 weight500">
-										채팅내용입니다.
-									</span></div>
-								</div>
-							</div>
-						</div>						
-						
-						<div class="otherChatting d-flex" style="width:fit-content">
-							<div class="chattingUserProfile" style="margin:0px 10px;">
-								<img src="../static/image/profile/profile10.png" alt="" width="100%" height="100%">
-							</div>
-							<div class="d-flex flex-column">
-								<div class="chattingUserName"><span class="size12 weight500">이름</span></div>
-								<div class="d-flex align-items-end">
-									<div class="chattingUserContent"><span class="size13 weight500">
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-										채팅내용입니다.
-									</span></div>
-									<div class="chattingUserTime"><span class="size10 weight400" style="margin-left:6px">오후 12:12</span></div>
+									<div class="chattingMyTime"><span class="size10 weight400" style="margin-right:6px" th:text="*{TIME}"></span></div>
+									<div class="chattingMyContent"><span class="size13 weight500" th:text="*{MESSAGE}"></span>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -409,7 +363,7 @@
 										<button th:OnClick='isAcpt([[*{USER_ID}]],"Y" )' class="acceptUserJoin"><span class="size14">수락</span></button>
 									</div>
 								</div> 
-							</div   >
+							</div>
 							
 						</div>
 						

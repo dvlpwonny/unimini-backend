@@ -78,10 +78,7 @@ public class MingleService {
 		
 		paramMap.put("eventCode", result);
 		
-		mingleMapper.setPublicChatRoom(paramMap);
-		mingleMapper.setPrivateChatRoom(paramMap);
-		mingleMapper.setMingleHost(paramMap);
-
+		mingleMapper.setChatRoom(paramMap);
 		return result;
 	}
 
@@ -99,5 +96,17 @@ public class MingleService {
 
 	public void editEvent(String eventEditForm_eventCode, String eventEditForm_title, String eventEditForm_detail) {
 		mingleMapper.editEvent(eventEditForm_eventCode, eventEditForm_title, eventEditForm_detail);
+	}
+
+	public List<Map<String, String>> getPubChatHist(String eventCode) {
+		return mingleMapper.getPubChatHist(eventCode);
+	}
+
+	public List<Map<String, String>> getPriChatHist(String eventCode) {
+		return mingleMapper.getPriChatHist(eventCode);
+	}
+
+	public Map<String, String> getChatInfo(String eventCode) {
+		return mingleMapper.getChatInfo(eventCode);
 	}
 }

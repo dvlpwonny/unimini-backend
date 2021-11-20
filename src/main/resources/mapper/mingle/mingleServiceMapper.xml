@@ -393,27 +393,27 @@
 		 )
 	</insert>
 	
-	<insert id="setPublicChatRoom" parameterType="map">
+	<insert id="setChatRoom" parameterType="map">
 		INSERT INTO TB_CHAT_ROOM 
-			(EVENT_CODE, ROOM_TYPE, ROOM_ID, CREATE_DATE) 
+			(EVENT_CODE, PUB_ROOM_ID, PRI_ROOM_ID, CREATE_DATE) 
 		VALUES
 			(#{eventCode}
-			, 'CHATST001'
 			, #{publicChat}
-			, NOW()
-			)
-	</insert>
-
-	<insert id="setPrivateChatRoom" parameterType="map">
-		INSERT INTO TB_CHAT_ROOM 
-			(EVENT_CODE, ROOM_TYPE, ROOM_ID, CREATE_DATE) 
-		VALUES
-			(#{eventCode}
-			, 'CHATST002'
 			, #{privateChat}
 			, NOW()
 			)
 	</insert>
+	
+	<select id="getChatInfo" resultType="map">
+	  SELECT
+	   PUB_ROOM_ID
+	   , PRI_ROOM_ID
+	  FROM 
+	   TB_CHAT_ROOM TCR
+	  WHERE
+	   TCR.EVENT_CODE = #{eventCode}		
+	</select>
+	
 
 	<select id="getTotalMingleList" parameterType="map" resultType="uniMap">
 		SELECT
@@ -459,4 +459,44 @@
 		WHERE EVENT_DATE = #{eventDate}
 		GROUP BY A.EVENT_START_TIME_HOUR
 	</select>
+	
+	<select id="getPubChatHist" resultType="map">
+	  SELECT
+		TCM.MESSAGE
+		, TCM.USER_ID
+		, TU.USER_NAME
+		, TU.NICKNAME
+		, TCM.TIME
+		, TPI.PROFILE_IMAGE_PATH	
+	  FROM 
+	   TB_CHAT_ROOM TCR, TB_CHAT_MESSAGE TCM, TB_USER TU, TB_PROFILE_IMAGE TPI
+	  WHERE
+	   TCR.PUB_ROOM_ID = TCM.ROOM_ID
+	   AND TCM.USER_ID = TU.USER_ID
+	   AND TU.PROFILE_IMAGE_CODE = TPI.PROFILE_IMAGE_CODE
+	   AND TCR.EVENT_CODE = #{eventCode}
+	   AND TCM.MESSAGE_TYPE = 'CHAT'
+	  ORDER BY TIME
+	</select>
+
+	<select id="getPriChatHist" resultType="map">
+	  SELECT
+		TCM.MESSAGE
+		, TCM.USER_ID
+		, TU.USER_NAME
+		, TU.NICKNAME
+		, TCM.TIME
+		, TPI.PROFILE_IMAGE_PATH	
+	  FROM 
+	   TB_CHAT_ROOM TCR, TB_CHAT_MESSAGE TCM, TB_USER TU, TB_PROFILE_IMAGE TPI
+	  WHERE
+	   TCR.PRI_ROOM_ID = TCM.ROOM_ID
+	   AND TCM.USER_ID = TU.USER_ID
+	   AND TU.PROFILE_IMAGE_CODE = TPI.PROFILE_IMAGE_CODE
+	   AND TCR.EVENT_CODE = #{eventCode}
+	   AND TCM.MESSAGE_TYPE = 'CHAT'
+	  ORDER BY TIME
+	</select>
+
+	
 </mapper>

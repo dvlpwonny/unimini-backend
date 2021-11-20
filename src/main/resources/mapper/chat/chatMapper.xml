@@ -3,18 +3,29 @@
 <mapper namespace="com.unimini.mapper.ChatMapper">
 
 	<select id="findAllRoomIds" resultType="String">
-		SELECT
-			A.ROOM_ID AS 'roomId'
-			FROM TB_CHAT_ROOM A
-		ORDER BY A.CREATE_DATE DESC
+		 SELECT
+		  PUB_ROOM_ID AS 'roomId'
+		 FROM TB_CHAT_ROOM
+		 
+		 UNION ALL
+		 
+		 SELECT
+		  PRI_ROOM_ID AS 'roomId'
+		 FROM TB_CHAT_ROOM
 	</select>
 	
 	<select id="findRoomById" resultType="chatRoom">
 		SELECT
-			A.ROOM_ID AS 'roomId'
-			, A.ROOM_NAME AS 'name'
-		FROM TB_CHAT_ROOM A
-		WHERE A.ROOM_ID = #{id}
+		 PUB_ROOM_ID AS 'roomId'
+		FROM TB_CHAT_ROOM
+		WHERE PUB_ROOM_ID = #{id}
+		
+		UNION ALL
+		
+		SELECT
+		 PRI_ROOM_ID AS 'roomId'
+		FROM TB_CHAT_ROOM
+		WHERE PRI_ROOM_ID = #{id}
 	</select>
 	
 	<insert id="createChatRoom" parameterType="chatRoom">

@@ -135,21 +135,28 @@ public class MingleController {
 
 		ModelAndView mav = new ModelAndView("EventContent");
 		
-		eventCode = "22";
+//		String eventCode = "22";
 		String userId = principal.getName();
 		
-//		String eventCode = "22";
+//		eventCode = "22";
 //		String userId = "admin";
 		
 		Map<String, String> eventInfo      = mingleService.getMingleInfo(eventCode);
 		List<Map<String, String>> userList = mingleService.getMingleUserInfo(userId, eventCode);
 		List<Map<String, String>> reqUserList = mingleService.getMingleReqUserList(eventCode);
-		Map<String, String> myInfo         = mingleService.getMingleMyInfo(userId, eventCode);		
+		Map<String, String> myInfo         = mingleService.getMingleMyInfo(userId, eventCode);
+		
+		Map<String, String> chatInfo = mingleService.getChatInfo(eventCode);
+		List<Map<String, String>> pubChatHist = mingleService.getPubChatHist(eventCode);
+		List<Map<String, String>> priChatHist = mingleService.getPriChatHist(eventCode);
 
 		mav.addObject("eventInfo", eventInfo);
 		mav.addObject("userList", userList);
 		mav.addObject("reqUserList", reqUserList);
 		mav.addObject("myInfo", myInfo);
+		mav.addObject("chatInfo", chatInfo);
+		mav.addObject("pubChatHist", pubChatHist);
+		mav.addObject("priChatHist", priChatHist);
 		
 		return mav;
 	}
