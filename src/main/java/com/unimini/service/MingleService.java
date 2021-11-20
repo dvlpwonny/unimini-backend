@@ -76,7 +76,7 @@ public class MingleService {
 		int result;
 		result = mingleMapper.setMingle(paramMap);
 		
-		paramMap.put("EVENT_CODE", result);
+		paramMap.put("eventCode", result);
 		
 		mingleMapper.setPublicChatRoom(paramMap);
 		mingleMapper.setPrivateChatRoom(paramMap);

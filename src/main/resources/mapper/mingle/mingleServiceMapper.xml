@@ -393,7 +393,7 @@
 		 )
 	</insert>
 	
-	<insert id="setPublicChatRoom" parameterMap="map">
+	<insert id="setPublicChatRoom" parameterType="map">
 		INSERT INTO TB_CHAT_ROOM 
 			(EVENT_CODE, ROOM_TYPE, ROOM_ID, CREATE_DATE) 
 		VALUES
@@ -404,7 +404,7 @@
 			)
 	</insert>
 
-	<insert id="setPrivateChatRoom" parameterMap="map">
+	<insert id="setPrivateChatRoom" parameterType="map">
 		INSERT INTO TB_CHAT_ROOM 
 			(EVENT_CODE, ROOM_TYPE, ROOM_ID, CREATE_DATE) 
 		VALUES
