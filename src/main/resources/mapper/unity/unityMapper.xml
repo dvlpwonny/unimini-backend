@@ -144,14 +144,14 @@
             , UNIZONE_HOST_NAME
             , UNIZONE_FEE
             , CONVERT(DETAIL_INFO USING utf8) AS DETAIL_INFO
-            , (
+            , IFNULL((
                 SELECT
                     COUNT(*)
                 FROM TB_EVENT_USER_MAPP_GROUP B
                 WHERE A.EVENT_CODE = B.EVENT_CODE
                  AND (B.USER_STATUS_CODE = 'EVTUSRST003' OR B.USER_STATUS_CODE = 'EVTUSRST002')
                 GROUP BY B.EVENT_CODE
-            ) AS TOT_PRSNNL -- 실참가자
+            ),0) AS TOT_PRSNNL
             , IFNULL((
                 SELECT
                     IFNULL(COUNT(USER_ID), 0)
