@@ -361,15 +361,15 @@
         </div>
 
         <div id="popup">
-            <div class="d-flex " id="ratingPopup">
+            <div class="d-flex inactive" id="ratingPopup">
                 <div class="message">
-                    <button type="button" class="btn_exit">
+                    <button type="button" class="btn_exit transparent">
                         <span class="material-icons" onclick="ratingCancelBtnClick();">
                             <img th:src="@{/static/image/close2.png}" alt="">
                         </span>
                     </button>
                     <div class="d-flex message_info justify-content-center align-items-center">
-                      <span class="size14 ">밍글에 대한 만족도를<br>별점으로 남겨주세요!</span>
+                      <span class="size14 weight500">밍글에 대한 만족도를<br>별점으로 남겨주세요!</span>
                         <div>
                             <form class="rating">
                                 <label>
@@ -406,7 +406,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="boxBtn d-flex">
+                    <div class="d-flex">
                       <button class="transparent"><span class="size14 grey2">취소</span></button>
                       <button class="transparent"><span class="highlighted size14">확인</span></button>
                   </div>
