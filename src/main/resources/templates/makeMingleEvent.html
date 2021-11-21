@@ -156,7 +156,7 @@
 					success: function(__data, __textStatus, __jqXHR){
 						if (__data.result == "success") {
 							alert("밍글이 생성 되었습니다.");
-							$('#imgback').trigger("click");
+							window.Unity.call('CloseWebView:');
 						}
 					},
 					fail: function(__data, __textStatus, __jqXHR){

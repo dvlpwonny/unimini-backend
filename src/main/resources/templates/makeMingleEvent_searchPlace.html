@@ -29,7 +29,7 @@
             window.opener.document.getElementById("moveSearchPlaceForm_buildingCode").value = buildCode;
             window.opener.document.getElementById("moveSearchPlaceForm_placeCode").value = placeCode;
             window.opener.document.getElementById("locationSelectedPlaceholder").innerText = placeName;
-            window.close();
+            window.Unity.call('CloseWebView:');
         }
 
         function getPlaceList(e) {
