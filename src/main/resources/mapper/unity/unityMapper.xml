@@ -106,7 +106,7 @@
             , CONVERT(DETAIL_INFO USING utf8) AS DETAIL_INFO
         FROM TB_EVENT A
         WHERE A.SECTION_CODE = #{sectionCode}
-          AND (A.EVENT_STATUS_CODE = 'EVTSTS001' OR A.EVENT_STATUS_CODE = 'EVTSTS001')
+          AND (A.EVENT_STATUS_CODE = 'EVTSTS001' OR A.EVENT_STATUS_CODE = 'EVTSTS002')
           AND DATE_FORMAT(A.EVENT_START_TIME, "%Y-%m-%d") = CURDATE()
           AND A.EVENT_END_TIME <![CDATA[>=]]> NOW()
           AND A.EVENT_TYPE_CODE = 'EVT001'
@@ -144,14 +144,14 @@
             , UNIZONE_HOST_NAME
             , UNIZONE_FEE
             , CONVERT(DETAIL_INFO USING utf8) AS DETAIL_INFO
-            , (
+            , IFNULL((
                 SELECT
                     COUNT(*)
                 FROM TB_EVENT_USER_MAPP_GROUP B
                 WHERE A.EVENT_CODE = B.EVENT_CODE
                  AND (B.USER_STATUS_CODE = 'EVTUSRST003' OR B.USER_STATUS_CODE = 'EVTUSRST002')
-                GROUP BY G.EVENT_CODE
-            ) AS TOT_PRSNNL -- 실참가자
+                GROUP BY B.EVENT_CODE
+            ),0) AS TOT_PRSNNL
             , IFNULL((
                 SELECT
                     IFNULL(COUNT(USER_ID), 0)
@@ -230,14 +230,14 @@
             , DATE_fORMAT(EVENT_START_TIME, '%H:%i') AS EVENT_START_TIME
             , DATE_fORMAT(EVENT_END_TIME, '%H:%i') AS EVENT_END_TIME
             , CONCAT(DATE_fORMAT(EVENT_START_TIME, '%H:%i'), '~', DATE_fORMAT(EVENT_END_TIME, '%H:%i')) AS EVENT_TIME
-            , (
+            , IFNULL((
                 SELECT
                     COUNT(USER_ID) AS TOT_USER_CNT
                 FROM TB_EVENT_USER_MAPP_GROUP G
                 WHERE A.EVENT_CODE = G.EVENT_CODE
                  AND (G.USER_STATUS_CODE = 'EVTUSRST003' OR G.USER_STATUS_CODE = 'EVTUSRST002')
                 GROUP BY G.EVENT_CODE
-            ) AS TOT_PRSNNL
+            ),0) AS TOT_PRSNNL
             , IFNULL((
                 SELECT
                     IFNULL(COUNT(USER_ID), 0)
