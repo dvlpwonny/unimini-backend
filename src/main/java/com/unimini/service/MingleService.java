@@ -81,7 +81,7 @@ public class MingleService {
 		int result;
 		result = mingleMapper.setMingle(paramMap);
 		
-		paramMap.put("eventCode", result);
+		paramMap.put("eventCode", String.valueOf(result));
 		
 		mingleMapper.setChatRoom(paramMap);
 		return result;
