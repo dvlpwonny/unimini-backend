@@ -6,10 +6,12 @@
 		<link rel="stylesheet" th:href="@{/static/css/reset.css}">
 		<link rel="stylesheet" th:href="@{/static/css/default.css}">
 		<link rel="stylesheet" th:href="@{/static/css/styles.css}">
+		<link rel="stylesheet" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css">
     </th:block>
     
     <!-- For use on this page only [JS] -->
     <th:block layout:fragment="script">
+		<script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.js"></script>
 		<script th:src="@{/static/js/load_html.js}"></script>
 		<script th:src="@{/static/js/default.js}"></script>
 		<script>
@@ -177,7 +179,7 @@
     <!-- Content -->
     <div layout:fragment="content">
 		<div id="app">
-			<header>
+			<header style="height:12%">
 				<nav class="container align-items-end justify-content-between" style="padding:10px;">
 					<div class="d-flex">
 						<div style="width:30px;margin-left:10px;">
@@ -194,7 +196,7 @@
 					</div>
 				</nav>
 			</header>
-			<div class="appContainer" style="overflow-y:auto;">
+			<div class="appContainer" style="overflow-y:auto; height:88%">
 				<form id="moveSearchPlaceForm">
 					<input id="moveSearchPlaceForm_title" name="eventName" type="hidden">
 					<input id="moveSearchPlaceForm_category" name="categoryCode" type="hidden">

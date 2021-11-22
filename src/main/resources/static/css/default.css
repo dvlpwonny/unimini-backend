@@ -340,6 +340,7 @@ span{
     line-break:strict;
 }
 input,textarea{
+    font-family: Pretendard !important;
     color: #c4c0ba !important;
     display: block;
     width: 100%;
