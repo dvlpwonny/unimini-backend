@@ -79,16 +79,17 @@ public class MingleController {
 		paramMap.put("eventStatusCode", "EVTSTS001"); // 예정
 
 		// 밍글 시간 데이터
-		if (paramMap.get("eventDate").toString() != null) {
+		if (paramMap.get("eventDate").toString() != null && !"today".equals(paramMap.get("eventDate").toString())) {
 			int addDay = Integer.parseInt(paramMap.get("eventDate").toString());
 			cal.add(Calendar.DATE, +addDay);
-
-			String eventStartTime = df.format(cal.getTime()) + " " + paramMap.get("eventStartDate");
-			String eventEndTime = df.format(cal.getTime()) + " " + paramMap.get("eventEndDate");
-
-			paramMap.put("eventStartTime", eventStartTime);
-			paramMap.put("eventEndTime", eventEndTime);
 		}
+
+
+		String eventStartTime = df.format(cal.getTime()) + " " + paramMap.get("eventStartDate");
+		String eventEndTime = df.format(cal.getTime()) + " " + paramMap.get("eventEndDate");
+
+		paramMap.put("eventStartTime", eventStartTime);
+		paramMap.put("eventEndTime", eventEndTime);
 
 		paramMap.put("createUser", principal.getName());
 		paramMap.put("userId", principal.getName());

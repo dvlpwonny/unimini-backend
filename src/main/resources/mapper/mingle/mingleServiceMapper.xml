@@ -93,12 +93,12 @@
 				  AND TEUMG.EVENT_CODE = #{eventCode}
 				  AND TEUMG.LIKE_FLAG = 'Y'
 			  )>0,'Y','N') AS IS_LIKE
-			, ( SELECT 
+			, IFNULL(( SELECT
 				  	HOST_FLAG
 				FROM TB_EVENT_USER_MAPP_GROUP TEUMG 
 				WHERE TEUMG.USER_ID = TU.USER_ID
 				  AND TEUMG.EVENT_CODE = #{eventCode}
-				  AND TEUMG.LIKE_FLAG = 'Y' ) AS IS_HOST
+				  AND TEUMG.HOST_FLAG = 'Y' ),'N') AS IS_HOST
 		 FROM TB_USER TU, TB_PROFILE_IMAGE TPI
 		 WHERE TU.USER_ID = #{userId}
 		   AND TU.PROFILE_IMAGE_CODE = TPI.PROFILE_IMAGE_CODE
@@ -395,7 +395,7 @@
 		 ) VALUES (
 		  #{eventCode}
 		  , #{userId}
-		  , 'EVTUSRST001'
+		  , 'EVTUSRST002'
 		  , 'Y'
 		  , NOW()
 		  , NOW()
