@@ -71,7 +71,7 @@
 		                		document.getElementById('isInY').classList.remove('inactive');
 		                	}		                	
 		                } else {
-							console.log('Error ! : ' + data);
+		                	alert('정원이 초과되었습니다.');
 		                }
 		            },
 		            error:function(request,status,error){
@@ -437,7 +437,7 @@
 							<button id="isLikeY" class="d-flex justify-content-center align-items-center likeBtn" th:classappend="${myInfo.IS_LIKE} == 'Y' ? 'inactive' "><img th:src="@{/static/image/heart_unfilled.png}" width="60%" OnClick="javascript:isLike('Y')"></button>
 							<button id="isLikeN" class="d-flex justify-content-center align-items-center likeBtn" th:classappend="${myInfo.IS_LIKE} == 'N' ? 'inactive' "><img th:src="@{/static/image/heart_filled.png}" width="60%" OnClick="javascript:isLike('N')"></button>
 						</div>
-						<div style="width:75%;" th:if="${eventInfo.CAN_IN eq 'Y'}">
+						<div style="width:75%;">
 							<button id="isInY" class="eventJoinBtn" th:classappend="${myInfo.IS_IN} == 'Y' ? 'inactive' " OnClick="javascript:isIn('Y')">함께하기</button>
 							<button id="isInN" class="eventJoinBtn" th:classappend="${myInfo.IS_IN} == 'N' ? 'inactive' " OnClick="javascript:isIn('N')">함께하기 취소</button>
 						</div>

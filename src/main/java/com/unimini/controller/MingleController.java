@@ -190,11 +190,16 @@ public class MingleController {
 	@ResponseBody
 	public Map<String, Object> mingleDetail_isIn(@RequestParam String isInForm_EventCode, @RequestParam String isInForm_UserId, @RequestParam String isInForm_Flag) {
         
-        mingleService.updateMingleIn(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
-        
+		String flag = mingleService.getMingleInChk(isInForm_EventCode);
+
         Map<String, Object> responseMap = new HashMap<String, Object>();
-        responseMap.put("result",true);
-        
+		
+		if("Y".equals(flag)) {
+	        mingleService.updateMingleIn(isInForm_EventCode, isInForm_UserId, isInForm_Flag);
+	        responseMap.put("result",true);
+		} else {
+	        responseMap.put("result",false);
+		}
 		return responseMap;
 	}
 	

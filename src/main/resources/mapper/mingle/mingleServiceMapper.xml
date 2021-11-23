@@ -197,6 +197,15 @@
 		 WHERE 
 		 	EVENT_CODE = #{eventEditForm_eventCode}
 	</update>
+	
+	<select id="getMingleInChk">
+		 SELECT 
+		  IF( TE.MAXIMUM_PRSNNL <![CDATA[<=]]> (SELECT COUNT(USER_ID) FROM TB_EVENT_USER_MAPP_GROUP WHERE EVENT_CODE = #{isInForm_EventCode}) 
+			  ,'Y'
+			  ,'N') AS flag
+		 FROM TB_EVENT TE
+		 WHERE TE.EVENT_CODE = #{isInForm_EventCode}
+	</select>
 
 	<!-- 유니존 어드민 페이지 -->
 	<!-- 함께하기 신청자 -->

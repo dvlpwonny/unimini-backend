@@ -38,4 +38,5 @@ public interface MingleMapper {
 	Map<String, String> getChatInfo(String eventCode);
 	List<Map<String, String>> getPubChatHist(String eventCode);
 	List<Map<String, String>> getPriChatHist(String eventCode);
+	String getMingleInChk(String isInForm_EventCode);
 }
