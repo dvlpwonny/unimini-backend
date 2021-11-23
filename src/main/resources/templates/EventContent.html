@@ -432,7 +432,7 @@
 						</div>
 					</div>
 					<br><br>
- 					<div class="eventMenuContentBtn d-flex justify-content-center" id="eventApplyBtn">
+ 					<div class="eventMenuContentBtn d-flex justify-content-center" id="eventApplyBtn" th:if="${myInfo.IS_HOST eq 'N'}">
 						<div class="d-flex justify-content-center" style="width:10%; margin-right:10px">
 							<button id="isLikeY" class="d-flex justify-content-center align-items-center likeBtn" th:classappend="${myInfo.IS_LIKE} == 'Y' ? 'inactive' "><img th:src="@{/static/image/heart_unfilled.png}" width="60%" OnClick="javascript:isLike('Y')"></button>
 							<button id="isLikeN" class="d-flex justify-content-center align-items-center likeBtn" th:classappend="${myInfo.IS_LIKE} == 'N' ? 'inactive' "><img th:src="@{/static/image/heart_filled.png}" width="60%" OnClick="javascript:isLike('N')"></button>
