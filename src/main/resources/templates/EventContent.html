@@ -458,9 +458,9 @@
 				   	</div>
 				</div>
 				
-				<div class="container eventMenuContent" id="eventInfo" style="height:80%">
+				<div class="container eventMenuContent" id="eventInfo" style="height:80%; overflow-y: hidden;">
 
-					<div id="pubChatLoc">
+					<div id="pubChatLoc" style="overflow-y: auto; height:90%">
 						<div th:each="pubChat, stat : ${pubChatHist}" th:object="${pubChat}">
 	
 							<div class="otherChatting d-flex" style="width:fit-content"  th:if="*{USER_ID} != ${myInfo.USER_ID}">
@@ -491,17 +491,17 @@
 						</div>
 					</div>
 											
-					<div class="eventMenuContentBtn d-flex justify-content-center align-items-center" id="eventChatting" >
-						<input id="pubSendChattingInput" type="text" style="width:85%" placeholder="채팅해보세요!">
+					<div class="eventMenuContentBtn d-flex justify-content-center align-items-center" id="eventChatting" style="position:fixed; width:87%; bottom:15px;">
+						<input id="pubSendChattingInput" type="text" style="width:100%" placeholder="채팅해보세요!">
 						<button class="d-flex justify-content-center align-items-center" id="pubSendChattingBtn" OnClick='pubChatSend()' style=" position: absolute; right: 10%; width: 32px !important; height: 32px !important; background-color: #07c083 !important;">
 							<img src="../static/image/send.png" alt="" style="width:20px; height:20px;">
 						</button>
 					</div>
 				</div>
 				
-				<div th:if="${eventInfo.PRI_CHAT_OPEN_FLAG eq 'Y'}" class="container eventMenuContent" id="eventInfo" style="height:80%">
+				<div th:if="${eventInfo.PRI_CHAT_OPEN_FLAG eq 'Y'}" class="container eventMenuContent" id="eventInfo" style="height:80%; overflow-y: hidden;">>
 
-					<div id="priChatLoc">
+					<div id="priChatLoc" style="overflow-y: auto; height:90%">
 						<div th:each="priChat, stat : ${priChatHist}" th:object="${priChat}">
 	
 							<div class="otherChatting d-flex" style="width:fit-content"  th:if="*{USER_ID} != ${myInfo.USER_ID}">
@@ -532,8 +532,8 @@
 						</div>
 					</div>
 					
-					<div class="eventMenuContentBtn d-flex justify-content-center align-items-center" id="eventChatting" >
-						<input id="priSendChattingInput" type="text" style="width:85%" placeholder="채팅해보세요!">
+					<div class="eventMenuContentBtn d-flex justify-content-center align-items-center" id="eventChatting" style="position:fixed; width:87%; bottom:15px;">
+						<input id="priSendChattingInput" type="text" style="width:100%" placeholder="채팅해보세요!">
 						<button class="d-flex justify-content-center align-items-center" id="priSendChattingBtn" OnClick='priChatSend()' style=" position: absolute; right: 10%; width: 32px !important; height: 32px !important; background-color: #07c083 !important;">
 							<img src="../static/image/send.png" alt="" style="width:20px; height:20px;">
 						</button>
