@@ -497,7 +497,7 @@
 					</div>
 				</div>
 				
-				<div class="container eventMenuContent" id="eventInfo" style="height:80%">
+				<div th:if="${eventInfo.PRI_CHAT_OPEN_FLAG eq 'Y'}" class="container eventMenuContent" id="eventInfo" style="height:80%">
 
 					<div id="priChatLoc">
 						<div th:each="priChat, stat : ${priChatHist}" th:object="${priChat}">
@@ -536,7 +536,7 @@
 					</div>
 				</div>				
 				
-				<div class="container eventMenuContent inactive" id="eventParticipationList" style="height:80%">
+				<div th:if="${myInfo.IS_HOST eq 'Y'}" class="container eventMenuContent inactive" id="eventParticipationList" style="height:80%">
 					<div class="userWaitingForAcceptanceList">
 						<div><span class="size14">함께하기 신청자</span></div>
 						<div>
