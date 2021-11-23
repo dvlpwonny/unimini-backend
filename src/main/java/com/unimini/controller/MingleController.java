@@ -94,8 +94,8 @@ public class MingleController {
 		paramMap.put("userId", principal.getName());
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-		String publicChat  = UUID.randomUUID().toString() + "-" + simpleDateFormat.format(Calendar.getInstance());
-		String privateChat = UUID.randomUUID().toString() + "-" + simpleDateFormat.format(Calendar.getInstance());		
+		String publicChat  = UUID.randomUUID().toString() + "-" + simpleDateFormat.format(new Date());
+		String privateChat = UUID.randomUUID().toString() + "-" + simpleDateFormat.format(new Date());		
 		
 		paramMap.put("publicChat", publicChat);
 		paramMap.put("privateChat", privateChat);
