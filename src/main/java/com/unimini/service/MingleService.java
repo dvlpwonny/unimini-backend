@@ -142,4 +142,8 @@ public class MingleService {
 	public Map<String, String> getChatInfo(String eventCode) {
 		return mingleMapper.getChatInfo(eventCode);
 	}
+
+	public String getMingleInChk(String isInForm_EventCode) {
+		return mingleMapper.getMingleInChk(isInForm_EventCode);
+	}
 }
