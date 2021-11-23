@@ -9,13 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -80,9 +76,8 @@ public class MingleService {
 	public int setMingle(Map<String, Object> paramMap) {
 		int result;
 		result = mingleMapper.setMingle(paramMap);
-		
-		paramMap.put("eventCode", String.valueOf(result));
-		
+		// paramMap.put("eventCode", String.valueOf(result));
+		mingleMapper.setMingleHost(paramMap);
 		mingleMapper.setChatRoom(paramMap);
 		return result;
 	}
